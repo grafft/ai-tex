@@ -1,0 +1,100 @@
+%%% Макет страницы %%%
+\geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}
+
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C]{\fontsize{14}{\baselineskip} \selectfont  \thepage}
+\pagestyle{fancy}
+% redefine the plain pagestyle
+\fancypagestyle{plain}{%
+	\fancyhf{} % clear all header and footer fields
+	\fancyhead[C]{\fontsize{14}{\baselineskip} \selectfont \thepage} % except the center
+}
+
+%%% Кодировки и шрифты %%%
+\renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
+\renewcommand{\baselinestretch}{1.5}
+
+%%% Выравнивание и переносы %%%
+\sloppy					% Избавляемся от переполнений
+\clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
+\widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
+\hyphenpenalty=10000		% Запрещаем переносы во всем тексте
+
+%%% Библиография %%%
+\makeatletter
+%\bibliographystyle{utf8gost705u}	% Оформляем библиографию в соответствии с ГОСТ 7.0.5
+\bibliographystyle{gost2008p}
+\renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
+\makeatother
+
+%%% Изображения %%%
+\graphicspath{{../images/}} % Пути к изображениям
+
+%%% Цвета гиперссылок %%%
+\definecolor{linkcolor}{rgb}{0.9,0,0}
+\definecolor{citecolor}{rgb}{0,0.6,0}
+\definecolor{urlcolor}{rgb}{0,0,1}
+\hypersetup{
+    colorlinks, linkcolor={linkcolor},
+    citecolor={citecolor}, urlcolor={urlcolor}
+}
+
+%%% Оглавление %%%
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+%%% Теормоподобные окружения %%%
+\theoremstyle{plain}
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Lemma}[Theorem]{Лемма}
+\newtheorem{Pred}{Утверждение}
+\newtheorem{Corollary}{Следствие}
+\newtheorem{Def}{Определение}
+\newtheorem{Axiom}{Аксиома}
+\newtheorem{Hypothesis}{Гипотеза}
+\newtheorem{Assumption}{Предположение}
+\newtheorem{Problem}{Задача}
+\newtheorem{Example}{Пример}
+\newtheorem{Fact}{Факт}
+\newtheorem{Remark}{Замечание}
+\newtheorem{Rule}{Правило}
+\newtheorem{Condition}{Условие}
+\newenvironment{Proof}%
+    {\par\noindent{\bf Доказательство.}}%
+    {\hfill$\scriptstyle\blacksquare$}
+
+% Нумерованный перечень со скобками
+\renewcommand\labelenumi{\theenumi )}
+
+% чтобы поставить точечку после номера алгоритма в \caption:
+\captionsetup[ruled]{labelsep=period}
+
+% настройка заголовков
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\centering}
+{\chaptertitlename\ \thechapter}{0pt}{\Huge}
+
+\titleformat{\section}[block]
+	{\normalfont\LARGE\bfseries\centering}
+	{\thesection.}{10pt}{\LARGE}
+
+\titleformat{\subsection}[block]
+	{\normalfont\large\bfseries\centering}
+	{\thesubsection.}{10pt}{\large}
+
+\titlespacing*{\chapter}{0pt}{-10pt}{1\baselineskip}
+\titlespacing*{\section}{0pt}{1\baselineskip}{1\baselineskip}
+\titlespacing*{\subsection}{0pt}{1\baselineskip}{1\baselineskip}
+\parindent=1.2cm		% абзацный отступ
+
+% центрируем заголовок оглавления
+\renewcommand{\cfttoctitlefont}{\hfill\Huge\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\algnewcommand\And{\textbf{and}}
+
+% Счетчики
+\newcounter{citnum}
+%\def\oldbibitem{} \let\oldbibitem=\bibitem
+%\def\bibitem{\stepcounter{citnum}\oldbibitem}
