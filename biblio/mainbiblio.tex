@@ -1,0 +1,20 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{cmap}                        % Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[cp1251]{inputenc}            % Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+\usepackage{geometry}
+
+\geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
+
+\def\BibSection#1#2{\section{#2}}
+
+\begin{document}
+	\hyphenpenalty=10000
+	
+	\renewcommand{\refname}{}	
+	
+	\nocite{*}
+	\bibliographystyle{gost2008p}
+	\bibliography{main}
+\end{document} 
