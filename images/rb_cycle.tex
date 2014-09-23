@@ -1,0 +1,103 @@
+% Observer/Estimator
+% Author: Dominik Haumann
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usepackage{varwidth}
+\usetikzlibrary{chains,arrows,positioning,decorations.pathreplacing} % for arrow heads
+
+% TikZ styles for drawing
+
+\begin{document}
+	
+	\begin{tikzpicture}[every node/.style={minimum height = 7mm, minimum width = 7mm}]
+	\matrix [
+		column sep = 3mm, 
+		row sep = 6mm] (3-2){
+		\node (ux_0) {$\hat x_i^{j+1}(0)$};&
+		&
+		&
+		&
+		\node (ux_h) {$\hat x_i^{j+1}(h_i^j)$};&
+		&
+		&
+		\node (ux_2h) {$\hat x_i^{j+1}(2h_i^j)$};&
+		&
+		\\
+			
+		\node(sx_0) {И};&
+		\node (sx_1) {$\hat x_i^j(1)$};&
+		\node (sx_l1) {$\ldots$};&
+		\node (sx_1h) {$\hat x_i^j(h_i^j-1)$};&
+		\node (sx_h) {И};&
+		\node (sx_h1) {$\hat x_i^j(h_i^j+1)$};&
+		\node (sx_l2) {$\ldots$};&
+		\node (sx_2h) {И};&
+		\node (sx_2h1) {$\hat x_i^j(2h_i^j+1)$};&
+		\node (sx_l3) {$\ldots$};\\[-6mm]
+
+		\node (t_0) {$0$};&
+		\node (t_1) {$1$};&
+		\node (t_l1) {$\ldots$};&
+		\node (t_1h) {$h_i^j-1$};&
+		\node (t_h) {$h_i^j$};&
+		\node (t_h1) {$h_i^j+1$};&
+		\node (t_l2) {$\ldots$};&
+		\node (t_2h) {$2h_i^j$};&
+		\node (t_2h1) {$2h_i^j+1$};&
+		\node (t_l3) {$\ldots$};\\
+		
+		\node (ix_0) {$\bar x_i^j(0)$};&
+		\node (ix_1) {$\bar x_i^j(1)$};&
+		\node (ix_l1) {$\ldots$};&
+		\node (ix_1h) {$\bar x_i^j(h_i^j-1)$};&		
+		\node (ix_h) {$\bar x_i^j(h_i^j)$};&
+		\node (ix_h1) {$\bar x_i^j(h_i^j+1)$};&
+		\node (ix_l2) {$\ldots$};&
+		\node (ix_2h) {$\bar x_i^j(2h_i^j)$};&
+		\node (ix_2h1) {$\bar x_i^j(2h_i^j+1)$};&
+		\node (ix_l3) {$\ldots$};\\
+	};	
+
+	\draw[->,thick] (sx_0.south west) -- ([xshift=11mm]sx_2h1.south east) node [below] {$t$};
+	
+	
+	\draw[->] (ux_0.south) -- (sx_0.north);
+	\draw[->] (ix_0.north) -- (t_0.south);
+	\draw[->] (ix_1.north) -- (t_1.south);
+	\draw[->] (ix_1h.north) -- (t_1h.south);
+	
+	\draw[->] (ux_h.south) -- (sx_h.north);
+	\draw[->] (ix_h.north) -- (t_h.south);
+	\draw[->] (ix_h1.north) -- (t_h1.south);
+	
+	\draw[->] (ux_2h.south) -- (sx_2h.north);
+	\draw[->] (ix_2h.north) -- (t_2h.south);
+	\draw[->] (ix_2h1.north) -- (t_2h1.south);
+
+	\draw[->] ([xshift=-1mm,yshift=2mm]sx_0.south east) to [out=-60,in=-120] ([yshift=-1mm]t_1.north west);	
+	\draw[->] ([xshift=-1mm,yshift=2mm]sx_h.south east) to [out=-60,in=-120] ([yshift=-1mm]t_h1.north west);	
+	\draw[->] ([xshift=-1mm,yshift=2mm]sx_2h.south east) to [out=-60,in=-120] ([yshift=-1mm]t_2h1.north west);	
+	\draw[->] ([xshift=-1mm,yshift=2mm]sx_1.south east) to [out=-60,in=-180] (t_l1.west);	
+	\draw[->] (t_l1.east) to [out=0,in=-120] ([yshift=-1mm]t_1h.north west);	
+	\draw[->] ([xshift=-1mm,yshift=2mm]sx_h1.south east) to [out=-60,in=-180] (t_l2.west);	
+	\draw[->] ([xshift=-1mm,yshift=2mm]sx_2h1.south east) to [out=-60,in=-180] (t_l3.west);	
+		
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_0.south east) -- ++(0,5mm) node [xshift=3mm,above] {$\bar x_i^{j*}(0)$};	
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_1.south east) -- ++(0,5mm) node [xshift=1mm,above] {$\bar x_i^{j*}(1)$};	
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_1h.south east) -- ++(0,5mm) node [xshift=1mm,above] {$\bar x_i^{j*}(h_i^j-1)$};	
+	
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_h.south east) -- ++(0,5mm) node [xshift=3mm,above] {$\bar x_i^{j*}(h_i^j)$};	
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_h1.south east) -- ++(0,5mm) node [xshift=1mm,above] {$\bar x_i^{j*}(h_i^j+1)$};	
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_2h.south east) -- ++(0,5mm) node [xshift=4mm,above] {$\bar x_i^{j*}(2h_i^j)$};
+	\draw[->] ([xshift=0mm,yshift=2mm]sx_2h1.south east) -- ++(0,5mm) node [xshift=1mm,above] {$\bar x_i^{j*}(2h_i^j+1)$};	
+%	\draw (ix_0.south west) -- (ux_0.north west) -- (ux_h.north west) -- (ix_h.south west) -- (ix_0.south west);
+	\end{tikzpicture}
+	
+\end{document}

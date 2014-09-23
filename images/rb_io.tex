@@ -1,0 +1,170 @@
+% Observer/Estimator
+% Author: Dominik Haumann
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usepackage{varwidth}
+\usetikzlibrary{chains,arrows,positioning,decorations.pathreplacing} % for arrow heads
+
+% TikZ styles for drawing
+
+\begin{document}
+	
+	\begin{tikzpicture}[start chain=1 going right, start chain=2 going right, start chain=3 going right]
+		
+	\begin{scope}
+		\node [on chain=2](input) {$\hat x_i^{j+1}(\tau_s)=(\hat x_{i1}^{j+1},\dots,\hat x_{il_i^j}^{j+1})$};
+		
+		\node[on chain=2, draw,rectangle, xshift=-10mm, yshift=-7mm, minimum height = 25mm, minimum width=90mm] (rb) {
+			\begin{minipage}[t][23mm][t]{70mm}\centering
+				$R_i^j$ "--- распознающий блок\\
+				$\hat F_i^j=\{\hat f_1,\dots, \hat f_{l_i^j}\}$ "--- функции распознавания
+			\end{minipage}
+		};
+		
+		\node [on chain=2, xshift=-9mm, yshift=-11mm](output) {$\hat x_i^j(t)=(\hat x_{i1}^j,\dots,\hat x_{iq_i^j}^j)$};
+		
+	\end{scope}
+
+	\begin{scope}[node distance = 0mm]
+		\node [on chain=1,below = of rb,xshift=-59mm,yshift=-18mm] (in_F) {$F_i^{*j}$};
+		\matrix [on chain=1, column sep = 3mm,every node/.style={minimum height = 8mm,minimum width = 8mm}] (1-2){
+			\node (mi_f_1) {$f_1:$};&
+			\node (mi_x_11) {$x_{11}$};&
+			\node (mi_x_21) {$x_{21}$};&
+			\node (mi_x_d1) {$\dots$};&
+			\node (mi_x_t1) {$x_{t1}$};&
+			\node (mi_x_v1) {$\dots$};&
+			\node (mi_x_h1) {$x_{h_i^j1}$};\\
+			
+			\node (mi_f_2) {$f_2:$};&
+			\node (mi_x_12) {$x_{12}$};&
+			\node (mi_x_22) {$x_{22}$};&
+			\node (mi_x_d2) {$\dots$};&
+			\node (mi_x_t2) {$x_{t2}$};&
+			\node (mi_x_v2) {$\dots$};&
+			\node (mi_x_h2) {$x_{h_i^j2}$};\\
+			
+			\node (mi_d_1) {$\ldots$};&
+			\node (mi_d_1) {$\ldots$};&			
+			\node (mi_d_1) {$\ldots$};&
+			&
+			\node (mi_d_1) {$\ldots$};&
+			&
+			\node (mi_d_1) {$\ldots$};\\
+			
+			\node (mi_f_l) {$f_{q_i^j}:$};&
+			\node (mi_x_1l) {$x_{1l_i^j}$};&
+			\node (mi_x_2l) {$x_{2l_i^j}$};&
+			\node (mi_x_dl) {$\dots$};&
+			\node (mi_x_tl) {$x_{tl_i^j}$};&
+			\node (mi_x_vl) {$\dots$};&
+			\node (mi_x_hl) {$x_{h_i^jq_i^j}$};\\
+		};	
+		\node [on chain=1] (omega) {$\omega_{i\Delta t}^j$};
+	\end{scope}
+	
+	\begin{scope}[node distance = 0mm]
+		\node [on chain=3,above = of rb, xshift = -59mm, yshift=18mm] (out_F) {$F_i^{*j}$};
+		\matrix [on chain=3, column sep = 3mm, every node/.style={minimum height = 8mm,minimum width = 8mm}] (3-2){
+			\node (mo_f_1) {$f_1^*:$};&
+			\node (mo_x_11) {$x_{11}^*$};&
+			\node (mo_x_21) {$x_{21}^*$};&
+			\node (mo_x_d1) {$\dots$};&
+			\node (mo_x_t1) {$x_{t1}^*$};&
+			\node (mo_x_v1) {$\dots$};&
+			\node(mo_x_h1) {$x_{h_i^j1}^*$};\\
+				
+			\node (mo_f_2) {$f_2^*:$};&
+			\node (mo_x_12) {$x_{12}^*$};&
+			\node (mo_x_22) {$x_{22}^*$};&
+			\node (mo_x_d2) {$\dots$};&
+			\node (mo_x_t2) {$x_{t2}^*$};&
+			\node (mo_x_v2) {$\dots$};&
+			\node(mo_x_h2) {$x_{h_i^j2}^*$};\\
+
+			\node (mo_d_1) {$\ldots$};&
+			\node (mo_d_1) {$\ldots$};&			
+			\node (mo_d_1) {$\ldots$};&
+			&
+			\node (mo_d_1) {$\ldots$};&
+			&
+			\node (mo_d_1) {$\ldots$};\\			
+			
+			\node (mo_f_l) {$f_{l_i^j}^*:$};&
+			\node (mo_x_1l) {$x_{1l_i^j}^*$};&
+			\node (mo_x_2l) {$x_{2l_i^j}^*$};&
+			\node (mo_x_dl) {$\dots$};&
+			\node (mo_x_tl) {$x_{tl_i^j}^*$};&
+			\node (mo_x_vl) {$\dots$};&
+			\node (mo_x_hl) {$x_{h_i^jl_i^j}^*$};\\
+		};	
+		\node [on chain=3] (eta) {$\eta_{i\Delta t}^j$};
+	\end{scope}
+		
+	
+	\draw[->] (input.south) |- (rb.west);
+	\foreach \i in {-1,...,1}{%
+		\draw[->] ([yshift=\i * 3mm]rb.east) -| ([xshift=\i * 5mm]output.north);
+	}
+	\draw[->] (mi_x_11.north) -- node [right] {$\bar x(t_1)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(t_1)$} node [xshift=2mm,yshift=9mm,above] {$t_1=\tau_s$} ++(0,5mm);
+	\draw[->] (mi_x_21.north) -- node [right] {$\bar x(t_2)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(t_2)$} node [xshift=2mm,yshift=9mm,above] {$t_2$} ++(0,5mm);
+	\draw[->] (mi_x_t1.north) -- node [right] {$\bar x(t)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(t)$} node [xshift=2mm,yshift=9mm,above] {$t$} ++(0,5mm);
+	\draw[->] (mi_x_h1.north) -- node [right] {$\bar x(h_i^j)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(h_i^j)$} node [xshift=2mm,yshift=9mm,above] {$\tau_s+h_i^j$} ++(0,5mm);
+	\draw[->,thick] ([xshift=3mm,yshift=6mm]rb.south west) -- ([xshift=-3mm,yshift=6mm]rb.south east) node [xshift=-3mm,above] {время} node [xshift=-6mm,yshift=-1mm,below] {состояния};
+			
+	\draw[<-] (mo_x_1l.south) -- node [right] {$\bar x^*(t_1)$} ++(0,-5mm);
+	\draw[<-] (mo_x_2l.south) -- node [right] {$\bar x^*(t_2)$} ++(0,-5mm);
+	\draw[<-] (mo_x_tl.south) -- node [right] {$\bar x^*(t)$} ++(0,-5mm);
+	\draw[<-] (mo_x_hl.south) -- node [right] {$\bar x^*(h_i^j)$} ++(0,-5mm);
+	
+	\draw[->] (mo_x_11.east) -- (mo_x_21.west);
+	\draw[->] (mo_x_21.east) -- (mo_x_d1.west);
+	\draw[->] (mo_x_d1.east) -- (mo_x_t1.west);
+	\draw[->] (mo_x_t1.east) -- (mo_x_v1.west);
+	\draw[->] (mo_x_v1.east) -- (mo_x_h1.west);
+	
+	\draw[->] (mo_x_12.east) -- (mo_x_22.west);
+	\draw[->] (mo_x_22.east) -- (mo_x_d2.west);
+	\draw[->] (mo_x_d2.east) -- (mo_x_t2.west);
+	\draw[->] (mo_x_t2.east) -- (mo_x_v2.west);
+	\draw[->] (mo_x_v2.east) -- (mo_x_h2.west);	
+	
+	\draw[->] (mo_x_1l.east) -- (mo_x_2l.west);
+	\draw[->] (mo_x_2l.east) -- (mo_x_dl.west);
+	\draw[->] (mo_x_dl.east) -- (mo_x_tl.west);
+	\draw[->] (mo_x_tl.east) -- (mo_x_vl.west);
+	\draw[->] (mo_x_vl.east) -- (mo_x_hl.west);	
+	
+	\draw[->] (mi_x_11.east) -- (mi_x_21.west);
+	\draw[->] (mi_x_21.east) -- (mi_x_d1.west);
+	\draw[->] (mi_x_d1.east) -- (mi_x_t1.west);
+	\draw[->] (mi_x_t1.east) -- (mi_x_v1.west);
+	\draw[->] (mi_x_v1.east) -- (mi_x_h1.west);
+	
+	\draw[->] (mi_x_12.east) -- (mi_x_22.west);
+	\draw[->] (mi_x_22.east) -- (mi_x_d2.west);
+	\draw[->] (mi_x_d2.east) -- (mi_x_t2.west);
+	\draw[->] (mi_x_t2.east) -- (mi_x_v2.west);
+	\draw[->] (mi_x_v2.east) -- (mi_x_h2.west);	
+	
+	\draw[->] (mi_x_1l.east) -- (mi_x_2l.west);
+	\draw[->] (mi_x_2l.east) -- (mi_x_dl.west);
+	\draw[->] (mi_x_dl.east) -- (mi_x_tl.west);
+	\draw[->] (mi_x_tl.east) -- (mi_x_vl.west);
+	\draw[->] (mi_x_vl.east) -- (mi_x_hl.west);
+		
+	\draw[decorate,decoration={brace,amplitude=5pt,mirror}] (mo_f_1.north west) -- (mo_f_l.south west);
+	\draw[decorate,decoration={brace,amplitude=5pt,mirror}] (mi_f_1.north west) -- (mi_f_l.south west);
+	
+	\draw[decorate,decoration={brace,amplitude=5pt}] ([xshift=1mm]mi_x_h1.north east) -- (mi_x_hl.south east);
+	\draw[decorate,decoration={brace,amplitude=5pt}] ([xshift=0.5mm]mo_x_h1.north east) -- (mo_x_hl.south east);
+	\end{tikzpicture}
+	
+\end{document}

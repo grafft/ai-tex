@@ -1,0 +1,145 @@
+% Observer/Estimator
+% Author: Dominik Haumann
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,calc}
+
+% TikZ styles for drawing
+
+\begin{document}
+	
+	\begin{tikzpicture}
+	\matrix [
+		column sep = 5mm, 
+		row sep = 5mm] (m1) {
+		&
+		\node[xshift=-7mm] (a_o) {$\bar\alpha$};&
+		\\
+			
+		\node (x_u) {$\hat x_i^{j+1}(\tau_s)$};&
+		\node[draw, rectangle, minimum height = 10mm, minimum width = 20mm] (rb) {$R_i^j$};&
+		\\
+
+		&
+		\node[xshift=-7mm] (x_i) {$\bar x_i^j(\tau_s)$};&
+		\\
+	};	
+
+	\draw[->] (x_u.east) -- (rb.west);
+	\draw[->] (x_i.north) -- ([xshift=-7mm]rb.south);
+	\draw[<-] (a_o.south) -- ([xshift=-7mm]rb.north);
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+	\matrix [
+	column sep = 5mm, 
+	row sep = 5mm] (m1) {
+		&
+		\node (a_o) {$\bar\alpha$};&
+		\\
+		
+		\node (x_u) {$\hat x_i^{j+1}(\tau_s)$};&
+		\node[draw, rectangle, minimum height = 10mm, minimum width = 20mm] (rb) {$R_i^j$};&
+		\\
+		
+		&
+		\node (x_i) {$\bar x_i^j(t)$};&
+		\\
+	};	
+	
+	\draw[->] (x_u.east) -- (rb.west);
+	\draw[->] (x_i.north) -- (rb.south) node [yshift=-2mm, left] {$\dots$} node [yshift=-2mm, right] {$\dots$};
+	\draw[<-] (a_o.south) -- (rb.north);
+	\end{tikzpicture}
+		
+	\begin{tikzpicture}
+	\matrix [
+	column sep = 5mm, 
+	row sep = 5mm] (m1) {
+		&
+		\node (a_o) {$\bar\alpha\,\bar\alpha\,\dots\,\bar\alpha$};&
+		\\
+		
+		\node (x_u) {$\hat x_i^{j+1}(\tau_s)$};&
+		\node[draw, rectangle, minimum height = 10mm, minimum width = 20mm] (rb) {$R_i^j$};&
+		\\
+		
+		&
+		\node (x_i) {$\omega_{i\Delta t}^j$};&
+		\\
+	};	
+	
+	\draw[->] (x_u.east) -- (rb.west);
+	
+	\draw[->] ([xshift=-6mm]x_i.north) -- ([xshift=-6mm]rb.south);
+	\draw[<-] ([xshift=-6mm]a_o.south) -- ([xshift=-6mm]rb.north);
+		
+	\draw[->] ([xshift=-3mm]x_i.north) -- ([xshift=-3mm]rb.south);
+	\draw[<-] ([xshift=-3mm]a_o.south) -- ([xshift=-3mm]rb.north);
+
+	\draw[->] (x_i.north) -- (rb.south);
+	\draw[<-] (a_o.south) -- (rb.north);
+		
+	\draw[->] ([xshift=3mm]x_i.north) -- ([xshift=3mm]rb.south);
+	\draw[<-] ([xshift=3mm]a_o.south) -- ([xshift=3mm]rb.north);	
+	
+	\draw[->] ([xshift=6mm]x_i.north) -- ([xshift=6mm]rb.south);
+	\draw[<-] ([xshift=6mm]a_o.south) -- ([xshift=6mm]rb.north);
+		
+	\end{tikzpicture}
+			
+	\begin{tikzpicture}
+	\matrix [
+	column sep = 5mm, 
+	row sep = 5mm] (m1) {
+		&
+		\node[xshift=6mm] (a_o1) {$\bar\alpha_{i_1}^{j+1}$};&
+		\\
+		
+		\node (x_u1) {$\hat x_{i_1}^{j+2}(\tau_s)$};&
+		\node[draw, rectangle, minimum height = 10mm, minimum width = 20mm] (rb1) {$R_{i_1}^{j+1}$};&
+		\\
+		
+		&
+		\node[xshift=6mm] (a_o) {$\bar\alpha_{i_2}^j\,\bar\alpha_{i_2}^j\,\dots\,\bar\alpha_{i_2}^j=\bar x_{i_1}^{j+1}$};&
+		\\
+		
+		&
+		\node[draw, rectangle, minimum height = 10mm, minimum width = 20mm] (rb) {$R_{i_2}^j$};&
+		\\
+		
+		&
+		\node (x_i) {$\omega_{i_2\Delta t}^j$};&
+		\\
+	};	
+	
+	\draw[->] (x_u1.east) -- (rb1.west);
+		
+	\draw[->,gray,rounded corners] (rb1.east)-| ($(a_o.north)+(7mm,2mm)$) node [yshift=4mm,right,black] {$\hat x_{i_1}^{j+1}(\tau_s)$} -- ($(a_o.north west)+(-2mm,2mm)$) node [yshift=-9mm,left,black] {$\hat x_{i_2}^{j+1}(\tau_s)$} |- (rb.west);
+	
+	\draw[->] ([xshift=-8mm]x_i.north) -- ([xshift=-8mm]rb.south);
+	\draw[<-] ([xshift=-14mm]a_o.south) -- ([xshift=-8mm]rb.north);
+	
+	\draw[->] ([xshift=-4mm]x_i.north) -- ([xshift=-4mm]rb.south);
+	\draw[<-] ([xshift=-10mm]a_o.south) -- ([xshift=-4mm]rb.north);
+	
+	\draw[->] (x_i.north) -- (rb.south);
+	\draw[<-] ([xshift=-6mm]a_o.south) -- (rb.north);
+	
+	\draw[->] ([xshift=4mm]x_i.north) -- ([xshift=4mm]rb.south);
+	\draw[<-] ([xshift=-2mm]a_o.south) -- ([xshift=4mm]rb.north);	
+	
+	\draw[->] ([xshift=8mm]x_i.north) -- ([xshift=8mm]rb.south);
+	\draw[<-] ([xshift=2mm]a_o.south) -- ([xshift=8mm]rb.north);
+
+	\draw[<-] (a_o1.south) -- ([xshift=6mm]rb1.north);	
+	\draw[->] ([xshift=1mm]a_o.north) -- ([xshift=7mm]rb1.south);
+	\end{tikzpicture}
+				
+\end{document}
