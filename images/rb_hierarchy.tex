@@ -1,0 +1,65 @@
+% Observer/Estimator
+% Author: Dominik Haumann
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+% TikZ styles for drawing
+
+\begin{document}
+	
+	\begin{tikzpicture}
+	\tikzset{
+		%Define standard arrow tip
+		    >=stealth',
+		rb_rect/.style={draw, rectangle, minimum height = 10mm, minimum width = 25mm},
+		% Define arrow style
+		    pil/.style={
+		           ->,
+		           thick,
+		           shorten <=2pt,
+		           shorten >=2pt,}
+	}
+	
+	\matrix [
+		column sep = 1mm, 
+		row sep = 7mm] (m1) {
+		&
+		&
+		\node[rb_rect] (rb1) {$R_6^3$};&
+		&
+		\\
+			
+		&
+		\node[rb_rect] (rb2) {$R_4^2$};&
+		&
+		\node[rb_rect] (rb3) {$R_5^2$};&
+		\\
+
+		\node[rb_rect] (rb4) {$R_1^1$};&
+		&
+		\node[rb_rect] (rb5) {$R_2^1$};&
+		&
+		\node[rb_rect] (rb6) {$R_3^1$};
+		\\
+	};	
+
+	\draw[pil] (rb2.north) -- (rb1.south);
+	\draw[pil] (rb3.north) -- (rb1.south);
+	
+	\draw[pil] (rb4.north) -- (rb2.south);
+	\draw[pil] (rb5.north) -- (rb2.south);
+	\draw[pil] (rb6.north) -- (rb2.south);
+	
+	\draw[pil] (rb5.north) -- (rb3.south);
+	\draw[pil] (rb6.north) -- (rb3.south);
+	
+	\end{tikzpicture}
+				
+\end{document}

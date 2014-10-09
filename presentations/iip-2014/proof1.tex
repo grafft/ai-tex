@@ -1,0 +1,99 @@
+\documentclass[mathserif]{beamer}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{theorems}[numbered]
+\usetheme{AnnArbor}
+\usecolortheme{crane}
+
+
+\usepackage{cmap}	% Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}       %поддержка кириллицы
+\usepackage[cp1251]{inputenc}	% Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{subfig}
+
+\graphicspath{{../../images/}} 			% Пути к изображениям
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\algnewcommand\And{\textbf{and}}
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+    \par
+    \def\insertproofname{#1\@addpunct{.}}%
+    \usebeamertemplate{proof begin}#2}
+  {\usebeamertemplate{proof end}}
+\makeatother
+
+\makeatletter
+\newenvironment{cenumerate}{%
+  \enumerate
+  \setcounter{\@enumctr}{\csname saved@\@enumctr\endcsname}%
+}{%
+  \expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}%
+  \endenumerate
+}
+\newenvironment{cenumerate*}{%
+  \enumerate
+}{%
+  \expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}%
+  \endenumerate
+}
+\makeatother
+
+\begin{document}
+	\newtheorem{Th}{Теорема}
+	\newtheorem{Def}{Определение}
+	\newtheorem{Pred}{Утверждение}
+	\floatname{algorithm}{Алгоритм}
+
+	\begin{frame}
+		\frametitle{Основная теорема корректности}
+		\begin{proofs}
+		    В силу утверждения 4 достаточно доказать, что произвольная задача $Q\in\{Q\}$ является полной относительно $\{R\}$. Доказательство полноты $Q$ состоит в прямом построении операторов $R_k, k=1,2,\dots,l$ из $L\{R\}$, переводящих пару $(\hat{x},\bar{x}), \hat{x}=(\hat{x}_1,\dots,\hat{x}_l), \bar{x}=(x_1,\dots,x_q)$ в числовой вектор $\bar{x}_k^*=(x_{k1}^*,\dots,x_{kl}^*)$, в котором $x_{kk}^*=1$, а $x_{ku}^*=0$ при $k{\neq}u$. Построение проводится для любого сколь угодно малого $\epsilon$.
+			\par\bigskip
+		    Пусть мощность множества $\mathcal{Z}_i$ признака $f_i$ равна $N$, норма $\|\bar x\|$ равна $M{\leqslant}q$, максимальная компонента вектора $\bar{x}$ равна $x_{max}$. Зафиксируем величину $i$ и коэффициенты $c_1=\min_{v}\hat{x}_v, c_2=\frac{M}{1+M}$. Рассмотрим матрицы предсказания из множеств $\mathcal{Z}_1,\dots,\mathcal{Z}_l$ признаков $f_1,\dots,f_l$, удовлетворяющие следующим условиям:
+		\end{proofs}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Основная теорема корректности}
+		\begin{proofs}[\proofname\ (продолжение)]
+		    \begin{enumerate}
+		        \item
+		            в каждой матрице предсказаний $Z_r^i\in\mathcal{Z}_i$ в столбце $\bar{z}_1^r=(z_{11}^r,\dots,z_{1q}^r)$ компонента $z_{1v}^r=1$, если $x_v=x_{max}$, и $z_{1v}^r=0$, если $x_v<x_{max}$;
+		        \item
+		            в каждой матрице предсказаний $Z_r^k\in\mathcal{Z}_k, u{\neq}k$ в столбце $\bar{z}_1^r=(z_{11}^r,\dots,z_{1q}^r)$ компонента $z_{1v}^r=0$ при любых $v$.
+		    \end{enumerate}
+		
+		    Вычислим величину $x_{ii}^*$. Т.\,к.~$c_1=\min_u\hat{x}_u$, то условие $\hat{x}_k{\geqslant}c_1$ на шаге 4 алгоритма $\mathfrak{A}_{th}$ автоматически выполняется и функция измерения $\hat{f}_i$ попадает в множество $\hat{F}^*$. Из условия 1) следует, что каждая матрица $Z_r^k\in\mathcal{Z}_k$ попадает в множество $Z^*$ на шаге 11 алгоритма $\mathfrak{A}_{th}$:
+		    $$
+		        \frac{\|\bar{z}_1^r-\bar{x}\|}{\|\bar{z}_1^r\|+\|\bar{x}\|}<\frac{\sum_{v}|z_{1v}^r-x_v|}{1+M}<\frac{M}{1+M}=c_2,
+		    $$
+		\end{proofs}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Основная теорема корректности}
+		\begin{proofs}[\proofname\ (продолжение)]
+		    так как минимум один компонент в $\bar{z}_1^r$ равен $1$ и существует элемент $x_v>1/2$. В этом случае $x_{kk}^*=\gamma{\cdot}N$, где $\gamma$ "--- весовой коэффициент.
+		
+		    Оценим величины $x_{ku}^*$. Т.к. $c_1=\min_v\hat{x}_v$, то условие $\hat{x}_u{\geqslant}c_1$ на шаге 4 алгоритма $\mathfrak{A}_{th}$ автоматически выполняется и все функции измерения $\hat{f}_j$ попадают в множество $\hat{F}^*$. Из условия 2) следует, что каждая матрица $Z_r^u\in\mathcal{Z}_u$ не попадает в множество $Z^*$ на шаге 11 алгоритма $\mathfrak{A}_{th}$:
+		    \[
+		        \frac{\|\bar{z}_1^r-\bar{x}\|}{\|\bar{z}_1^r\|+\|\bar{x}\|}=\frac{M}{M}=1>\frac{M}{1+M}>c_2.
+		    \]
+		    В этом случае $x_{ku}^*=0$.
+		\end{proofs}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Основная теорема корректности}
+		\begin{Proof}[\proofname\ (окончание)]		
+		    Рассмотрим оператор распознавания $\frac{1}{\gamma{\cdot}N}R_k(\hat{x},\mathcal{Z}^k,\bar{x})$, который переводит задачу $Q$ в вектор $\bar{x}_i^*$, причем $\bar{x}_{kk}^*=1$, а $\bar{x}_{ku}^*=0, k{\neq}u$. Таким образом, условия на числовой вектор $\bar{x}_k^*$ выполняются. 
+			\par\bigskip
+			Полнота задачи $Q$ доказана.
+		\end{Proof}
+	\end{frame}
+		
+\end{document}
