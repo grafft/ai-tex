@@ -1,0 +1,65 @@
+\documentclass[tikz,convert={density=600,outext=.png}]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows}
+
+\begin{document}
+	\begin{tikzpicture}
+		\tikzset{
+			%Define standard arrow tip
+			>=stealth',
+			rb_rect/.style={draw, rectangle, minimum height = 10mm, minimum width = 15mm},
+			hier_node/.style={draw, circle, minimum height = 10mm},
+			% Define arrow style
+			pil/.style={
+				->,
+				thick,
+				shorten <=2pt,
+				shorten >=2pt
+			}
+		}
+	
+		\matrix [column sep = 10mm, row sep = 7mm] (m1) {
+			&
+			&
+			\node[hier_node] (rb1) {$u$};&
+			&
+			\\
+			
+			&
+			\node[hier_node] (rb2) {$v$};&
+			&
+			\node[hier_node] (rb3) {$w$};&
+			\\
+			
+			\node[hier_node] (rb4) {$w_1$};&
+			&
+			\node[hier_node] (rb5) {$w_2$};&
+			&
+			\node[hier_node] (rb6) {$w_3$};
+			\\
+		};	
+		
+		\node[rb_rect, left = of rb1] (rb1_node) {$R_{i_2}^{j_2}$};
+		\node[rb_rect, left = of rb2] (rb2_node) {$R_{i_1}^{j_1}$};
+		
+		\draw[pil] (rb2.north) -- (rb1.south);
+		\draw[pil] (rb3.north) -- (rb1.south);
+		
+		\draw[pil] (rb4.north) -- (rb2.south);
+		\draw[pil] (rb5.north) -- (rb2.south);
+		\draw[pil] (rb6.north) -- (rb2.south);
+		
+		\draw[pil] (rb5.north) -- (rb3.south);
+		\draw[pil] (rb6.north) -- (rb3.south);
+		
+		\draw[<->] (rb1_node.east) -- (rb1.west);
+		\draw[<->] (rb2_node.east) -- (rb2.west);
+	
+	\end{tikzpicture}\end{document}
