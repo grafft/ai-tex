@@ -42,9 +42,11 @@
 }
 \makeatother
 
-%\newtheorem{Theorem}{Теорема}
+\let\Theorem\relax
+\newtheorem{Theorem}{Теорема}
 \newtheorem{Pred}{Утверждение}
-%\newtheorem{Corollary}{Следствие}
+\let\Corollary\relax
+\newtheorem{Corollary}{Следствие}
 \newtheorem{Def}{Определение}
 \floatname{algorithm}{Алгоритм}
 
@@ -179,54 +181,31 @@
 	
 	\begin{frame}[t]
 		\frametitle{Динамика распознающего блока}
-		\only<1->{
-			\vspace*{-0.5cm}
-			\begin{minipage}[t]{\textwidth}
-				\begin{figure}[t]
-					\includegraphics[width=0.7\textwidth]{rb_cycle}
-				\end{figure}
-			\end{minipage}
-		}
-		\only<1>{
-			Пусть
-			\begin{itemize}
-				\item  $l_i^j$ "--- мощность множества измеряемых признаков $F_i^{*j}$ и множества функций измерения $\hat{F}_i^j$,
-				\item $q_i^j$ "--- мощность множества входных признаков $F_i^j$,
-				\item $T_i^j$ "--- упорядоченное множество локальных моментов времени $T_i^j$ для распознающего блока $R_i^j$,
-				\item $h_i^j$ "--- характерный масштаб времени, за который происходит один цикл вычисления в распознающем блоке $R_i^j$.
-			\end{itemize}
-		}
-		\only<2>{
-			\par\bigskip
-			В начале $s$-ого цикла вычисления (момент времени $\tau_s\in{T_i^j}$)  распознающий блок $R_i^j$ получает на вход вектор длины $l_i^j$ ожиданий $\hat{x}_i^{j+1}(\tau_s)$:
-			$$
-			\hat{x}_i^{j+1}(\tau_s)=\frac{1}{N_i^j}\sum_{k{\in}K_i^{j+1}}\hat{x}_k^{j+1}(\tau_s),
-			$$
-			где $N_i^j$ "--- количество родительских блоков, $K_i^{j+1}$ "--- множество индексов родительских относительно $R_i^j$ распознающих блоков.
-		}
-		\only<3>{
-			В каждый момент времени $t\in{T_i^j}$, $\tau_s\leqslant{t}\leqslant\tau_s+h_i^j$,  распознающий блок $R_i^j$
-			\begin{itemize}
-				\item получает на вход весовой вектор $\bar{x}_i^j(t)$ длины $l_i^j$ присутствия входных признаков из множества $F_i^j$, 
-				\item вычисляет выходной весовой вектор $\bar{x}_i^{*j}(t)$ длины $l_i^j$ присутствия измеряемых признаков из множества $F_i^{*j}$, 
-				\item вычисляет вектор длины $q_i^j$ ожиданий $\hat{x}_i^j(t)$ присутствия входных признаков в следующий момент времени.
-			\end{itemize}
-		}
+
+		\vspace*{-0.5cm}
+		\begin{minipage}[t]{\textwidth}
+			\begin{figure}[t]
+				\includegraphics[width=0.7\textwidth]{rb_cycle}
+			\end{figure}
+		\end{minipage}
+
+		\begin{itemize}
+			\item  $l_i^j$ "--- мощность множества измеряемых признаков $F_i^{*j}$,
+			\item $q_i^j$ "--- мощность множества входных признаков $F_i^j$,
+			\item $h_i^j$ "--- характерное время, за которое происходит один цикл вычисления в распознающем блоке $R_i^j$,
+			\item вектор $\bar{x}_i^j(t)$ длины $l_i^j$ "--- взвешенный вектор входных признаков, 
+			\item вектор $\bar{x}_i^{*j}(t)$ длины $l_i^j$ "--- взвешенный вектор распознаваемых признаков, 
+			\item вектор $\hat{x}_i^j(t)$ длины $q_i^j$ "--- вектор состояние (вектор ожиданий входных признаков в следующий момент времени).
+		\end{itemize}
+
 	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Схема входных и выходных отображений}	
-		\begin{figure}[t]
-			\includegraphics[width=0.9\linewidth]{rb_io}
-		\end{figure}
-	\end{frame}	
 	
 	\begin{frame}
 		\frametitle{Входные и выходные отображения}	
 		Пусть 
 		\begin{itemize}
 			\item $X_i^{*j}$ "--- множество возможных мгновенных значений выходных векторов распознающего блока $R_i^j$, 
-			\item $X_i^j$ "--- множество возможных мгновенных значений весовых векторов присутствия входных признаков, 
+			\item $X_i^j$ "--- множество возможных мгновенных значений взвешенных векторов входных признаков, 
 			\item $\hat{X}_i^j$ "--- множество всех возможных мгновенных значений векторов ожиданий или множество состояний распознающего блока $R_i^j$,
 			\item $\omega_i^j:T{\to}X_i^j$ "--- входное воздействие в смысле теории динамических систем,
 			\item $\gamma_i^j:T{\to}X_i^{*j}$ "--- выходная величина,
@@ -241,217 +220,28 @@
 		\par\bigskip
 		Поставим каждой функции измерения $\hat{f}_k$ из множества $\hat{F}_i^j$ в соответствие набор матриц предсказания $Z_k=\{Z_1^k,…,Z_m^k\}$ размерности $q_i^j\times h_i^j$. Тогда
 		\begin{itemize}
-			\item столбец $\bar{z}_u^r=(z_{u1}^k,…,z_{uq}^k)$ матрицы $Z_r^k$ "--- это вектор предсказания присутствия входных признаков из множества $F_i^j$ в момент времени $\tau_s+u$, $z_{uv}^k\in\{0,1\}$,
-			\item матрица $Z_r^k$ задаёт последовательность событий, наличие которых свидетельствует о присутствии измеряемого функцией $\hat{f}_k$ признака,
+			\item столбец $\bar{z}_u^r=(z_{u1}^k,…,z_{uq}^k)$ матрицы $Z_r^k$ "--- это вектор предсказания входных признаков из множества $F_i^j$ в момент времени $\tau_s+u$, $z_{uv}^k\in\{0,1\}$,
+			\item матрица $Z_r^k$ задаёт последовательность битовых векторов, наличие бита в котором свидетельствует о присутствии измеряемого функцией $\hat{f}_k$ признака,
 			\item $\mathcal{Z}_i^j$ "--- множество всех матриц предсказания распознающего блока $R_i^j$.
 		\end{itemize}
 	\end{frame}	
 	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{th}$ вычислительного цикла распознающего блока}
-		\only<1>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть I, инициализация)}
-				\begin{algorithmic}[1]
-					\Require $\tau_s, \hat{x}_i^{j+1}(\tau_s), \omega_i^j$;
-					\Ensure $\varphi_i^j, \eta_i^j$;
-					\algstore*{ru_alg1}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть I, инициализация)}
-				\begin{algorithmic}[1]
-					\Require $\tau_s, \hat{x}_i^{j+1}(\tau_s), \omega_i^j$;
-					\Ensure $\varphi_i^j, \eta_i^j$;
-					\State $\hat{F}^*=\varnothing$;
-					\State $Z^*=\varnothing$;
-					\State $t=0$;
-					\State $c_1\in(0,1), c_2\in(0,1)$;
-					\algstore*{ru_alg2}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<3>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть I, инициализация)}
-				\begin{algorithmic}[1]
-					\Require $\tau_s, \hat{x}_i^{j+1}(\tau_s), \omega_i^j$;
-					\Ensure $\varphi_i^j, \eta_i^j$;
-					\State $\hat{F}^*=\varnothing$;
-					\State $Z^*=\varnothing$;
-					\State $t=0$;
-					\State $c_1\in(0,1), c_2\in(0,1)$;
-					\ForAll{компонент $\hat{x}_{ik}^{j+1}$ вектора $\hat{x}_i^{j+1}(\tau_s)=(\hat{x}_{i1}^{j+1},\hat{x}_{i2}^{j+1},\dots,\hat{x}_{il}^{j+1})$}
-					\If{$\hat{x}_{ik}^{j+1}{\ge}c_1$}
-					\State $\hat{F}^*:=\hat{F}^*\cup\{\hat{f}_k\}$;
-					\EndIf
-					\EndFor
-					\algstore{ru_alg3}
-				\end{algorithmic}
-			\end{algorithm}
-		}
+	\begin{frame}
+		\frametitle{Алгоритм $\mathfrak A_{th}$ работы вычислительного блока}
+		
+		Разработан пороговый алгоритм $\mathfrak A_{th}(c_1,c_2)$ вычисления функции переходов $\varphi_i^j$ и выходного отображения $\eta_i^j$ по начальному моменту времени $\tau_s$, управляющему воздействию $\hat x_i^{j+1}(\tau_s)$ и входному воздействию $\omega_i^j$. 
+		
+		\par\bigskip
+		На основании данного алгоритма далее будут построены 4 типа операторов распознавания, сформулированы задачи классификации по Ю.\,И.~Журавлёву и доказаны теоремы корректности линейных замыканий множеств этих операторов.
 	\end{frame}
-	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{th}$ вычислительного цикла распознающего блока}
-		\only<1>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть II, инициализация)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg3}
-					\ForAll{функций распознавания $\hat{f}_k\in\hat{F}^*$}
-					\ForAll{$Z_r^k\in\mathcal{Z}_k$, соответствующих функции распознавания $\hat{f}_k$}
-					\algstore*{ru_alg4}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть II, инициализация)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg3}
-					\ForAll{функций распознавания $\hat{f}_k\in\hat{F}^*$}
-					\ForAll{$Z_r^k\in\mathcal{Z}_k$, соответствующих функции распознавания $\hat{f}_k$}
-					\If{$\frac{\|\bar{z}_1^r-\bar{x}_i^j\|}{\|\bar{z}_1^r\|+\|\bar{x}_i^j\|}<c_2$}
-					\State $Z^*:=Z^*\cup\{Z_r^k\}$;
-					\EndIf
-					\EndFor
-					\EndFor
-					\algstore*{ru_alg4.5}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<3>{
-			\vspace*{-0.43cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть II, инициализация)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg3}
-					\ForAll{функций распознавания $\hat{f}_k\in\hat{F}^*$}
-					\ForAll{$Z_r^k\in\mathcal{Z}_k$, соответствующих функции распознавания $\hat{f}_k$}
-					\If{$\frac{\|\bar{z}_1^r-\bar{x}_i^j\|}{\|\bar{z}_1^r\|+\|\bar{x}_i^j\|}<c_2$}
-					\State $Z^*:=Z^*\cup\{Z_r^k\}$;
-					\EndIf
-					\EndFor
-					\EndFor			
-					
-					\State $\bar N:=(|\{Z_r^1|Z_r^1\in Z^*\}|,\dots,|\{Z_r^{l_i^j}|Z_r^{l_i^j}\in Z^*\}|)$; 
-					\State $\bar{x}_i^{*j}:=W(\bar N)$;\Comment{$W$ "--- весовая функция}
-					\State $\eta(\tau_s, \hat{x}_i^j(\tau_s))=\bar{x}_i^{*j}$;
-					\State $\varphi(\tau_s+1;\tau_s,\hat{x}_i^{j+1}, \omega)=\hat{x}_i^j(\tau_s+1)=W(\sum_{\hat f_k\in\hat F^*}\hat x_{ik}^{j+1}\sum_{Z_r^k\in Z^*}\bar z_2^r)$;
-					
-					\algstore{ru_alg5}
-				\end{algorithmic}
-			\end{algorithm}				
-		}
-	\end{frame}
-	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{th}$ вычислительного цикла распознающего блока}
-		\only<1>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть III, основной цикл)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg5}
-					\State $t=1$;
-					\While{$t\leqslant{h_i^j}-1$}
-					\State $\bar{x}_i^j=\omega(\tau_s+t)$;
-					\algstore*{ru_alg6}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть III, основной цикл)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg5}
-					\State $t=1$;
-					\While{$t\leqslant{h_i^j}-1$}
-					\State $\bar{x}_i^j=\omega(\tau_s+t)$;
-					
-					\ForAll{матриц предсказания $Z_r^k$ из множества $Z^*$}
-					\If{$\frac{\|\bar{z}_{t+1}^r-\bar{x}_i^j\|}{\|\bar{z}_{t+1}^r\|+\|\bar{x}_i^j\|}\geqslant{c_2}$} 
-					\State $Z^*:=Z^*\setminus\{Z_r^k\}$;
-					\EndIf
-					\EndFor									
-					\algstore*{ru_alg7}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<3>{
-			\vspace*{-0.43cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (часть III, основной цикл)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg5}
-					\State $t=1$;
-					\While{$t\leqslant{h_i^j}-1$}
-					\State $\bar{x}_i^j=\omega(\tau_s+t)$;
-					
-					\ForAll{матриц предсказания $Z_r^k$ из множества $Z^*$}
-					\If{$\frac{\|\bar{z}_{t+1}^r-\bar{x}_i^j\|}{\|\bar{z}_{t+1}^r\|+\|\bar{x}_i^j\|}\geqslant{c_2}$} 
-					\State $Z^*:=Z^*\setminus\{Z_r^k\}$;
-					\EndIf
-					\EndFor	
-					
-					\State $\bar N=(|\{Z_r^1|Z_r^1\in Z^*\}|,\dots,|\{Z_r^{l_i^j}|Z_r^{l_i^j}\in Z^*\}|)$;
-					\State $\bar{x}_i^{*j}:=W(\bar N)$;
-					\State $\eta(\tau_s+t, \hat{x}_i^j(\tau_s+t))=\bar{x}_i^{*j}$;					
-					\algstore*{ru_alg9}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-	\end{frame}
-	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{th}$ вычислительного цикла распознающего блока}
-		\only<1>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (окончание)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg9}
-					\State $t=t+1$;	
-					\If{$t\leqslant{h}_i^j-2$}					
-					\algstore*{ru_alg10}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\vspace*{-0.5cm}
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{th}$ (окончание)}
-				\begin{algorithmic}[1]
-					\algrestore*{ru_alg9}
-					\State $t=t+1$;	
-					\If{$t\leqslant{h}_i^j-2$}
-					\State $\hat{x}_i^j:=W(\sum_{\hat f_k\in\hat F^*}\hat x_{ik}^{j+1}\sum_{Z_r^k\in Z^*}\bar z_{t+1}^r)$; 
-					
-					\State $\varphi(\tau_s+t;\tau_s,\hat{x}_i^{j+1}, \omega)=\hat{x}_i^j(\tau_s+t)=\hat{x}_i^j$; 
-					\EndIf
-					\EndWhile					
-				\end{algorithmic}
-			\end{algorithm}
-		}
-	\end{frame}
-	
-	
+
 	\begin{frame}
 		\frametitle{Статический оператор распознавания}
 		Зафиксируем момент времени $t$, равный началу некоторого $s$-го вычислительного цикла $\tau_s$. 
 		\par\bigskip
 		В этом случае, распознающий блок $R_i^j$ можно рассматривать как статический оператор распознавания $R_i^j(\hat{x}_i^{j+1},\mathcal{Z}_i^j,\bar{x}_i^j)=\bar{x}_i^{*j}$.
 	\end{frame}
-	
+		
 	\begin{frame}
 		\frametitle{Задача классификации по Журавлёву}
 		Пусть
@@ -549,10 +339,10 @@
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Основная теорема корректности}
+		\frametitle{Основная теорема корректности в статическом случае}
 		Будем рассматривать только такие задачи $Q(\hat{x},\bar{x},\bar{\alpha})$, для которых удовлетворяется следующее условие: ${\exists}k$ такое, что $x_k$ является $k$-ым элементом вектора $\bar{x}$ и $x_k>1/2$. 
 		\par\bigskip
-		\begin{Theorem}
+		\begin{Theorem}[А.\,И.~Панов]
 			\label{th:correctness}
 			Линейное замыкание $L\{\mathcal{A}\}$ семейства алгоритмов $\{\mathcal{A}\}=\{R{\cdot}C^*\}$ с произвольным корректным решающим правилом $C^*$ и операторами распознавания $R$, определенными алгоритмом $\mathfrak{A}_{th}$, является корректным на $\{Q\}$.
 		\end{Theorem}
@@ -614,17 +404,17 @@
 		\frametitle{Задача классификации по Журавлёву}
 		Задача $\hat{Q}(\hat{x}, \omega_{{\Delta}t}, \bar{\alpha})$ состоит в построении алгоритма $\hat{\mathcal{A}}$, вычисляющего по поступившему начальному (управляющему) вектору ожиданий $\hat{x}$ и матрице входных воздействий $\omega_{{\Delta}t}$  последовательность векторов $\beta_{\Delta{t}}$, монотонно сходящуюся к информационному вектору $\bar{\alpha}$. 
 		\par\bigskip
-		Искомый оператор распознавания $\hat{R}$ должен выдавать весовую матрицу присутствия измеряемых признаков $\gamma_{\Delta{t}}$, столбцы которой должны сходиться (с учётом корректного решающего правила) к информационному вектору: $\lim_{t\to\tau_s+h}\bar{x}^*(t)=\bar{\alpha}$. 
+		Искомый оператор распознавания $\hat{R}$ должен выдавать весовую матрицу измеряемых признаков $\gamma_{\Delta{t}}$, столбцы которой должны сходиться (с учётом корректного решающего правила) к информационному вектору: $\lim_{t\to\tau_s+h}\bar{x}^*(t)=\bar{\alpha}$. 
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Корректность алгоритма}
+		\frametitle{Свойство корректность алгоритма}
 		\begin{Def}
 			Алгоритм $\hat{\mathcal{A}}(\hat{x},\bar{x})=\beta_{\Delta{t}}=(\bar{\beta}_1,\dots,\bar{\beta}_h)$ называется корректным для задачи $\hat{Q}$, если выполнено условие
 			$$
-			\|\bar{\beta}_1-\bar{\alpha}\|\geqslant\|\bar{\beta}_2-\bar{\alpha}\|\geqslant\dots\geqslant\|\bar{\beta}_h-\bar{\alpha}\|=0.
+			\|\bar{\beta}_1-\bar{\alpha}\|\geqslant\|\bar{\beta}_2-\bar{\alpha}\|\geqslant\dots\geqslant\|\bar{\beta}_h-\bar{\alpha}\|,
 			$$
-			$\|\bar{\beta}_i-\bar{\alpha}\|=\sum_j{(\beta_{ij}-\alpha_j)}$, где $\beta_{ij}-\alpha_j=0$, если $\beta_{ij}=\alpha_j$, $\beta_{ij}-\alpha_j=\frac{1}{2}$, если $\beta_{ij}=\Delta$, и $\beta_{ij}-\alpha_j=0$ иначе. Алгоритм $\hat{\mathcal{A}}$, не являющийся корректным для $\hat{Q}$, называется некорректным.
+			причём $\|\bar{\beta}_h-\bar{\alpha}\|=0$. $\|\bar{\beta}_i-\bar{\alpha}\|=\sum_j{(\beta_{ij}-\alpha_j)}$, где $\beta_{ij}-\alpha_j=0$, если $\beta_{ij}=\alpha_j$, $\beta_{ij}-\alpha_j=\frac{1}{2}$, если $\beta_{ij}=\Delta$, и $\beta_{ij}-\alpha_j=0$ иначе. Алгоритм $\hat{\mathcal{A}}$, не являющийся корректным для $\hat{Q}$, называется некорректным.
 		\end{Def}
 	\end{frame}
 	
@@ -642,21 +432,21 @@
 		\|C_1^*(\bar{x}^*(\tau_s))-\bar{\alpha}\|\geqslant\|C_2^*(\bar{x}^*(\tau_s+1))-\bar{\alpha}\|\geqslant\dots\geqslant
 		$$
 		$$
-		\geqslant\|C_h^*(\bar{x}^*(\tau_s+h-1))-\bar{\alpha}\|=0.
+		\geqslant\|C_h^*(\bar{x}^*(\tau_s+h-1))-\bar{\alpha}\|,
 		$$ 
-		В простейшем случае $\forall{i}$ $C_i^*(\bar{x}^*(\tau_s+i))=\bar{\alpha}$. 
+		причём последняя норма равна нулю. В простейшем случае $\forall{i}$ $C_i^*(\bar{x}^*(\tau_s+i))=\bar{\alpha}$. 
 		\par\bigskip
 		Аналогично статическому случаю вводятся определения линейного $L\{\hat{R}\}$ и алгебраического $\mathfrak{U}\{\hat{R}\}$ замыкания над множеством $\{\hat{R}\}$. 
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Основная теорема корректности}
+		\frametitle{Основная теорема корректности в динамическом случае}
 		Зафиксируем начальный вектора ожиданий $\hat{x}$ и последовательность входных векторов $\omega_{\Delta{t}}$. 
 		\par\bigskip
 		Если, как и в статическом случае, будем рассматривать только такие задачи $\hat{Q}(\hat{x},\omega_{\Delta{t}},\bar{\alpha})$, для которых в матрице $\omega_{\Delta{t}}$ в каждом столбце с номером $s$ ${\exists}k$ такое, что $x_{sk}$ является $k$-ым элементом вектора $\bar{x}(\tau_s+s)$ и $x_{sk}>1/2$, то можно сформулировать следующую теорему.
 		
-		\begin{Theorem}\label{th:dyn_correct}
-			Линейное замыкание $L\{\hat{\mathcal{A}}\}$ семейства алгоритмов $\{\hat{\mathcal{A}}\}=\{\hat{R}{\cdot}\hat{C}^*\}$ с произвольным корректным решающим правилом $\hat{C}^*$ и операторами распознавания $\hat{R}$, определенными алгоритмом $\mathfrak{A}_{th}$, является корректным на $\{\hat{Q}\}$.
+		\begin{Theorem}[А.\,И.~Панов]\label{th:dyn_correct}
+			Линейное замыкание $L\{\hat{\mathcal{A}}\}$ семейства алгоритмов $\{\hat{\mathcal{A}}\}=\{\hat{R}{\cdot}\hat{C}^*\}$ с произвольным корректным решающим правилом $\hat{C}^*$ и операторами распознавания $\hat{R}$, определёнными алгоритмом $\mathfrak{A}_{th}$, является корректным на $\{\hat{Q}\}$.
 		\end{Theorem}
 	\end{frame}
 	
@@ -674,7 +464,7 @@
 		\end{columns}
 		
 		\par\bigskip
-		Данную иерархию можно рассматривать как иерархический оператор распознавания $\hat R_{e,j}^2(\hat x_{i_1}^{j+1}(\tau_s),\mathcal Z_{i_1}^{j+1},\mathcal Z_{i_2}^j,\omega_{i_2\Delta t}^j)=\bar x_{i_1}^{*j+1}$, принимающий функцию входного воздействия $\omega_{i_2\Delta t}^j$ нижнего уровня, ограниченную на промежутке времени $\Delta t$, и выдающий весовой вектор присутствия распознаваемых признаков $\bar x_{i_1}^{*j+1}$.
+		Данную иерархию можно рассматривать как иерархический оператор распознавания $\hat R_{e,j}^2(\hat x_{i_1}^{j+1}(\tau_s),\mathcal Z_{i_1}^{j+1},\mathcal Z_{i_2}^j,\omega_{i_2\Delta t}^j)=\bar x_{i_1}^{*j+1}$, принимающий функцию входного воздействия $\omega_{i_2\Delta t}^j$ нижнего уровня, ограниченную на промежутке времени $\Delta t$, и выдающий взвешенный вектор распознаваемых признаков $\bar x_{i_1}^{*j+1}$.
 	\end{frame}	
 	
 	\begin{frame}
@@ -683,25 +473,25 @@
 	\end{frame}	
 	
 	\begin{frame}
-		\frametitle{Основная теорема корректности}
+		\frametitle{Основная теорема корректности в иерархическом случае}
 		Зафиксируем начальный вектор ожиданий $\hat x_{i_1}^{j+2}$ и последовательность входных векторов $\omega_{i_2\Delta{t}}^j$. 
 		\par\bigskip
 		Если мы будем рассматривать только такие задачи $\hat Q_{e,j}^2(\hat x_{i_1}^{j+2},\omega_{i_2\Delta{t}}^j,\bar\alpha_{i_1}^{j+1})$, для которых в матрице $\omega_{i_2\Delta{t}}^j$ в каждом столбце с номером $s$ ${\exists}k$ такое, что $x_{sk}$ является $k$-ым элементом вектора $\bar x_{i_2}^j(\tau_s+s)$ и $x_{sk}>1/2$, то можно сформулировать следующую теорему.
 		
-		\begin{Theorem}\label{th:hier_correct}
+		\begin{Theorem}[А.\,И.~Панов]\label{th:hier_correct}
 			Линейное замыкание $L\{\hat{\mathcal A_e}\}$ семейства алгоритмов $\{\hat{\mathcal A}_e\}=\{\hat R_{e,j}^2\cdot\hat C_e^*\}$ с произвольным корректным решающим правилом $\hat C_e^*$ и операторами распознавания $\hat R_{e,j}^2$, определёнными алгоритмом $\mathfrak A_{th}$, является корректным на~множестве задач $\{\hat Q_{e,j}^2\}$.
 		\end{Theorem}
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Результаты}
-		\begin{itemize}
-			\item теорема корректности линейного замыкания иерархических операторов распознавания интерпретируется как существование такого способа обучения иерархии распознающих блоков, в результате которого данная иерархия будет корректно распознавать поступающие стимулы,
-			\item был разработан алгоритм работы региона неокортекса в процессе восприятия с известными допущениями и упрощениями,
-			\item было проведено исследование данного алгоритма путём построения операторов распознавания (статического, динамического и иерархического),
-			\item был применён алгебраический подход к исследуемому алгоритму, доказаны теоремы корректности по всем оператором распознавания,
-			\item с помощью распознающего блока возможно описать и другие компоненты элемента картины мира и построить модели других когнитивных функций.
-		\end{itemize}
+		\frametitle{Результаты по первой части работы}
+		\begin{enumerate}
+			\item Теорема корректности линейного замыкания иерархических операторов распознавания интерпретируется как существование такого способа обучения иерархии распознающих блоков, в результате которого данная иерархия будет корректно распознавать поступающие стимулы.
+			\item Разработан алгоритм работы региона неокортекса в процессе восприятия с известными допущениями и упрощениями.
+			\item Проведено исследование данного алгоритма путём построения операторов распознавания (статического, динамического и иерархического).
+			\item Был применён алгебраический подход к исследуемому алгоритму, доказаны теоремы корректности по всем оператором распознавания.
+			\item С помощью распознающего блока возможно описать и другие компоненты элемента картины мира и построить модели других когнитивных функций.
+		\end{enumerate}
 	\end{frame}	
 	
 	\begin{frame}
@@ -867,279 +657,26 @@
 	\begin{frame}
 		\frametitle{Опыт наблюдения}
 		У субъекта имеется опыт наблюдения, который выражается в виде отношения $\Psi_p^m$: $\tilde p\Psi_p^m \tilde m$, или $\Psi_p^m(\tilde p)=\tilde m$, в том случае, если $\tilde p\in\tilde P$ является перцептом некоторого признака $f$, а $\tilde m\in\tilde M$ -- функциональным значением того же признака $f$.
-	\end{frame}
-	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{pm}$ доопределения функции $\Psi_p^m$}
-		\only<1>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
-				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
-					\algstore*{store1}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
-				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
-					\State $\tilde p^{*(0)} := \varnothing$;
-					\State $Z^{*(0)} := \varnothing$;
-					\State $t := 0$;
-					\algstore*{store2}				
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<3>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
-				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
-					\State $\tilde p^{*(0)} := \varnothing$;
-					\State $Z^{*(0)} := \varnothing$;
-					\State $t := 0$;
-					\ForAll{$f^{(t)}\in \hat F$}
-					\algstore*{store3}				
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<4>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
-				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
-					\State $\tilde p^{*(0)} := \varnothing$;
-					\State $Z^{*(0)} := \varnothing$;
-					\State $t := 0$;
-					\ForAll{$f^{(t)}\in \hat F$}
-					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
-						\\\hspace{0.5cm}$\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and}
-						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m$ конфликтует с $\tilde m^{(t)}$
-					}
-					\algstore*{store4}				
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<5>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
-				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
-					\State $\tilde p^{*(0)} := \varnothing$;
-					\State $Z^{*(0)} := \varnothing$;
-					\State $t := 0$;
-					\ForAll{$f^{(t)}\in \hat F$}
-					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
-						\\\hspace{0.5cm}$\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and} 
-						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m$ конфликтует с $\tilde m^{(t)}$}
-					\State $\tilde p^{*(t)}=\tilde p^{*(t)}\cup\{f^{(t)}\}$;
-					\If{$\exists R_i^j$ такой, что $f^{(t)}\in F_i^j$}
-					\State $R_i^{j(t)}:=R_i^j$;
-					\algstore{store5}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-	\end{frame}
-	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{pm}$ доопределения функции $\Psi_p^m$}
-		\only<1>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
-				\begin{algorithmic}[1]
-					\algrestore*{store5}
-					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
-					\EndIf
-					\algstore*{store6}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
-				\begin{algorithmic}[1]
-					\algrestore*{store5}
-					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;																\EndIf
-					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
-					\algstore*{store7}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<3>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
-				\begin{algorithmic}[1]
-					\algrestore*{store5}
-					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
-					\EndIf
-					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
-					\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
-					\algstore*{store8}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<4>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
-				\begin{algorithmic}[1]
-					\algrestore{store5}
-					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
-					\EndIf
-					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
-					\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
-					\State $Z_p^{(t)}:=(\bar z_1^{c(t)},\bar z_2^{e(t)},\dots,\bar z_{2\cdot k-1}^{c(t)},\bar z_{2\cdot k}^{e(t)})$, где 
-					\\\hspace{1.5cm} $\bar z_i^{c(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{c(t)}\rightarrow F_p^j), \bar z_i^{e(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{e(t)}\Rightarrow\bar z_j^e)$;
-					\EndIf
-					\algstore{store9}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-	\end{frame}
-	
-	\begin{frame}[t]
-		\frametitle{Алгоритм $\mathfrak{A}_{pm}$ доопределения функции $\Psi_p^m$}
-		\only<1>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть III)}
-				\begin{algorithmic}[1]
-					\algrestore*{store9}
-					\State $\tilde m^{*(t)}=\{f_p^{(t)}\}$;
-					\State $\mathcal Z^{*(t)}=\{Z^{*(t)}\}$;
-					\State $t=t+1$;
-					\EndFor
-					\algstore*{store10}
-				\end{algorithmic}
-			\end{algorithm}
-		}
-		\only<2>{
-			\begin{algorithm}[H]
-				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть III)}
-				\begin{algorithmic}[1]
-					\algrestore{store9}
-					\State $\tilde m^{*(t)}=\{f_p^{(t)}\}$;
-					\State $\mathcal Z^{*(t)}=\{Z^{*(t)}\}$;
-					\State $t=t+1$;
-					\EndFor
-					
-					\Return $\Psi_p^m$, определенная на паре $(\tilde p, \tilde m)$, где $\tilde p=\lim\limits_{t\rightarrow\infty}\tilde p^{*(t)}$, 
-					\\\hspace{1.0cm}$f^*, Z^*=\lim\limits_{t\rightarrow\infty}Z^{*(t)},\mathcal Z^*=\{Z^*\}$;
-				\end{algorithmic}
-			\end{algorithm}
-		}
+		\par\bigskip
+		Разработан итерационный алгоритм $\mathfrak A_{pm}$ доопределения функции $\Psi_p^m$ по функциональному значению $\tilde m=\{f_p\}$ и множеству признаков $\hat F$.
 	\end{frame}
 	
 	\begin{frame}
 		\frametitle{Теорема корректности алгоритма $\mathfrak A_{pm}$}
-		\begin{Theorem}
+		\begin{Theorem}[А.\,И.~Панов]
 			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность функциональных значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для функционального значения $\tilde m$, сходится к $\tilde m$.
 		\end{Theorem}
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Доказательство теоремы корректности}
-		\begin{proofs}
-			Рассмотрим два элемента последовательности $\tilde m^{*(t)}=\{f_p^{(t)}\}$ и $\tilde m^{*(t+1)}=\{f_p^{(t+1)}\}$. Соответствующие матрицы предсказания будут иметь следующий вид:
-			\begin{equation}
-			Z_p^{(t)}=(\bar z_1^{c(t)},\bar z_2^{e(t)},\dots,\dots,\bar z_{2\cdot k-1}^{c(t)},\bar z_{2\cdot k}^{e(t)}),
-			\end{equation}
-			\begin{equation}
-			Z_p^{(t+1)}=(\bar z_1^{c(t+1)},\bar z_2^{e(t+1)},\dots,\dots,\bar z_{2\cdot k-1}^{c(t+1)},\bar z_{2\cdot k}^{e(t+1)}).
-			\end{equation}
-			Если на шаге 1 и 2 алгоритма $\mathfrak A_{pm}$ на $(t+1)$-й итерации не был найден подходящий признак, то матрицы $Z_p^{(t)}$ и $Z_p^{(t+1)}$ равны. Рассмотрим случай, когда был найден подходящий признак $f^{(t+1)}$ с функциональным значением $\tilde m^{(t+1)}=\{\tilde f_p^{(t+1)}\}$ с соответствующей матрицей предсказания $\tilde Z_p^{(t+1)}=(\bar z^{c(t+1)},\bar z^{e(t+1)})$. 
-		\end{proofs}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Доказательство теоремы корректности}
-		\begin{proofs}[\proofname\ (продолжение)]
-			Так как выполнено условие шага 1, то признак $\tilde f_p^{(t+1)}$ выполним на некотором $(2\cdot s-1$-м столбце условий матрицы предсказания признака $f_p$. Это означает, что матрицы $Z_p^{(t)}$ и $Z_p^{(t+1)}$ будут отличать только в двух вектор-столбцах $(2\cdot s-1)$-м и $(2\cdot s)$-м:
-			\begin{equation}
-			\bar z_{2\cdot s-1}^{c(t+1)}=\bar z_{2\cdot s-1}^{c(t)}\vee (\bar z^{c(t+1)}\rightarrow F_p^j),
-			\end{equation}
-			\begin{equation}
-			\bar z_{2\cdot s}^{e(t+1)}=\bar z_{2\cdot s}^{e(t)}\vee(\bar z^{e(t+1)}\Rightarrow \bar z_{2\cdot s}^e).
-			\end{equation}
-			По определению расстояние между функциональными значениями $\tilde m^{(t)}$ и $\tilde m$ примет следующее значение:
-			$$
-			\rho_m(\tilde m^{(t)},\tilde m)=\min\limits_{\substack{f_i\in\tilde m^{(t)}\\f_j\in\tilde m}}\rho_p(\tilde p(f_i),\tilde p(f_j ))=\rho_p(\tilde p(f_p^{(t)}),\tilde p(f_p))= 
-			$$
-		\end{proofs}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Доказательство теоремы корректности}
-		\begin{proofs}[\proofname\ (продолжение)]
-			\begin{equation}
-			=\frac{1}{q\cdot h}\sum\limits_{\substack{\bar z_u^1\in Z_p^{(t)}\\\bar z_u^2\in Z_p}}\|\bar z_u^1-\bar z_u^2\|.
-			\end{equation}
-			Аналогично для $\tilde m^{(t+1)}$:
-			\begin{equation}
-			\rho_m(\tilde m^{(t+1)},\tilde m)=\frac{1}{q\cdot h}\sum_{\substack{\bar z_u^1\in Z_p^{(t+1)}\\\bar z_u^2\in Z_p}}\|\bar z_u^1-\bar z_u^2\|.
-			\end{equation}
-			Рассмотрим разность 
-			$$
-			\rho_m(\tilde m^{(t)},\tilde m)-\rho_m(\tilde m^{(t+1)},\tilde m)=\frac{1}{q\cdot h}(\|\bar z_{2\cdot s-1}^{c(t)}-\bar z_{2\cdot s-1}^c\|+\|\bar z_{2\cdot s}^{e(t)}-\bar z_{2\cdot s}^e\|-
-			$$
-		\end{proofs}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Доказательство теоремы корректности}
-		\begin{proofs}[\proofname\ (продолжение)]
-			$$
-			-\|\bar z_{2\cdot s-1}^{c(t+1)}-\bar z_{2\cdot s-1}^c\|-\|\bar z_{2\cdot s}^{e(t+1)}-\bar z_{2\cdot s}^e\|)=\frac{1}{q\cdot h}(\|\bar z_{2\cdot s-1}^{c(t)}-\bar z_{2\cdot s-1}^c\|+
-			$$
-			$$
-			+\|\bar z_{2\cdot s}^{e(t)}-\bar z_{2\cdot s}^e\|-\|\bar z_{2\cdot s-1}^{c(t)}\vee(\bar z^{c(t+1)}\rightarrow F_p^j)-\bar z_{2\cdot s-1}^c\|-
-			$$
-			$$
-			-\|\bar z_{2\cdot s}^{e(t)}\vee(\bar z^{e(t+1)}\Rightarrow\bar z_{2\cdot s}^e)-\bar z_{2\cdot s}^e\|),
-			$$
-			где $\bar z_{2\cdot s-1}^c,\bar z_{2\cdot s}^e$ -- столбцы матрицы предсказания процедурного признака $f_p$, соответствующего функциональному значению $\tilde m$.
-			
-			Так как $\tilde f_p^{(t+1)}$ выполним на $(2\cdot s-1)$–м столбце условий матрицы предсказания признака $f_p$, то после применении операции приведения $\bar z^{c(t+1)}\rightarrow F_p^j$ в результирующем векторе единицы появляются только на тех же местах что и в векторе $\bar z_{2\cdot s-1}^c$. 
-		\end{proofs}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Доказательство теоремы корректности}
-		\begin{proofs}[\proofname\ (продолжение)]
-			Это означает, что в векторе $\bar z_{2\cdot s-1}^{c(t)}\vee(\bar z^{c(t+1)}\rightarrow F_p^j)$ по сравнению с вектором $\bar z_{2\cdot s-1}^{c(t)}$  единицы находятся только в тех же местах, что и в векторе $\bar z_{2\cdot s-1}^c$, а новых нулей не появляется. В следствие чего разность $\|\bar z_{2\cdot s-1}^{c(t)}-\bar z_{2\cdot s-1}^c\|-\|\bar z_{2\cdot s-1}^{c(t)}\vee(\bar z^{c(t+1)}\rightarrow F_p^j)-\bar z_{2\cdot s-1}^c\|$ всегда больше нуля.
-			
-			Так как для столбцов эффектов применяется операция сужающего приведения, которая оставляет единицы только на тех местах, на которых одновременно находятся единицы в приводимом векторе и векторе, к которому осуществляется приведение. В связи с этим разность $\|\bar z_{2\cdot s}^{e(t)}-\bar z_{2\cdot s}^e\|-\|\bar z_{2\cdot s}^{e(t)}\vee(\bar z^{e(t+1)}\Rightarrow\bar z_{2\cdot s}^e)-\bar z_{2\cdot s}^e\|$ также больше нуля. 
-		\end{proofs}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Доказательство теоремы корректности}
-		\begin{proof}[\proofname\ (окончание)]
-			Так как обе разности в скобках выражения для $\rho_m(\tilde m^{(t)},\tilde m)-\rho_m(\tilde m^{(t+1)},\tilde m)$ больше нуля, то отсюда следует, что функциональное значение $\tilde m^{(t+1)}$ ближе к $\tilde m$. В виду произвольности выбора итерации $t$, это приводит к сходимости всей последовательности $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$. 
-		\end{proof}
-	\end{frame}
-	
-	\begin{frame}
-		\frametitle{Архитектура интеллектуального агента}	
-		\begin{figure}[t]
-			\includegraphics[width=0.5\linewidth]{iagent}
-		\end{figure}
-	\end{frame}	
-	
-	\section{Результаты}
-	\begin{frame}
-		\frametitle{Результаты}
-		\begin{itemize}
+		\frametitle{Общие результаты}
+		\begin{enumerate}
 			\item Впервые построена модель структурных компонент элемента картины мира субъекта деятельности.
 			\item Впервые проведена постановка задач распознавания в терминах алгебраической теории для образной компоненты элемента картины мира в динамическом и иерархическом случаях.
 			\item Доказаны теоремы корректности линейных замыканий множеств построенных в работе операторов распознавания.
 			\item Построен алгоритм итерационного процесса формирования нового элемента картины мира.
 			\item Проведено оригинальное исследование итерационного процесса формирования нового элемента картины мира.
-		\end{itemize}
+		\end{enumerate}
 	\end{frame}
 			
 	\begin{frame}
