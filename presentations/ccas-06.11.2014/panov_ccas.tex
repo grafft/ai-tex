@@ -49,6 +49,9 @@
 \newtheorem{Corollary}{Следствие}
 \newtheorem{Def}{Определение}
 \floatname{algorithm}{Алгоритм}
+\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+\algrenewcommand\algorithmicreturn{\textbf{Выход:}}
 
 \begin{document}
 	
@@ -66,7 +69,7 @@
 		
 		\textbf{Предмет исследования} "--- построение моделей картины мира субъекта деятельности и некоторых когнитивных функций.
 		\par\bigskip
-		\textbf{Целью исследования} является разработка моделей и алгоритмов формирования элементов знаковой картины мира субъекта деятельности.
+		\textbf{Целью исследования} является разработка моделей и алгоритмов формирования элементов знаковой картины мира субъекта деятельности и её функционирования.
 	
 	\end{frame}
 
@@ -75,15 +78,22 @@
 		
 		Согласно современным нейрофизиологическим и психологическим данным картина мира субъекта деятельности состоит из связанных базовых элементов. Элемент картины мира является структурой, которую в различных областях знаний принято называть \textbf{знаком}. 
 		\par\bigskip
-		Знак имеет следующие компоненты: образ (перцепт), значение (функциональное назначение) и личностный смысл. Между данными компонентами существуют определённые связи. 
+		Знак имеет следующие компоненты: образ (перцепт), значение (функциональное назначение) и личностный смысл. Между этими компонентами существуют определённые связи, формирующиеся в процессе деятельности субъекта. 
 		\par\bigskip
-		В настоящей работе рассматриваются алгоритмы функционирования и формирования перцепта и функционального назначения, а также исследуется сходимость итерационного процесса связывания этих компонент. Исследование перцепта опирается на работы Маунткасла, Эдейльмана и Хокинса в области нейрофизиологии и строения коры головного мозга (неокортекса).
-		
+		В настоящей работе рассматриваются алгоритмы функционирования и формирования перцепта и функционального назначения, исследуется сходимость итерационного процесса связывания этих компонент и рассматриваются некоторые функции знаковой картины мира. 
 	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Знак "--- элемент картины мира}
+		\begin{figure}
+			\includegraphics[width=0.7\textwidth]{sign_rb}
+		\end{figure}
+	\end{frame}	
+	
 	\begin{frame}
 		\frametitle{Современные представления о принципах работы коры головного мозга}
 		\begin{columns}
-			\begin{column}{0.3\textwidth}
+			\begin{column}{0.2\textwidth}
 				\begin{figure}
 					\includegraphics[width=1.0\textwidth]{info_flow}
 				\end{figure}
@@ -91,11 +101,10 @@
 					\includegraphics[width=1.0\textwidth]{multimodality}
 				\end{figure}
 			\end{column}
-			\begin{column}{0.7\textwidth}
-				Маунткасл, Эдельман, Хокинс:
+			\begin{column}{0.8\textwidth}
+				Исследование перцепта опирается на работы Маунткасла, Эдейльмана и Хокинса в области нейрофизиологии и строения коры головного мозга:
 				\begin{itemize}
-					\item неокортекс состоит из элементарных составных элементов, которые имеют одинаковое строение на всех участках коры,
-					\item колонки латеральными связями объединены в регионы,
+					\item неокортекс состоит из элементарных составных элементов, которые имеют одинаковое строение на всех участках коры, объединённые латеральными связями в регионы,
 					\item неокортекс хранит последовательности паттернов,
 					\item неокортекс воспроизводит паттерны автоассоциативно,
 					\item неокортекс предсказывает паттерны,
@@ -229,7 +238,7 @@
 	\end{frame}
 		
 	\begin{frame}
-		\frametitle{Задача классификации по Журавлёву}
+		\frametitle{Задача классификации}
 		Пусть
 		\begin{itemize}
 			\item $\{Q\}$ "--- совокупность задач классификации,
@@ -260,12 +269,12 @@
 		\par\bigskip		
 		Далее будем считать, что множество $\{\mathcal{A}\}$ является совокупностью, вообще говоря, некорректных алгоритмов.
 		\par\bigskip
-		Главное отличие от оригинальной постановки: используются вектора, а не матрицы при формулировке соответствующих определений и утверждений.
+		Отличие от известной постановки: используются вектора, а не матрицы при формулировке соответствующих определений и утверждений.
 	\end{frame}
 	
 	\begin{frame}
 		\frametitle{Разложение алгоритма классификации}
-		\begin{Pred}[аналог теоремы 1 по Журавлёву]\label{st:decompositon}
+		\begin{Pred}[аналог теоремы 1, Журавлёв]\label{st:decompositon}
 			Каждый алгоритм $\mathcal{A}\in\{\mathcal{A}\}$ представим как последовательность выполнения алгоритмов $R$ и $C$, где $R(\hat{x},\bar{x})=\bar{x}^*$, $\bar{x}^*$ "--- вектор действительных чисел, $C(\bar{x}^*)=\bar{\beta}$, $\beta_i\in\{0,1,\Delta\}$.
 		\end{Pred}
 		\par\bigskip
@@ -280,7 +289,7 @@
 		\begin{Def}
 			Решающее правило $C^*$ называется корректным на множестве входных векторов $X$, если для всякого вектора $\bar{x}$ из $X$ существует хотя бы один числовой вектор $\bar{x}^*$ такой, что $C^*(\bar{x}^*)=\bar{\alpha}$, где $\bar{\alpha}$ "--- информационный вектор входного вектора $\bar{x}$.
 		\end{Def}
-		В множестве операторов $\{R\}$ введем операции умножения на скаляр, сложения и умножения. Пусть $r'$ "--- скаляр, $R',R''\in\{R\}$. Определим операторы $r'{\cdot}R'$, $R'+R''$ и $R{\cdot}R''$ следующим образом:
+		В множестве операторов $\{R\}$ введём операции умножения на скаляр, сложения и умножения. Пусть $r'$ "--- скаляр, $R',R''\in\{R\}$. Определим операторы $r'{\cdot}R'$, $R'+R''$ и $R{\cdot}R''$ следующим образом:
 		\begin{equation}
 			\label{eq:oper_scalar}
 			r'{\cdot}R'=(r'{\cdot}{x_1^*}',\dots,r'{\cdot}{x_l^*}'),
@@ -319,7 +328,7 @@
 	
 	\begin{frame}
 		\frametitle{Связь свойств полноты и корректности}
-		\begin{Pred}[аналог теоремы 2 по Журавлёву]\label{st:correctness}
+		\begin{Pred}[аналог теоремы 2, Журавлёв]\label{st:correctness}
 			Если множество задач $\{Q\}$ состоит лишь из задач, полных относительно $\mathfrak{R}$, то линейное замыкание $L\{R{\cdot}C^*\}$ ($C^*$ "--- произвольное фиксированное корректное решающее правило, $R$ пробегает множество $\mathcal{R}$) является корректным относительно $\{Q\}$.
 		\end{Pred}
 	\end{frame}
@@ -330,7 +339,7 @@
 		\par\bigskip
 		\begin{Theorem}[А.\,И.~Панов]
 			\label{th:correctness}
-			Линейное замыкание $L\{\mathcal{A}\}$ семейства алгоритмов $\{\mathcal{A}\}=\{R{\cdot}C^*\}$ с произвольным корректным решающим правилом $C^*$ и операторами распознавания $R$, определенными алгоритмом $\mathfrak{A}_{th}$, является корректным на $\{Q\}$.
+			Линейное замыкание $L\{\mathcal{A}\}$ семейства алгоритмов $\{\mathcal{A}\}=\{R{\cdot}C^*\}$ с произвольным корректным решающим правилом $C^*$ и операторами распознавания $R$, определёнными алгоритмом $\mathfrak{A}_{th}$, является корректным на $\{Q\}$.
 		\end{Theorem}
 	\end{frame}
 	
@@ -387,7 +396,7 @@
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Задача классификации по Журавлёву}
+		\frametitle{Задача классификацииу}
 		Задача $\hat{Q}(\hat{x}, \omega_{{\Delta}t}, \bar{\alpha})$ состоит в построении алгоритма $\hat{\mathcal{A}}$, вычисляющего по поступившему начальному (управляющему) вектору ожиданий $\hat{x}$ и матрице входных воздействий $\omega_{{\Delta}t}$  последовательность векторов $\beta_{\Delta{t}}$, монотонно сходящуюся к информационному вектору $\bar{\alpha}$. 
 		\par\bigskip
 		Искомый оператор распознавания $\hat{R}$ должен выдавать весовую матрицу измеряемых признаков $\gamma_{\Delta{t}}$, столбцы которой должны сходиться (с учётом корректного решающего правила) к информационному вектору: $\lim_{t\to\tau_s+h}\bar{x}^*(t)=\bar{\alpha}$. 
@@ -454,7 +463,7 @@
 	\end{frame}	
 	
 	\begin{frame}
-		\frametitle{Задача классификации по Журавлёву}
+		\frametitle{Задача классификации}
 		Задача $\hat Q_{e,j}^2(\hat x_{i_1}^{j+2},\omega_{i_2\Delta t}^j,\bar\alpha_{i_1}^{j+1})$ состоит в построении алгоритма $\hat{\mathcal A_e}$, вычисляющего по поступившему начальному вектору ожиданий $\hat x_{i_1}^{j+2}$ и матрице входных воздействий $\omega_{i_2\Delta t}^j$ значения информационного вектора $\bar\alpha_{i_1}^{j+1}$.
 	\end{frame}	
 	
@@ -504,14 +513,14 @@
 	
 	\begin{frame}
 		\frametitle{Признаки ``условие'' и ``эффект''}
-		Введем два выделенных из множества $\{f_k\}$ признака: $f_c$ "--- ``условие'' и $f_e$ "--- ``эффект'', измеряемые одним распознающим блоком $R_0^1$.
+		Для описания действий будем использовать правила, которые в искусственном интеллекте представляются собой множества условий и эффектов. Введём два выделенных из множества $\{f_k\}$ признака: $f_c$ "--- ``условие'' и $f_e$ "--- ``эффект'', измеряемые распознающим блоком $R_0^1$.
 		\begin{Def}
 			Те признаки, которые измеряются распознающими блоками, выступающими родительскими по отношению к блоку $R_0^1$, будем называть процедурными признаками, остальные "--- объектными признаками.
 		\end{Def}
 		Для любого процедурного признака выполняются следующие естественные условия:
 		\begin{itemize}
 			\item условие всегда предшествует эффекту,
-			\item условие всегда влечет за собой эффект и
+			\item условие всегда влечёт за собой эффект и
 			\item все условия всегда отделены от своих эффектов.
 		\end{itemize}
 	\end{frame}
@@ -623,8 +632,173 @@
 		\frametitle{Опыт наблюдения}
 		У субъекта имеется опыт наблюдения, который выражается в виде отношения $\Psi_p^m$: $\tilde p\Psi_p^m \tilde m$, или $\Psi_p^m(\tilde p)=\tilde m$, в том случае, если $\tilde p\in\tilde P$ является перцептом некоторого признака $f$, а $\tilde m\in\tilde M$ -- функциональным значением того же признака $f$.
 		\par\bigskip
-		Разработан итерационный алгоритм $\mathfrak A_{pm}$ доопределения функции $\Psi_p^m$ по функциональному значению $\tilde m=\{f_p\}$ и множеству признаков $\hat F$.
+		Разработан итерационный алгоритм $\mathfrak A_{pm}$ доопределения функции $\Psi_p^m$, который обеспечивает построение такого перцепта из множества признаков $\hat F$, при котором формируемое функциональное значение сходится к значению $\tilde m=\{f_p\}$, полученному из внешней среды.
 	\end{frame}
+	
+	\begin{frame}[t]
+		\frametitle{Алгоритм $\mathfrak{A}_{pm}$ доопределения функции $\Psi_p^m$}
+		\only<1>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
+				\begin{algorithmic}[1]
+					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\algstore*{store1}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<2>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
+				\begin{algorithmic}[1]
+					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\State $\tilde p^{*(0)} := \varnothing$;
+					\State $Z^{*(0)} := \varnothing$;
+					\State $t := 0$;
+					\algstore*{store2}				
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<3>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
+				\begin{algorithmic}[1]
+					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\State $\tilde p^{*(0)} := \varnothing$;
+					\State $Z^{*(0)} := \varnothing$;
+					\State $t := 0$;
+					\ForAll{$f^{(t)}\in \hat F$}
+					\algstore*{store3}				
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<4>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
+				\begin{algorithmic}[1]
+					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\State $\tilde p^{*(0)} := \varnothing$;
+					\State $Z^{*(0)} := \varnothing$;
+					\State $t := 0$;
+					\ForAll{$f^{(t)}\in \hat F$}
+					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
+						\\\hspace{0.5cm}$\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and}
+						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m$ конфликтует с $\tilde m^{(t)}$
+					}
+					\algstore*{store4}				
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<5>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
+				\begin{algorithmic}[1]
+					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\State $\tilde p^{*(0)} := \varnothing$;
+					\State $Z^{*(0)} := \varnothing$;
+					\State $t := 0$;
+					\ForAll{$f^{(t)}\in \hat F$}
+					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
+						\\\hspace{0.5cm}$\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and} 
+						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m$ конфликтует с $\tilde m^{(t)}$}
+					\State $\tilde p^{*(t)}=\tilde p^{*(t)}\cup\{f^{(t)}\}$;
+					\If{$\exists R_i^j$ такой, что $f^{(t)}\in F_i^j$}
+					\State $R_i^{j(t)}:=R_i^j$;
+					\algstore{store5}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+	\end{frame}
+	
+	\begin{frame}[t]
+		\frametitle{Алгоритм $\mathfrak{A}_{pm}$ доопределения функции $\Psi_p^m$}
+		\only<1>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
+				\begin{algorithmic}[1]
+					\algrestore*{store5}
+					\Else
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+					\EndIf
+					\algstore*{store6}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<2>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
+				\begin{algorithmic}[1]
+					\algrestore*{store5}
+					\Else
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;																\EndIf
+					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
+					\algstore*{store7}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<3>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
+				\begin{algorithmic}[1]
+					\algrestore*{store5}
+					\Else
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+					\EndIf
+					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
+					\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
+					\algstore*{store8}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<4>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
+				\begin{algorithmic}[1]
+					\algrestore{store5}
+					\Else
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+					\EndIf
+					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
+					\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
+					\State $Z_p^{(t)}:=(\bar z_1^{c(t)},\bar z_2^{e(t)},\dots,\bar z_{2\cdot k-1}^{c(t)},\bar z_{2\cdot k}^{e(t)})$, где 
+					\\\hspace{1.5cm} $\bar z_i^{c(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{c(t)}\rightarrow F_p^j), \bar z_i^{e(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{e(t)}\Rightarrow\bar z_j^e)$;
+					\EndIf
+					\algstore{store9}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+	\end{frame}
+	
+	\begin{frame}[t]
+		\frametitle{Алгоритм $\mathfrak{A}_{pm}$ доопределения функции $\Psi_p^m$}
+		\only<1>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть III)}
+				\begin{algorithmic}[1]
+					\algrestore*{store9}
+					\State $\tilde m^{*(t)}=\{f_p^{(t)}\}$;
+					\State $\mathcal Z^{*(t)}=\{Z^{*(t)}\}$;
+					\State $t=t+1$;
+					\EndFor
+					\algstore*{store10}
+				\end{algorithmic}
+			\end{algorithm}
+		}
+		\only<2>{
+			\begin{algorithm}[H]
+				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть III)}
+				\begin{algorithmic}[1]
+					\algrestore{store9}
+					\State $\tilde m^{*(t)}=\{f_p^{(t)}\}$;
+					\State $\mathcal Z^{*(t)}=\{Z^{*(t)}\}$;
+					\State $t=t+1$;
+					\EndFor
+					
+					\Return $\Psi_p^m$, определённая на паре $(\tilde p, \tilde m)$, где $\tilde p=\lim\limits_{t\rightarrow\infty}\tilde p^{*(t)}$, 
+					\\\hspace{1.0cm}$f^*, Z^*=\lim\limits_{t\rightarrow\infty}Z^{*(t)},\mathcal Z^*=\{Z^*\}$;
+				\end{algorithmic}
+			\end{algorithm}
+		}
+	\end{frame}	
 	
 	\begin{frame}
 		\frametitle{Теорема корректности алгоритма $\mathfrak A_{pm}$}
@@ -636,11 +810,11 @@
 	\begin{frame}
 		\frametitle{Результаты}
 		\begin{enumerate}
-			\item Впервые построена модель структурных компонент элемента картины мира субъекта деятельности.
-			\item Впервые проведена постановка задач распознавания в терминах алгебраической теории для образной компоненты элемента картины мира в динамическом и иерархическом случаях.
+			\item Построена модель компонент знака "--- элемента картины мира субъекта деятельности.
+			\item Построены четыре типа операторов распознавания (два статических случая, динамический и иерархический случаи) в терминах алгебраической теории для образной компоненты знака.
 			\item Доказаны теоремы корректности линейных замыканий множеств построенных в работе операторов распознавания.
-			\item Построен алгоритм итерационного процесса формирования и связывания двух компонент элемента картины мира.
-			\item Проведено оригинальное исследование сходимости данного итерационного процесса.
+			\item Построен алгоритм итерационного процесса формирования и связывания двух компонент знака.
+			\item Исследована сходимость итерационного процесса формирования и связывания двух компонент знака.
 		\end{enumerate}
 	\end{frame}
 			

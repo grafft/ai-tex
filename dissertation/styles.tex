@@ -22,8 +22,8 @@
 \hyphenpenalty=10000		% Запрещаем переносы во всем тексте
 
 %%% Библиография %%%
+\patchcmd{\thebibliography}{\chapter*}{\section*}{}{}  % не позволяем создавать новую страниц 
 \makeatletter
-%\bibliographystyle{utf8gost705u}	% Оформляем библиографию в соответствии с ГОСТ 7.0.5
 \bibliographystyle{gost2008p}
 \renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
 \makeatother
@@ -90,6 +90,10 @@
 % центрируем заголовок оглавления
 \renewcommand{\cfttoctitlefont}{\hfill\Huge\bfseries}
 \renewcommand{\cftaftertoctitle}{\hfill}
+
+% центрируем заголовок списка картинок
+\renewcommand{\cftloftitlefont}{\hfill\Huge\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \algnewcommand\And{\textbf{and}}

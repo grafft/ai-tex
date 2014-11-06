@@ -1,7 +1,9 @@
 \clearpage
-\phantomsection
-\addcontentsline{toc}{chapter}{\bibname}	% Добавляем список литературы в оглавление
+\chapter*{Список литературы}
+\addcontentsline{toc}{chapter}{Список литературы}	% Добавляем список литературы в оглавление
+\renewcommand{\bibname}{}
 %\nocite{*}
+\vspace{-3\baselineskip}
 \inputencoding{cp1251}
 \bibliography{../biblio/main}						% Подключаем BibTeX-базы
 \inputencoding{utf8}
