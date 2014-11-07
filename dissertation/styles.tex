@@ -1,25 +1,27 @@
 %%% Макет страницы %%%
 \geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}
-
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[C]{\fontsize{14}{\baselineskip} \selectfont  \thepage}
 \pagestyle{fancy}
-% redefine the plain pagestyle
+% добавляем номер станицы сверху
 \fancypagestyle{plain}{%
-	\fancyhf{} % clear all header and footer fields
+	\fancyhf{} 							% clear all header and footer fields
 	\fancyhead[C]{\fontsize{14}{\baselineskip} \selectfont \thepage} % except the center
 }
-
-%%% Кодировки и шрифты %%%
+\parindent=1.2cm		% абзацный отступ
 \renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
 \renewcommand{\baselinestretch}{1.5}
+
+
 
 %%% Выравнивание и переносы %%%
 \sloppy					% Избавляемся от переполнений
 \clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
 \widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
-\hyphenpenalty=10000		% Запрещаем переносы во всем тексте
+\hyphenpenalty=10000	% Запрещаем переносы во всем тексте
+
+
 
 %%% Библиография %%%
 \patchcmd{\thebibliography}{\chapter*}{\section*}{}{}  % не позволяем создавать новую страниц 
@@ -28,8 +30,12 @@
 \renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
 \makeatother
 
+
+
 %%% Изображения %%%
 \graphicspath{{../images/}} % Пути к изображениям
+
+
 
 %%% Цвета гиперссылок %%%
 \definecolor{linkcolor}{rgb}{0.9,0,0}
@@ -40,8 +46,15 @@
     citecolor={citecolor}, urlcolor={urlcolor}
 }
 
+
+
 %%% Оглавление %%%
 \renewcommand{\cftchapdotsep}{\cftdotsep}
+\renewcommand\cftchapaftersnum{.} % добавляем точки после номеров в оглавлении
+\renewcommand\cftsecaftersnum{.}
+\renewcommand\cftsubsecaftersnum{.}
+
+
 
 %%% Теормоподобные окружения %%%
 \theoremstyle{plain}
@@ -63,44 +76,75 @@
     {\par\noindent{\bf Доказательство.}}%
     {\hfill$\scriptstyle\blacksquare$}
 
-% Нумерованный перечень со скобками
-\renewcommand\labelenumi{\theenumi )}
 
-% чтобы поставить точечку после номера алгоритма в \caption:
+
+%%% Настройка заголовков %%%
+% чтобы поставить точечку после номера алгоритма и картинки в \caption:
 \captionsetup[ruled]{labelsep=period}
-
-% настройка заголовков
+\captionsetup[figure]{labelsep=period}
+% Общие настройки
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries\centering}
 {\chaptertitlename\ \thechapter}{0pt}{\Huge}
-
 \titleformat{\section}[block]
 	{\normalfont\LARGE\bfseries\centering}
 	{\thesection.}{10pt}{\LARGE}
-
 \titleformat{\subsection}[block]
 	{\normalfont\large\bfseries\centering}
 	{\thesubsection.}{10pt}{\large}
-
 \titlespacing*{\chapter}{0pt}{-10pt}{1\baselineskip}
 \titlespacing*{\section}{0pt}{1\baselineskip}{1\baselineskip}
 \titlespacing*{\subsection}{0pt}{1\baselineskip}{1\baselineskip}
-\parindent=1.2cm		% абзацный отступ
-
 % центрируем заголовок оглавления
 \renewcommand{\cfttoctitlefont}{\hfill\Huge\bfseries}
 \renewcommand{\cftaftertoctitle}{\hfill}
-
 % центрируем заголовок списка картинок
 \renewcommand{\cftloftitlefont}{\hfill\Huge\bfseries}
 \renewcommand{\cftafterloftitle}{\hfill}
+%use russian alphabet for subfigure counter 
+\makeatletter
+\def\thesubfigure{\textit{\asbuk{subfigure}}}
+\providecommand\thefigsubsep{,~}
+\def\p@subfigure{\@nameuse{thefigure}\thefigsubsep}
+\makeatother
 
+
+%%% Костыль для взаимодействия hyperref и appendix + русские буквы в индексации http://tex.stackexchange.com/questions/41649/how-to-make-appendix-and-hyperref-packages-work-together-with-cyrillic-non-asci %%%
+\makeatletter
+\let\oriAlph\Alph
+\let\orialph\alph
+\renewcommand{\@resets@pp}{\par
+	\@ppsavesec
+	\stepcounter{@pps}
+	\setcounter{section}{0}%
+	\if@chapter@pp
+	\setcounter{chapter}{0}%
+	\renewcommand\@chapapp{\appendixname}%
+	\renewcommand\thechapter{\@Asbuk\c@chapter}%
+	\else
+	\setcounter{subsection}{0}%
+	\renewcommand\thesection{\@Alph\c@section}%
+	\fi
+	\if@pphyper
+	\if@chapter@pp
+	\renewcommand{\theHchapter}{\theH@pps.\oriAlph{chapter}}%
+	\else
+	\renewcommand{\theHsection}{\theH@pps.\oriAlph{section}}%
+	\fi
+	\def\Hy@chapapp{appendix}%
+	\fi
+	\restoreapp
+}
+\makeatother
+
+
+
+%%% Прочее %%%
+% Нумерованный перечень со скобками
+\renewcommand\labelenumi{\theenumi )}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \algnewcommand\And{\textbf{and}}
-
 % Счетчики
 \newcounter{citnum}
 \def\oldbibitem{} \let\oldbibitem=\bibitem
 \def\bibitem{\stepcounter{citnum}\oldbibitem}
-
-\renewcommand{\thesubfigure}{\Roman{subfigure}} % именование подкартинок

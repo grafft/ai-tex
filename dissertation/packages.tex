@@ -1,8 +1,8 @@
 %%% Поля и разметка страницы %%%
-\usepackage{lscape}		% Для включения альбомных страниц
-\usepackage{geometry}	% Для последующего задания полей
-\usepackage{titlesec}	% Управление заголовками
-\usepackage{fancyhdr}	% Управление хедером
+\usepackage{lscape}						% Для включения альбомных страниц
+\usepackage{geometry}					% Для последующего задания полей
+\usepackage{titlesec}					% Управление заголовками
+\usepackage{fancyhdr}					% Управление хедером
 
 %%% Кодировки и шрифты %%%
 \usepackage{cmap}						% Улучшенный поиск русских слов в полученном pdf-файле
@@ -10,15 +10,15 @@
 \usepackage[utf8]{inputenc}				% Кодировка utf8
 \usepackage[english, russian]{babel}	% Языки: русский, английский
 \usepackage{pscyr}						% Красивые русские шрифты
-\usepackage[14pt]{extsizes}					% Большие размеры шрифта
+\usepackage[14pt]{extsizes}				% Большие размеры шрифта
 
 %%% Математические пакеты %%%
-\usepackage{amsmath,amssymb,amsthm} % Математические дополнения от AMS
-\usepackage{algorithm}				% Пакеты листингов и алгоритмов
+\usepackage{amsmath,amssymb,amsthm} 	% Математические дополнения от AMS
+\usepackage{algorithm}					% Пакеты листингов и алгоритмов
 \usepackage{algpseudocode}
 
 %%% Оформление абзацев %%%
-\usepackage{indentfirst} % Красная строка
+\usepackage{indentfirst} 				% Красная строка
 \usepackage{subcaption}					% Для вложенных изображений
 
 %%% Цвета %%%
@@ -32,13 +32,13 @@
 
 %%% Общее форматирование
 \usepackage[singlelinecheck=off]{caption}	% Многострочные подписи
-%\ usepackage{soul}									% Поддержка переносоустойчивых подчёркиваний и зачёркиваний
 
 %%% Библиография %%%
-\usepackage{cite} % Красивые ссылки на литературу
+\usepackage{cite} 						% Красивые ссылки на литературу
 
 %%% Гиперссылки %%%
 \usepackage[linktocpage=true,plainpages=false,pdfpagelabels=false]{hyperref}
+%\usepackage{bookmark}
 
 %%% Изображения %%%
 \usepackage{graphicx} % Подключаем пакет работы с графикой
@@ -51,3 +51,5 @@
 %%% Пропатчить chapter для счетчиков %%%
 \usepackage[figure,table, page, citnum]{totalcount}
 \usepackage{etoolbox}
+
+\usepackage[titletoc]{appendix} % для слова Приложение в оглавлении

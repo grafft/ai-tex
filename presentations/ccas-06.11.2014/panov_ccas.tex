@@ -115,7 +115,7 @@
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Основные допущения и прощения}
+		\frametitle{Основные допущения и упрощения}
 		С целью проведения исследования модели были приняты следующие упрощения:
 		\begin{itemize}
 			\item дискретность во времени,
@@ -396,7 +396,7 @@
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Задача классификацииу}
+		\frametitle{Задача классификации}
 		Задача $\hat{Q}(\hat{x}, \omega_{{\Delta}t}, \bar{\alpha})$ состоит в построении алгоритма $\hat{\mathcal{A}}$, вычисляющего по поступившему начальному (управляющему) вектору ожиданий $\hat{x}$ и матрице входных воздействий $\omega_{{\Delta}t}$  последовательность векторов $\beta_{\Delta{t}}$, монотонно сходящуюся к информационному вектору $\bar{\alpha}$. 
 		\par\bigskip
 		Искомый оператор распознавания $\hat{R}$ должен выдавать весовую матрицу измеряемых признаков $\gamma_{\Delta{t}}$, столбцы которой должны сходиться (с учётом корректного решающего правила) к информационному вектору: $\lim_{t\to\tau_s+h}\bar{x}^*(t)=\bar{\alpha}$. 
@@ -513,7 +513,7 @@
 	
 	\begin{frame}
 		\frametitle{Признаки ``условие'' и ``эффект''}
-		Для описания действий будем использовать правила, которые в искусственном интеллекте представляются собой множества условий и эффектов. Введём два выделенных из множества $\{f_k\}$ признака: $f_c$ "--- ``условие'' и $f_e$ "--- ``эффект'', измеряемые распознающим блоком $R_0^1$.
+		Для описания действий будем использовать правила, которые в искусственном интеллекте представляются в виде множества условий и эффектов. Введём два выделенных из множества $\{f_k\}$ признака: $f_c$ "--- ``условие'' и $f_e$ "--- ``эффект'', измеряемые распознающим блоком $R_0^1$.
 		\begin{Def}
 			Те признаки, которые измеряются распознающими блоками, выступающими родительскими по отношению к блоку $R_0^1$, будем называть процедурными признаками, остальные "--- объектными признаками.
 		\end{Def}
@@ -632,7 +632,7 @@
 		\frametitle{Опыт наблюдения}
 		У субъекта имеется опыт наблюдения, который выражается в виде отношения $\Psi_p^m$: $\tilde p\Psi_p^m \tilde m$, или $\Psi_p^m(\tilde p)=\tilde m$, в том случае, если $\tilde p\in\tilde P$ является перцептом некоторого признака $f$, а $\tilde m\in\tilde M$ -- функциональным значением того же признака $f$.
 		\par\bigskip
-		Разработан итерационный алгоритм $\mathfrak A_{pm}$ доопределения функции $\Psi_p^m$, который обеспечивает построение такого перцепта из множества признаков $\hat F$, при котором формируемое функциональное значение сходится к значению $\tilde m=\{f_p\}$, полученному из внешней среды.
+		Разработан итерационный алгоритм $\mathfrak A_{pm}$ доопределения функции $\Psi_p^m$, который обеспечивает построение такого перцепта из множества признаков $\hat F$, при котором формируемое функциональное значение сходится к значению $\tilde m^0=\{f_p\}$, полученному из внешней среды.
 	\end{frame}
 	
 	\begin{frame}[t]
@@ -641,7 +641,7 @@
 			\begin{algorithm}[H]
 				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
 				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
 					\algstore*{store1}
 				\end{algorithmic}
 			\end{algorithm}
@@ -650,7 +650,7 @@
 			\begin{algorithm}[H]
 				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
 				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
 					\State $\tilde p^{*(0)} := \varnothing$;
 					\State $Z^{*(0)} := \varnothing$;
 					\State $t := 0$;
@@ -662,7 +662,7 @@
 			\begin{algorithm}[H]
 				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
 				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
 					\State $\tilde p^{*(0)} := \varnothing$;
 					\State $Z^{*(0)} := \varnothing$;
 					\State $t := 0$;
@@ -675,14 +675,14 @@
 			\begin{algorithm}[H]
 				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
 				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
 					\State $\tilde p^{*(0)} := \varnothing$;
 					\State $Z^{*(0)} := \varnothing$;
 					\State $t := 0$;
 					\ForAll{$f^{(t)}\in \hat F$}
-					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
+					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $(\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
 						\\\hspace{0.5cm}$\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and}
-						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m$ конфликтует с $\tilde m^{(t)}$
+						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m^0$ конфликтует с $\tilde m^{(t)}$
 					}
 					\algstore*{store4}				
 				\end{algorithmic}
@@ -692,14 +692,14 @@
 			\begin{algorithm}[H]
 				\caption*{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
 				\begin{algorithmic}[1]
-					\Require $\tilde m=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+					\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
 					\State $\tilde p^{*(0)} := \varnothing$;
 					\State $Z^{*(0)} := \varnothing$;
 					\State $t := 0$;
 					\ForAll{$f^{(t)}\in \hat F$}
 					\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and}
 						\\\hspace{0.5cm}$\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and} 
-						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m$ конфликтует с $\tilde m^{(t)}$}
+						\\\hspace{0.5cm}$\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m^0$ конфликтует с $\tilde m^{(t)}$}
 					\State $\tilde p^{*(t)}=\tilde p^{*(t)}\cup\{f^{(t)}\}$;
 					\If{$\exists R_i^j$ такой, что $f^{(t)}\in F_i^j$}
 					\State $R_i^{j(t)}:=R_i^j$;
@@ -717,7 +717,7 @@
 				\begin{algorithmic}[1]
 					\algrestore*{store5}
 					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
 					\EndIf
 					\algstore*{store6}
 				\end{algorithmic}
@@ -729,7 +729,7 @@
 				\begin{algorithmic}[1]
 					\algrestore*{store5}
 					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;																\EndIf
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;																\EndIf
 					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
 					\algstore*{store7}
 				\end{algorithmic}
@@ -741,7 +741,7 @@
 				\begin{algorithmic}[1]
 					\algrestore*{store5}
 					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
 					\EndIf
 					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
 					\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
@@ -755,7 +755,7 @@
 				\begin{algorithmic}[1]
 					\algrestore{store5}
 					\Else
-					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), R_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+					\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
 					\EndIf
 					\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
 					\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
@@ -793,8 +793,7 @@
 					\State $t=t+1$;
 					\EndFor
 					
-					\Return $\Psi_p^m$, определённая на паре $(\tilde p, \tilde m)$, где $\tilde p=\lim\limits_{t\rightarrow\infty}\tilde p^{*(t)}$, 
-					\\\hspace{1.0cm}$f^*, Z^*=\lim\limits_{t\rightarrow\infty}Z^{*(t)},\mathcal Z^*=\{Z^*\}$;
+					\Return $\Psi_p^m$, определённая на паре $(\tilde p, \tilde m)$, где $\tilde p=\lim\limits_{t\rightarrow|\hat F|}\tilde p^{*(t)}$, $\tilde m=\lim\limits_{t\rightarrow|\hat F|}\tilde m^{*(t)}$, $f^*, Z^*=\lim\limits_{t\rightarrow|\hat F|}Z^{*(t)},\mathcal Z^*=\{Z^*\}$;
 				\end{algorithmic}
 			\end{algorithm}
 		}
@@ -803,7 +802,7 @@
 	\begin{frame}
 		\frametitle{Теорема корректности алгоритма $\mathfrak A_{pm}$}
 		\begin{Theorem}[А.\,И.~Панов]
-			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность функциональных значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для функционального значения $\tilde m$, сходится к $\tilde m$.
+			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность функциональных значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для функционального значения $\tilde m^0$, сходится к $\tilde m^0$.
 		\end{Theorem}
 	\end{frame}
 	
