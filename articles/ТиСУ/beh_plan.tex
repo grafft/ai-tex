@@ -1,0 +1,80 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{geometry}
+\usepackage{textcomp}					% "true" символы типа copyright
+
+\usepackage{cmap}						% Улучшенный поиск русских слов в полученном pdf-файле
+\usepackage[T2A]{fontenc}				% Поддержка русских букв
+\usepackage[utf8]{inputenc}				% Кодировка utf8
+\usepackage[english, russian]{babel}	% Языки: русский, английский
+\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
+\usepackage{bookmark}					% Оглавление в pdf
+\usepackage{soulutf8}					% Для разрядки
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{graphicx} 					% Подключаем пакет работы с графикой
+\usepackage{algorithm,algpseudocode}
+
+\usepackage{titlesec}					% Форматирование заголовков
+%\usepackage{abstract}					% Форматрирование абстракта	
+
+\geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
+\graphicspath{{../../images/}} 			% Пути к изображениям
+
+% Настройка теоремоподобных окружений
+\theoremstyle{plain}
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Lemma}[Theorem]{Лемма}
+\newtheorem{Pred}{Утверждение}
+\newtheorem{Corollary}{Следствие}
+\newtheorem{Def}{Определение}
+\newenvironment{Proof}%
+	{\par\noindent{\bf Доказательство.}}%
+	{\hfill$\scriptstyle\blacksquare$}
+
+\floatname{algorithm}{}
+
+\renewcommand\labelenumi{\theenumi )}	% Нумерованный перечень со скобками
+\AtBeginDocument{\renewcommand{\abstractname}{\vspace{-2\baselineskip}}}    		% clear the title
+%\renewcommand{\absnamepos}{empty} % originally center
+
+\makeatletter
+	\bibliographystyle{gost2008p}
+	\renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
+\makeatother
+
+\titleformat{\section}[runin]{\normalfont\bfseries}{\thesection.}{1pt}{}[.]
+\titleformat{\subsection}[runin]{\normalfont}{\thesubsection.}{1pt}{\so}[.]
+%\titleformat{command}[shape]{format}			   {label}		 {sep}{before}[after]
+
+\title{\hbox{\normalsize\textit{УДК 004.81}}\hbox{}\textbf{\Large\MakeUppercase{Управление поведением как функция сознания. II. Семантический уровень и синтез плана}}\footnote{Работа выполнена при поддержке РНФ (грант \No\ 14-11-00692).}}
+\author{\textbf{\textcopyright~2015~г. Г.\,С.~Осипов, А.\,И.~Панов, Н.\,В.~Чудова}\\\normalsize\textit{Москва, Институт системного анализа РАН}}
+\date{}
+
+\begin{document}
+	\vspace*{-5\baselineskip}			% Убираем лишние пробелы перед заголовком статьи
+	{\let\newpage\relax\maketitle}
+	
+	\begin{abstract}
+		\noindent Рассматривается семантический уровень описания функций, которые в психологии принято относить к функциям сознания и самосознания. Исследуется механизм работы компонент знака, введённых в первой части статьи. С использованием введённого описания семантического уровня исследуется сходимость основного итерационного процесса образования знака "--- связывания образной компоненты знака и его значения. Введение алгоритмов работы компонент знака позволяет построить алгоритм процесса синтеза плана поведения, а также построить новую архитектуру интеллектуальных агентов, обладающих, в частности, способностями к распределению ролей в коалициях.
+	\end{abstract}	
+	
+	\section*{Введение}
+	Связь с первой статьёй \cite{PanovA2014a}. Напомнить про строение знака и нейрофизиологические исследования.
+	
+	\section{Семантические уровень}
+	\subsection{Определение компонент знака}
+	\subsection{Семантика обобщения}
+	\section{Алгоритм образования знака}
+	
+	\section{Алгоритм планирования}
+	
+	\section*{Заключение}
+	
+	\titleformat{\section}{\normalfont\centering\MakeUppercase}{\thesection.}{1pt}{}[]
+	
+	%	\nocite{*}
+	\inputencoding{cp1251}
+	\bibliography{../../biblio/main}
+	\inputencoding{utf8}
+\end{document}
