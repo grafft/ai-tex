@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      9569,        253]
-NotebookOptionsPosition[      8782,        224]
-NotebookOutlinePosition[      9129,        239]
-CellTagsIndexPosition[      9086,        236]
+NotebookDataLength[      9634,        254]
+NotebookOptionsPosition[      8847,        225]
+NotebookOutlinePosition[      9194,        240]
+CellTagsIndexPosition[      9151,        237]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -137,11 +137,12 @@ Cell[BoxData[
      RowBox[{"clusters", " ", "=", " ", 
       RowBox[{"FindClusters", "[", "inputStream", "]"}]}], ";", 
      "\[IndentingNewLine]", 
-     RowBox[{"{", "clusters", "}"}]}]}], "\[IndentingNewLine]", 
+     RowBox[{"HiddenMarkovProcess", "\[IndentingNewLine]", 
+      RowBox[{"{", "clusters", "}"}]}]}]}], "\[IndentingNewLine]", 
    "]"}]}]], "Input",
  CellChangeTimes->{{3.626176500372157*^9, 3.626176539171376*^9}, {
   3.626179760307615*^9, 3.626179781810845*^9}, {3.6261801745023055`*^9, 
-  3.626180204272008*^9}}],
+  3.6261802415731416`*^9}}],
 
 Cell[CellGroupData[{
 
@@ -243,17 +244,17 @@ Cell[580, 22, 157, 2, 90, "Title"],
 Cell[740, 26, 175, 2, 30, "Text"],
 Cell[918, 30, 2744, 63, 232, "Input"],
 Cell[3665, 95, 1447, 32, 192, "Input"],
-Cell[5115, 129, 598, 14, 125, "Input"],
+Cell[5115, 129, 663, 15, 112, "Input"],
 Cell[CellGroupData[{
-Cell[5738, 147, 849, 21, 72, "Input"],
-Cell[6590, 170, 1207, 25, 202, "Output"]
+Cell[5803, 148, 849, 21, 72, "Input"],
+Cell[6655, 171, 1207, 25, 202, "Output"]
 }, Open  ]],
-Cell[7812, 198, 89, 2, 31, "Input"],
-Cell[7904, 202, 96, 1, 31, InheritFromParent],
-Cell[8003, 205, 117, 2, 31, "Input"],
-Cell[8123, 209, 94, 1, 31, "Input"],
-Cell[8220, 212, 449, 6, 31, "Input"],
-Cell[8672, 220, 94, 1, 31, InheritFromParent]
+Cell[7877, 199, 89, 2, 31, "Input"],
+Cell[7969, 203, 96, 1, 31, InheritFromParent],
+Cell[8068, 206, 117, 2, 31, "Input"],
+Cell[8188, 210, 94, 1, 31, "Input"],
+Cell[8285, 213, 449, 6, 31, "Input"],
+Cell[8737, 221, 94, 1, 31, InheritFromParent]
 }, Open  ]]
 }
 ]
