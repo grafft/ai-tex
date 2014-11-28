@@ -1,0 +1,262 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9569,        253]
+NotebookOptionsPosition[      8782,        224]
+NotebookOutlinePosition[      9129,        239]
+CellTagsIndexPosition[      9086,        236]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["HTM Picture example", "Title",
+ CellChangeTimes->{{3.6261698516988745`*^9, 3.626169856994178*^9}, {
+  3.6261701717511806`*^9, 3.6261701799796515`*^9}}],
+
+Cell["\:0417\:0430\:0433\:0440\:0443\:0437\:0438\:043c MNIST \:0434\:0430\
+\:043d\:043d\:044b\:0435", "Text",
+ CellChangeTimes->{{3.626170214082602*^9, 3.626170225250241*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"readMNISTImages", "[", "dataFile_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "stream", ",", " ", "imgn", ",", " ", "xsize", ",", " ", "ysize", ",", 
+      " ", "images", ",", " ", "norm"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"stream", " ", "=", " ", 
+      RowBox[{"OpenRead", "[", 
+       RowBox[{"dataFile", ",", 
+        RowBox[{"BinaryFormat", "\[Rule]", "True"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"BinaryRead", "[", 
+      RowBox[{"stream", ",", " ", "\"\<Integer32\>\"", ",", 
+       RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"imgn", " ", "=", " ", 
+      RowBox[{"BinaryRead", "[", 
+       RowBox[{"stream", ",", " ", "\"\<Integer32\>\"", ",", " ", 
+        RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"xsize", " ", "=", " ", 
+      RowBox[{"BinaryRead", "[", 
+       RowBox[{"stream", ",", " ", "\"\<Integer32\>\"", ",", " ", 
+        RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ysize", " ", "=", " ", 
+      RowBox[{"BinaryRead", "[", 
+       RowBox[{"stream", ",", " ", "\"\<Integer32\>\"", ",", " ", 
+        RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"images", " ", "=", " ", 
+      RowBox[{"BinaryReadList", "[", 
+       RowBox[{"stream", ",", "\"\<Byte\>\"", ",", 
+        RowBox[{"xsize", "*", "ysize", "*", "imgn"}]}], "]"}]}], ";", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Close", "[", "stream", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"norm", " ", "=", " ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Partition", "[", 
+         RowBox[{"#", ",", "xsize"}], "]"}], "&"}], "/@", " ", 
+       RowBox[{"Partition", "[", 
+        RowBox[{"images", ",", 
+         RowBox[{"xsize", "*", "ysize"}]}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "/", 
+        RowBox[{"Max", "[", "#", "]"}]}], "&"}], "/@", "norm"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwdxUsogwEAB/Avjy+NtEKRTbPS2qwZB3OQmueyJn0iec/msaZwkULaaMva
+bMlm8ikuLk7jYNrII2WjOLC8k0VpCweKqNl/h1+/3O5BqieOIAh2FC4zJL53
+JISkJo7iAz9aKiK43SohO6O38Y3pWEyzMnBjPJWNzYupLExQ4Raco61QYa5R
+psV69nRsMvw7jC8n28fw7IJLh4t+lvS4ix/ZxcyZ9QNs89/4sYCiT/GtQ/WA
+1XmmJ+zuZbzi8TrnGy5VHn/hUeE12RXdYBYk45wpVWxHjYSHu+26Ypwp4lK4
+RchowrLkgVa8kebsx/HVZzT2bbGW8YtZdYhH1mqP8J5iwodFhUw/tpLb53gz
+hbjAze6dIFbLq55xls9Wr4xudyU1YO+nfA4PhQrmcaVFTeNvjWgV/5VEPHgl
+v9yLeeLAPhZ7GQfYcSU9wX1uTex7QeAOcwKeIP4Hfp7JrA==
+  "]],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"readMNISTLabels", "[", "dataFile_", "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"stream", ",", " ", "lbln", ",", "labels"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"stream", " ", "=", " ", 
+       RowBox[{"OpenRead", "[", 
+        RowBox[{"dataFile", ",", 
+         RowBox[{"BinaryFormat", "\[Rule]", "True"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"BinaryRead", "[", 
+       RowBox[{"stream", ",", " ", "\"\<Integer32\>\"", ",", 
+        RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"lbln", " ", "=", " ", 
+       RowBox[{"BinaryRead", "[", 
+        RowBox[{"stream", ",", " ", "\"\<Integer32\>\"", ",", " ", 
+         RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"labels", " ", "=", " ", 
+       RowBox[{"BinaryReadList", "[", 
+        RowBox[{"stream", ",", "\"\<Byte\>\"", ",", " ", "lbln"}], "]"}]}], 
+      ";", " ", "\[IndentingNewLine]", 
+      RowBox[{"Close", "[", "stream", "]"}], ";", "\[IndentingNewLine]", 
+      "labels"}]}], "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6261732654451303`*^9, 3.626173376418477*^9}, {
+  3.6261735231438694`*^9, 3.6261735262380466`*^9}, {3.626173659814687*^9, 
+  3.6261736615477858`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"htmNodeLearn", "[", "inputStream_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "clusters", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"clusters", " ", "=", " ", 
+      RowBox[{"FindClusters", "[", "inputStream", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", "clusters", "}"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.626176500372157*^9, 3.626176539171376*^9}, {
+  3.626179760307615*^9, 3.626179781810845*^9}, {3.6261801745023055`*^9, 
+  3.626180204272008*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"images", " ", "=", " ", 
+   RowBox[{"readMNISTImages", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], " ", "<>", " ", 
+     "\"\<train-images.idx3-ubyte\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"labels", " ", "=", " ", 
+   RowBox[{"readMNISTLabels", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], " ", "<>", " ", 
+     "\"\<train-labels.idx1-ubyte\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Image", "[", 
+  RowBox[{"images", "[", 
+   RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.6261758361831675`*^9, 3.6261758362831736`*^9}, {
+   3.6261758703901243`*^9, 3.626175870591136*^9}, {3.626176099734242*^9, 
+   3.6261761066716385`*^9}, 3.626176138717472*^9, {3.626176223606327*^9, 
+   3.626176224807396*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[RasterBox[CompressedData["
+1:eJzt2EtLG1EUB/DQT6BF7EsKfgyh+P8KxVa6EYWCa+tCKriwyy4b32/FRVcu
+1I010frCVmgX1qTG1qrjI8b4mOhCiy5UzrmPgEM0isPMwPwgXLJIOP/Mmbnn
+pvBtVUnlg0AgUCBfPp/P51WP2Uc8ZMOWta+XrCGXrePkmMTxlIXwO0q2IL7t
+EBfnxISxxmB3/c/ZV1nvNNpaSQyv2CZKWRyTEyR14/qC7aOlmaQ/V85M1LId
+5LB52/K1t5E5rK6Qg6zrz7TWsxTesBiam0hUrwXsJ5oayYzt1031Vx3byzrH
+nyWyg9gi2db9VsxM2+u+rTwWlb/rJpb/Mkuu0ChJIp991jlEH87qfnYyy3VE
+/wzI++Kdrlfla20hi66t/7aq2brOtxQjCZn/g+dzqj5UuVTOhiD55fl8isgz
+pZ8f6vkv7tstPGPLuq+drveuXrMoxH5pWp4/Yp9ZwRM26tmc4jnzTe5zCUvO
+yALZkNc17Nmcoh8H9X4u5rR0zvcs4dl8V4Gl86n3ds9h9+0R+46XzMD/E7Jt
+6dOzU5J0/X6i5sXGBrKB8TGyn3F+q2ApPb85Xf9V4jz0Bd1d5B/GwuTm+bSI
+JeWcF3FNLtFvIwh+IvMIh8hu1nO22jfc0ofq3FDD4lmfH9S5Tc3j4nv6Hc/T
+1Ul+6PNmGct8/6i1t4eYGBokhuXc4Bbqf4NMOTo7yC6ODokh+9SA2t+crt/n
+c7NLx//BwQ==
+    "], {{0, 28}, {28, 0}}, {0., 1.},
+    ColorFunction->GrayLevel],
+   BoxForm`ImageTag["Real", ColorSpace -> Automatic, Interleaving -> None],
+   Selectable->False],
+  BaseStyle->"ImageGraphics",
+  ImageSize->{187., Automatic},
+  ImageSizeRaw->{28, 28},
+  PlotRange->{{0, 28}, {0, 28}}]], "Output",
+ CellChangeTimes->{{3.6261761405295753`*^9, 3.6261761585886087`*^9}, 
+   3.626176309218224*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{3.626176424258804*^9},
+ NumberMarks->False],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6261764207056007`*^9, 3.6261764207176013`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6261737760423346`*^9, 3.6261737764153557`*^9}},
+ NumberMarks->False],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.626173787403984*^9, 3.6261737888920693`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.626173547925287*^9, 3.626173623543612*^9}, {
+  3.6261737468996677`*^9, 3.626173748718772*^9}, {3.626173908267897*^9, 
+  3.6261739220636864`*^9}, {3.626173968378336*^9, 3.6261739742396708`*^9}, {
+  3.6261750887234154`*^9, 3.6261750984809732`*^9}, {3.626175136901171*^9, 
+  3.6261751444246016`*^9}, {3.6261756690596085`*^9, 3.6261756738398824`*^9}, {
+  3.6261757631629915`*^9, 3.6261757786618776`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.626176429367096*^9, 3.6261764298571243`*^9}}]
+}, Open  ]]
+},
+WindowSize->{1538, 858},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (September 9, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 157, 2, 90, "Title"],
+Cell[740, 26, 175, 2, 30, "Text"],
+Cell[918, 30, 2744, 63, 232, "Input"],
+Cell[3665, 95, 1447, 32, 192, "Input"],
+Cell[5115, 129, 598, 14, 125, "Input"],
+Cell[CellGroupData[{
+Cell[5738, 147, 849, 21, 72, "Input"],
+Cell[6590, 170, 1207, 25, 202, "Output"]
+}, Open  ]],
+Cell[7812, 198, 89, 2, 31, "Input"],
+Cell[7904, 202, 96, 1, 31, InheritFromParent],
+Cell[8003, 205, 117, 2, 31, "Input"],
+Cell[8123, 209, 94, 1, 31, "Input"],
+Cell[8220, 212, 449, 6, 31, "Input"],
+Cell[8672, 220, 94, 1, 31, InheritFromParent]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
