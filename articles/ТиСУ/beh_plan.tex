@@ -13,7 +13,8 @@
 
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{graphicx} 					% Подключаем пакет работы с графикой
-\usepackage{algorithm,algpseudocode}
+\usepackage[ruled]{algorithm}
+\usepackage[noend]{algpseudocode}
 
 \usepackage{titlesec}					% Форматирование заголовков
 %\usepackage{abstract}					% Форматрирование абстракта	
@@ -33,6 +34,17 @@
 	{\hfill$\scriptstyle\blacksquare$}
 
 \floatname{algorithm}{}
+\newcommand{\algrule}[1][.2pt]{\par\vskip.2\baselineskip\hrule height #1\par\vskip.2\baselineskip}
+\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+\algrenewcommand\algorithmicforall{\textbf{для всех}}
+\algrenewcommand\algorithmicwhile{\textbf{пока}}
+\algrenewcommand\algorithmicif{\textbf{если}}
+\algrenewcommand\algorithmicthen{\textbf{то}}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewcommand\algorithmicreturn{\textbf{вернуть}}
+\algrenewcommand\algorithmicdo{}
+\renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
 
 \renewcommand\labelenumi{\theenumi )}	% Нумерованный перечень со скобками
 \AtBeginDocument{\renewcommand{\abstractname}{\vspace{-2\baselineskip}}}    		% clear the title
@@ -46,6 +58,8 @@
 \titleformat{\section}[runin]{\normalfont\bfseries}{\thesection.}{1pt}{}[.]
 \titleformat{\subsection}[runin]{\normalfont}{\thesubsection.}{1pt}{\so}[.]
 %\titleformat{command}[shape]{format}			   {label}		 {sep}{before}[after]
+
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 \title{\hbox{\normalsize\textit{УДК 004.81}}\hbox{}\textbf{\Large\MakeUppercase{Управление поведением как функция сознания. II. Семантический уровень и синтез плана}}\footnote{Работа выполнена при поддержке РНФ (грант \No\ 14-11-00692).}}
 \author{\textbf{\textcopyright~2015~г. Г.\,С.~Осипов, А.\,И.~Панов, Н.\,В.~Чудова}\\\normalsize\textit{Москва, Институт системного анализа РАН}}
@@ -67,7 +81,34 @@
 	\subsection{Семантика обобщения}
 	\section{Алгоритм образования знака}
 	
-	\section{Алгоритм планирования}
+	\section{Алгоритм планирования}	Планом $Plan$ будем называть такую последовательность пар <<ситуация "--- действие>> , в которой.
+	
+	Целевая ситуация строится исходя из образа действия, связанного с личностным смыслом, который был определён в процессе целеполагания для целевого знака.
+	\begin{algorithm}
+		\caption{Алгоритм $\mathfrak{A}_{beh}$}\label{alg:beh_plan}
+		\begin{algorithmic}[1]
+			\Require начальная ситуация $F_{sit}$, целевая ситуация $F_{goal}$, функция оценки $\Phi_a$;
+			\Ensure план $Plan$;
+			\algrule
+			\State $Plan=\varnothing; i = 0$;
+			\State $\Delta^{(i)}=F_{sit}\setminus F_{goal}$; \Comment{текущая невязка состояний}
+			\State $F_{goal}^{(i)} = F_{goal}$; \Comment{текущая подцель}
+			
+			\While $\Delta^{(i)}\not=\varnothing$ 
+				\State $F_p^{(i)}=\{f:f = \argmin\limits_{f_p\in F_{sit}} (|F_A(f_p)\setminus\Delta^{(i)}|)\}$; \Comment{находим множество наиболее подходящих действий}
+				\State $F_a^{(i)} = \varnothing$; \Comment{текущее множестов личностных смыслов}
+				\ForAll $f_p\in F_p^{(i)}$
+					\State $F_a^{(i)} = F_a^{(i)}\cup \{\Call{Interior}{f_p}\}$;\Comment{интериоризация значения}
+				\EndFor
+				\State $f_a=\Phi_a(F_a^{(i)},f_{goal})$; \Comment{выбор предпочитаемого личностного смысла}
+				\If{$F_C(f_a)\subseteq F_{sit}$}
+					\State \Return $Plan$;		\Comment{построена цепочка применимых действий "--- план построен}
+				\Else
+					\State $Plan = \{f_a\}\cup Plan$; \Comment{добавляем текущее действие в план}
+				\EndIf
+			\EndWhile
+		\end{algorithmic}
+	\end{algorithm}
 	
 	\section*{Заключение}
 	
