@@ -43,6 +43,7 @@
 \algrenewcommand\algorithmicthen{\textbf{то}}
 \algrenewcommand\algorithmicelse{\textbf{иначе}}
 \algrenewcommand\algorithmicreturn{\textbf{вернуть}}
+\algrenewcommand\algorithmicfunction{\textbf{процедура}}
 \algrenewcommand\algorithmicdo{}
 \renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
 
@@ -59,9 +60,10 @@
 \titleformat{\subsection}[runin]{\normalfont}{\thesubsection.}{1pt}{\so}[.]
 %\titleformat{command}[shape]{format}			   {label}		 {sep}{before}[after]
 
+\DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-\title{\hbox{\normalsize\textit{УДК 004.81}}\hbox{}\textbf{\Large\MakeUppercase{Управление поведением как функция сознания. II. Семантический уровень и синтез плана}}\footnote{Работа выполнена при поддержке РНФ (грант \No\ 14-11-00692).}}
+\title{\hbox{\normalsize\textit{УДК 004.81}}\hbox{}\textbf{\Large\MakeUppercase{Управление поведением как функция сознания. II. Самосознание и синтез плана}}\footnote{Работа выполнена при поддержке РНФ (грант \No\ 14-11-00692).}}
 \author{\textbf{\textcopyright~2015~г. Г.\,С.~Осипов, А.\,И.~Панов, Н.\,В.~Чудова}\\\normalsize\textit{Москва, Институт системного анализа РАН}}
 \date{}
 
@@ -70,7 +72,7 @@
 	{\let\newpage\relax\maketitle}
 	
 	\begin{abstract}
-		\noindent Рассматривается семантический уровень описания функций, которые в психологии принято относить к функциям сознания и самосознания. Исследуется механизм работы компонент знака, введённых в первой части статьи. С использованием введённого описания семантического уровня исследуется сходимость основного итерационного процесса образования знака "--- связывания образной компоненты знака и его значения. Введение алгоритмов работы компонент знака позволяет построить алгоритм процесса синтеза плана поведения, а также построить новую архитектуру интеллектуальных агентов, обладающих, в частности, способностями к распределению ролей в коалициях.
+		\noindent Рассматривается семантический уровень описания функций, которые в психологии принято относить к функциям сознания и самосознания. Исследуется механизм работы компонент знака, введённых в первой части статьи.На основе описания знака на семантическом уровне исследуется сходимость основного итерационного процесса образования знака "--- связывания образной компоненты знака и его значения. Введение алгоритмов работы компонент знака позволяет построить алгоритм процесса синтеза плана поведения, а также построить новую архитектуру интеллектуальных агентов, обладающих, в частности, способностями к распределению ролей в коалициях.
 	\end{abstract}	
 	
 	\section*{Введение}
@@ -78,35 +80,166 @@
 	
 	\section{Семантические уровень}
 	\subsection{Определение компонент знака}
-	\subsection{Семантика обобщения}
+	Таким образом, $R$-автомат $R_i^j$ является бесконечным автоматом Миля с переменной структурой и конечной памятью и определяется следующим набором $R_i^j=<X_i^j\times \hat{X}_i^{j+1}, 2^{\mathcal Z_i^j}, X_i^{*j}\times \hat{X}_i^j,\varphi_i^j,\vec\eta_i^j,>$, где
+	\begin{itemize}
+		\item $X_i^j$ "--- множество входных сигналов, 
+		\item $X_i^{*j}$ "--- множество выходных сигналов, 
+		\item $\hat{X}_i^{j+1}$ "--- множество управляющих сигналов с верхнего уровня иерархии,
+		\item $\hat{X}_i^j$ "--- множество управляющих сигналов на нижний уровень иерархии,
+		\item $2^{\mathcal Z_i^j}$ "--- множество состояний (множество подмножеств множества матриц предсказания),
+		\item $\varphi_i^j:X_i^j\times \hat{X}_i^{j+1}\to 2^{\mathcal Z_i^j}$ "--- функция переходов,
+		\item $\vec\eta_i^j:2^{\mathcal Z_i^j} \to X_i^{*j}\times \hat{X}_i^j$ "--- вектор"--~функция выходов.
+	\end{itemize}
+	
+	\begin{algorithm}[H]
+		\caption{Алгоритм $\mathfrak{A}_{th}$}\label{alg:th}
+		\begin{algorithmic}[1]
+			\Require $\tau_s, \hat{x}_i^{j+1}(\tau_s), \omega_i^j$;
+			\Ensure $\varphi_{i\Delta t}^j, \vec\eta_{i\Delta t}^j$;
+			\algrule
+			\State $\hat{F}^*=\varnothing,Z^*=\varnothing,t=0$; \Comment{активные функции распознавнаия и матрицы предсказания}
+			\State $c_1\in(0,1), c_2\in(0,1)$; \Comment{пороговые константы}
+			
+			\Statex \Comment{определение начального состояния}
+			
+			\ForAll{компонент $\hat{x}_{ik}^{j+1}$ вектора $\hat{x}_i^{j+1}(\tau_s)=(\hat{x}_{i1}^{j+1},\hat{x}_{i2}^{j+1},\dots,\hat{x}_{il}^{j+1})$} \label{alst:init_start}
+			\If{$\hat{x}_{ik}^{j+1}{\ge}c_1$} \label{alst:select_f}
+			\State $\hat{F}^*:=\hat{F}^*\cup\{\hat{f}_k\}$;
+			\EndIf
+			\EndFor
+			
+			\State $\bar x_i^j:=\omega_i^j(\tau_s)$;
+			
+			\ForAll{функций распознавания $\hat{f}_k\in\hat{F}^*$}
+			\ForAll{$Z_r^k\in\mathcal{Z}_k$, соответствующих функции распознавания $\hat{f}_k$,}
+			\If{$\frac{\|\bar{z}_1^r-\bar{x}_i^j\|}{\|\bar{z}_1^r\|+\|\bar{x}_i^j\|}<c_2$} \label{alst:select_z}
+			\State $Z^*:=Z^*\cup\{Z_r^k\}$;
+			\EndIf
+			\EndFor
+			\EndFor
+			
+			\State $\varphi_i^j(\bar x_i^j,\hat{x}_i^{j+1}(\tau_s)) := Z^*$; \Comment{значение функции переходов в начальный момент времени}\label{alst:init_state}
+			\State $\bar N:=(|\{Z_r^1|Z_r^1\in Z^*\}|,\dots,|\{Z_r^{l_i^j}|Z_r^{l_i^j}\in Z^*\}|)$; \label{alst:init_calc_out1}
+			\State $\eta(Z^*)=\bar{x}_i^{*j}:=W(\bar N)$; \Comment{значение функции выходов в начальный момент времени} \label{alst:init_calc_out3}
+			\State $\hat x_i^j=W(\sum_{\hat f_k\in\hat F^*}\hat x_{ik}^{j+1}\sum_{Z_r^k\in Z^*}\bar z_2^r)$; \label{alst:init_end}
+			
+			\Statex \Comment{оновной цикл}
+			\State $t=1$;
+			\While{$t\leqslant{h_i^j}-1$} \label{alst:cycle_start}
+			\State $\bar{x}_i^j:=\omega(\tau_s+t)$;
+			
+			\ForAll{матриц предсказания $Z_r^k$ из множества $Z^*$}
+			\If{$\frac{\|\bar{z}_{t+1}^r-\bar{x}_i^j\|}{\|\bar{z}_{t+1}^r\|+\|\bar{x}_i^j\|}\geqslant{c_2}$} \label{alst:update_z}
+			\State $Z^*:=Z^*\setminus\{Z_r^k\}$;
+			\EndIf
+			\EndFor
+			
+			\State $\varphi_i^j(\bar x_i^j,\hat{x}_i^{j+1}(\tau_s)) := Z^*$; \Comment{значение функции переходов в момент времени $t$}\label{alst:calc_state2}
+			\State $\bar N=(|\{Z_r^1|Z_r^1\in Z^*\}|,\dots,|\{Z_r^{l_i^j}|Z_r^{l_i^j}\in Z^*\}|)$; \label{alst:calc_out1}
+			\State $\eta(Z^*)=\bar{x}_i^{*j}:=W(\bar N)$;\Comment{значение функции выходов в момент времени $t$} \label{alst:calc_out3}
+			
+			\State $t=t+1$;
+			\If{$t\leqslant{h}_i^j-2$}
+			\State $\hat{x}_i^j:=W(\sum_{\hat f_k\in\hat F^*}\hat x_{ik}^{j+1}\sum_{Z_r^k\in Z^*}\bar z_t^r)$; \label{alst:calc_state1}
+			\EndIf
+			\EndWhile \label{alst:cycle_end}
+		\end{algorithmic}	
+	\end{algorithm}
+	\subsection{Семантический уровень обобщения}
+	
 	\section{Алгоритм образования знака}
+
+	\begin{algorithm}
+		\caption{Алгоритм $\mathfrak{A}_{pm}$}\label{alg:pm}
+		\begin{algorithmic}[1]
+			\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+			\algrule
+			
+			\State $\tilde p^{*(0)} := \varnothing$;
+			\State $Z^{*(0)} := \varnothing$;
+			\State $t := 0$;
+			\ForAll{$f^{(t)}\in \hat F$}
+			\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $(\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and} $\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and} $\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m^0$ конфликтует с $\tilde m^{(t)}$}
+			\State $\tilde p^{*(t)}=\tilde p^{*(t)}\cup\{f^{(t)}\}$;
+			
+			\If{$\exists R_i^j$ такой, что $f^{(t)}\in F_i^j$}
+			\State $R_i^{j(t)}:=R_i^j$;
+			\Else
+			\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+			\EndIf
+			
+			\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
+			\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
+			\State $Z_p^{(t)}:=(\bar z_1^{c(t)},\bar z_2^{e(t)},\dots,\bar z_{2\cdot k-1}^{c(t)},\bar z_{2\cdot k}^{e(t)})$, где $\bar z_i^{c(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{c(t)}\rightarrow F_p^j),$ 
+			\\\hspace{3.0cm}$\bar z_i^{e(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{e(t)}\Rightarrow\bar z_j^e)$;
+			\EndIf
+			
+			\State $\tilde m^{*(t)}=\{f_p^{(t)}\}$;
+			\State $\mathcal Z^{*(t)}=\{Z^{*(t)}\}$;
+			\State $t=t+1$;
+			\EndFor
+			
+			\Return $\Psi_p^m$, определённая на паре $(\tilde p, \tilde m)$, где $\tilde p=\lim\limits_{t\rightarrow|\hat F|}\tilde p^{*(t)}$, $\tilde m=\lim\limits_{t\rightarrow|\hat F|}\tilde m^{*(t)}$, $f^*, Z^*=\lim\limits_{t\rightarrow|\hat F|}Z^{*(t)},\mathcal Z^*=\{Z^*\}$;
+		\end{algorithmic}			
+	\end{algorithm}
+	
+	\section{Самосознание и его функции} Здесь я бы предложил дать психологическое описание функций самосознания и определения функций оценки $\Phi_a$ и $\Phi_p$.
 	
 	\section{Алгоритм планирования}	Планом $Plan$ будем называть такую последовательность пар <<ситуация "--- действие>> , в которой.
 	
 	Целевая ситуация строится исходя из образа действия, связанного с личностным смыслом, который был определён в процессе целеполагания для целевого знака.
 	\begin{algorithm}
-		\caption{Алгоритм $\mathfrak{A}_{beh}$}\label{alg:beh_plan}
+		\caption{Алгоритм $\mathfrak{A}_{bp}$}\label{alg:beh_plan}
 		\begin{algorithmic}[1]
-			\Require начальная ситуация $F_{sit}$, целевая ситуация $F_{goal}$, функция оценки $\Phi_a$;
+			\Require начальная ситуация $F_{sit}$, целевая ситуация $F_{goal}$, функции оценки $\Phi_a$ и $\Phi_p$;
 			\Ensure план $Plan$;
 			\algrule
-			\State $Plan=\varnothing; i = 0$;
-			\State $\Delta^{(i)}=F_{sit}\setminus F_{goal}$; \Comment{текущая невязка состояний}
-			\State $F_{goal}^{(i)} = F_{goal}$; \Comment{текущая подцель}
+			\State $Plan=\Call{Planning}{\varnothing,F_{goal}}$;
 			
-			\While $\Delta^{(i)}\not=\varnothing$ 
-				\State $F_p^{(i)}=\{f:f = \argmin\limits_{f_p\in F_{sit}} (|F_A(f_p)\setminus\Delta^{(i)}|)\}$; \Comment{находим множество наиболее подходящих действий}
-				\State $F_a^{(i)} = \varnothing$; \Comment{текущее множестов личностных смыслов}
-				\ForAll $f_p\in F_p^{(i)}$
-					\State $F_a^{(i)} = F_a^{(i)}\cup \{\Call{Interior}{f_p}\}$;\Comment{интериоризация значения}
+			\Function{Planning}{$Plan, F_{cur}$}
+				\State $\Delta=F_{sit}\setminus F_{cur}$; \Comment{текущая невязка состояний}
+				
+				\State $F_{for} = \argmin\limits_{F\in 2^{F_{sit}}}|\bigcap\limits_{f_p\in F}F_A(f_p)\setminus\Delta|$; \Comment{находим множество наиболее подходящих параллельных действий}
+				\ForAll $f_j\in F_{for}$
+					\If{$\exists f_k\in F_{for}$ такой, что $f_k\not =f_i$ и $f_k$ конфликтует с $f_j$}
+						\State $F_{for}= F_{for}\setminus\{f_k\}$; \Comment{Удаляем конфликтующие признаки}
+					\EndIf
 				\EndFor
-				\State $f_a=\Phi_a(F_a^{(i)},f_{goal})$; \Comment{выбор предпочитаемого личностного смысла}
-				\If{$F_C(f_a)\subseteq F_{sit}$}
-					\State \Return $Plan$;		\Comment{построена цепочка применимых действий "--- план построен}
+				
+				\State $F_a^{for} = \varnothing$; \Comment{текущее множестов личностных смыслов}
+				\ForAll $f_p\in F_{for}$
+					\State $F_a^{for} = F_a^{for}\cup \{\Call{Interior}{f_p}\}$;\Comment{интериоризация значения}
+				\EndFor
+				\State $\tilde F_a^{for}=\Phi_a(F_a^{for},f_{goal})$; \Comment{выбор предпочитаемых действий}
+				\If{$\bigcup\limits_{f\in \tilde F_a^{for}}F_C(f)\subseteq F_{sit}$}
+					\State \Return $Plan\cup{\tilde F_a^{for}}$;		\Comment{возвращаем обновленный план}
 				\Else
-					\State $Plan = \{f_a\}\cup Plan$; \Comment{добавляем текущее действие в план}
+					\State $\Delta^* = \Phi_p(\Delta, f_{goal})$; \Comment{Ранжирование критических признаков}
+					\State $\tilde F_a^{back} = \varnothing$; 
+					\ForAll $f_k\in\Delta^*$ 
+						\State $m_k = \tilde m(f_k)$; \Comment{определение значение $k$-го знака}
+						\State $F_a^{back} = \varnothing$;
+						\ForAll $f_p\in m_k$
+							\State $F_a^{back}=F_a^{back}\cup\{\Call{Interior}{f_p}\}$;
+						\EndFor 
+						\State $\tilde F_a^{back}=\tilde F_a^{back}\cup\Phi_a(F_a^{back}, f_{goal})$; \Comment{выбор предпочитаемых действий}
+					\EndFor
+					
+					\ForAll $f_j\in \tilde F_a^{back}$
+						\If{$\exists f_k\in \tilde F_a^{back}$ такой, что $f_k\not =f_i$ и $f_k$ конфликтует с $f_j$}
+							\State $\tilde F_a^{back} = \tilde F_a^{back}\setminus\{f_k\}$; \Comment{Удаляем конфликтующие признаки}
+						\EndIf
+					\EndFor
+					
+					
+					\If{$\Delta\not\subseteq\bigcup\limits_{f\in\tilde F_a^{back}}F_A(f)$}
+						\State\Return невозможно построить план;
+					\Else
+						\State \Return \Call{Planning}{$Plan, \bigcup\limits_{f\in F_a^{back}}F_C(f)$};						
+					\EndIf
 				\EndIf
-			\EndWhile
+
+			\EndFunction
 		\end{algorithmic}
 	\end{algorithm}
 	
