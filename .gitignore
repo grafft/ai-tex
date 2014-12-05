@@ -1,5 +1,8 @@
 # Tex compile files
 *.aux
+*.bbl
+*.blg
+*.lof
 *.log
 *.nav
 *.out
