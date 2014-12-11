@@ -1,4 +1,4 @@
-\documentclass[tikz,convert={density=600,outext=.jpg},border=5pt]{standalone}
+\documentclass[tikz,convert={density=300,outext=.jpg},border=5pt]{standalone}
 %\documentclass[tikz, border=5pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
@@ -66,17 +66,17 @@
 		\node[control_block] (signal_3) at (5.7, 0.5) {Процедура\\выработки\\управляющего\\сигнала и\\анализа\\ динамики};
 		\node[level_model] (model_3) at (0, -2) {Параметры моделей внешней\\среды и динамики объекта управления};
 				
-		\draw[->] ([yshift=3mm]geom_3.east) -- node[align = center, auto] {параметры\\полёта} ([yshift=3mm]integr_3.west);
+		\draw[->] ([yshift=3mm]geom_3.east) -- node[align = center, auto] {параметры\\движения} ([yshift=3mm]integr_3.west);
 		\draw[<-] ([yshift=-3mm]geom_3.east) -- node[align = center, below] {фазовые\\координаты} ([yshift=-3mm]integr_3.west);
 		
-		\draw[->] ([yshift=3mm]integr_3.east) -- node[align = center, auto] {фазовые\\координаты и\\параметры полёта} ([yshift=3mm]signal_3.west);
-		\draw[<-] ([yshift=-3mm]integr_3.east) -- node[align = center, below] {управляющий\\сигнал и\\параметры полёта} ([yshift=-3mm]signal_3.west);
+		\draw[->] ([yshift=3mm]integr_3.east) -- node[align = center, auto] {фазовые\\координаты и\\параметры движения} ([yshift=3mm]signal_3.west);
+		\draw[<-] ([yshift=-3mm]integr_3.east) -- node[align = center, below] {управляющий\\сигнал и\\параметры движения} ([yshift=-3mm]signal_3.west);
 		
 		\draw[<-] (integr_3.south) -- ([xshift=-5mm]model_3.north);
 		
-		\draw[->,rounded corners] ([xshift=-3mm]pred_tr.south) node[align=center,yshift=-7mm,left] {параметры\\полета}|- ($(pred_tr.south)+(-7mm,-20mm)$) -| ([xshift=-5mm]geom_3.north);
+		\draw[->,rounded corners] ([xshift=-3mm]pred_tr.south) node[align=center,yshift=-7mm,left] {параметры\\движения}|- ($(pred_tr.south)+(-7mm,-20mm)$) -| ([xshift=-5mm]geom_3.north);
 		\draw[->,rounded corners] ([xshift=5mm]geom_3.north) |- node[align=center, xshift = 50mm, auto] {геометрические\\ограничения} ($(geom_3.north)+(7mm,20mm)$) -| ([xshift=10mm]build_tr.south);
-		\draw[->,rounded corners] (build_tr.east) -| node[align=center,yshift=-50mm,right] {желаемая\\траектория и\\параметры полёта} ([xshift=10mm]signal_3.north);
+		\draw[->,rounded corners] (build_tr.east) -| node[align=center,yshift=-50mm,right] {желаемая\\траектория и\\параметры движения} ([xshift=10mm]signal_3.north);
 		\draw[->,rounded corners] ([xshift=-7mm]signal_3.north) -- node[align=center, yshift = 5mm, left] {превышен ли\\порог ошибки} ([xshift=10mm]monitor.south);
 	
 		\node[misc_block] (control_meh) at (8, -4.5) {Органы управления};
