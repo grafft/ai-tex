@@ -1,0 +1,21 @@
+	\Statex \Comment{оновной цикл}
+	
+	\State $t=1$;
+	\While{$t\leqslant{h_i^j}-1$} \label{alst:cycle_start}
+		\State $\bar{x}_i^j:=\omega(\tau_s+t)$;
+	
+		\ForAll{матриц предсказания $Z_r^k$ из множества $Z^*$}
+			\If{$\frac{\|\bar{z}_{t+1}^r-\bar{x}_i^j\|}{\|\bar{z}_{t+1}^r\|+\|\bar{x}_i^j\|}\geqslant{c_2}$} \label{alst:update_z}
+				\State $Z^*:=Z^*\setminus\{Z_r^k\}$;
+			\EndIf
+		\EndFor
+	
+		\State $\varphi_i^j(\bar x_i^j,\hat{x}_i^{j+1}(\tau_s)) := Z^*$; \Comment{значение функции переходов в момент времени $t$}
+		\State $\bar N=(|\{Z_r^1|Z_r^1\in Z^*\}|,\dots,|\{Z_r^{l_i^j}|Z_r^{l_i^j}\in Z^*\}|)$; \label{alst:calc_out1}
+		\State $\eta(Z^*)=\bar{x}_i^{*j}:=W(\bar N)$;\Comment{значение функции выходов в момент времени $t$} \label{alst:calc_out3}
+	
+		\State $t=t+1$;
+		\If{$t\leqslant{h}_i^j-2$}
+			\State $\hat{x}_i^j:=W(\sum_{\hat f_k\in\hat F^*}\hat x_{ik}^{j+1}\sum_{Z_r^k\in Z^*}\bar z_t^r)$; \label{alst:calc_state1}
+		\EndIf
+	\EndWhile \label{alst:cycle_end}

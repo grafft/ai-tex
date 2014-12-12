@@ -1,4 +1,4 @@
-\documentclass[preview,convert={density=600,outext=.jpg},border=7pt]{standalone}
+\documentclass[preview,convert={density=300,outext=.jpg},border=7pt]{standalone}
 %\documentclass[preview,border=7pt]{standalone}
 
 \usepackage[T2A]{fontenc}				% Поддержка русских букв
@@ -28,31 +28,6 @@
 \begin{document}
 	
 	\begin{algorithmic}[1]
-				\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
-				\State $\tilde p^{*(0)} := \varnothing$;
-				\State $Z^{*(0)} := \varnothing$;
-				\State $t := 0$;
-				\ForAll{$f^{(t)}\in \hat F$}
-				\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $(\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and} $\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and} $\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m^0$ конфликтует с $\tilde m^{(t)}$}
-				\State $\tilde p^{*(t)}=\tilde p^{*(t)}\cup\{f^{(t)}\}$;
-				
-				\If{$\exists R_i^j$ такой, что $f^{(t)}\in F_i^j$}
-				\State $R_i^{j(t)}:=R_i^j$;
-				\Else
-				\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
-				\EndIf
-				
-				\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
-				\State $Z^{*(t)}:=Z^{*(t)}\cup\bar z_s$;
-				\State $Z_p^{(t)}:=(\bar z_1^{c(t)},\bar z_2^{e(t)},\dots,\bar z_{2\cdot k-1}^{c(t)},\bar z_{2\cdot k}^{e(t)})$, где $\bar z_i^{c(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{c(t)}\rightarrow F_p^j),$ 
-				\\\hspace{3.0cm}$\bar z_i^{e(t)}=\bigvee\limits_{\tilde m_j^{(t)}}(\bar z_j^{e(t)}\Rightarrow\bar z_j^e)$;
-				\EndIf
-				
-				\State $\tilde m^{*(t)}=\{f_p^{(t)}\}$;
-				\State $\mathcal Z^{*(t)}=\{Z^{*(t)}\}$;
-				\State $t=t+1$;
-				\EndFor
-				
-				\Return $\Psi_p^m$, определённая на паре $(\tilde p, \tilde m)$, где $\tilde p=\lim\limits_{t\rightarrow|\hat F|}\tilde p^{*(t)}$, $\tilde m=\lim\limits_{t\rightarrow|\hat F|}\tilde m^{*(t)}$, $f^*, Z^*=\lim\limits_{t\rightarrow|\hat F|}Z^{*(t)},\mathcal Z^*=\{Z^*\}$;
+		\input{../algorithms/alg_pm}
 	\end{algorithmic}
 \end{document}
