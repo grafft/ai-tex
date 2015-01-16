@@ -1,0 +1,77 @@
+\documentclass[tikz,convert={density=300,outext=.jpg},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}[>=triangle 60]
+		\tikzstyle{model_block} = [draw, rectangle, minimum height = 20mm, minimum width = 25mm, align=center]
+		\tikzstyle{our_models} = [draw, rectangle, rounded corners=5ex, minimum height = 60mm, minimum width = 150mm,fill=black!3];
+		\tikzstyle{examples} = [draw, rectangle, rounded corners=5ex, minimum height = 20mm, minimum width = 25mm, align=center];
+		
+		\node[model_block] (top) at (0, 10) {Алгоритмы выявления\\причинно-следственных\\связей};
+		
+		\node[model_block] (logic) at (-8, 7) {Логические алгоритмы};
+		\node[model_block] (prob) at (8, 7) {Статистические алгоритмы};
+		
+		\node[examples] (logic_jsm) at ($(logic)+(-2,-3)$) {ДСМ-метод\\построения гипотез};
+		\node[examples] (logic_fca) at ($(logic)+(2,-3)$) {Анализ\\фомральных понятий};
+
+		\node[model_block] (prob_space) at ($(prob)+(6,-3)$) {С вероятностным\\пространством\\событий};
+		\node[model_block] (prob_nonspace) at ($(prob)+(-6,-3)$) {Без вероятностного\\пространства\\событий};
+			
+		\node[examples] (regress) at ($(prob_space)+(-2,-3)$) {Регресионные\\модели};
+		\node[examples] (correlat) at ($(prob_space)+(2,-3)$) {Корреляионный\\анализ};
+
+		\node[model_block] (bio) at ($(prob_nonspace)+(-2,-3)$) {Биологически\\правдоподобные};
+		\node[model_block] (nonbio) at ($(prob_nonspace)+(2,-3)$) {Без привлечения\\данных\\нейрофизиологии};
+
+		\node[model_block] (bayes) at ($(bio)+(-4,-3)$) {Обучение\\с учителем\\ (байесовский вывод и др.)};
+		\node[model_block] (som) at ($(bio)+(4,-3)$) {Обучение\\без учителя\\(самоорганизующиеся\\карты и др.)};
+
+
+		\node[examples] (htm_bayes) at ($(bayes)+(-2,-3)$) {Алгоритм\\HTM};
+		\node[examples] (hier_bayes) at ($(bayes)+(2,-3)$) {Иерархические\\байесовские\\модели};
+
+
+		\node[examples] (tcn_som) at ($(som)+(-2,-3)$) {Алгоритм\\TCN};
+		\node[examples] (thsom_som) at ($(som)+(2,-3)$) {Алгоритм\\THSOM};
+
+			
+		\draw (top) -- (logic);
+		\draw (top) -- (prob);
+
+		\draw (prob) -- (prob_space);
+		\draw (prob) -- (prob_nonspace);
+
+		\draw (prob_space) -- (regress);
+		\draw (prob_space) -- (correlat);
+		
+		\draw (bayes) -- (htm_bayes);
+		\draw (bayes) -- (hier_bayes);
+
+		\draw (som) -- (tcn_som);
+		\draw (som) -- (thsom_som);
+		
+		\draw (logic) -- (logic_jsm);
+		\draw (logic) -- (logic_fca);
+				
+		\draw (prob_nonspace) -- (bio);
+		\draw (prob_nonspace) -- (nonbio);
+
+		\draw (bio) -- (bayes);
+		\draw (bio) -- (som);
+		
+		\draw[dashed] ([xshift = -50mm]bio) |- (logic);
+				
+	\end{tikzpicture}
+	
+\end{document}
