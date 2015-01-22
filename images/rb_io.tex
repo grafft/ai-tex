@@ -1,4 +1,4 @@
-\documentclass[tikz,convert={density=300,outext=.jpg}]{standalone}
+\documentclass[tikz,convert={density=600,outext=.jpg}]{standalone}
 %\documentclass[tikz]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
@@ -32,7 +32,7 @@
 	\end{scope}
 
 	\begin{scope}[node distance = 0mm]
-		\node [on chain=1,below = of rb,xshift=-59mm,yshift=-18mm] (in_F) {$F_i^j$};
+		\node [on chain=1,below = of rb,xshift=-59mm,yshift=-23mm] (in_F) {$F_i^j$};
 		\matrix [on chain=1, column sep = 3mm,every node/.style={minimum height = 8mm,minimum width = 8mm}] (1-2){
 			\node (mi_f_1) {$f_1:$};&
 			\node (mi_x_11) {$x_{11}$};&
@@ -70,7 +70,7 @@
 	\end{scope}
 	
 	\begin{scope}[node distance = 0mm]
-		\node [on chain=3,above = of rb, xshift = -59mm, yshift=18mm] (out_F) {$F_i^{*j}$};
+		\node [on chain=3,above = of rb, xshift = -59mm, yshift=23mm] (out_F) {$F_i^{*j}$};
 		\matrix [on chain=3, column sep = 3mm, every node/.style={minimum height = 8mm,minimum width = 8mm}] (3-2){
 			\node (mo_f_1) {$f_1^*:$};&
 			\node (mo_x_11) {$x_{11}^*$};&
@@ -112,16 +112,16 @@
 	\foreach \i in {-1,...,1}{%
 		\draw[->] ([yshift=\i * 3mm]rb.east) -| ([xshift=\i * 5mm]output.north);
 	}
-	\draw[->] (mi_x_11.north) -- node [right] {$\bar x(t_1)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(t_1)$} node [xshift=2mm,yshift=9mm,above] {$t_1=\tau_s$} ++(0,5mm);
-	\draw[->] (mi_x_21.north) -- node [right] {$\bar x(t_2)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(t_2)$} node [xshift=2mm,yshift=9mm,above] {$t_2$} ++(0,5mm);
-	\draw[->] (mi_x_t1.north) -- node [right] {$\bar x(t)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(t)$} node [xshift=2mm,yshift=9mm,above] {$t$} ++(0,5mm);
-	\draw[->] (mi_x_h1.north) -- node [right] {$\bar x(h_i^j)$} node [xshift=2mm,yshift=3mm,above] {$\hat x_i^j(h_i^j)$} node [xshift=2mm,yshift=9mm,above] {$\tau_s+h_i^j$} ++(0,5mm);
+	\draw[->] (mi_x_11.north) -- node [right] {$\bar x(t_1)$} node [xshift=2mm,yshift=5mm,above] {$\hat x_i^j(t_1)$} node [xshift=2mm,yshift=12mm,above] {$t_1=\tau_s$} ++(0,10mm);
+	\draw[->] (mi_x_21.north) -- node [right] {$\bar x(t_2)$} node [xshift=2mm,yshift=5mm,above] {$\hat x_i^j(t_2)$} node [xshift=2mm,yshift=12mm,above] {$t_2$} ++(0,10mm);
+	\draw[->] (mi_x_t1.north) -- node [right] {$\bar x(t)$} node [xshift=2mm,yshift=5mm,above] {$\hat x_i^j(t)$} node [xshift=2mm,yshift=12mm,above] {$t$} ++(0,10mm);
+	\draw[->] (mi_x_h1.north) -- node [right] {$\bar x(h_i^j)$} node [xshift=2mm,yshift=5mm,above] {$\hat x_i^j(h_i^j)$} node [xshift=2mm,yshift=12mm,above] {$\tau_s+h_i^j$} ++(0,10mm);
 	\draw[->,thick] ([xshift=3mm,yshift=6mm]rb.south west) -- ([xshift=-3mm,yshift=6mm]rb.south east) node [xshift=-3mm,above] {время} node [xshift=-6mm,yshift=-1mm,below] {состояния};
 			
-	\draw[<-] (mo_x_1l.south) -- node [right] {$\bar x^*(t_1)$} ++(0,-5mm);
-	\draw[<-] (mo_x_2l.south) -- node [right] {$\bar x^*(t_2)$} ++(0,-5mm);
-	\draw[<-] (mo_x_tl.south) -- node [right] {$\bar x^*(t)$} ++(0,-5mm);
-	\draw[<-] (mo_x_hl.south) -- node [right] {$\bar x^*(h_i^j)$} ++(0,-5mm);
+	\draw[<-] (mo_x_1l.south) -- node [right] {$\bar x^*(t_1)$} ++(0,-10mm);
+	\draw[<-] (mo_x_2l.south) -- node [right] {$\bar x^*(t_2)$} ++(0,-10mm);
+	\draw[<-] (mo_x_tl.south) -- node [right] {$\bar x^*(t)$} ++(0,-10mm);
+	\draw[<-] (mo_x_hl.south) -- node [right] {$\bar x^*(h_i^j)$} ++(0,-10mm);
 	
 	\draw[->] (mo_x_11.east) -- (mo_x_21.west);
 	\draw[->] (mo_x_21.east) -- (mo_x_d1.west);
