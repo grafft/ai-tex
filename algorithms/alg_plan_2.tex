@@ -14,7 +14,7 @@
 			\EndIf
 		\EndFor
 		
-		\State $M_{cur}=\bigcup\limits_{f\in F_{cur}}m(f)$;
+		\State $M_{cur}=\bigcup\limits_{f\in F_{cur}^{obj}}m(f)$;
 		\State $\Delta=F_{goal}\setminus F_{cur}$; \Comment{текущая невязка состояний}
 		
 		\State $M_{forw}\subseteq M_{cur}:\begin{cases}
