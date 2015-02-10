@@ -1,47 +1,42 @@
-	\Require начальная ситуация $S_{st}$, целевая ситуация $S_{goal}$, включающая в себя знак мотива $s_{goal}$, функция оценки $\Phi_a$;
+	\Require начальная ситуация $S_{st}$, знак мотива $s_{goal}$ и связанный с ним личностный смысл $a_{goal}$, функция оценки $\Phi_a$;
 	\Ensure план $Plan$;
 	\algrule
+	
+	\State $F_{st}=\bigcup\limits_{s\in S_{st}}\{f(s)\}$; \Comment{множество признаков начальной ситуации}
+			
+	\State $Plan=\Call{Planning}{\varnothing, \{f(s_{goal})\}, \{a_{goal}\}}$;
 
-	\State $Plan=\Call{Planning}{\varnothing,S_{goal}}$;
+	\Function{Planning}{$Plan$, $F_{cur}$, $A_{forw}$}
+		\State $\tilde A_{forw}=\Phi_a(A_{forw},s_{goal})$; \Comment{выбор предпочитаемых действий}
+		
+		\State $F_{cond} = \bigcup\limits_{a\in \tilde A_{forw}}F_C(a)$;
 
-	\Function{Planning}{$Plan, S_{cur}$}
-		\State $F_{goal}=\bigcup\limits_{s\in S_{goal}}\{f(s)\}$; \Comment{множество признаков целевой ситуации}
-		\State $F_{cur}=\bigcup\limits_{s\in S_{cur}}\{f(s)\}$; \Comment{множество признаков текущей ситуации планирования}
-		\State $F_{cur}^{obj}=\varnothing$; \Comment{множество объектных признаков текущей ситуации ситуации}
-		\ForAll $s\in S_{cur}$
-			\If{$f(s)\in\mathcal F^{obj}$}
-				\State $F_{cur}^{obj}= F_{cur}^{obj}\cup\{f(s)\}$; 
-			\EndIf
-		\EndFor
+		\State $F_{next}=F_{cur}\cup F_{cond}\setminus\bigcup\limits_{a\in \tilde A_{forw}}F_A(a)$; \Comment{следующая ситуация планирования}
 		
-		\State $M_{cur}=\bigcup\limits_{f\in F_{cur}^{obj}}m(f)$;
-		\State $\Delta=F_{goal}\setminus F_{cur}$; \Comment{текущая невязка состояний}
-		
-		\State $M_{forw}\subseteq M_{cur}:\begin{cases}
-			\left|\bigcup\limits_{\mu\in M_{forw}}\left(F_A(\mu)\setminus\Delta\right)\right|\rightarrow\max,\\
-			\left|\bigcap\limits_{\mu\in M_{forw}}\left(F_A(\mu)\setminus\Delta\right)\right|\rightarrow\min;
-		\end{cases}$ \Comment{решение minmax задачи}
-		
-		\State $A_{forw} = \bigcup\limits_{\mu\in M_{forw}}\{\Call{Interior}{\mu}\}$; \Comment{текущее множестов личностных смыслов}
-				
-		\ForAll $a_j\in A_{forw}$
-			\If{$\exists a_k\in A_{forw}$ такой, что $a_k\not =a_i$ и $a_k$ конфликтует с $a_j$}
-				\State $a_{del}=\argmin\limits_{a\in\{a_k,a_j\}}|F_A(a)\setminus\Delta|$;
-				\State $A_{forw}= A_{forw}\setminus\{a_{del}\}$; \Comment{удаляем конфликтующие признаки}
-			\EndIf
-		\EndFor
-		
-		\State $\tilde A_{forw}=\Phi_a(A_{forw},f_{goal})$; \Comment{выбор предпочитаемых действий}
-		
-		\State $F_{next}=F_{st}\cup\left(\bigcup\limits_{a\in \tilde A_{forw}}F_C(a)\right)\setminus\bigcup\limits_{a\in \tilde A_{forw}}F_D(a)$; \Comment{следующая ситуация планирования}
-		
-		\If{$\left(\bigcup\limits_{a\in \tilde A_{forw}}F_C(a)\right)\subseteq F_{st}$ и $F_{goal}\subseteq F_{next}$}
+		\If{$F_{next}\subseteq F_{st}$}
 			\State \Return $Plan\cup{\tilde A_{forw}}$;		\Comment{возвращаем обновленный план}
 		\Else
 			\If{$F_{next}=F_{cur}$}
 				\State\Return невозможно построить план;
 			\Else
-				\State \Return \Call{Planning}{$Plan, \bigcup\limits_{f\in \tilde A_{forw}}F_C(a)$};						
+				\State $\Delta=F_{next}\setminus F_{st}$; \Comment{текущая невязка состояний}					
+				\State $M_{next}=\{\mu_i | \mu_i\in m(f), f\in F_{next},F_D(\mu)\cap\Delta=\varnothing\}$;
+				
+				\State $M_{forw}\subseteq M_{next}$ такое, что $\begin{cases}
+				\left|\bigcup\limits_{\mu\in M_{forw}}\left(F_A(\mu)\setminus\Delta\right)\right|\rightarrow\max,\\
+				\left|\bigcap\limits_{\mu\in M_{forw}}\left(F_A(\mu)\setminus\Delta\right)\right|\rightarrow\min;
+				\end{cases}$ \Comment{решение minmax задачи}
+				
+				\State $A_{next} = \bigcup\limits_{\mu\in M_{forw}}\{\Call{Interior}{\mu}\}$; \Comment{текущее множестов личностных смыслов}
+				
+				\ForAll $a_j\in A_{next}$
+					\If{$\exists a_k\in A_{next}$ такой, что $a_k\not =a_i$ и $a_k$ конфликтует с $a_j$}
+						\State $a_{del}=\argmin\limits_{a\in\{a_k,a_j\}}|F_A(a)\setminus\Delta|$;
+						\State $A_{next}= A_{next}\setminus\{a_{del}\}$; \Comment{удаляем конфликтующие признаки}
+					\EndIf
+				\EndFor
+				
+				\State \Return \Call{Planning}{$Plan, F_{next}, A_{next}$};						
 			\EndIf
 		\EndIf
 
