@@ -1,3 +1,8 @@
+% Sources: 
+% 1) http://mechanoid.kiev.ua/neural-net-art1.html
+% 2) http://alife.narod.ru/lectures/neural/Neu_ch11.htm
+% 3) http://www.intuit.ru/studies/courses/88/88/info
+% 4) http://scorcher.ru/neuro/science/attention/mem19.php
 \documentclass[default]{beamer}
 \setbeamertemplate{navigation symbols}{}
 
@@ -81,10 +86,18 @@
 			\item Все состояния сознания являются состояниями резонанса.
 		\end{itemize}
 		
-		\begin{figure}
-			\includegraphics[width=0.5\textwidth]{grossberg_compl}
-		\end{figure}
-		
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\begin{figure}
+					\includegraphics[width=\textwidth]{grossberg_compl}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{figure}
+					\includegraphics[width=\textwidth]{art_illus}
+				\end{figure}
+			\end{column}
+		\end{columns}
 	\end{frame}	
 
 	\begin{frame}
@@ -164,6 +177,17 @@
 	\end{frame}
 
 	\begin{frame}
+		\frametitle{Некоторые свойства модели}
+		
+		\begin{itemize}
+			\item По достижении стабильного состояния в результате обучения предъявление входного вектора будет сразу приводить к правильной классификации без фазы поиска, на основе прямого доступа.
+			\item Процесс поиска устойчив.
+			\item Процесс обучения устойчив. Обучение весов нейрона"--~победителя не приведёт в дальнейшем к переключению на другой нейрон.
+			\item Процесс обучения конечен. Итоговое состояние для заданного набора образов будет достигнуто за конечное число итерации, при этом дальнейшее предъявление этих образов не вызовет циклических изменений значений весов.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
 		\frametitle{Принцип многослойности}
 		
 		\begin{figure}
@@ -178,8 +202,8 @@
 			\item ART-2 "--- переход от двоичных значений к непрерывным (действительным).
 			\item ART-3 "--- добавление нескольких слоёв для сжатия информации и абстрагирования. Резонанс возникает на некотором уровне иерархии. Введён механизм рефрактерного торможения.
 			\item FuzzyART "--- введение элементов нечёткой логики.
-			\item ARTMAP, pART "--- комбинация двух блоков ART-1 и ART-2 для регулировки параметра сброса (бдительности).
-			\item Много прикладных моделей: dARTEX,
+			\item ARTMAP, pART "--- комбинация двух блоков ART-1 и ART-2 для регулировки параметра сброса (чувствительности).
+			\item Много прикладных моделей: dARTEX, ARTPHONE и др.
 		\end{itemize}
 	\end{frame}
 	%	\begin{frame}
