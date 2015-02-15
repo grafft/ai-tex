@@ -1,0 +1,15 @@
+С картинками см. http://blog.harrix.org/?p=444
+1. Разархивируем Pscyr.zip
+2. Копируем внутренние папки в соответствующие папки MikTex
+3. initexmf --edit-config-file dvips
+	вставляем "p +pscyr.map"
+4. initexmf --edit-config-file pdftex
+	вставляем "+pscyr.map"
+5. initexmf --edit-config-file updmap
+	вставляем "Map pscyr.map" 
+6. updmap
+7. initexmf --edit-config-file dvipdfm
+	вставляем "f pscyr2.map"
+8. initexmf -u
+9. В Settings(Admin) делаем Refresh FNDB
+10. mkfntmap
