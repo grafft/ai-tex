@@ -22,15 +22,6 @@
 \hyphenpenalty=10000	% Запрещаем переносы во всем тексте
 
 
-%%% Библиография %%%
-\patchcmd{\thebibliography}{\chapter*}{\section*}{}{}  % не позволяем создавать новую страниц 
-\makeatletter
-\bibliographystyle{gost2008}
-\renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
-\makeatother
-
-
-
 %%% Изображения %%%
 \graphicspath{{../images/}} % Пути к изображениям
 

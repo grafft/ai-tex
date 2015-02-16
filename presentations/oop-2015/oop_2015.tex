@@ -42,7 +42,7 @@
 \definecolor{mygray}{rgb}{0.9,0.9,0.9}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \lstset{
-	backgroundcolor=\color{mygray},   % choose the background color
+	backgroundcolor=\color{white},   % choose the background color
 	basicstyle=\footnotesize,        % size of fonts used for the code
 	breakatwhitespace=true,			 % sets if automatic breaks should only happen at whitespace
 	breaklines=true,                 % automatic line breaking only at whitespace
@@ -269,7 +269,270 @@ $((wget login.telecom.mipt.ru/bin/getqc.cgi -qO -; echo -n PASSWORD) | md5sum - 
 		\lstC
 	
 	\end{frame}
+
+	\section{Семинар 2}
+	\begin{frame}
+		\frametitle{Парадигмы программирования}
+
+		\textbf{Парадигма программирования} "--- это совокупность идей и понятий по структурированию своей работы по написанию компьютерных программ.
+		\par\bigskip
+		\begin{overlayarea}{\textwidth}{0.6\textheight}
+			\only<1>{
+				Императивное программирование "--- вычисление описывается последовательностью инструкций, которые изменяют состояние данных. Возникает последовательность состояний как в теории автоматов. Базовое понятие "--- \textit{переменная}.
+				\begin{enumerate}
+					\item Процедурная парадигма.
+					\item Структурная парадигма.
+					\item Объектно-ориентированная парадигма.
+				\end{enumerate}
+			}
+			\only<2>{
+				Декларативное программирование "--- декларирует состояние, а не задаёт путь к его вычислению. Здесь главное описать строение чего-то, а не процесс его создания.
+				\begin{enumerate}
+					\item Функциональная парадигма: базовое понятие "--- функция без глобальных переменных ($\lambda$-исчисление $\rightarrow$ LISP, Clojure, Scala и др.).
+					\item Логическая парадигма: заданы факты, правила вывода, на основе метода резолюций происходит автоматическое доказательство теорем (Oz, Prolog).
+				\end{enumerate}			
+			}
+		\end{overlayarea}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Процедурная и структурная парадигмы}
+		
+		\begin{columns}
+			\begin{column}{0.7\textwidth}
+				\begin{itemize}
+					\item Процедурная методология основана на алгоритмах (Марков, Тьюринг, фон Нейман).
+					\item Последовательное выполнение операторов, преобразующих состояние памяти. Чёткое отделение программы от памяти.
+					\item Большие задачи разбиваются на подзадачи "--- процедуры (функции).
+					\item \textbf{Переиспользование} состоит в создании библиотек процедур (функций).
+					\item Модули как совокупности процедур "--- структурное программирование без goto (Дейкстра).
+					\item Примеры: Ada, Algol, Visual Basic, C, Fortran, Pascal.
+				\end{itemize}				
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\begin{figure}
+					\includegraphics[width=\textwidth]{procedural}
+				\end{figure}
+			\end{column}
+
+		\end{columns}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Объекты}
+		
+		Гради Буч:
+		
+		Объект "--- это мыслимая или реальная сущность, обладающая характерным поведением и отличительными характеристиками и являющаяся важной в предметной области.
+		\par\bigskip
+		Каждый объект имеет состояние, обладает чётко определённым поведением и уникальной идентичностью.
+		\par\bigskip
+		\begin{overlayarea}{\textwidth}{0.4\textheight}
+				\only<1>{
+					\textbf{Состояние}: в любой момент времени состояние объекта включает в себя перечень (обычно статический) свойств объекта и текущие значения (обычно динамические) этих свойств. Человек сидит и у него есть удочка.
+				}
+				\only<2>{
+					\textbf{Поведение}: для каждого объекта существует определённый набор действий, которые с ним можно произвести. Файл в ОС можно открыть, создать и т.п.
+				}
+				\only<3>{
+					\textbf{Уникальность}: в машинном представлении под параметром уникальности объекта чаще всего понимается адрес размещения объекта в памяти; уникальность объекта состоит в том, что всегда можно определить, указывают две ссылки на один и тот же объект или на разные объекты. Даже одинаковые монеты (абсолютно все их атрибуты одинаковы: год выпуска, номинал и т.д.), они по-прежнему остаются разными монетами.
+				}
+		\end{overlayarea}
+
+	\end{frame}
 	
+	\begin{frame}
+		\frametitle{Классы}
+		
+		\begin{itemize}
+			\item Совокупность атрибутов и их значений характеризует объект.
+			\item Все объекты одного и того же класса описываются одинаковыми наборами атрибутов.
+			\item Все объекты одного и того же класса обладают одинаковым поведением.
+		\end{itemize}
+		\par\bigskip
+		Пример 1: разные объекты класса <<Монеты>>.
+		
+		Пример 2: конюшня и лошадь как объекты одного класса.
+		
+		\begin{figure}
+			\includegraphics[width=0.2\textwidth]{class}
+		\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Классы}
+		
+		\begin{itemize}
+			\item Класс имеет \textbf{имя}, которое относится ко всем объектам этого класса.
+			\item В классе вводятся имена атрибутов, которые определены для объектов (атрибут=свойство=\textbf{поле}).
+			\item Класс является шаблоном поведения объектов (\textbf{методы})
+			\item Класс может иметь \textbf{конструктор} (constructor) "--- специальный метод, который выполняется при создании объектов.
+			\item Класс может иметь \textbf{деструктор} (destructor) "--- специальный метод, который выполняется при уничтожении объектов.
+		\end{itemize}
+	\end{frame}	
+
+	\begin{frame}
+		\frametitle{Инкапсуляция}
+		
+		\textbf{Инкапсуляция} (encapsulation) "--- это сокрытие реализации класса и отделение его внутреннего представления от внешнего (интерфейса).
+		\par\bigskip
+		Внутри объекта данные и методы могут обладать различной степенью открытости (или доступности).
+		\begin{itemize}
+			\item Открытые члены класса составляют внешний интерфейс объекта "--- это та функциональность, которая доступна другим классам.
+			\item Закрытыми обычно объявляются все свойства класса, а также вспомогательные методы, которые являются деталями реализации и от которых не должны зависеть другие части системы.
+		\end{itemize}
+		
+		\textbf{Модульность} "--- благодаря сокрытию реализации за внешним интерфейсом класса можно менять внутреннюю логику отдельного класса, не меняя код остальных компонентов системы.
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Наследование}
+		
+		\textbf{Наследование} (inheritance) "--- это отношение между классами, при котором класс использует структуру или поведение другого класса (одиночное наследование), или других (множественное наследование ) классов.
+		\par\bigskip
+		\begin{figure}
+			\includegraphics[width=0.5\textwidth]{inheritance}
+		\end{figure}
+		
+		Наследование вводит иерархию <<общее/частное>>, в которой \textbf{подкласс} наследует от одного или нескольких более общих \textbf{суперклассов}.
+	\end{frame}
+		
+	\begin{frame}
+		\frametitle{Типичная задача}
+		
+		\underline{Пример}:
+		
+		Предположим, мы хотим создать векторный графический редактор, в котором нам нужно описать в виде классов набор графических примитивов "--- Point, Line, Circle, Box и т.д.
+		У каждого из этих классов определим метод draw для отображения соответствующего примитива на экране.
+		\par\bigskip
+		\underline{Хотим}:
+		
+		Написать код, который при необходимости отобразить рисунок будет последовательно перебирать все примитивы, на момент отрисовки находящиеся на экране, и вызывать метод draw у каждого из них.
+	\end{frame}
+				
+\defverbatim[colored]\lstSol{%
+	\begin{lstlisting}[language=java]
+Point[] p = new Point[1000];
+Line[] l = new Line[1000];
+Circle[] c = new Circle[1000];
+Box[] b = new Box[1000];
+//...
+//...
+for(int i = 0; i < p.length;i++) {
+	if(p[i]!=null) p[i].draw();
+}
+for(int i = 0; i < l.length;i++) {
+	if(l[i]!=null) l[i].draw();
+}
+for(int i = 0; i < c.length;i++) {
+	if(c[i]!=null) c[i].draw();
+}
+for(int i = 0; i < b.length;i++) {
+	f(b[i]!=null) b[i].draw();
+}
+	\end{lstlisting}
+}				
+	\begin{frame}
+		\frametitle{Решение 1}
+		
+		\lstSol
+	\end{frame}
+
+\defverbatim[colored]\lstSolB{%
+	\begin{lstlisting}[language=java]
+Point p[] = new Point[1000];
+p[0] = new Circle();
+p[1] = new Point();
+p[2] = new Box();
+p[3] = new Line();
+//...
+for(int i = 0; i < p.length;i++) {
+	if(p[i]!=null) p[i].draw();
+}
+	\end{lstlisting}
+}				
+	\begin{frame}
+		\frametitle{Решение 2}
+		
+		\begin{figure}
+			\includegraphics[width=0.5\textwidth]{solution2}
+		\end{figure}
+		
+		\lstSolB
+	\end{frame}		
+
+\defverbatim[colored]\lstPoly{%
+	\begin{lstlisting}[language=java]
+void println(); 
+void println(boolean x);
+void println(String x);
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Полиморфизм}
+
+		\textbf{Полиморфизм} (polymorphism) "--- положение теории типов, согласно которому имена (например, переменных) могут обозначать объекты разных (но имеющих общего родителя) классов.
+		\par\bigskip
+		Процедурный полиморфизм предполагает возможность создания нескольких процедур или функций с одним и тем же именем, но разным количеством или различными типами передаваемых параметров "--- \textbf{перегрузка} (overloading) функций.
+		\lstPoly
+	\end{frame}
+			
+\defverbatim[colored]\lstConsoleRead{%
+	\begin{lstlisting}[language=java]
+	import java.util.Scanner;
+	
+	public class InputExp {
+		public static void main(String[] args) {
+			String name;
+			int age;
+			Scanner in = new Scanner(System.in);
+
+			name = in.nextLine();
+			age = in.nextInt();
+			in.close();
+
+			System.out.println("Name :" + name);
+			System.out.println("Age :" + age);
+		}
+	}
+	\end{lstlisting}
+}
+\begin{frame}
+	\frametitle{Чтение с консоли}
+
+	\lstConsoleRead
+\end{frame}
+
+\defverbatim[colored]\lstFileRead{%
+	\begin{lstlisting}[language=java]
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+public class ScannerReadFile {
+	public static void main(String[] args) {
+		try {
+			FileInputStream fileStream = new FileInputStream("test.txt");
+
+			Scanner scanner = new Scanner(fileStream);
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				System.out.println(line);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+}
+	\end{lstlisting}
+}
+\begin{frame}
+	\frametitle{Чтение из файла}
+	
+	\lstFileRead
+\end{frame}
+					
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
 	%		
