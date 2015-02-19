@@ -29,10 +29,10 @@
 				
 				\State $A_{next} = \bigcup\limits_{\mu\in M_{forw}}\{\Call{Interior}{\mu}\}$; \Comment{текущее множестов личностных смыслов}
 				
-				\ForAll $a_j\in A_{next}$
-					\If{$\exists a_k\in A_{next}$ такой, что $a_k\not =a_i$ и $a_k$ конфликтует с $a_j$}
-						\State $a_{del}=\argmin\limits_{a\in\{a_k,a_j\}}|F_A(a)\setminus\Delta|$;
-						\State $A_{next}= A_{next}\setminus\{a_{del}\}$; \Comment{удаляем конфликтующие признаки}
+				\ForAll $\alpha_j\in A_{next}$
+					\If{$\exists \alpha_k\in A_{next}$ такой, что $\alpha_k\not =\alpha_i$ и $\alpha_k$ конфликтует с $\alpha_j$}
+						\State $\alpha_{del}=\argmin\limits_{\alpha\in\{\alpha_k,\alpha_j\}}|F_A(\alpha)\setminus\Delta|$;
+						\State $A_{next}= A_{next}\setminus\{\alpha_{del}\}$; \Comment{удаляем конфликтующие признаки}
 					\EndIf
 				\EndFor
 				
