@@ -1,0 +1,44 @@
+%\documentclass[tikz,convert={density=300,outext=.jpg},border=5pt]{standalone}
+\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}[>=triangle 60]
+		\tikzstyle{rect_block} = [draw, rectangle, minimum height = 15mm, minimum width = 25mm, align=center]
+		\tikzstyle{rounded_block} = [draw, rectangle, rounded corners=5ex, minimum height = 15mm, minimum width = 25mm, align=center];
+		
+		\node[rounded_block] (team_build) at (0, 0) {Определение состава\\команды};
+		\node[align=center] (team_build_date) at ($(team_build)+(6,0)$) {середина\\февраля};
+		
+		\node[rect_block] (lang_choose) at ($(team_build)+(-2,2)$) {Определение языка\\программирования};
+		\node[rect_block] (scm_choose) at ($(team_build)+(-2,4)$) {Определение системы\\контроля версий};
+		\node[rect_block] (project_choose) at ($(team_build)+(-2,6)$) {Тема и название\\проекта};
+		\node[rect_block] (subtask_shoose) at ($(team_build)+(-2,8)$) {Определение подзадач\\и ответственных};
+		\node[rect_block] (lib_shoose) at ($(team_build)+(-2,10)$) {Определение\\необходимых\\сторонних библиотек};
+		\node[rect_block] (presentation) at ($(team_build)+(-2,12)$) {Презентация проекта\\(аналоги, план)};
+		\node[rect_block] (archi) at ($(team_build)+(-2,14)$) {Архитектура\\проекта};
+
+		\node[rect_block] (code_style) at ($(team_build)+(2,3)$) {Усовение начального\\стиля кода};
+		\node[rect_block] (struct_data) at ($(team_build)+(2,5)$) {Знакомство со\\структурами данных};
+		\node[rect_block] (task_1) at ($(team_build)+(2,7)$) {Написание\\задачи \No 1};
+		\node[rect_block] (parallel) at ($(team_build)+(2,9)$) {Знакомство с\\параллельным\\программированием};
+		\node[rect_block] (task_2) at ($(team_build)+(2,11)$) {Написание\\задачи \No 2};
+			
+		\draw[->] (team_build) -- (lang_choose);
+		\draw[->] (team_build) -- (code_style);
+		
+		\draw[->,thick] ($(team_build)+(5,-1)$) -- ($(team_build)+(5,10)$);
+
+			
+	\end{tikzpicture}
+	
+\end{document}

@@ -9,6 +9,8 @@
 \usepackage[T2A]{fontenc}       %поддержка кириллицы
 \usepackage[utf8]{inputenc}	% Выбор языка и кодировки
 \usepackage[english, russian]{babel}
+%\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
+%\usepackage{bookmark}					% Оглавление в pdf
 
 \usepackage{color}
 \usepackage{listings}
@@ -114,11 +116,9 @@
 	\begin{frame}
 		\frametitle{Литература}
 		
-		\bibliographystyle{gost2008p}
+		\bibliographystyle{ugost2008}
 		\nocite{*}
-		\inputencoding{cp1251}
 		\bibliography{../../biblio/misc}
-		\inputencoding{utf8}
 	\end{frame}
 			
 	\begin{frame}
@@ -521,7 +521,7 @@ public class ScannerReadFile {
 				System.out.println(line);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("File not found");
 		}
 	}
 }
@@ -532,6 +532,33 @@ public class ScannerReadFile {
 	
 	\lstFileRead
 \end{frame}
+
+	\begin{frame}
+		\frametitle{Java из командной строки}
+		
+		\begin{itemize}
+			\item javac HelloWorld.java
+			\item java -classpath . HelloWorld
+		\end{itemize}
+		
+		Отделяем исходники (папка src) и бинарные файлы (папка bin).
+		\begin{itemize}
+			\item javac -d bin src/HelloWorld.java
+			\item java -classpath ./bin HelloWorld
+		\end{itemize}
+		
+		Помещаем исходный класс в пакет ru.mipt.cs.
+		\begin{itemize}
+			\item javac -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
+			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
+		\end{itemize}				
+
+		Несколько файлов в проекте.		
+		\begin{itemize}
+			\item javac -sourcepath ./src -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
+			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
+		\end{itemize}				
+	\end{frame}
 					
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
