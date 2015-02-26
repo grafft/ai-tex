@@ -1,17 +1,17 @@
-	\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \{f_k\}$;
+	\Require $\tilde m^0=\{f_p\}, \Psi_p^m, \hat F\subseteq \mathcal F$;
 	
 	\State $\tilde p^{*(0)} := \varnothing$;
 	\State $Z^{*(0)} := \varnothing$;
 	\State $t := 0$;
 	
 	\ForAll{$f^{(t)}\in \hat F$}
-		\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $(\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$ \textbf{and} $\tilde m^{(t)}$ выполним в условиях признака $f_p$ \textbf{and} $\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m^0$ конфликтует с $\tilde m^{(t)}$}
+		\If{$\exists \tilde m^{(t)}\in \tilde M$ такое, что $(\tilde p(f^{(t)}),\tilde m^{(t)})\in\Psi_p^m$, $\tilde m^{(t)}$ выполним в условиях признака $f_p$, $\nexists f: f\in\tilde p^{*(t)},(\tilde p(f),\tilde m(f))\in\Psi_p^m, \tilde m^0$ конфликтует с $\tilde m^{(t)}$}
 			\State $\tilde p^{*(t)}=\tilde p^{*(t)}\cup\{f^{(t)}\}$;
 	
 			\If{$\exists R_i^j$ такой, что $f^{(t)}\in F_i^j$}
 				\State $R_i^{j(t)}:=R_i^j$;
 			\Else
-				\State $R_i^{j(t)}:=\argmax\limits_{\{R\}} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
+				\State $R_i^{j(t)}:=\argmax\limits_{\mathcal R} (F_i^j\cap\tilde p^{(t)}), F_i^{j(t)}:=F_i^{j(t)}\cup f^{(t)}$;
 			\EndIf
 	
 			\State $\bar z_s:=(z_{s1},z_{s2},\dots,z_{sq}), z_{sk}=1$, если $k$ -- индекс признака $f^{(t)}$ во входном векторе распознающего блока $R_i^{j(t)}$ и $z_{sk}=0$ иначе;
