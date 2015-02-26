@@ -47,12 +47,15 @@
 		\\
 		
 		&
-		\node (x_i) {$\bar x_i^j(t)$};&
+		\node[xshift=-3mm] (x_i) {$\omega_{i\Delta t}^j$};&
 		\\
 	};	
 	
 	\draw[->] (x_u.east) -- (rb.west);
-	\draw[->] (x_i.north) -- (rb.south) node [yshift=-2mm, left] {$\dots$} node [yshift=-2mm, right] {$\dots$};
+	\draw[->] ([xshift=-3mm]x_i.north) -- ([xshift=-6mm]rb.south);
+	\draw[->] (x_i.north) -- ([xshift=-3mm]rb.south);
+	\draw[->] ([xshift=3mm]x_i.north) -- (rb.south)  node [yshift=-2mm, right] {$\dots$};
+	\draw[->] ([xshift=-6mm]x_i.north) -- ([xshift=-9mm]rb.south);
 	\draw[<-] (a_o.south) -- (rb.north);
 	\end{tikzpicture}
 		
