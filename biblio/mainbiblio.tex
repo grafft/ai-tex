@@ -1,12 +1,14 @@
 \documentclass[a4paper,12pt]{article}
 
-\usepackage{cmap}                        % Поддержка поиска русских слов в PDF (pdflatex)
-\usepackage[cp1251]{inputenc}            % Выбор языка и кодировки
+\usepackage{cmap}                      % РџРѕРґРґРµСЂР¶РєР° РїРѕРёСЃРєР° СЂСѓСЃСЃРєРёС… СЃР»РѕРІ РІ PDF (pdflatex)
+\usepackage[T2A]{fontenc}			   % РџРѕРґРґРµСЂР¶РєР° СЂСѓСЃСЃРєРёС… Р±СѓРєРІ
+\usepackage[utf8]{inputenc}            % Р’С‹Р±РѕСЂ СЏР·С‹РєР° Рё РєРѕРґРёСЂРѕРІРєРё
 \usepackage[english, russian]{babel}
 \usepackage{geometry}
 
-\geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
+\geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Р“РµРѕРјС‚РµСЂРёСЏ СЃС‚СЂР°РЅРёС†С‹
 
+\renewcommand{\thesection}{\arabic{section}.}
 \def\BibSection#1#2{\section{#2}}
 
 \begin{document}
@@ -15,7 +17,7 @@
 	\renewcommand{\refname}{}	
 	
 	\nocite{*}
-	\bibliographystyle{gost2008p}
+	\bibliographystyle{ugost2008p}
 	%\bibliographystyle{gost2003p}
-	\bibliography{main}
+	\bibliography{umain}
 \end{document} 	
