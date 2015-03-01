@@ -32,9 +32,29 @@
 
 %%% Библиография %%%
 \makeatletter
-\bibliographystyle{gost2008p}
+\bibliographystyle{ugost2008}
 \renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
 \makeatother
 
 %%% Изображения %%%
-\graphicspath{{images/}} % Пути к изображениям
+\graphicspath{{../../images/}} % Пути к изображениям
+
+%%% Теормоподобные окружения %%%
+\theoremstyle{plain}
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Pred}{Утверждение}
+\newtheorem{Def}{Определение}
+
+\floatname{algorithm}{Алгоритм}
+\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+\algrenewcommand\algorithmicforall{\textbf{для всех}}
+\algrenewcommand\algorithmicwhile{\textbf{пока}}
+\algrenewcommand\algorithmicif{\textbf{если}}
+\algrenewcommand\algorithmicthen{\textbf{то}}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewcommand\algorithmicreturn{\textbf{вернуть}}
+\algrenewcommand\algorithmicdo{}
+\renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}

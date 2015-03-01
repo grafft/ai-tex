@@ -32,6 +32,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{subfig}
+\usepackage{tikz}
 
 \graphicspath{{../../images/}} 			% Пути к изображениям
 
@@ -73,7 +74,6 @@
 \algrenewcommand\algorithmicreturn{\textbf{Выход:}}
 
 \begin{document}
-	\tikzstyle{every picture}+=[remember picture]
 	
 	\title[Модель картины мира]{Исследование образной и процедурной компонент картины мира субъекта деятельности}
 	\author{Александр Панов}
@@ -88,23 +88,47 @@
 		\frametitle{Проблема соотношения мозга и психики}
 		
 		Изучение физиологических основ психической деятельности и поведения человека привело к нахождению нейрофизиологических коррелятов многих низших психических и высших когнитивных функций. Однако единая математическая модель проявления психической функции на основе нейронного субстрата мозга до сих пор не построена.
+		\par\bigskip
+		\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.85}]
+		\onslide<1->{
+			\node at (0,1.7) {Мозг};
+			\node[align=center] at (0,0) {\includegraphics{phisio/mozg_2}};
+			
+			\node at (10,1.7) {Психические функции};
+			\node[align=center] at (10,-0.2) {\includegraphics[width=0.3\textwidth]{signs/signs_net}};
+			
+			\node at (2.5,-2.3) {Внешняя среда};
+			\node (tmp1) at (2,-2) {};
+			\node (tmp2) at (2.9,-0.8) {};
+			\node (tmp3) at (3.9,0) {};
+			\node (tmp4) at (4.9,0.6) {};
+			
+			\node (tmp5) at (5,0.75) {};
+			\node (tmp6) at (6,0.15) {};
+			
+			\draw[ultra thick] (1,-2.5) -- (1,-2) -- (4,-2) -- (4,-2.5);
+			\scriptsize
+			\draw[-latex,thick,shorten >=2pt] (tmp1) edge[bend right] node[yshift=-18, left,align=center] {сенсорный\\вход} (1.4,-0.1);
+		}
 		
-		\begin{columns}
-			\begin{column}{0.33\textwidth}
-				\begin{figure}
-					\includegraphics[width=\textwidth]{phisio/mozg_2}
-				\end{figure}
+		\onslide<2->{
+			\normalsize
+			\node at (5,1.7) {Иерархия автоматов};
+			\node[align=center] at (5,0) {\includegraphics[width=0.4\textwidth]{rb_hierarchy}};
+						
+			\draw[-latex,thick,shorten >=2pt]  (3,-2) -- (3.2,-0.8);
+			\draw[-latex,thick,shorten >=2pt] (3,-2) -- (5.0,-0.8);
+			\draw[-latex,thick,shorten >=4pt] (3,-2) -- node[yshift=-7, right, align=center] {входы\\автоматов} (7.0,-0.8);
+			
+			\draw[->, thick, color=red] (tmp2) edge[bend right] (1.1,0);
+			\draw[->, thick, color=red] (tmp3) edge[bend right] (-0.3,-0.2);
+			\draw[->, thick, color=red] (tmp4) edge[bend right] (-1.1,0.2);
+			
+			\draw[->] (tmp5) edge[bend left] (9,0.9);
+			\draw[->] (tmp6) edge[bend left] (8.5,-0.1);		
+		}
+		\end{tikzpicture}
 
-			\end{column}
-			\begin{column}{0.33\textwidth}
-
-			\end{column}
-			\begin{column}{0.33\textwidth}
-				\begin{figure}
-					\includegraphics[width=\textwidth]{signs/signs_net}
-				\end{figure}
-			\end{column}
-		\end{columns}
 
 	\end{frame}
 	
@@ -506,9 +530,7 @@
 	
 	\begin{frame}
 		\frametitle{Основная теорема корректности в иерархическом случае}
-		Зафиксируем начальный вектор ожиданий $\hat x_{i_1}^{j+2}$ и последовательность входных векторов $\omega_{i_2\Delta{t}}^j$. Если рассматривать только такие задачи $\hat Q_{e,j}^2(\hat x_{i_1}^{j+2},\omega_{i_2\Delta{t}}^j,\bar\alpha_{i_1}^{j+1})$, для которых в матрице $\omega_{i_2\Delta{t}}^j$ нет нулевых столбцов, то можно сформулировать следующую теорему.
-		\par\bigskip
-		В работе доказано следующее утверждение.
+		Зафиксируем начальный вектор ожиданий $\hat x_{i_1}^{j+2}$ и последовательность входных векторов $\omega_{i_2\Delta{t}}^j$. Если рассматривать только такие задачи $\hat Q_{e,j}^2(\hat x_{i_1}^{j+2},\omega_{i_2\Delta{t}}^j,\bar\alpha_{i_1}^{j+1})$, для которых в матрице $\omega_{i_2\Delta{t}}^j$ нет нулевых столбцов, то можно сформулировать следующую теорему:
 		\begin{Theorem}\label{th:hier_correct}
 			Линейное замыкание $L(\hat{\mathcal A_e})$ семейства алгоритмов $\hat{\mathcal A}_e=\{\hat R_{e,j}^2\cdot\hat C_e^*|\hat R_{e,j}^2\in\hat{\mathcal R}_{e,j}^2\}$ с произвольным корректным решающим правилом $\hat C_e^*$ и операторами распознавания $\hat{\mathcal R}_{e,j}^2$, определёнными алгоритмом $\mathfrak A_{th}$, является корректным на~множестве задач $\hat{\mathcal Q}_{e,j}^2$.
 		\end{Theorem}
@@ -609,7 +631,7 @@
 		Имеет место следующее утверждение.
 		\par\bigskip
 		\begin{Theorem}
-			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для  значения $\tilde m^0$, полученного из внешней среды, сходится к $\tilde m^0$.
+			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для  значения $\tilde m^0$, полученного из внешней среды, стремится к $\tilde m^0$.
 		\end{Theorem}
 	\end{frame}
 	
@@ -627,7 +649,7 @@
 	\begin{frame}
 		\frametitle{Результаты}
 		\begin{enumerate}
-			\item Построена модель компонент знака "--- элемента картины мира субъекта деятельности в рамках сегодняшних представлений о строении мозга и психики человека.
+			\item Построена модель компонент знака "--- элемента картины мира субъекта деятельности в рамках сегодняшних представлений о функционировании мозга и психики человека.
 			\item Построены четыре типа операторов распознавания (два статических оператора, динамический и иерархический операторы) в терминах алгебраической теории для образной компоненты знака.
 			\item Доказаны теоремы корректности линейных замыканий множеств построенных в работе операторов распознавания (статических, динамического и иерархического).
 			\item Построен итерационный алгоритм формирования и связывания двух компонент знака: образа и значения.
