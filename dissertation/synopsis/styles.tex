@@ -13,14 +13,14 @@
 \voffset=0pt
 %\paperwidth=597pt
 %\paperheight=845pt
-\parindent=1.5cm %размер табуляции (для красной строки) в начале каждого абзаца
+\parindent=1cm %размер табуляции (для красной строки) в начале каждого абзаца
 \hyphenpenalty=10000		% Запрещаем переносы во всем тексте
 
 \renewcommand{\baselinestretch}{1.25}
 \newfloat{scheme}{tb}{sch}
 
 %%% Общая информация %%%
-\author{Фамилия И.О.} % Фамилия И.О. автора
+\author{Панов~А.\,И.} % Фамилия И.О. автора
 
 %%% Кодировки и шрифты %%%
 \renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
@@ -32,7 +32,7 @@
 
 %%% Библиография %%%
 \makeatletter
-\bibliographystyle{ugost2008}
+\bibliographystyle{ugost2008p}
 \renewcommand{\@biblabel}[1]{#1.}	% Заменяем библиографию с квадратных скобок на точку:
 \makeatother
 
@@ -58,3 +58,5 @@
 \renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
+
+\def\BibSection#1#2{\subsection*{#2}}
