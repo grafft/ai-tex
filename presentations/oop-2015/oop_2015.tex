@@ -10,7 +10,7 @@
 \usepackage[utf8]{inputenc}	% Выбор языка и кодировки
 \usepackage[english, russian]{babel}
 %\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
-%\usepackage{bookmark}					% Оглавление в pdf
+\usepackage{bookmark}					% Оглавление в pdf
 
 \usepackage{color}
 \usepackage{listings}
@@ -533,6 +533,186 @@ public class ScannerReadFile {
 	\lstFileRead
 \end{frame}
 
+	\section{Семинар 3}
+	\subsection{Курсовой проект}
+	
+	\begin{frame}
+		\frametitle{Темы проектов}
+		
+		\begin{itemize}
+			\item Научные:
+			\begin{itemize}
+				\item распознавание образов с помощью нейросетей,
+				\item машинное обучение,
+				\item мультиагентные системы.
+			\end{itemize}
+			\item Учебные:
+			\begin{itemize}
+				\item Микро-фотошоп "--- набор различных фильтров для обработки изображений,
+				\item Редактор формул "--- набор формул, их сохранение и конвертация в \LaTeX и MathType,
+				\item Реактор "--- моделирование работы гомогенного ураново-графитого ядерного реактора,
+				\item Столкновение тел "--- помолекулярное моделирование столкновения малых тел с учётом различных взаимодействий,
+				\item Графы и сети "--- программа для работы с сетями а алгоритмами на них (коммивояжёр, клика и т.~п.),
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Темы проектов}
+		
+		\begin{itemize}
+			\item Учебные:
+			\begin{itemize}
+				\item Дорожное движение "--- моделирование дорожного движения в городе с некоторой картой,
+				\item Фракталы "--- построение множеств Жюлиа для различных отображений, исследование критических точек,
+			\end{itemize}
+			\item Развлекательные:
+			\begin{itemize}
+				\item Экология "--- двумерная трёхкомпонентная экологическая модель,
+				\item Жизнь "--- генетический варианта игры жизнь, обобщение клеточных автоматов,
+				\item Чат "--- программа обмена пользовательскими сообщениями (Android, desktop),
+				\item Танчики "--- многопользовательская игра с ботами и web-интерфейсом.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}					
+
+	\begin{frame}
+		\frametitle{Требования к проекту. Общие}
+		
+		\begin{itemize}
+			\item Разработка в команде из 3--4 человек.
+			\item Использование системы контроля версий (Git, SVN).
+			\item Презентация выбранного проекта с четкой формулировкой будущих работ каждого участника и сроков.
+			\item Согласование архитектуры проекта.
+			\item Каждый участник должен соблюсти все технические требования в своём коде.
+			\item Проект должен быть доведен до планируемого рабочего состояния.
+			\item Презентация по итогам завершения проекта "--- что получилось, что нет.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Требования к проекту. Технические}
+		
+		\begin{itemize}
+			\item Обработка ошибок как внутренних, так и ошибок непредвиденного использования.
+			\item Применение многопоточного программирования, как минимум на уровне отделения рабочих процессов от интерфейса пользователя.
+			\item Использование стандартных классов для работы с коллекциями.
+			\item Комментарии в тексте программы (JavaDoc, \_\_doc\_\_): в начале каждого класса, для каждой публичной функции и поля.
+			\item Оформление кода: соблюдение CodeStyle для данного языка программирования (отступы, правильное название полей и методов и т.~д.).
+			\item Наличие файлов сборки (Ant, Maven, make).
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Допуск к проекту: задачи}
+		
+		\begin{itemize}
+			\item Обе задачи должны быть выполнены на выбранном командой языке программирования.
+			\item Для обоих задач должен быть дополнительный тестовый класс, в котором демонстрируется функциональность реализованной коллекции или алгоритма.
+			\item Должны быть соблюдены CodeStyle и присутствовать комментарии.
+			\item Задача \No1: нельзя использовать стандартные классы коллекций, только массивы.
+			\item Задача \No2: выбор места для распараллеливания алгоритма "--- часть решения задачи.
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\lstAgregation{%
+	\begin{lstlisting}[language=java]
+public class Fish {
+	private Aquarium home;
+	public Fish() {
+	}
+}
+
+public class Aquarium {
+	private Fish inhabitants[];
+	public Aquarium() {
+	}
+}
+	\end{lstlisting}
+}
+	\subsection{Связи между классами}
+	\begin{frame}
+		\frametitle{Агрегация}
+		
+		\begin{figure}
+			\includegraphics[width=0.7\textwidth]{agregation}
+		\end{figure}
+		\lstAgregation
+	\end{frame}
+
+\defverbatim[colored]\lstAssociation{%
+	\begin{lstlisting}[language=java]
+public class Programmer {
+	private Computer computers[];
+	public Programmer() {
+	}
+}
+
+public class Computer {
+	private Programmer programmers[];
+	public Computer() {
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Ассоциация}
+		
+		\begin{figure}
+			\includegraphics[width=0.7\textwidth]{association}
+		\end{figure}
+		\lstAssociation
+	\end{frame}	
+
+\defverbatim[colored]\lstObject{%
+	\begin{lstlisting}[language=java]
+Point p7=new Point(2,3);
+Point p8=new Point(2,3);
+System.out.println(p1.equals(p2));
+
+System.out.println(p7.hashCode() == p8.hashCode());
+System.out.println(p7.toString());
+
+Point@92d351
+	\end{lstlisting}
+}
+	\subsection{Стандартные классы}
+	\begin{frame}
+		\frametitle{Класс Object}
+		Каждый класс в Java неявно наследуется от класса Object. В нем определены некоторые методы, которые, таким образом, есть у любого класса.
+		\begin{itemize}
+			\item \textbf{equals()} "--- служит для сравнения объектов по значению, а не по ссылке.
+			\item \textbf{hashCode()} "--- представить любой объект целым числом.
+			\item \textbf{toString()} "--- позволяет получить текстовое описание любого объекта.
+		\end{itemize}
+		\lstObject
+	\end{frame}
+
+\defverbatim[colored]\lstString{%
+	\begin{lstlisting}[language=java]
+String s1 = "abc";
+String s2 = "abc";
+String s3 = "a"+"bc";
+
+System.out.println(s1==s2);
+System.out.println(s1==s3);
+System.out.println(s1.equals(s2));
+	\end{lstlisting}
+}
+
+	\begin{frame}
+		\frametitle{Класс String}
+		
+		Класс String занимает в Java особое положение:
+		
+		\begin{itemize}
+			\item экземпляры только этого класса можно создавать без использования ключевого слова \textbf{new},
+			\item каждый строковый литерал порождает экземпляр String, и это единственный литерал (кроме null), имеющий объектный тип,
+			\item много полезных методов: \textbf{length()}, \textbf{split(String regex)}, \textbf{substring(int beginIndex, int endIndex)}, \textbf{toCharArray()}, \textbf{charAt(int index)} и др.
+		\end{itemize}
+		\lstString
+	\end{frame}
+
 	\begin{frame}
 		\frametitle{Java из командной строки}
 		
@@ -552,14 +732,14 @@ public class ScannerReadFile {
 			\item javac -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
-
+		
 		Несколько файлов в проекте.		
 		\begin{itemize}
 			\item javac -sourcepath ./src -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
 	\end{frame}
-					
+	
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
 	%		

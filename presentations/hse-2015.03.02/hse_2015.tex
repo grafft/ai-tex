@@ -214,8 +214,8 @@
 		Функция $U$ реализуется стратегией применения правил управления $CN$ и множеством правил управления $\Pi_{CN}$.
 		
 		Траектория системы (\ref{def:cdis}) запишется в следующем виде:
-		\begin{equation}\label{eq:vosm}
-			\chi(t+1)=\Phi(\Psi(\chi(t),t),U(\chi(t),t)).
+		\begin{equation}\label{eq:control}
+			\chi(t+1)=\Phi(\Psi(\chi(t),t)\cup U(\chi(t),t)).
 		\end{equation}
 	\end{frame}
 
@@ -261,7 +261,7 @@
 		
 		Рассмотрим теперь более общий случай, когда возмущение присутствует в управляемой системе, т.~е рассмотрим систему
 		\begin{equation}\label{eq:contr_vosm}
-			\chi(t+1) =\Phi(\Psi(\underbrace{\Phi(\chi(t)\cup\delta(t))}_{\chi'(t)},t)\cup U(\chi(t),t)).
+			\chi(t+1) =\Phi(\underbrace{\Psi(\Phi(\chi(t)\cup\delta(t)),t)}_{\chi'(t+1)}\cup U(\chi'(t+1),t+1)).
 		\end{equation}
 		Вопрос: каким образом, располагая управлением $U$, компенсировать влияние возмущения $\delta$ на поведение системы (\ref{eq:contr_vosm}), если её траектория неустойчива?
 		\par\bigskip
@@ -277,8 +277,8 @@
 		\begin{Theorem}\label{th:compens}
 			Для компенсации возмущения $\delta(t)$ системы (\ref{eq:contr_vosm}) достаточно применения управления:
 			\begin{eqnarray}
-				U(\chi(t+1),t+1)=\Phi(\Psi(\chi(t+1),t+1))\setminus\nonumber\\
-				\Phi(\Psi(\underbrace{\Phi(\Psi(\underbrace{\Phi(\chi(t)\cup\delta(t))}_{\chi'(t)},t)\cup U(\chi(t),t))}_{\chi'(t+1)},t+1)).
+				U(\chi'(t+1),t+1)=\Phi(\Psi(\chi(t+1),t+1))\setminus\nonumber\\
+				\Phi(\Psi(\underbrace{\Phi(\Psi(\Phi(\chi(t)\cup\delta(t)),t))}_{\chi'(t+1)},t+1)).
 			\end{eqnarray}
 		\end{Theorem}
 	\end{frame}
@@ -345,7 +345,7 @@
 			\item Выбрать очередной факт $F_i$ из множества  $\Delta_0 = \Phi(\Psi(\chi(t+1)),t+1))\setminus \Phi(\Psi(\chi'(t+1)),t+1))$.
 			\item Выбрать из множества $\Pi_{CN}$ такое правило $r$, что $F_i\in A(r)$ и $rank_{\Pi}(F_i)\geqslant 1$. Если $C(r)\subset\chi'(t+1)$ "--- работа стратегии завершена.
 			\item Построить множество $\Delta_{j+1} = \Delta_j \cup C(r)\cup D(r)\setminus A(r)$.
-			\item Выбрать из множества $\Pi_{CN}$ такое правило $r$, что $A(r)\cap\Delta_{j+1}\not=\varnothing$ и $rank_{\Pi}(F_i)\geqslant 1$. Если $С(r)\subseteq\chi'(t+1)$ "--- работа стратегии для факта $F_i$ завершена.
+			\item Выбрать из множества $\Pi_{CN}$ такое правило $r$, что $A(r)\cap\Delta_{j+1}\not=\varnothing$ и $rank_{\Pi}(F_i)\geqslant 1$. Если $C(r)\subseteq\chi'(t+1)$ "--- работа стратегии для факта $F_i$ завершена.
 			\item Если множество $\Delta_0$ исчерпано, то работа стратегии полностью завершена, иначе $i := i+1$ и переход к шагу 1.
 		\end{enumerate}
 	\end{frame}	
@@ -354,7 +354,14 @@
 		\frametitle{Существование управления}
 		
 		\begin{Theorem}
-			Управление $U(\chi(t+1),t+1))$ системы (\ref*{eq:contr_vosm}) существует тогда и только тогда, когда для каждого факта $F_i\in\Phi(\Psi(\chi(t+1)),t+1))\setminus\Phi(\Psi(\Phi(\Psi(\Phi(\chi(t)\cup\delta(t)),t)), t+1))$ найдётся последовательность $\Pi$ попарно применимых правил в множестве $\Pi_{CN}$, такая что $C(r_1)\subseteq\Phi(\Psi(\Phi(\Psi(\Phi(\chi(t)\cup\delta(t)),t))$ и $rank_{\Pi}(F_i)\geqslant 1$, где $С(r_1)$ условие первого правила последовательности $\Pi$.
+			Управление $U(\chi'(t+1),t+1))$ системы (\ref*{eq:contr_vosm}) существует тогда и только тогда, когда для каждого факта
+			\[ F_i\in\Phi(\Psi(\chi(t+1)),t+1))\setminus\Phi(\Psi(\Phi(\Psi(\Phi(\chi(t)\cup\delta(t)),t)), t+1))
+			\]
+			найдётся последовательность $\Pi$ попарно применимых правил в множестве $\Pi_{CN}$, такая что 
+			\[
+			C(r_1)\subseteq\Phi(\Psi(\Phi(\Psi(\Phi(\chi(t)\cup\delta(t)),t))
+			\] 
+			и $rank_{\Pi}(F_i)\geqslant 1$, где $С(r_1)$ условие первого правила последовательности $\Pi$.
 		\end{Theorem}
 	\end{frame}
 
@@ -390,12 +397,12 @@
 	\begin{frame}
 		\frametitle{Задача управляемости системы}
 		
-		Будем рассматривать системы (\ref{eq:vosm})
+		Будем рассматривать системы (\ref{eq:control})
 		\[
-		\chi(t+1)=\Phi(\Psi(\chi(t),t),U(\chi(t),t)).
+		\chi(t+1)=\Phi(\Psi(\chi(t),t)\cup U(\chi(t),t)).
 		\]
 		\par\bigskip
-		Если задана пара точек $(\chi_0, \chi_1)\in 2^X\times 2^X$, то задача управляемости системы (\ref*{eq:vosm}) состоит в установлении условий существования значений управления $U(\chi(t),t)$, позволяющих перевести систему (\ref*{eq:vosm}) из состояния $\chi(0)\subseteq\chi_0$ в состояние $\chi(N)$, такое что $\chi_1\subseteq\chi(N)$, где $N\in T$.
+		Если задана пара точек $(\chi_0, \chi_1)\in 2^X\times 2^X$, то задача управляемости системы (\ref*{eq:control}) состоит в установлении условий существования значений управления $U(\chi(t),t)$, позволяющих перевести систему (\ref*{eq:control}) из состояния $\chi(0)\subseteq\chi_0$ в состояние $\chi(N)$, такое что $\chi_1\subseteq\chi(N)$, где $N\in T$.
 	\end{frame}
 
 		
@@ -403,10 +410,10 @@
 		\frametitle{Достижимость состояний}
 		
 		\begin{Def}
-			Если $2^X$ "--- множество состояний системы (\ref{eq:vosm}), то пара точек $(\chi_0, \chi_1)$ в $2^X\times 2^X$  называется $N$–достижимой, если  существуют такие значения управления $U(\chi(t),t)$ ($t=0,1,\dots,N-1$) системы (\ref{eq:vosm}) , что $\chi_1\times\chi(N)$, при начальных условиях $\chi(0)\subseteq\chi_0$, где $\chi(N)$ "--- решение уравнения (\ref{eq:vosm}).
+			Если $2^X$ "--- множество состояний системы (\ref{eq:control}), то пара точек $(\chi_0, \chi_1)$ в $2^X\times 2^X$  называется $N$-достижимой, если  существуют такие значения управления $U(\chi(t),t)$ ($t=0,1,\dots,N-1$) системы (\ref{eq:control}) , что $\chi_1\times\chi(N)$, при начальных условиях $\chi(0)\subseteq\chi_0$, где $\chi(N)$ "--- решение уравнения (\ref{eq:control}).
 		\end{Def}
 		\begin{Def}
-			Система (\ref{eq:vosm}) называется вполне достижимой если для любой пары точек  $(\chi_0, \chi_1)\in 2^X\times 2^X$  существует $N\in Т$, такое что пара $(\chi_0, \chi_1)$ является $N$s–достижимой.
+			Система (\ref{eq:control}) называется вполне достижимой если для любой пары точек  $(\chi_0, \chi_1)\in 2^X\times 2^X$  существует $N\in T$, такое что пара $(\chi_0, \chi_1)$ является $N$-достижимой.
 		\end{Def}
 	\end{frame}
 
@@ -414,11 +421,11 @@
 		\frametitle{Управляемость системы}
 		
 		\begin{Theorem}
-			Пара точек $(\chi_0, \chi_1)$ системы (\ref{eq:vosm})  $N$–достижима тогда и только тогда когда для каждого факта $F_i\in\chi_1$ в множестве $\Pi_{CN}$ найдётся последовательность $\Pi$ попарно применимых правил, такая что $C(r_1)\subseteq\chi_0$ и $rank_{\Pi}(F_i)\geqslant 1$, где $C(r_1)$ условие первого правила последовательности $\Pi$.
+			Пара точек $(\chi_0, \chi_1)$ системы (\ref{eq:control})  $N$-достижима тогда и только тогда когда для каждого факта $F_i\in\chi_1$ в множестве $\Pi_{CN}$ найдётся последовательность $\Pi$ попарно применимых правил, такая что $C(r_1)\subseteq\chi_0$ и $rank_{\Pi}(F_i)\geqslant 1$, где $C(r_1)$ условие первого правила последовательности $\Pi$.
 		\end{Theorem}
 		
 		\begin{Theorem}
-			Система (\ref*{eq:vosm})  вполне достижима если и только если: 
+			Система (\ref*{eq:control})  вполне достижима если и только если: 
 			\begin{enumerate}
 				\item для всякого $F_i\in X$ $F_i\in A$, где $A$ "--- множество добавляемых фактов одного из правил,
 				\item существует последовательность $\Pi$, состоящая из всех правил $\Pi_{CN}$, что для всякого $F$ из $\Pi_{CN}$ $rank_{\Pi}(F)\geqslant 1$.
