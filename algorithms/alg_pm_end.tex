@@ -1,0 +1,18 @@
+			\State $q^{(t+1)}=\max\{q^{(t)},q\}$;
+			\State $Z^{(t+1)}:=\{\bar z_1^{(t+1)},\bar z_2^{(t+1)},\dots \bar z_{q^{(t+1)}}^{(t+1)}\}$, где $\bar z_i^{(t+1)}=\bar z_i^{(t)}\vee \bar z_i$, если $i\leqslant q$ и $i\leqslant q^{(t)}$, $\bar z_i^{(t+1)}=\bar z_i^{(t)}$, если $i>q$ и $\bar z_i^{(t+1)}=\bar z_i$, если $i > q^{(t)}$;
+			
+			\State $Z_p^{(t+1)}:=\{\bar z_1^{c(t+1)},\bar z_2^{e(t+1)}\}$, где $\bar z_1^{c(t+1)}=\bar z_1^{c(t)}\vee (\bar z_1^c\rightarrow R_0)$, $\bar z_2^{e(t+1)}=\bar z_2^{e(t)}\vee (\bar z_2^e\xrightarrow{\bar z_2^{e0}} R_0)$;
+			
+			\State $f_p^{(t+1)}$ "--- признак с матрицей предсказания $Z_p^{(t+1)}$;
+			
+			\State $\tilde m^{(t+1)}=\{f_p^{(t+1)}\}$;
+		\EndIf
+	
+		\State $t=t+1$;
+	\EndWhile
+
+	\State $R^*=R_i^{j(t)}$;
+	\State $Z^*=Z^{(t)}$;
+	\State $\mathcal Z^{*}=\mathcal Z_i^{j(t)}\cup\{Z^*\}$;	
+	
+	\Return $\Psi_p^m$, доопределённую на паре $(\tilde p, \tilde m)$, где $\tilde p=\tilde p^{(t)}$, $\tilde m=\tilde m^{(t)}$.
