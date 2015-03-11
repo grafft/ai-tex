@@ -739,7 +739,307 @@ System.out.println(s1.equals(s2));
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
 	\end{frame}
+
+	\section{Семинар 4}
+	\subsection{Имена и области видимости}
+	\begin{frame}
+		\frametitle{Пакеты}
+		
+		\begin{itemize}
+			\item Пакеты (packages) в Java "--- это способ логически группировать классы.
+			\item В файловой системе они представлены директориями.
+			\item Аналогично директории, пакет может внутри кроме классов содержать и другие пакеты "--- свои элементы.
+			\item Примеры: java.lang, com.sun.misc, ru.mipt.dgap.cs025.project.
+		\end{itemize}
+	\end{frame}
 	
+	\begin{frame}
+		\frametitle{Простые и составные имена}
+		
+		\begin{itemize}
+			\item Простое имя классов, полей и методов дается при объявлении: Object, String, Point, toString(), PI, InnerClass.
+			\item Чтобы получить составное имя, надо к имени родителя, в котором находится элемент, через точку добавить простое имя элемента:
+			
+			java.lang.Object, 
+			
+			java.lang.reflect.Method, 
+			
+			com.myfirm.MainClass, 
+			
+			ref.toString(), 
+			
+			java.lang.Math.PI, 
+			
+			OuterClass.InnerClass
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\lstScope{%
+	\begin{lstlisting}[language=java]
+class Pointer {
+	int x, y;
+
+	int getX() {
+		return x; // simple name
+	}
+}
+
+class Test {
+	void main() {
+		Pointer p = new Pointer();
+		p.x = 3; // complex name
+	}
+}
+	\end{lstlisting}
+}
+
+	\begin{frame}
+		\frametitle{Область видимости}
+		
+		У каждого имени есть область видимости (scope).
+		
+		\lstScope
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Classpath}
+		
+		\begin{itemize}
+			\item Не всегда удобно хранить все файлы в одном каталоге
+			\item Удобно распространять классы в виде JAR (Java ARchive) или ZIP архивов, для ускорения загрузки через сеть.
+			\item Существует специальная переменная окружения classpath (по аналогии с path) "--- её значение должно состоять из путей к каталогам или архивам, разделённых точкой с запятой
+			
+			.;C:/java/classes;D:/lib/3Dengine.zip;D:/lib/fire.jar
+		\end{itemize}
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Модуль компиляции}
+		
+		\begin{itemize}
+			\item Модуль компиляции (compilation unit) хранится в текстовом .java-файле и является единичной порцией входных данных для компилятора. Он состоит из трёх частей:
+			\begin{itemize}
+				\item объявление пакета;
+				\item import-выражения;
+				\item объявления верхнего уровня.
+			\end{itemize}
+			\item Порядок работы import:
+			\begin{itemize}
+				\item сначала просматриваются выражения, импортирующие типы;
+				\item затем другие типы, объявленные в текущем пакете, в том числе в текущем модуле компиляции;
+				\item наконец, просматриваются выражения, импортирующие пакеты.
+			\end{itemize}
+			\item Область видимости объявления верхнего уровня по умолчанию "--- пакет.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Области видимости}
+		
+		\begin{itemize}
+			\item Область видимости доступного пакета "--- вся программа.
+			\item Областью видимости импортированного типа являются все объявления верхнего уровня в этом модуле компиляции.
+			\item Областью видимости класса верхнего уровня является пакет, в котором он объявлен.
+			\item Область видимости элементов классов "--- это все тело типа, в котором они объявлены, доступ через имя класса или зарезервированные слова \textbf{this} и \textbf{super}.
+			\item Аргументы метода, конструктора или обработчика ошибок видны только внутри этих конструкций и не могут быть доступны извне.
+			\item Область видимости локальных переменных начинается с момента их инициализации и до конца блока, в котором они объявлены.
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\lstShad{%
+	\begin{lstlisting}[language=java]
+class Human {
+	int age;
+	void setAge(int age) {
+		this.age = age; // OK
+	}
+}
+	\end{lstlisting}
+}
+\defverbatim[colored]\lstObscur{%
+	\begin{lstlisting}[language=java]
+public class Obscuring {
+	static Point Test = new Point(3, 2);
+	public static void main(String s[]) {
+		System.out.print(Test.x);
+	}
+}
+
+class Test {
+	static int x = -5;
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Перекрытие областей видимости}
+		
+		\begin{overlayarea}{\textwidth}{0.5\textheight}
+			\begin{itemize}
+				\only<1>{
+					\item Затеняющее объявление (shadowing)
+					\lstShad
+				}
+				\only<2>{
+					\item Заслоняющее объявление (obscuring)
+					\lstObscur
+				}
+			\end{itemize}
+		\end{overlayarea}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Соглашения по именованию}
+		
+		\begin{itemize}
+			\item Имя каждого пакета начинается с маленькой буквы и представляет собой, как правило, одно недлинное слово, возможно с подчеркиванием (com.sun.image.codec.jpeg, org.omg.CORBA.ORBPackage, oracle.jdbc.driver).
+			\item Имена типов начинаются с большой буквы и могут состоять из нескольких слов, каждое следующее слово также начинается с большой буквы (Human, HighGreenOak, ArrayIndexOutOfBoundsException, Runnable, Serializable, Cloneable).
+			\item Имена методов должны быть глаголами и обозначать действия, которые совершает данный метод. Имя должно начинаться с маленькой буквы, но может состоять из нескольких слов, причём каждое следующее слово начинается с заглавной буквы.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Соглашения по именованию}
+		
+		\begin{itemize}
+			\item Поля класса имеют имена, записываемые в том же стиле, что и для методов, начинаются с маленькой буквы, могут состоять из нескольких слов, каждое следующее слово начинается с заглавной буквы. Имена должны быть существительными, например, поле name в классе Human, или size в классе Planet.
+			\item Имена констант состоят из последовательности слов, сокращений, аббревиатур. Записываются они только большими буквами, слова разделяются знаками подчеркивания (PI, MIN\_VALUE, MAX\_VALUE, COLOR\_RED, COLOR\_GREEN, COLOR\_BLUE).
+			\item Имена локальных переменных, параметров методов и обработчиков ошибок, как правило, довольно короткие, но, тем не менее, должны быть осмыслены. Например, можно использовать аббревиатуру (имя cp для ссылки на экземпляр класса ColorPoint) или сокращение (buf для buffer).
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{CVS "--- Control Version Systems}
+		Система контроля версий "--- комплекс программного обспечения для обеспечения коллективной работы с исходным кодом, а так же отслеживания изменений в нем.
+		
+		Типичные задачи, которые позволяет решить система контроля версий:
+		
+		\begin{itemize}
+			\item Узнать, что я поменял с момента последней <<живой>> копии?
+			\item Получить исходник установленной месяц назад системы.
+			\item Параллельная работа 2-х и более человек над одним исходником.
+		\end{itemize}
+		
+		Выбираем из двух систем контроля версий:
+		\begin{itemize}
+			\item Subversion.
+			\item GIT/GitHub.
+		\end{itemize}
+	\end{frame}
+
+	\subsection{Модификаторы доступа}
+\defverbatim[colored]\lstPubHum{%
+	\begin{lstlisting}[language=java]
+public class Human {
+	public int age;
+}
+
+Human h = new Human(); 
+int i=h.age;
+	\end{lstlisting}
+}	
+\defverbatim[colored]\lstPrivHum{%
+	\begin{lstlisting}[language=java]
+public class Human {
+	private int age;
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int a) {
+		age=a;
+	}
+}
+
+Human h = new Human();
+int i=h.getAge();
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Сокрытие реализации}
+		
+		Модификаторы доступа вводятся для защиты, или избавления, пользователя от излишних зависимостей от деталей внутренней реализации.
+		\begin{overlayarea}{\textwidth}{0.7\textheight}
+			\only<1>{
+				\lstPubHum	
+			}
+			\only<2>{
+				\lstPrivHum
+			}
+		\end{overlayarea}
+	\end{frame}
+
+\defverbatim[colored]\lstChangeHum{%
+	\begin{lstlisting}[language=java]
+public class Human {
+	private/* int */double age;
+
+	public int getAge() {
+		return (int) Math.round(age);
+	}
+	public void setAge(int a) {
+		age = a;
+	}
+
+	public double getExactAge() {
+		return age;
+	}
+	public void setExactAge(double a) {
+		age = a;
+	}
+}
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Изменение реализации}
+		
+		\lstChangeHum
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Уровни доступа}
+		
+		В Java модификаторы доступа указываются для:
+		\begin{itemize}
+			\item классов объявления верхнего уровня,
+			\item элементов класса (полей, методов, внутренних типов),
+			\item конструкторов классов.
+		\end{itemize}
+		
+		Все четыре уровня доступа имеют только элементы типов и конструкторы. Это:
+		\begin{itemize}
+			\item public,
+			\item private,
+			\item protected,
+			\item если не указан ни один из этих трёх типов, то уровень доступа определяется по умолчанию (default).
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\lstClassSchema{%
+	\begin{lstlisting}[language=java,	basicstyle=\tiny]
+[public] [final] class ValidClassName [extends ParentClassName] {
+	[public,private,protected] [static] [final] int valName [=0];
+	[public,private,protected] [static] [final] MyType valName2 [=null];
+	
+	[public,private,protected] ValidClassName([int paramName][, [final] MyType paramName2][...]) [throws ExceptionName]{
+		[super(...);]...
+	}
+
+	[public,private,protected] [static] [final] [void, int, MyType] methodName([int paramName][, [final] MyType paramName2][...]) [throws ExceptionName]{
+		[super. methodName(...);]...
+	}
+}
+	\end{lstlisting}
+}
+
+	\begin{frame}
+		\frametitle{Шаблон объявления класса}
+		
+		\lstClassSchema
+	\end{frame}
+		
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
 	%		
