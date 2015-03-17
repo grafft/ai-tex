@@ -723,19 +723,19 @@ System.out.println(s1.equals(s2));
 		
 		Отделяем исходники (папка src) и бинарные файлы (папка bin).
 		\begin{itemize}
-			\item javac -d bin src/HelloWorld.java
+			\item javac -d bin HelloWorld.java
 			\item java -classpath ./bin HelloWorld
 		\end{itemize}
 		
 		Помещаем исходный класс в пакет ru.mipt.cs.
 		\begin{itemize}
-			\item javac -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
+			\item javac -d bin ru/mipt/cs/helloworld/HelloWorld.java
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
 		
 		Несколько файлов в проекте.		
 		\begin{itemize}
-			\item javac -sourcepath ./src -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
+			\item javac -d ../bin ru/mipt/cs/helloworld/HelloWorld.java
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
 	\end{frame}
