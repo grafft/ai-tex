@@ -15,7 +15,7 @@
 		\State $\bar x_i^j:=\omega_i^j(\tau_s)$;
 		
 		\ForAll{функций распознавания $\hat{f}_k\in\hat{F}^*$}
-			\ForAll{$Z_r^k\in\mathcal{Z}_k$, соответствующих функции распознавания $\hat{f}_k$,}
+			\ForAll{$Z_r^k\in Z_k$, соответствующих функции распознавания $\hat{f}_k$,}
 				\If{$\frac{\|\bar{z}_1^r-\bar{x}_i^j\|}{\|\bar{z}_1^r\|+\|\bar{x}_i^j\|}<c_2$} \label{alst:select_z}
 					\State $Z^*:=Z^*\cup\{Z_r^k\}$;
 				\EndIf
