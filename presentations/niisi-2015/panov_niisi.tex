@@ -1,0 +1,561 @@
+\documentclass[mathserif]{beamer}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{theorems}[numbered]
+\usetheme{AnnArbor}
+\useoutertheme{infolines}
+\usecolortheme{crane}
+
+\makeatletter
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+			\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+			\insertframenumber{}\hspace*{2ex} 
+		\end{beamercolorbox}}%
+		\vskip0pt%
+	}
+\makeatother
+	
+\usepackage{cmap}	% Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}       %поддержка кириллицы
+\usepackage[cp1251]{inputenc}	% Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{subfig}
+\usepackage{tikz}
+
+\graphicspath{{../../images/}} 			% Пути к изображениям
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\algnewcommand\And{\textbf{and}}
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+	\par
+	\def\insertproofname{#1\@addpunct{.}}%
+	\usebeamertemplate{proof begin}#2}
+{\usebeamertemplate{proof end}}
+\makeatother
+
+\makeatletter
+\newenvironment{cenumerate}{%
+	\enumerate
+	\setcounter{\@enumctr}{\csname saved@\@enumctr\endcsname}%
+}{%
+\expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}%
+\endenumerate
+}
+\newenvironment{cenumerate*}{%
+	\enumerate
+}{%
+\expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}%
+\endenumerate
+}
+\makeatother
+
+\let\Theorem\relax
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Pred}{Утверждение}
+\let\Corollary\relax
+\newtheorem{Corollary}{Следствие}
+\newtheorem{Def}{Определение}
+\floatname{algorithm}{Алгоритм}
+\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+\algrenewcommand\algorithmicreturn{\textbf{Выход:}}
+
+\begin{document}
+	
+	\title[Модель картины мира]{Исследование образной и процедурной компонент картины мира субъекта деятельности}
+	\author{Александр Панов}
+	\institute[ИСА РАН]{ИСА РАН\\ научный руководитель д.ф.-м.н., проф. Г.\,С.~Осипов}
+	\date{19 марта 2015 г.} 
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Проблема соотношения мозга и психики}
+		
+		Изучение физиологических основ психической деятельности и поведения человека привело к нахождению нейрофизиологических коррелятов многих низших психических и высших когнитивных функций. Однако единая математическая модель проявления психической функции на основе нейронного субстрата мозга до сих пор не построена.
+		\par\bigskip
+		\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.85}]
+		\onslide<1->{
+			\node at (0,1.7) {Мозг};
+			\node[align=center] at (0,0) {\includegraphics{phisio/mozg_2}};
+			
+			\node at (10,1.7) {Психические функции};
+			\node[align=center] at (10,-0.2) {\includegraphics[width=0.3\textwidth]{signs/signs_net}};
+			
+			\node at (2.5,-2.3) {Внешняя среда};
+			\node (tmp1) at (2,-2) {};
+			\node (tmp2) at (2.9,-0.8) {};
+			\node (tmp3) at (3.9,0) {};
+			\node (tmp4) at (4.9,0.6) {};
+			
+			\node (tmp5) at (5,0.75) {};
+			\node (tmp6) at (6,0.15) {};
+			
+			\draw[ultra thick] (1,-2.5) -- (1,-2) -- (4,-2) -- (4,-2.5);
+			\scriptsize
+			\draw[-latex,thick,shorten >=2pt] (tmp1) edge[bend right] node[yshift=-18, left,align=center] {сенсорный\\вход} (1.4,-0.1);
+		}
+		
+		\onslide<2->{
+			\normalsize
+			\node at (5,1.7) {Иерархия автоматов};
+			\node[align=center] at (5,0) {\includegraphics[width=0.4\textwidth]{rb_hierarchy}};
+						
+			\draw[-latex,thick,shorten >=2pt]  (3,-2) -- (3.2,-0.8);
+			\draw[-latex,thick,shorten >=2pt] (3,-2) -- (5.0,-0.8);
+			\draw[-latex,thick,shorten >=4pt] (3,-2) -- node[yshift=-7, right, align=center] {входы\\автоматов} (7.0,-0.8);
+			
+			\draw[->, thick, color=red] (tmp2) edge[bend right] (1.1,0);
+			\draw[->, thick, color=red] (tmp3) edge[bend right] (-0.3,-0.2);
+			\draw[->, thick, color=red] (tmp4) edge[bend right] (-1.1,0.2);
+			
+			\draw[->] (tmp5) edge[bend left] (9,0.9);
+			\draw[->] (tmp6) edge[bend left] (8.5,-0.1);		
+		}
+		\end{tikzpicture}
+
+
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Картина мира и нейрофизиология}
+
+		\begin{figure}
+			\includegraphics[width=0.5\textwidth]{ivanitsky_cyrcle}
+		\end{figure}
+		
+		По нейрофизиологическим данным (В.~Маунткасл,1981; Д.~Эдельман, 1987; Дж.~Хокинс, 2009; А.\,М.~Иваницкий, 2010; С.~Гроссберг, 2014)
+		\begin{itemize}
+			\item кора головного мозга состоит из иерархически связанных друг с другом больших групп нейронов (регионы неокортекса),
+			\item возникновение ощущения, т.~е. активизация некоторого элемента картины мира субъекта, происходит при замыкании контура распространения нервного возбуждения от сенсорного входа через гиппокамп и гипоталамус. 
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Картина мира и психология}
+
+		В \textit{культурно"--~историческом подходе} (А.\,Р.~Лурия, 1970; Л.\,Н.~Выготский, 1982) и \textit{теории деятельности} (А.\,Н.~Леонтьев, 1975)
+		\begin{itemize}
+			\item вводится понятие знака как элемента картины мира субъекта,
+			\item раскрывается роль знака в формировании высших когнитивных функций,
+			\item показывается, что образующими картины мира, т.~е. компонентами знака, являются \textit{образ}, \textit{значение} и \textit{личностный смысл}.
+		\end{itemize}
+
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Знак "--- элемент картины мира}
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				\begin{figure}
+					\includegraphics[width=0.7\textwidth]{signs/sign_colored}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.4\textwidth}
+				Знак $s$ имеет следующие компоненты: 
+				\begin{itemize}
+					\item имя $n$,
+					\item образ $p$, 
+					\item значение $m$ и 
+					\item личностный смысл $a$.	
+				\end{itemize}
+			\end{column}
+		\end{columns}						
+
+	\end{frame}	
+
+	\begin{frame}
+		\frametitle{Картина мира субъекта деятельности}
+		
+		\begin{columns}
+			\begin{column}{0.55\textwidth}
+				\begin{figure}
+					\includegraphics[width=\textwidth]{signs/signs_net}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.45\textwidth}
+				\textit{Семиотическая сеть} $H=\langle H_P, H_A, H_M\rangle$, где
+				\begin{itemize}
+					\item $H_P=\langle2^P,\mathfrak R_P\rangle$ "--- семантическая сеть на множестве образов знаков,
+					\item $H_P=\langle2^A,\mathfrak R_A\rangle$ "--- семантическая сеть на множестве значений знаков,
+					\item $H_P=\langle2^M,\mathfrak R_M\rangle$ "--- семантическая сеть на множестве личностных смыслов знаков.
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}				
+
+	\begin{frame}
+		\frametitle{Предмет и цель исследования}
+		
+		\textbf{Предмет исследования} "--- построение знаковых моделей картины мира субъекта деятельности и некоторых когнитивных функций.
+		\par\bigskip
+		\textbf{Целью исследования} является разработка моделей и алгоритмов формирования образа и значения элемента знаковой картины мира субъекта деятельности.
+
+		\par\bigskip
+		Таким образом, в настоящей работе рассматриваются алгоритмы формирования двух основных компонент знака: образа и значения. Исследуется сходимость процесса связывания этих компонент и рассматриваются некоторые функции знаковой картины мира
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Задачи исследования}
+		В целях формального описания компонент знака в работе строится специальный распознающий автомат. Функционирование автомата соответствует (с~некоторыми упрощениями) нейрофизиологическим данным о работе указанных областей головного мозга человека.
+		\par\bigskip
+		Основные задачи:
+		\begin{itemize}
+			\item исследовать автоматную функцию иерархии распознающих автоматов с заданным множеством состояний, полученными в результате процесса обучения (например, по алгоритму HTM или HQSOM);
+			\item на основе построенной модели разработать алгоритм формирования двух основных компонент знака: образа и значения;
+			\item исследовать сходимость построенного алгоритма.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Основные свойства модели и используемые упрощения}
+		
+		\begin{columns}
+			\begin{column}{0.3\textwidth}
+				\begin{figure}
+					\includegraphics[width=\textwidth]{info_flow.jpg}
+				\end{figure}
+			\end{column}
+			\begin{column}{0.7\textwidth}
+				
+				\begin{overlayarea}{\textwidth}{0.5\textheight}
+					\only<1>{
+						Принимается гипотеза о том, что неокортекс состоит из зон (регионов), состоящих в свою очередь из колонок и имеющих одинаковое строение на всех участках коры. Колонки в регионе объединены латеральными связями. 
+					}
+						
+					\only<2>{
+						Основные свойства:
+						\begin{itemize}
+							\item Хранение последовательности паттернов в инвариантной форме.
+							\item Воспроизведение паттернов автоассоциативно.
+							\item Хранение паттернов в иерархической системе.
+							\item Использование обратной связи для предсказания поступающей на данный уровень иерархии информации 
+						\end{itemize}
+					}
+								
+					\only<3>{
+						Упрощения:
+						\begin{itemize}
+							\item дискретность во времени,
+							\item простейшая строгая иерархия со связями только между
+							ближайшими уровнями,
+							\item гипотеза одинаковой длительности распознаваемых явлений в рамках одного региона,
+							\item пороговая модель принятия решений,
+							\item подавление непредвиденного сигнала.
+						\end{itemize}
+					}				
+				\end{overlayarea}
+
+			\end{column}
+		\end{columns}
+		
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Признаки и распознающие автоматы}
+		Для уточнения постановки задачи введём следующие объекты:
+		\begin{itemize}
+			\item 
+			$\mathcal R$ "--- совокупность распознающих автоматов или $R$-автоматов вида $<A,Q,B,\varphi,\eta>$ с множествами входов $A$, выходов $B$ и состояний $Q$ и определёнными в соответствии с нейрофизиологическими данными функциями переходов $\varphi$ и выходов $\eta$,
+			\item
+			$\mathcal F$ "--- совокупность допустимых признаков.
+		\end{itemize}
+		\par\bigskip
+		Введём бинарное отношение $\dashv$, определённое на декартовом произведении $\mathcal F\times\mathcal R$, и будем читать $f_k{\dashv}R_i^j$ как <<признак $f_k$ распознаётся $R$-автоматом $R_i^j$>>. 
+		\par\bigskip	
+		Множество всех распознаваемых $R$-автоматом $R_i^j$ признаков будем обозначать $F_i^{*j}$, т.~е. ${\forall}f^*{\in}F_i^{*j} f^*{\dashv}R_i^j, F_i^{*j}{\subseteq}\mathcal F$.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Иерархия распознающих автоматов}
+		\begin{figure}
+			\includegraphics[width=0.5\textwidth]{rb_hierarchy}
+		\end{figure}
+		Представим иерархию $R$-автоматов в виде связного ориентированного ярусного граф $G_R=(V,E)$:
+		\begin{itemize}
+			\item 
+			$V=\mathcal R$ "--- множество вершин,
+			\item
+			$E\subset \mathcal R\times\mathcal R$ "--- множество рёбер,
+			\item 
+			каждая вершина, принадлежащая $j$-ому ярусу графа $G_R$, является $R$-автоматом $R_i^j$ уровня $j$,
+			\item
+			каждое ребро $e=(R_i^j,R_k^{j+1}){\in}E$ обозначает иерархическую связь между дочерним $R$-автоматом $R_i^j$ и $R$-автоматом "--- родителем $R_k^{j+1}$.				
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Входные признаки и функции распознавания}
+		Введём следующие определения.
+		\begin{itemize}
+			\item 
+			Признак $f\dashv R_k^{j-1}$ называется входным для $R$-автомата $R_i^j$, если $R_k^{j-1}$ является дочерним автоматом по отношению к $R_i^j$. Всё множество входных признаков для $R_i^j$ будем обозначать $F_i^j$.
+			\item
+			Для каждого признака $f^*{\in}F_i^{*j}$ введём \textit{функцию распознавания} $\hat{f}(x_1,\dots,x_q)=x^*$, где $x^*{\in}(0,1)$ "--- вес распознаваемого признака $f^*$, а $x_1,\dots,x_q{\in}(0,1)$ "--- веса признаков из множества входных признаков $F_i^j$. Всю совокупность функций распознавания для $R_i^j$ будем обозначать $\hat{F}_i^j$.
+			\item Каждой функции распознавания $\hat{f}_k$ из множества $\hat F_i^j$ поставим в соответствие набор булевых матриц предсказания $Z_k=\{Z_1^k,…,Z_m^k\}$ размерности $q\times h$, множество которых $\mathcal Z_i^j$ формирует состояния $R$-автомата.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[t]
+		\frametitle{Динамика распознающего автомата}
+
+		\vspace*{-0.5cm}
+		\begin{minipage}[t]{\textwidth}
+			\begin{figure}[t]
+				\includegraphics[width=\textwidth]{rb_cycle}
+			\end{figure}
+		\end{minipage}
+
+		\begin{itemize}
+			\item вектор $\bar{x}_i^j(t)$ длины $q_i^j$ "--- входной сигнал (вектор весов входных признаков), 
+			\item вектор $\bar{x}_i^{*j}(t)$ длины $l_i^j$ "--- выходной сигнал (вектор весов распознаваемых признаков), 
+			\item вектор $\hat{x}_i^{j+1}(t)$ длины $l_i^j$ "--- управляющий вектор, задающий начальное состояние в моменты времени $0,h_i^j,2h_i^j,\dots$,
+			\item вектор $\hat{x}_i^j(t)$ длины $q_i^j$ "--- вектор состояния (вектор ожиданий входных признаков в следующий момент времени),
+			\item $h_i^j$ "--- глубина памяти $R$-автомата $R_i^j$.
+		\end{itemize}
+
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Алгоритм $\mathfrak A_{th}$ функционирования $R$-автомата}
+				
+		\par\bigskip
+		В работе построен пороговый алгоритм $\mathfrak A_{th}(c_1,c_2)$ вычисления функции переходов $\varphi$ и выходной функции $\vec\eta$ по начальному моменту времени $\tau_s$, управляющему воздействию $\hat x^{j+1}(\tau_s)$ и входному воздействию $\omega$. 
+		
+		\par\bigskip
+		Для исследования автоматной функции на основании разработанного алгоритма ниже будут построены 4 типа операторов распознавания, сформулированы задачи классификации и доказаны теоремы корректности линейных замыканий множеств этих операторов.
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Статический оператор распознавания}
+		Зафиксируем момент времени $t$, равный началу некоторого $s$-го вычислительного цикла $\tau_s$, т.~е. рассмотрим первый этап алгоритма $\mathfrak A_{th}$ "--- задание начального состояния $R$-автомата.
+		\par\bigskip
+		В этом случае, $R$-автомат $R$ можно рассматривать как статический оператор распознавания $R(\hat x^{j+1}(\tau_s),\mathcal Z,\bar x(\tau_s))=R(\hat x^{j+1},\mathcal Z,\bar x)=\bar x^*$.
+	\end{frame}
+		
+	\begin{frame}
+		\frametitle{Задача классификации в статическом случае}
+		Пусть
+		\begin{itemize}
+			\item $\mathcal Q$ "--- совокупность задач классификации,
+			\item $\mathcal A$ "--- множество алгоритмов, переводящих пары $(\hat{x},\bar{x})$ в векторы $\bar{\beta}$, составленные из элементов $0,1,\Delta:A(\hat{x},\bar{x})=\bar{\beta}$.
+		\end{itemize}
+		\par\bigskip
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				Задача $Q(\hat{x},\bar{x},\bar\alpha)\in\mathcal Q$ состоит в построении алгоритма, вычисляющего по поступившему вектору ожиданий $\hat{x}$ и входному вектору $\bar{x}$ значения информационного вектора $\bar\alpha=(\alpha_1,\dots,\alpha_l), \alpha_i\in\{0,1\}$ присутствия признаков $f_1^*,…,f_l^*$. 
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{figure}[t]
+					\includegraphics[width=1.0\linewidth,page=1]{rb_correct}
+				\end{figure}
+			\end{column}	
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Операторы распознавания $R^t$}
+		Пусть $\tau_s<t<\tau_s+h$, тогда операторы распознавания примут вид $R(\hat x^{j+1}(\tau_s), \mathcal Z, \omega_{i\Delta t}^j)$, $\Delta t=[\tau_s, t)$, кратко $R^t$.
+		\par\bigskip
+		\begin{columns}
+			\begin{column}{0.5\textwidth}		
+				Для этих операторов постановка задачи распознавания выглядит таким же образом как и для операторов $R$, формулировки определений полноты и корректности идентичны. 
+				\par\bigskip
+				Теорема о корректности линейного замыкания $L(\{R^t\cdot{C^*}|R^t\in\mathcal R^t\})$ доказывается аналогично.
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{figure}[t]
+					\includegraphics[width=1.0\linewidth,page=2]{rb_correct}
+				\end{figure}
+			\end{column}			
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Динамические операторы распознавания}
+		Будем фиксировать не конкретный момент времени $t$, а полуинтервал ${\Delta}t=[\tau_s,\tau_s+h)$. 
+		\par\bigskip
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				В этом случае $R$-автомат $R$ можно рассматривать как \textit{динамический оператор распознавания} $\hat R(\hat x^{j+1}(\tau_s), \mathcal Z, \omega_{\Delta t})=\gamma_{\Delta t}$
+				\begin{itemize}
+					\item принимающий  функцию входного воздействия $\omega$ и 
+					\item выдающий функцию выходной величины $\gamma$. 
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{figure}[t]
+					\includegraphics[width=1.0\linewidth,page=3]{rb_correct}
+				\end{figure}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Иерархический оператор распознавания}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				Рассмотрим пример из двухуровневой иерархии, на каждом уровне которой находится по~одному оператору: статический $R_{i_1}^{j+1}(\hat x _{i_1}^{j+2},\bar x_{i_1}^{j+1}(\tau_s),\bar\alpha_{i_1}^{j+1})$ на верхнем уровне и динамический $\hat R_{i_2}^j(\hat x _{i_2}^{j+1},\omega_{i_2\Delta t}^j,\bar\alpha_{i_2}^j)$ "--- на нижнем.
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{figure}[t]
+					\includegraphics[width=0.9\linewidth,page=4]{rb_correct}
+				\end{figure}
+			\end{column}
+		\end{columns}
+		
+		\par\bigskip
+		Эту схему можно рассматривать как \textit{иерархический оператор распознавания} $\hat R_{e,j}^2(\hat x_{i_1}^{j+1}(\tau_s),\mathcal Z_{i_1}^{j+1},\mathcal Z_{i_2}^j,\omega_{i_2\Delta t}^j)=\bar x_{i_1}^{*j+1}$.
+	\end{frame}	
+
+	\begin{frame}
+		\frametitle{Формирование пары <<образ "--- значение>>}
+		
+			Применим введённые понятия для решения задачи формирования пары <<образ "--- значение>> элемента картины мира субъекта.
+			\par\bigskip
+			Уточним постановку задачи.
+			
+			\begin{figure}
+				\includegraphics[width=0.45\textwidth]{signs/sign_naming_colored}
+			\end{figure}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Отношение поглощения признаков}
+		Введём семейство бинарных отношений $\{\sqsubset,\sqsubset^1,\sqsubset^2,\dots\}$, определённых на декартовом произведении $\mathcal F\times\mathcal F$. 
+		\par\bigskip
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				Признак $f_1$ поглощается признаком $f_2$: $f_1\sqsubset f_2$, в том случае, если $f_1\dashv R_i^j, f_2\dashv R_k^{j+1}$, $R_k^{j+1}$ "--- родительский $R$-автомат по отношению к $R_i^j$ и в множестве матриц предсказания $Z_2$ признака $f_2$ существует как минимум одна матрица $Z_r^2$, содержащая некоторый столбец $\bar z_u^r$ с элементом $z_{uv}^r\not=0$, где $v$ "--- индекс признака $f_1$ во входном векторе для $R$-автомата $R_2^{j+1}$.
+			\end{column}
+			\begin{column}{0.4\textwidth}
+				\begin{figure}[t]
+					\includegraphics[width=0.75\linewidth]{automata/meas}
+				\end{figure}
+			\end{column}
+		\end{columns}
+	\end{frame}
+		
+	\begin{frame}
+		\frametitle{Процедурные и объектные признаки}
+		Значение знака будем рассматривать как множество правил, каждое из которых соответствует некоторому действию. Правило для простоты будем представлять в виде пары <<условия "--- эффект действия>> так,~как это принято в искусственном интеллекте. 
+		\par\bigskip
+		Введём операцию $\Lambda$, которая по множеству матриц распознавания $\mathcal Z_k$ признака $f_k$ определяет два набора индексов столбцов матриц из $Z_k$. Первый набор $I_c=\{i_1^c,i_2^c,\dots\}$, $\forall k\ 0\leqslant i_k^c < h$, составляют индексы \textit{столбцов условий}, в которых ненулевые элементы определяют условия проявления признака $f_k$. Второй набор $I_e=\{i_1^e,i_2^e,\dots\}$, $\forall k\ 0\leqslant i_k^e < h$, состоит из индексов  \textit{столбцов эффектов}, в которых ненулевые элементы определяют эффекты проявления признака $f_k$. 
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Процедрные и объектные признаки}
+		
+		\begin{Def}
+			Признаки, для матриц предсказания которых процедура $\Lambda$ выдаёт непустые множества индексов $I_c$ и $I_e$, будем называть процедурными признаками, остальные "--- объектными признаками.
+		\end{Def}
+		\par\bigskip
+		Пополним семейство отношений $\{\sqsubset,\sqsubset^1,\sqsubset^2,\dots\}$ двумя отношениями: $\sqsubset^c$ и $\sqsubset^e$, принадлежность к которым пары признаков $(f_1,f_2)$ свидетельствует о том, что признак $f_1$ присутствует соответственно в столбце условий и эффектов как минимум в одной матрице предсказания процедурного признака $f_2$.
+	\end{frame}
+		
+	\begin{frame}
+		\frametitle{Образ знака}
+		
+		Пусть $S$ "--- множество знаков. Будем считать, что между множествами $S$ и $\mathcal F$ установлено некоторое взаимно-однозначное соответствие.
+		
+		\begin{Def}
+			Если $f_1$ "--- признак, соответствующий знаку $s_1$, то подмножество $\tilde p(f_1)\subset\mathcal F$ таких признаков, что $\forall f_i\in\tilde p(f_1) f_i\sqsubset f_1$, будем называть образом знака $s_1$ (признака $f_1$).
+		\end{Def}
+		
+		На множестве всех образов $\tilde P$ введём метрику $\rho_p(\tilde p(f_1),\tilde p(f_2))$, $f_1\dashv R_i^j, f_2\dashv R_u^s$, вычисляемую по следующему правилу:
+		\[
+			\rho_p(\tilde p(f_1),\tilde p(f_2))=
+			\begin{cases}
+				\infty, & \text{если}\ R_i^j\not=R_u^s,\\
+				\min\limits_{\substack{Z_r^1\in Z_1\\Z_s^2\in Z_2}}\frac{1}{q\cdot h}\sum\limits_{u=1}^h\|\bar z_u^r-\bar z_u^s\|, & \text{если}\ R_i^j=R_u^s.
+			\end{cases}
+		\]
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Значение знака}
+		\begin{Def}
+			Если $f_1$ "--- признак, соответствующий знаку $s_1$, $f_2$ "--- процедурный признак и $f_1\sqsubset^c f_2$, то будем называть $f_2$ элементом значения знака $s_1$ (признака $f_1$). Множество всех элементов значения признака $f_1$ будем обозначать $\tilde m(f_1)$.
+		\end{Def}
+		
+		На множестве всех значений $\tilde M$ введём метрику $\rho_m(\tilde m(f_1),\tilde m(f_2))$ следующим образом:
+		\begin{equation}
+		\rho_m(\tilde m_1(f_1),\tilde m_2(f_2 ))=\min\limits_{\substack{f_i\in\tilde m(f_1 )\\f_j\in\tilde m(f_2 )}}\rho_p(\tilde p(f_i ),\tilde p(f_j )).
+		\end{equation}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Процедурный признак как правило}
+		Любой элементарный процедурный признак $f_p$, распознаваемый $R$-автоматом $R$, можно представить в виде правила $r_p=<F_C(f_p),F_A(f_p),F_D(f_p)>$, в котором:
+		\begin{itemize}
+			\item $F_C (f_p )\subseteq F_i^j$ "--- множество признаков "--- условий правила: $\forall f\in F_C(f_p)$ $f\sqsubset^c f_p$;
+			\item $F_A(f_p)\subseteq F_i^j$ "--- множество добавляемых правилом признаков: $\forall f\in F_A(f_p)$ $f\sqsubset^e f_p,f\notin F_C$;
+			\item $F_D(f_p)\subseteq F_i^j$ "--- множество удаляемых правилом признаков: $\forall f\in F_D(f_p)$ $f\notin F_A,f\in F_C$.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Опыт наблюдения}
+		Пусть опыт наблюдения субъекта записывается в виде функции $\Psi_p^m$. $\Psi_p^m(\tilde p)=\tilde m$, в том случае, если $\tilde p\in\tilde P$ является образом некоторого знака $s$, а $\tilde m\in\tilde M$ -- значением того же знака $s$.
+		\par\bigskip
+		В работе построен алгоритм $\mathfrak A_{pm}$ доопределения функции $\Psi_p^m$, который обеспечивает формирование такого образа из множества признаков $\hat F$, при котором формируемое значение знака сходится к заданному значению $\tilde m^0=\{f_p^0\}$.
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Теорема корректности алгоритма $\mathfrak A_{pm}$}
+		Имеет место следующее утверждение.
+		\par\bigskip
+		\begin{Theorem}
+			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для  значения $\tilde m^0$, полученного из внешней среды, стремится к $\tilde m^0$.
+		\end{Theorem}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Применение построенной модели}
+		
+		С помощью введённого формализма удаётся построить ряд алгоритмов (например, целеполагания), которые не могут быть разработаны в рамках классического искусственного интеллекта.
+		\begin{minipage}[t]{\textwidth}
+			\begin{figure}[t]
+				\includegraphics[width=0.7\textwidth]{examples/goal_set}
+			\end{figure}
+		\end{minipage}
+	\end{frame}
+		
+	\begin{frame}
+		\frametitle{Результаты}
+		\begin{enumerate}
+			\item Построена модель компонент знака "--- элемента картины мира субъекта деятельности в рамках сегодняшних представлений о функционировании мозга и психики человека.
+			\item Построены четыре типа операторов распознавания (два статических оператора, динамический и иерархический операторы) в терминах алгебраической теории для образной компоненты знака.
+			\item Доказаны теоремы корректности линейных замыканий множеств построенных в работе операторов распознавания (статических, динамического и иерархического).
+			\item Построен алгоритм формирования и связывания двух компонент знака: образа и значения.
+			\item Исследована сходимость алгоритма формирования и связывания двух компонент знака.
+		\end{enumerate}
+	\end{frame}
+			
+	\begin{frame}
+		\centering
+		\Huge
+		Спасибо за внимание!
+		\normalsize
+		\par\bigskip
+		\par\bigskip
+		ИСА РАН, лаб. <<Динамические интеллектуальные системы>>, pan@isa.ru
+	\end{frame}
+	
+\end{document}
