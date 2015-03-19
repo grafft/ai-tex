@@ -723,19 +723,19 @@ System.out.println(s1.equals(s2));
 		
 		Отделяем исходники (папка src) и бинарные файлы (папка bin).
 		\begin{itemize}
-			\item javac -d bin src/HelloWorld.java
+			\item javac -d bin HelloWorld.java
 			\item java -classpath ./bin HelloWorld
 		\end{itemize}
 		
 		Помещаем исходный класс в пакет ru.mipt.cs.
 		\begin{itemize}
-			\item javac -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
+			\item javac -d bin ru/mipt/cs/helloworld/HelloWorld.java
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
 		
 		Несколько файлов в проекте.		
 		\begin{itemize}
-			\item javac -sourcepath ./src -d bin src/ru/mipt/cs/helloworld/HelloWorld.java
+			\item javac -d ../bin ru/mipt/cs/helloworld/HelloWorld.java
 			\item java -classpath ./bin ru.mipt.cs.helloworld.HelloWorld
 		\end{itemize}				
 	\end{frame}
@@ -1039,7 +1039,331 @@ public class Human {
 		
 		\lstClassSchema
 	\end{frame}
+
+	\section{Семинар 5}
+	\subsection{Объектная модель}
+	\begin{frame}
+		\frametitle{Контекст выполнения}
 		
+		К статическому контексту выполнения относятся:
+		\begin{itemize}
+			\item статические методы,
+			\item статические поля.
+		\end{itemize}
+
+		Остальные части кода относятся к динамическому контексту:		
+		\begin{itemize}
+			\item обычные методы,
+			\item обычные поля,
+			\item конструкторы.
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\lstStat{%
+	\begin{lstlisting}[language=java]
+class Test {
+	public void process() {
+	}
+	
+	public static void main(String s[]) {
+		// process(); - error!
+
+		Test test = new Test();
+		test.process(); // OK!
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Статический контекст}
+		
+		\lstStat
+	\end{frame}
+
+\defverbatim[colored]\lstAbstract{%
+	\begin{lstlisting}[language=java]
+// Base operation
+public abstract class Operation {
+	public int calculate(int a, int b){}
+}
+
+class Addition extends Operation {
+	public int calculate(int a, int b) {
+		return a+b;
+	}
+}
+
+class Subtraction extends Operation {
+	public int calculate(int a, int b) {
+		return a-b;
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Абстрактные классы}
+		
+		\lstAbstract
+	\end{frame}
+
+\defverbatim[colored]\lstAbstractMeth{%
+	\begin{lstlisting}[language=java]
+	// Base operation
+	public abstract class Operation {
+		public abstract int calculate(int a, int b);
+	}
+	
+	class Addition extends Operation {
+		public int calculate(int a, int b) {
+			return a+b;
+		}
+	}
+	
+	class Subtraction extends Operation {
+		public int calculate(int a, int b) {
+			return a-b;
+		}
+	}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Абстрактный метод}
+		
+		\lstAbstractMeth
+	\end{frame}
+
+\defverbatim[colored]\lstAbsExample{%
+	\begin{lstlisting}[language=java]
+class Test {
+	public static void main(String s[]) {
+		Operation o1 = new Addition();
+		Operation o2 = new Subtraction();
+		
+		o1.calculate(2, 3);
+		o2.calculate(3, 5);
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Пример использования абстрактного класса}
+		
+		\lstAbsExample
+	\end{frame}
+
+\defverbatim[colored]\lstInterface{%
+	\begin{lstlisting}[language=java]
+public interface Drawable extends Colorable, Resizable {
+	public final static int RIGHT = 1;
+	int LEFT = 2;
+	int UP = 3;
+	int DOWN = 4;
+
+	public abstract void moveRight();
+	void moveLeft();
+	void moveUp();
+	void moveDown();
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Интерфейс}
+		
+		\lstInterface
+	\end{frame}
+
+\defverbatim[colored]\lstInterExample{%
+	\begin{lstlisting}[language=java]
+public interface InsectConsumer {
+	void consumeInsect(Insect i);
+}
+// Rosianka
+class Sundew extends Plant implements InsectConsumer {
+	public void consumeInsect(Insect i) {
+		// ...
+	}
+}
+// Lastochka
+class Swallow extends Bird implements InsectConsumer {
+	public void consumeInsect(Insect i) {
+		// ...
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Использование интерфейсов}
+		
+		\lstInterExample
+	\end{frame}
+
+\defverbatim[colored]\lstInterExContinue{%
+	\begin{lstlisting}[language=java]
+// Muravied
+class AntEater extends Mammal implements InsectConsumer {
+	public void consumeInsect(Insect i) {
+		// ...
+	}
+}
+
+class FeedWorker extends Worker {
+	public void feedOnInsects(InsectConsumer consumer) {
+		consumer.consumeInsect(new Insect());
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Использование интерфейсов}
+		
+		\lstInterExContinue
+	\end{frame}		
+	
+	\subsection{Преобразование типов}
+\defverbatim[colored]\lstTypeCasting{%
+	\begin{lstlisting}[language=java]
+long a = 3;
+a = 5 + 'A' + a;
+print("a=" + Math.round(a / 2F));
+int b=1;
+byte c=(byte)-b;
+int i=c;
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Автоматическое преобразование}
+		
+		Тип устанавливается на основе структуры применяемых выражений и типов литералов, переменных и методов, используемых в этих выражениях.
+		
+		\lstTypeCasting
+	\end{frame}
+
+\defverbatim[colored]\lstCastingPrim{%
+	\begin{lstlisting}[language=java]
+long d=111111111111L;
+float f = d;
+a = (long) f;
+print(d);
+
+print((byte)383); 
+print((byte)384); 
+print((byte)-384);
+char ch=40000; 
+print((short)ch);
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Примитивные типы}
+		
+		\begin{itemize}
+			\item \textbf{Расширение примитивного типа} (widening primitive) "--- автоматическое.
+			\item \textbf{сужение примитивного типа} (narrowing primitive) "--- явно, т.~к. можно потерять данные.
+		\end{itemize}
+		\lstCastingPrim
+	\end{frame}
+	
+\defverbatim[colored]\lstCastingObjEx{%
+	\begin{lstlisting}[language=java]
+class Parent {
+	int x;
+}
+
+class Child extends Parent {
+	int y;
+}
+
+class Child2 extends Parent {
+	int z;
+}
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Объектные типы. Пример}
+		
+		\lstCastingObjEx
+	\end{frame}			
+
+\defverbatim[colored]\lstCastingObj{%
+	\begin{lstlisting}[language=java]
+Parent p1=new Child();
+Parent p2=new Child2();
+Parent p3=null;
+
+Parent p = new Child();
+Child c = (Child) p; // OK!
+Parent p2 = new Child2();
+Child c2 = (Child) p2; // Error!
+if (p2 instanceof Child) {
+	Child c3 = (Child) p2;
+}
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Преобразование объектных типов}
+		
+		\begin{itemize}
+			\item \textbf{Расширение объектного типа} (widening reference) "--- автоматическое.
+			\item \textbf{Сужение объектного типа} (narrowing reference) "--- явно, т.~к. может быть ClassCastException.
+		\end{itemize}
+		
+		\lstCastingObj
+	\end{frame}
+
+	\begin{frame}
+	\frametitle{Оставшиеся случаи}
+	
+		\begin{itemize}
+			\item \textbf{Преобразование к строке} (String) "--- автоматически любые типы.
+			\item \textbf{Запрещенные преобразования} (forbidden):
+			\begin{itemize}
+				\item переходы от любого ссылочного типа к примитивному, от примитивного "--- к ссылочному (кроме преобразований к строке);
+				\item тип boolean нельзя привести ни к какому другому типу, кроме boolean (за исключением приведения к строке);
+				\item невозможно привести друг к другу типы, находящиеся не на одной, а на соседних ветвях дерева наследования и др.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}	
+	
+	\subsection{Исключительные ситуации}
+	\begin{frame}
+		\frametitle{Исключительные ситуации}
+		
+		Ошибки могут возникать как по причине недостаточной внимательности программиста (отсутствует нужный класс, или индекс массива вышел за допустимые границы), так и по независящим от него причинам (произошел разрыв сетевого соединения, сбой аппаратного обеспечения, например, жесткого диска и др.).
+		
+		\par\bigskip
+		При возникновении исключительной ситуации управление передается от кода, вызвавшего исключительную ситуацию, на ближайший блок \textbf{catch} (или вверх по стеку) и создается объект, унаследованный от класса \textbf{Throwable}, или его потомков, который содержит информацию об исключительной ситуации и используется при ее обработке.
+	\end{frame}
+
+\defverbatim[colored]\lstExceptions{%
+	\begin{lstlisting}[language=java]
+try {
+	if (p.x == 0) {
+		throw new SomeExceptionClass();
+	} else {
+		throw new AnotherExceptionClass();
+	}
+	// ...
+} catch (SomeExceptionClass e) { // from common to special types
+	// ...
+} catch (AnotherExceptionClass e) {
+	// ...
+} finally {
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Обработка исключений}
+		
+		\lstExceptions
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Проверяемые и непроверяемые исключения}
+		
+		\begin{figure}
+			\includegraphics[width=0.7\textwidth]{exceptions.png}
+		\end{figure}
+	\end{frame}
+
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
 	%		
