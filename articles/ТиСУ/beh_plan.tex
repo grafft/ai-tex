@@ -11,6 +11,8 @@
 \usepackage{bookmark}					% Оглавление в pdf
 \usepackage{soulutf8}					% Для разрядки
 
+\usepackage{html} 
+
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{graphicx} 					% Подключаем пакет работы с графикой
 \usepackage[ruled]{algorithm}
@@ -37,15 +39,15 @@
 
 \floatname{algorithm}{}
 \newcommand{\algrule}[1][.2pt]{\par\vskip.2\baselineskip\hrule height #1\par\vskip.2\baselineskip}
-\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
-\algrenewcommand\algorithmicensure{\textbf{Выход:}}
-\algrenewcommand\algorithmicforall{\textbf{для всех}}
-\algrenewcommand\algorithmicwhile{\textbf{пока}}
-\algrenewcommand\algorithmicif{\textbf{если}}
-\algrenewcommand\algorithmicthen{\textbf{то}}
-\algrenewcommand\algorithmicelse{\textbf{иначе}}
-\algrenewcommand\algorithmicreturn{\textbf{вернуть}}
-\algrenewcommand\algorithmicfunction{\textbf{процедура}}
+%\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+%\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+%\algrenewcommand\algorithmicforall{\textbf{для всех}}
+%\algrenewcommand\algorithmicwhile{\textbf{пока}}
+%\algrenewcommand\algorithmicif{\textbf{если}}
+%\algrenewcommand\algorithmicthen{\textbf{то}}
+%\algrenewcommand\algorithmicelse{\textbf{иначе}}
+%\algrenewcommand\algorithmicreturn{\textbf{вернуть}}
+%\algrenewcommand\algorithmicfunction{\textbf{процедура}}
 \algrenewcommand\algorithmicdo{}
 \renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
 
@@ -153,7 +155,7 @@
 		
 	Пополним семейство отношений $\{\sqsubset,\sqsubset^1,\sqsubset^2,\dots\}$ двумя отношениями: $\sqsubset^c$ и $\sqsubset^e$, принадлежность к~которым пары признаков $(f_1,f_2)$ свидетельствует о~том, что признак $f_1$ присутствует соответственно в~столбце условий и эффектов как минимум в~одной матрице предсказания процедурного признака $f_2$.
 		
-	\subsection{Определение компонент знака}
+	\subsection{Определение компонент знака}\label{subst:sign_comp}
 	Пусть $S$ "--- множество знаков. Будем считать, что будущему знаку $s\in S$ \textit{соответствует} некоторый признак $f(s)\in\mathcal F$, обладающий перцептом $\tilde p$, функциональным значением $\tilde m$ и биологическим смыслом $\tilde a$, которые после завершения процесса формирования знака $s$ становятся, соответственно, образом $p$, значением $m$ и личностным смыслом $a$.
 	
 	\begin{Def}
@@ -251,46 +253,11 @@
 	
 	Ниже представлен алгоритм доопределения функции $\Psi_p^m$, который и отражает собой суть процесса во время образования знака согласно алгоритму из первой части работы. Доопределение проводится на~новую пару $(\tilde p,\tilde m)$, где функциональное значение $\tilde m$ строится в сравнении с эталоном $\tilde m^0$, а перцепт $\tilde p$ формируется на основе области определения $\hat F$ функции $\Psi_p^m$. Доопределение функции $\Psi_p^m$ означает формирование нового признака $f^*$, т.~е. его первой матрицы предсказания $Z^*$ в~рамках распознающего автомата $R^*$.
 		
-	\begin{Theorem}[о корректности алгоритма $\mathfrak A_{pm}$]
+	\begin{Theorem}[о корректности алгоритма $\mathfrak A_{pm}$]\label{th:pm_correct}
 		Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. элементы последовательности функциональных значений $\langle\tilde m^{(0)},\tilde m^{(1)},\dots,\tilde m^{(t)}\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для функционального значения $\tilde m^0$, приближаются к $\tilde m^0$ в смысле метрики (\ref{eq:m_metr}).
 	\end{Theorem}
 	
-	\begin{Proof}
-		Рассмотрим два элемента последовательности $\tilde m^{(t)}=\{f_p^{(t)}\}$ и $\tilde m^{(t+1)}=\{f_p^{(t+1)}\}$. Соответствующие матрицы предсказания будут иметь следующий вид:
-		\begin{equation}
-		Z_p^{(t)}=\{\bar z_1^{c(t)},\bar z_2^{e(t)}\},\ Z_p^{(t+1)}=\{\bar z_1^{c(t+1)},\bar z_2^{e(t+1)}\}.
-		\end{equation}
-		Если на шаге \ref{alst:find_m} алгоритма $\mathfrak A_{pm}$ на $(t+1)$-й итерации не был найден подходящий признак, то матрицы $Z_p^{(t)}$ и $Z_p^{(t+1)}$ равны. Рассмотрим случай, когда был найден подходящий признак $f'$ с функциональным значением $\tilde m'=\{f'_p\}$ с соответствующей матрицей предсказания $Z'=(\bar z'^c_1,\bar z'^e_2)$.
-		
-		В том случае, если на шаге \ref{alst:find_m} был найден признак $f'_p$ то матрицы $Z_p^{(t)}$ и $Z_p^{(t+1)}$ будут отличать в своих двух столбцах:
-		\begin{equation}
-		\bar z_1^{c(t+1)}=\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0),\ \bar z_2^{e(t+1)}=\bar z_2^{e(t)}\vee (\bar z'^e_2\xrightarrow{\bar z_2^{e0}} R_0).
-		\end{equation}
-		По определению расстояние между функциональными значениями $\tilde m^{(t)}$ и $\tilde m^0$ примет следующее значение:
-		\begin{eqnarray}
-		\rho_m(\tilde m^{(t)},\tilde m^0)=\min\limits_{\substack{f_i\in\tilde m^{(t)}\\f_j\in\tilde m^0}}\rho_p(\tilde p(f_i),\tilde p(f_j ))=\rho_p(\tilde p(f'_p),\tilde p(f_p))=\nonumber \\
-		=\frac{1}{q\cdot h}\sum\limits_{\substack{\bar z_u^{1(t)}\in Z_p^{(t)}\\\bar z_u^2\in Z_p^0}}\|\bar z_u^{1(t)}-\bar z_u^2\|.
-		\end{eqnarray}
-		Аналогично для $\tilde m^{(t+1)}$:
-		\begin{equation}
-		\rho_m(\tilde m^{(t+1)},\tilde m^0)=\frac{1}{q\cdot h}\sum_{\substack{\bar z_u^{1(t+1)}\in Z_p^{(t+1)}\\\bar z_u^2\in Z_p^0}}\|\bar z_u^{1(t+1)}-\bar z_u^2\|.
-		\end{equation}
-		Рассмотрим разность 
-		\begin{eqnarray}
-		\rho_m(\tilde m^{(t)},\tilde m^0)-\rho_m(\tilde m^{(t+1)},\tilde m^0)=\frac{1}{q\cdot h}(\|\bar z_1^{c(t)}-\bar z_1^{c0}\|+\|\bar z_2^{e(t)}-\bar z_2^{e0}\|-\nonumber \\
-		-\|\bar z_1^{c(t+1)}-\bar z_1^{c0}\|-\|\bar z_2^{e(t+1)}-\bar z_2^{e0}\|)=\frac{1}{q\cdot h}(\|\bar z_1^{c(t)}-\bar z_1^{c0}\|+\nonumber \\
-		+\|\bar z_2^{e(t)}-\bar z_2^{e0}\|-\|\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0)-\bar z_1^{c0}\|-\nonumber \\
-		-\|\bar z_2^{e(t)}\vee (\bar z'^e_2\xrightarrow{\bar z_2^{e0}} R_0)-\bar z_2^{e0}\|),
-		\end{eqnarray}
-		где $\bar z_1^{c0}$, $\bar z_2^{e0}$ "--- столбцы матрицы предсказания процедурного признака $f_p^0$, соответствующего функциональному значению $\tilde m^0$.
-		
-		Так как $f'_p$ выполним на первом столбце матрицы предсказания признака $f_p^0$, то после применении операции приведения $\bar z'^c_1\rightarrow R_0$ в результирующем векторе единицы появляются только на тех же местах что и в векторе $\bar z_1^{c0}$. Это означает, что в векторе $\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0)-\bar z_1^{c0}$ по сравнению с вектором $\bar z_1^{c(t)}$  единицы находятся только в тех же местах, что и в векторе $\bar z_1^{c0}$, а новых нулей не появляется. В следствие чего разность $\|\bar z_1^{c(t)}-\bar z_1^{c0}\|-\|\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0)-\bar z_1^{c0}\|$ всегда больше либо равна нулю.
-		
-		Так как для столбцов эффектов применяется операция приведения по столбцу, то единицы в результирующем векторе остаются только на тех местах, на которых одновременно находятся единицы в приводимом векторе и векторе, по которому осуществляется приведение. В связи с этим разность $\|\bar z_2^{e(t)}-\bar z_2^{e0}\|-\|\bar z_2^{e(t)}\vee (\bar z'^e_2\xrightarrow{\bar z_2^{e0}} R_0)-\bar z_2^{e0}\|$ также больше либо равна нулю.
-		
-		Так как обе разности в скобках выражения для $\rho_m(\tilde m^{(t)},\tilde m^0)-\rho_m(\tilde m^{(t+1)},\tilde m^0)$ больше либо равны нулю, то отсюда следует, что функциональное значение $\tilde m^{(t+1)}$ ближе или по крайней мере находится на том расстоянии от $\tilde m^0$, чем к $\tilde m^{t}$. В виду произвольности выбора итерации $t$, это приводит к тому, что элементы всей последовательности $\langle\tilde m^{(0)},\tilde m^{(1)},\dots\rangle$ приближаются к $\tilde m^0$ в смысле использованной метрики (\ref{eq:m_metr}). 
-
-	\end{Proof}
+	Доказательство теоремы приведено в приложении.
 	
 	\section{Планирование и типы картин мира} \label{sect:plan_wm}
 	Рассмотрим механизм планирования, реализуемый в рамках трёх описанных в \cite{Chudova2012a} картин мира, возникающих благодаря существованию у знака той структуры, которая была описана в \cite{PanovA2014a}.
@@ -312,15 +279,29 @@
 
 	На странице \pageref{alg:beh_plan} представлен алгоритм планирования поведения. В нём используется функция интериоризации $Interior$, которая с помощью одного из отображения связывания $\Psi_m^a$ \cite{PanovA2014a} определяет личностный смысл $\alpha$ по элементу значения $\mu$.
 
-	Опишем в качестве простого примера процесс планирования по алгоритму $\mathfrak A_{bp}$, протекающий в житейской картине мира руководителя команды разработчиков программного обеспечения. В первой части статьи был представлен пример работы процедуры целеполагания такого руководителя, актуализирующий знак <<\textit{программное обеспечение}>> с личностным смыслом <<\textit{разработать}>>. Допустим, планирование осуществляется в ситуации, в которую входят следующие знаки: <<команда разработчиков>>, <<>>
+	\subsection{Пример} Опишем в качестве простого примера процесс планирования по алгоритму $\mathfrak A_{bp}$, протекающий в житейской картине мира руководителя команды разработчиков программного обеспечения. В первой части статьи был представлен пример работы процедуры целеполагания для этого примера, актуализирующий знак <<\textit{программное обеспечение}>> с личностным смыслом <<\textit{разработать}>>. Допустим, планирование осуществляется в ситуации, в которую входят следующие знаки: <<\textit{команда разработчиков}>>,<<\textit{тестировщик}>>, <<\textit{заказчик}>>, <<\textit{кредитная линия в банке}>> (начальная ситуация). Т.~к. ранее было задано некоторое соответствие между множеством знаков и множеством признаков (см. п. \ref{subst:sign_comp}), то будем соотносить признак с именем знака, которому он соответствует.
 	
 	\underline{Алгоритм $\mathfrak A_{bp}$.}
 	
 	\underline{Вход:} знак <<\textit{программное обеспечение}>> с личностным смыслом <<\textit{разработать}>>.
 
-	\so{Шаг 1}. Так как текущее множество личностных смыслов $A_{forw}$ состоит из одного смысла <<\textit{разработать}>>, то оно и будет выбрано в качестве предпочитаемого. Допустим, что 
+	\so{Шаг 1}. Так как текущее множество личностных смыслов $A_{forw}$ состоит из одного смысла <<\textit{разработать}>>, то оно и будет выбрано в качестве предпочитаемого. Допустим, что в условия действия, которым интерпретируется выбранный личностный смысл, входят признаки <<\textit{денежные средства}>>, <<\textit{команда разработчиков}>>, <<\textit{тестировщик}>> (множество $F_{cond}$).
 	
-	В случае рассмотрения деятельности субъекта в коллективе при составлении плана могут быть использованы наряду с личностными смыслами, в которые входят признаки образа <<Я>> (см. определение \ref{def:meaning}), смыслы, относящиеся к знаку, опосредующему другого участника коллектива. Иными словами, пусть у субъекта, составляющего общий план действий, имеются наборы признаков $F_1,F_2,\dots,F_N$, относящиеся к каждому члену коллектива, т.~е. имеются образы других участников деятельности. Если процедура $Interior$ будет наряду с поиском на множестве личностных смыслами осуществлять поиск и на множестве процедурных признаков $F_p^{other}$, для которых $F_C(f)\cap F_i\not = \varnothing$, $f\in F_p^{other}$, $i\in\{1,\dots,N\}$, то в итогом плане будут содержаться действия недоступные самому субъекту, но выполнимые другими участниками коллектива.
+	\so{Шаг 2}.В множество признаков следующей ситуации планирования $F_{next}=F_{cur}\cup F_{cond}\setminus\bigcup\limits_{a\in \tilde A_{forw}}F_A(a)$ будут входить следующие признаки: <<\textit{денежные средства}>>, <<\textit{команда разработчиков}>>, <<\textit{тестировщик}>> (целевой признак <<\textit{программное обеспечение}>>, входящий в множество добавляемых признаков $F_A(a)$, не входит в $F_{cond}$).
+	
+	\so{Шаг 3}. Условие $F_{next}\subseteq F_{st}$ очевидно не выполняется, т.~к. в множестве $F_{st}$ отсутствует признак <<\textit{денежные средства}>>. Условие $F_{next}=F_{cur}$ также не выполняется, поэтому продолжаем построение плана и переходим к следующему шагу.
+	
+	\so{Шаг 4}. Текущая невязка состояний $\Delta=F_{next}\setminus F_{st}$ в нашем примере равна единственному признаку <<\textit{денежные средства}>>.
+	
+	\so{Шаг 5}. Далее осуществляется поиск такого множества $M_{next}$ элементов значений, для которых интерпретирующие их действия не удаляют признаки, входящие в невязку $\Delta$. Допустим, что в это множество входят элементы значений знака <<\textit{денежные средства}>> (<<\textit{взять в кредит}>>,<<\textit{объект}>>) и знака <<\textit{команда разработчиков}>> (<<\textit{нанять}>>,<<\textit{объект}>>).
+	
+	\so{Шаг 6}. На данном шаге осуществляется выбор такого подмножества $M_{forw}$ элементов значений, для которого будет добавлено в результате применения соответствующего действия добавлено максимальное множество признаков из текущей невязки $\Delta$, при этом требуется, чтобы множества добавлений пересекались как можно меньше. В нашем случае решением такой minimax задачи будет элемент значения (<<\textit{взять в кредит}>>,<<\textit{объект}>>).
+	
+	\so{Шаг 7}. На заключительном этапе итерации по найденному значению с помощью отображения связывания $\Psi_a^m$ (процедура $Interior$) происходит поиск неконфликтующих личностных смыслов. Т.~к. в нашем случае множество $M_{forw}$ одноэлементно, то допустим, будет найден личностный смысл <<\textit{взять кредит}>>, который и добавляется в план действий.
+	
+	На этом текущая итерация заканчивается и начинается новая с текущей ситуацией планирования $F_{next}$ и личностным смыслом <<\textit{взять кредит}>> (множество $A_{next}$). Если в множество условий $F_C$ действия, которое интерпретирует личностный смысл <<\textit{взять кредит}>>, входит признак <<\textit{кредитная линия в банке}>>, то на следующей итерации условие $F_{next}\subseteq F_{st}$ будет выполнено и алгоритм закончит свою работу, вернув в итоге план, состоящий из одного личностного смысла.
+	
+	\subsection{Планирование в коллективе} В случае рассмотрения деятельности субъекта в коллективе при составлении плана могут быть использованы наряду с личностными смыслами, в которые входят признаки образа <<Я>> (см. определение \ref{def:meaning}), смыслы, относящиеся к знаку, опосредующему другого участника коллектива. Иными словами, пусть у субъекта, составляющего общий план действий, имеются наборы признаков $F_1,F_2,\dots,F_N$, относящиеся к каждому члену коллектива, т.~е. имеются образы других участников деятельности. Если процедура $Interior$ будет наряду с поиском на множестве личностных смыслами осуществлять поиск и на множестве процедурных признаков $F_p^{other}$, для которых $F_C(f)\cap F_i\not = \varnothing$, $f\in F_p^{other}$, $i\in\{1,\dots,N\}$, то в итогом плане будут содержаться действия недоступные самому субъекту, но выполнимые другими участниками коллектива.
 	
 	Таким образом, при составлении плана действий в коллективе происходит распределение ролей по тому, какие действия в общем плане могут быть выполнены каждым участником. Это возможно в том случае, когда у одного из членов коллектива имеется представление обо всех участниках и доступных им действиях.
 	
@@ -333,6 +314,47 @@
 	%	\nocite{*}
 	\bibliography{../../biblio/umain}
 
+	\newpage
+	{\Large{\MakeUppercase{Приложение}}}\\
+	Доказательство теоремы \ref{th:pm_correct} о корректности алгоритма $\mathfrak A_{pm}$.
+
+		\begin{Proof}
+			Рассмотрим два элемента последовательности $\tilde m^{(t)}=\{f_p^{(t)}\}$ и $\tilde m^{(t+1)}=\{f_p^{(t+1)}\}$. Соответствующие матрицы предсказания будут иметь следующий вид:
+			\begin{equation}
+				Z_p^{(t)}=\{\bar z_1^{c(t)},\bar z_2^{e(t)}\},\ Z_p^{(t+1)}=\{\bar z_1^{c(t+1)},\bar z_2^{e(t+1)}\}.
+			\end{equation}
+			Если на шаге \ref{alst:find_m} алгоритма $\mathfrak A_{pm}$ на $(t+1)$-й итерации не был найден подходящий признак, то матрицы $Z_p^{(t)}$ и $Z_p^{(t+1)}$ равны. Рассмотрим случай, когда был найден подходящий признак $f'$ с функциональным значением $\tilde m'=\{f'_p\}$ с соответствующей матрицей предсказания $Z'=(\bar z'^c_1,\bar z'^e_2)$.
+			
+			В том случае, если на шаге \ref{alst:find_m} был найден признак $f'_p$ то матрицы $Z_p^{(t)}$ и $Z_p^{(t+1)}$ будут отличать в своих двух столбцах:
+			\begin{equation}
+				\bar z_1^{c(t+1)}=\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0),\ \bar z_2^{e(t+1)}=\bar z_2^{e(t)}\vee (\bar z'^e_2\xrightarrow{\bar z_2^{e0}} R_0).
+			\end{equation}
+			По определению расстояние между функциональными значениями $\tilde m^{(t)}$ и $\tilde m^0$ примет следующее значение:
+			\begin{eqnarray}
+				\rho_m(\tilde m^{(t)},\tilde m^0)=\min\limits_{\substack{f_i\in\tilde m^{(t)}\\f_j\in\tilde m^0}}\rho_p(\tilde p(f_i),\tilde p(f_j ))=\rho_p(\tilde p(f'_p),\tilde p(f_p))=\nonumber \\
+				=\frac{1}{q\cdot h}\sum\limits_{\substack{\bar z_u^{1(t)}\in Z_p^{(t)}\\\bar z_u^2\in Z_p^0}}\|\bar z_u^{1(t)}-\bar z_u^2\|.
+			\end{eqnarray}
+			Аналогично для $\tilde m^{(t+1)}$:
+			\begin{equation}
+				\rho_m(\tilde m^{(t+1)},\tilde m^0)=\frac{1}{q\cdot h}\sum_{\substack{\bar z_u^{1(t+1)}\in Z_p^{(t+1)}\\\bar z_u^2\in Z_p^0}}\|\bar z_u^{1(t+1)}-\bar z_u^2\|.
+			\end{equation}
+			Рассмотрим разность 
+			\begin{eqnarray}
+				\rho_m(\tilde m^{(t)},\tilde m^0)-\rho_m(\tilde m^{(t+1)},\tilde m^0)=\frac{1}{q\cdot h}(\|\bar z_1^{c(t)}-\bar z_1^{c0}\|+\|\bar z_2^{e(t)}-\bar z_2^{e0}\|-\nonumber \\
+				-\|\bar z_1^{c(t+1)}-\bar z_1^{c0}\|-\|\bar z_2^{e(t+1)}-\bar z_2^{e0}\|)=\frac{1}{q\cdot h}(\|\bar z_1^{c(t)}-\bar z_1^{c0}\|+\nonumber \\
+				+\|\bar z_2^{e(t)}-\bar z_2^{e0}\|-\|\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0)-\bar z_1^{c0}\|-\nonumber \\
+				-\|\bar z_2^{e(t)}\vee (\bar z'^e_2\xrightarrow{\bar z_2^{e0}} R_0)-\bar z_2^{e0}\|),
+			\end{eqnarray}
+			где $\bar z_1^{c0}$, $\bar z_2^{e0}$ "--- столбцы матрицы предсказания процедурного признака $f_p^0$, соответствующего функциональному значению $\tilde m^0$.
+			
+			Так как $f'_p$ выполним на первом столбце матрицы предсказания признака $f_p^0$, то после применении операции приведения $\bar z'^c_1\rightarrow R_0$ в результирующем векторе единицы появляются только на тех же местах что и в векторе $\bar z_1^{c0}$. Это означает, что в векторе $\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0)-\bar z_1^{c0}$ по сравнению с вектором $\bar z_1^{c(t)}$  единицы находятся только в тех же местах, что и в векторе $\bar z_1^{c0}$, а новых нулей не появляется. В следствие чего разность $\|\bar z_1^{c(t)}-\bar z_1^{c0}\|-\|\bar z_1^{c(t)}\vee (\bar z'^c_1\rightarrow R_0)-\bar z_1^{c0}\|$ всегда больше либо равна нулю.
+			
+			Так как для столбцов эффектов применяется операция приведения по столбцу, то единицы в результирующем векторе остаются только на тех местах, на которых одновременно находятся единицы в приводимом векторе и векторе, по которому осуществляется приведение. В связи с этим разность $\|\bar z_2^{e(t)}-\bar z_2^{e0}\|-\|\bar z_2^{e(t)}\vee (\bar z'^e_2\xrightarrow{\bar z_2^{e0}} R_0)-\bar z_2^{e0}\|$ также больше либо равна нулю.
+			
+			Так как обе разности в скобках выражения для $\rho_m(\tilde m^{(t)},\tilde m^0)-\rho_m(\tilde m^{(t+1)},\tilde m^0)$ больше либо равны нулю, то отсюда следует, что функциональное значение $\tilde m^{(t+1)}$ ближе или по крайней мере находится на том расстоянии от $\tilde m^0$, чем к $\tilde m^{t}$. В виду произвольности выбора итерации $t$, это приводит к тому, что элементы всей последовательности $\langle\tilde m^{(0)},\tilde m^{(1)},\dots\rangle$ приближаются к $\tilde m^0$ в смысле использованной метрики (\ref{eq:m_metr}). 
+			
+		\end{Proof}
+		
 	\newpage
 	\renewcommand{\listfigurename}{Подписи к рисункам статьи Осипова Г.С. и др.}
 	\listoffigures		
@@ -349,65 +371,65 @@
 
 	\begin{figure}[p]
 		\centering
-		\includegraphics[width=0.7\linewidth]{ivanitsky_cyrcle}
+		\includegraphics[width=0.7\linewidth]{ivanitsky_cyrcle.jpg}
 		\caption{<<Круг ощущений>> по Иваницкому \cite{Aleksandrov2007}.}
 		\label{fig:ivan_cyrcle}
 	\end{figure}
 
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=1.0\linewidth]{rb_io}
+		\includegraphics[width=1.0\linewidth]{rb_io-0.jpg}
 		\caption{Вход и выход распознающего автомата $R_i^j$.}
 		\label{fig:rb_io}
 	\end{figure}	
 	
-	\renewcommand{\baselinestretch}{1}
-	\begin{algorithm}[p]
-		\caption{Алгоритм $\mathfrak{A}_{th}$ вычисления автоматной функции распознающего автомата $R_i^j$}\label{alg:automato}
-		\begin{algorithmic}[1]
-			\input{../../algorithms/alg_th_init}
-			\input{../../algorithms/alg_th_cyrcle}
-		\end{algorithmic}
-	\end{algorithm}
-	\renewcommand{\baselinestretch}{\stretchsize}
+%	\renewcommand{\baselinestretch}{1}
+%	\begin{algorithm}[p]
+%		\caption{Алгоритм $\mathfrak{A}_{th}$ вычисления автоматной функции распознающего автомата $R_i^j$}\label{alg:automato}
+%		\begin{algorithmic}[1]
+%			\input{../../algorithms/alg_th_init}
+%			\input{../../algorithms/alg_th_cyrcle}
+%		\end{algorithmic}
+%	\end{algorithm}
+%	\renewcommand{\baselinestretch}{\stretchsize}
 
 	\begin{figure}[p]
 		\centering
-		\includegraphics[width=0.3\linewidth]{automata/meas}
+		\includegraphics[width=0.3\linewidth]{automata/meas.jpg}
 		\caption{Схема определения отношения поглощения признаков $f_1$ и $f_2$: $f_1\sqsubset f_2$.}
 		\label{fig:auto_measur}
 	\end{figure}
 	
-	\renewcommand{\baselinestretch}{1}				
-	\begin{algorithm}[p]
-		\caption{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
-		\label{alg:cycle_pm_start}
-		\begin{algorithmic}[1]
-			\input{../../algorithms/alg_pm_start}
-			\algstore{algst:store2}
-		\end{algorithmic}			
-	\end{algorithm}
-	\renewcommand{\baselinestretch}{\stretchsize}
-	
-	\renewcommand{\baselinestretch}{1}				
-	\begin{algorithm}[p]
-		\caption{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
-		\label{alg:cycle_pm_end}
-		\begin{algorithmic}[1]
-			\algrestore{algst:store2}
-			\input{../../algorithms/alg_pm_end}
-		\end{algorithmic}		
-	\end{algorithm}
-	\renewcommand{\baselinestretch}{\stretchsize}	
-	
-	\renewcommand{\baselinestretch}{1}	
-	\begin{algorithm}[p]
-		\caption{Алгоритм $\mathfrak{A}_{bp}$ синтеза плана поведения}\label{alg:beh_plan}
-		\begin{algorithmic}[1]
-			\input{../../algorithms/alg_plan_2}
-		\end{algorithmic}
-	\end{algorithm}
-	\renewcommand{\baselinestretch}{\stretchsize}	
+%	\renewcommand{\baselinestretch}{1}				
+%	\begin{algorithm}[p]
+%		\caption{Алгоритм $\mathfrak{A}_{pm}$ (часть I)}
+%		\label{alg:cycle_pm_start}
+%		\begin{algorithmic}[1]
+%			\input{../../algorithms/alg_pm_start}
+%			\algstore{algst:store2}
+%		\end{algorithmic}			
+%	\end{algorithm}
+%	\renewcommand{\baselinestretch}{\stretchsize}
+%	
+%	\renewcommand{\baselinestretch}{1}				
+%	\begin{algorithm}[p]
+%		\caption{Алгоритм $\mathfrak{A}_{pm}$ (часть II)}
+%		\label{alg:cycle_pm_end}
+%		\begin{algorithmic}[1]
+%			\algrestore{algst:store2}
+%			\input{../../algorithms/alg_pm_end}
+%		\end{algorithmic}		
+%	\end{algorithm}
+%	\renewcommand{\baselinestretch}{\stretchsize}	
+%	
+%	\renewcommand{\baselinestretch}{1}	
+%	\begin{algorithm}[p]
+%		\caption{Алгоритм $\mathfrak{A}_{bp}$ синтеза плана поведения}\label{alg:beh_plan}
+%		\begin{algorithmic}[1]
+%			\input{../../algorithms/alg_plan_2}
+%		\end{algorithmic}
+%	\end{algorithm}
+%	\renewcommand{\baselinestretch}{\stretchsize}	
 	
 	\begin{figure}[p]
 		\centering
