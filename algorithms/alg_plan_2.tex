@@ -19,7 +19,7 @@
 			\If{$F_{next}=F_{cur}$}
 				\State\Return невозможно построить план;
 			\Else
-				\State $\Delta=F_{next}\setminus F_{st}$; \Comment{текущая невязка состояний}					
+				\State $\Delta=F_{next}\setminus F_{st}$; \Comment{текущее рассогласование состояний}					
 				\State $M_{next}=\{\mu_i | \mu_i\in m(f), f\in F_{next},F_D(\mu)\cap\Delta=\varnothing\}$;
 				
 				\State $M_{forw}\subseteq M_{next}$ такое, что $\begin{cases}
