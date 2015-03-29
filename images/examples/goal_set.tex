@@ -47,7 +47,7 @@
 		\sign{2}{0.5}{1.7}
 		\sign{3}{0.0}{0.0}
 		
-		\node[align=center] at ($(s1_m)+(0.3,-0.25)$) {(получение,\\объект)};
+		\node[align=center] at ($(s1_m)+(0.45,-0.2)$) {(получение,\\объект)};
 		\node[align=center] at ($(s1_a)+(-0.1,-0.2)$) {получение};
 		\node[align=center] at ($(s1_n)+(0.0,0.15)$) {средства};
 
@@ -55,7 +55,7 @@
 		\node[align=center] at ($(s2_p)+(-0.5,-0.3)$) {\{востребованность\\рынком, высокая\\ценность\}};
 		\node[align=center] at ($(s2_n)+(0.0,0.2)$) {программное\\обеспечение};
 
-		\node[align=center] at ($(s3_m)+(0.3,-0.25)$) {(создание,\\объект)};
+		\node[align=center] at ($(s3_m)+(0.35,-0.25)$) {(создание,\\объект)};
 		\node[align=center] at ($(s3_p)+(-0.1,-0.2)$) {\{новый\}};
 		\node[align=center] at ($(s3_n)+(0.25,0.15)$) {новый объект};	
 		\node[align=center]	(mot) at ($(s1_m)+(0.3,0.5)$) {мотив\\деятельности};
@@ -64,6 +64,10 @@
 		\draw[->,thick, color = red] (s2_p) edge [bend left, out = 50, in = -90] (s3_p);
 		\draw[->,thick, color = blue] (s3_m) edge [bend left, out = -20, in = -100] (s2_m);
 		\draw[->,thick, color = blue] (mot) edge [bend left, out = -20, in = -150] (s1_m);
+		
+		\draw[->,thick] (s1_m) edge [bend left, out = 80, in = 90] node[yshift=4,auto]{$\Psi_m^a$} (s1_a);
+		\draw[->,thick] (s1_a) edge [bend left, out = 20, in = 90] node[xshift=-5,auto]{$\Psi_a^p$} (s1_p);
+		\draw[->,thick] (s3_p) edge [bend left, out = -50, in = -80] node[yshift=-18,auto]{$\Psi_p^m$} (s3_m);		
 	\end{tikzpicture}
 
 \end{document}
