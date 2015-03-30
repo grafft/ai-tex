@@ -1018,7 +1018,7 @@ public class Human {
 	\end{frame}
 
 \defverbatim[colored]\lstClassSchema{%
-	\begin{lstlisting}[language=java,	basicstyle=\tiny]
+	\begin{lstlisting}[language=java, basicstyle=\tiny]
 [public] [final] class ValidClassName [extends ParentClassName] {
 	[public,private,protected] [static] [final] int valName [=0];
 	[public,private,protected] [static] [final] MyType valName2 [=null];
@@ -1362,6 +1362,216 @@ try {
 		\begin{figure}
 			\includegraphics[width=0.7\textwidth]{exceptions.png}
 		\end{figure}
+	\end{frame}
+
+	\section{Семинар 6}
+	\subsection{Потоки}
+	\begin{frame}
+		\frametitle{Зачем нужно организовывать потоки}
+		
+		\begin{itemize}
+			\item Выполнение задач, где действительно требуется выполнять несколько действий одновременно: сервер общего пользования, активные игры (опрашивание клавиатуры и других устройства ввода) и т.д.
+			\item Вычислительное устройство "--- лишь один из ресурсов, необходимых для выполнения задач. Всегда есть оперативная память, дисковая подсистема, сетевые подключения, периферия и т.~д., которые необходимо делить. Пример: пользователю требуется распечатать большой документ и скачать большой файл из сети.
+			\item Более гибко управлять выполнением задач: реализация кнопки Cancel, регулирование приоритетами и т.~п.
+			\item Обслуживающие потоки: автоматический сборщик мусора в Java запускается в виде фонового (низкоприоритетного) процесса "--- демон (daemon).
+		\end{itemize}
+	\end{frame}
+
+\defverbatim[colored]\lstThread{%
+	\begin{lstlisting}[language=java]
+public class MyThread extends Thread {
+	public void run() {
+		// long calculation
+		long sum = 0;
+		for (int i = 0; i < 1000; i++) {
+			sum += i;
+		}
+		System.out.println(sum);
+	}
+}
+
+MyThread t = new MyThread();
+t.start();
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Создание Thread}
+		
+		\lstThread
+	\end{frame}
+
+\defverbatim[colored]\lstRunnable{%
+	\begin{lstlisting}[language=java]
+public class MyRunnable implements Runnable {
+	public void run() {
+		// long calculation
+		long sum = 0;
+		for (int i = 0; i < 1000; i++) {
+			sum += i;
+		}
+		System.out.println(sum);
+	}
+}
+
+Runnable r = new MyRunnable();
+Thread t = new Thread(r);
+t.start();
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Создание Runnable}
+		
+		\lstRunnable
+	\end{frame}
+
+\defverbatim[colored]\lstTestRunnable{%
+	\begin{lstlisting}[language=java, basicstyle=\tiny]
+public class ThreadTest implements Runnable {
+	public void run() {
+		double calc;
+		for (int i = 0; i < 50000; i++) {
+			calc = Math.sin(i * i);
+			if (i % 10000 == 0) {
+				System.out.println(getName() + " counts " + i / 10000);
+			}
+		}
+	}
+
+	public String getName() {
+		return Thread.currentThread().getName();
+	}
+	
+	public static void main(String s[]) {
+		Thread t[] = new Thread[3];
+		for (int i = 0; i < t.length; i++) {
+			t[i] = new Thread(new ThreadTest(), "Thread " + i);
+		}
+	
+		for (int i = 0; i < t.length; i++) {
+			t[i].start();
+			System.out.println(t[i].getName() + " started");
+		}
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Именованные потоки}
+		
+		\lstTestRunnable
+	\end{frame}
+
+\defverbatim[colored]\lstPriority{%
+	\begin{lstlisting}[language=java]
+public static void main(String s[]) {
+	Thread t[] = new Thread[3];
+	for (int i = 0; i < t.length; i++) {
+		t[i] = new Thread(new ThreadTest(), "Thread " + i);
+		t[i].setPriority(Thread.MIN_PRIORITY + (Thread.MAX_PRIORITY - Thread.MIN_PRIORITY) / t.length* i);
+	}
+
+	for (int i = 0; i < t.length; i++) {
+		t[i].start();
+		System.out.println(t[i].getName() + " started");
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Приоритеты}
+		
+		\lstPriority
+	\end{frame}
+
+\defverbatim[colored]\lstDemonSt{%
+	\begin{lstlisting}[language=java]
+class ThreadTest implements Runnable {
+
+	public final static ThreadGroup GROUP = new ThreadGroup("Daemon demo");
+	private int start;
+	
+	public ThreadTest(int s) {
+		start = (s % 2 == 0) ? s : s + 1;
+		new Thread(GROUP, this, "Thread " + start).start();
+	}
+
+	public static void main(String s[]) {
+		new ThreadTest(16);
+		new DaemonDemo();
+	}
+	\end{lstlisting}
+}
+
+\defverbatim[colored]\lstDemonEnd{%
+	\begin{lstlisting}[language=java]
+	public void run() {
+		for (int i = start; i > 0; i--) {
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+			}
+		
+			if (start > 2 && i == start / 2) {
+				new ThreadTest(i);
+			}
+		}
+	}
+}
+	\end{lstlisting}
+}
+
+\defverbatim[colored]\lstDemonClass{%
+	\begin{lstlisting}[language=java]
+class DaemonDemo extends Thread {
+	public DaemonDemo() {
+		super("Daemon demo thread");
+		setDaemon(true);
+		start();
+	}
+
+	public void run() {
+		Thread threads[] = new Thread[10];
+		while (true) {
+	\end{lstlisting}
+}
+
+\defverbatim[colored]\lstDemonWhile{%
+	\begin{lstlisting}[language=java]
+			int count = ThreadTest.GROUP.activeCount();
+				if (threads.length < count)
+					threads = new Thread[count + 10];
+					count = ThreadTest.GROUP.enumerate(threads);
+
+					for (int i = 0; i < count; i++) {
+						System.out.print(threads[i].getName() + ", ");
+					}
+					System.out.println();
+					
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {}
+		}
+	}
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Поток"--~демон}
+		
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\only<1>{
+				\lstDemonSt
+			}
+			\only<2>{
+				\lstDemonEnd
+			}
+			\only<3>{
+				\lstDemonClass
+			}
+			\only<4>{
+				\lstDemonWhile
+			}
+		\end{overlayarea}
 	\end{frame}
 
 	%	\begin{frame}
