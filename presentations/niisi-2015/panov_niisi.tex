@@ -33,6 +33,7 @@
 \usepackage{algpseudocode}
 \usepackage{subfig}
 \usepackage{tikz}
+\usetikzlibrary{calc}
 
 \graphicspath{{../../images/}} 			% Пути к изображениям
 
@@ -78,7 +79,7 @@
 	\title[Модель картины мира]{Исследование образной и процедурной компонент картины мира субъекта деятельности}
 	\author{Александр Панов}
 	\institute[ИСА РАН]{ИСА РАН\\ научный руководитель д.ф.-м.н., проф. Г.\,С.~Осипов}
-	\date{19 марта 2015 г.} 
+	\date{3 апреля 2015~г.} 
 	
 	\begin{frame}
 		\titlepage
@@ -286,7 +287,7 @@
 		\begin{figure}
 			\includegraphics[width=0.5\textwidth]{rb_hierarchy}
 		\end{figure}
-		Представим иерархию $R$-автоматов в виде связного ориентированного ярусного граф $G_R=(V,E)$:
+		Представим иерархию $R$-автоматов в виде связного ориентированного ярусного графа $G_R=(V,E)$:
 		\begin{itemize}
 			\item 
 			$V=\mathcal R$ "--- множество вершин,
@@ -330,7 +331,88 @@
 		\end{itemize}
 
 	\end{frame}
-	
+
+	\begin{frame}
+		\frametitle{Алгоритм вычисления автоматной функции}
+		
+		\begin{tikzpicture}[overlay,remember picture]
+		
+		\tikzstyle{z_matrix} = [draw, rectangle, minimum width = 60, minimum height = 60,fill=white];
+		
+		\onslide<1->{
+			\node (meas_fun) at (0.7,0.5) {$\hat f_1,\hat f_2\dots,\hat f_k$};	
+		}
+		\onslide<2->{
+			\node (control_vect) at ($(meas_fun)+(-0.5,1.2)$) {$\hat x^{j+1}$};
+			\path[->,thick,red] (control_vect.east)  edge[out = -45, in = 45, right] (meas_fun.north); 
+		}
+		\onslide<3->{
+			\node[z_matrix] (z_1) at ($(meas_fun)+(2.6,-0.5)$) {};
+			\node[z_matrix] at ($(z_1)+(0.2,-0.1)$) {};
+			\node[z_matrix] at ($(z_1)+(0.4,-0.2)$) {};
+			
+			\node[z_matrix] at ($(z_1)+(0.9,-0.5)$) {};
+			\node[z_matrix] at ($(z_1)+(1.1,-0.6)$) {};
+			\node[z_matrix] at ($(z_1)+(1.3,-0.7)$) {};
+			
+			\path[->,thick,blue] ([xshift=20]meas_fun.south)  edge[out = -90, in = -155, right] ($(z_1)+(-1,-1.2)$);
+			\path[->,thick,blue] ([xshift=-25]meas_fun.south)  edge[out = -90, in = -155, right] ($(z_1)+(-0.1,-1.7)$);
+			
+			\node at ($(z_1)+(-1,1.4)$) {$Z^*$};
+			
+			\node at ($(z_1)+(0.8,1.4)$) {$Z_1$};
+			\node at ($(z_1)+(1.4,1.2)$) {$\ddots$};
+			\node at ($(z_1)+(2,0.9)$) {$Z_k$};
+		}
+		
+		\onslide<4->{
+			\draw[ultra thick, green!60!black] ($(z_1)+(-0.4,-1.1)$) -- ($(z_1)+(-0.4,0.6)$);
+			\draw[ultra thick, green!60!black] ($(z_1)+(0.5,-1.6)$) -- node[right,black] {$z_1^r$} ($(z_1)+(0.5,0.1)$);
+			
+			\draw[->, thick, green!60!black] ($(z_1)+(-0.1,-3)$) -- node[right,black] {$\bar x(0)$} ($(z_1)+(-0.1,-2)$);
+		}
+		
+		\onslide<5->{
+			\node[z_matrix] (z_2) at ($(z_1)+(5,0)$) {};
+			\node[z_matrix] at ($(z_2)+(0.2,-0.1)$) {};
+			
+			\node[z_matrix] at ($(z_2)+(0.9,-0.5)$) {};
+			\node[z_matrix] at ($(z_2)+(1.3,-0.7)$) {};
+			
+			\node at ($(z_2)+(-1,1.4)$) {$Z^*$};
+			\node at ($(z_2)+(0.8,1.4)$) {$Z_1$};
+			\node at ($(z_2)+(1.4,1.2)$) {$\ddots$};
+			\node at ($(z_2)+(2,0.9)$) {$Z_k$};
+			
+			\draw[->, ultra thick] ($(z_1)+(2.6,-0.6)$) -- node [above] {\scriptsize$\frac{\|\bar z_1^r-\bar x(0)\|}{\|\bar z_1^r\|+\|\bar x(0)\|}$} ($(z_1)+(3.7,-0.6)$);
+			
+			\draw[ultra thick, dotted, green!60!black] ($(z_2)+(-0.6,-1)$) -- ($(z_2)+(-0.6,0.7)$);
+			\draw[ultra thick, dotted, green!60!black] ($(z_2)+(0.5,-1.6)$) -- ($(z_2)+(0.5,0.1)$);
+		}
+		
+		
+		\onslide<6->{
+			\draw[->, thick, red] ($(z_2)+(0.3,1.4)$) -- node[right,black] {$\bar x^*(0)$} ($(z_2)+(0.3,3)$);
+		}
+		
+		\onslide<7>{
+			\draw[<-, thick, red] ($(z_2)+(-0.1,-3)$) -- node[right,black] {$\hat x^j(0)$} ($(z_2)+(-0.1,-2)$);
+		}
+		
+		\onslide<7->{				
+			\draw[ultra thick, green!60!black] ($(z_2)+(-0.4,-1)$) -- ($(z_2)+(-0.4,0.7)$);
+			\draw[ultra thick, green!60!black] ($(z_2)+(0.7,-1.6)$) -- node[right,black] {$z_2^r$} ($(z_2)+(0.7,0.1)$);	
+		}
+		\onslide<8->{
+			\draw[->, thick, green!60!black] ($(z_2)+(-0.1,-3)$) -- node[right,black] {$\bar x(1)$} ($(z_2)+(-0.1,-2)$);
+		}
+		
+		\onslide<9->{
+			\draw[->, ultra thick] ($(z_2)+(2.6,-0.6)$) -- node [above] {\scriptsize$\frac{\|\bar z_1^r-\bar x(1)\|}{\|\bar z_1^r\|+\|\bar x(1)\|}$} ($(z_2)+(3.7,-0.6)$);
+		}
+		\end{tikzpicture}
+	\end{frame}
+		
 	\begin{frame}
 		\frametitle{Алгоритм $\mathfrak A_{th}$ функционирования $R$-автомата}
 				
