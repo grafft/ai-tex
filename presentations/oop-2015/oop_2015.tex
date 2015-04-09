@@ -69,7 +69,7 @@
 		Лабораторные}
 	\author[Панов]{Александр Панов}
 	\institute[МФТИ]{Московский физико-технический институт}
-	\date{февраль 2015 г.} 
+	\date{апрель 2015~г.} 
 	
 	\begin{frame}
 		\titlepage
@@ -1574,6 +1574,327 @@ class DaemonDemo extends Thread {
 		\end{overlayarea}
 	\end{frame}
 
+	\section{Семинар 7}
+	\subsection{Потоки}
+	\begin{frame}
+		\frametitle{Работа с памятью}
+		
+		Основные операции, доступные для потоков при работе с памятью:
+		\begin{itemize}
+			\item \textbf{use} "--- чтение значения переменной из рабочей памяти потока;
+			\item \textbf{assign} "--- запись значения переменной в рабочую память потока;
+			\item \textbf{read} "--- получение значения переменной из основного хранилища;
+			\item \textbf{load} "--- сохранение значения переменной, прочитанного из основного хранилища, в рабочей памяти;
+			\item \textbf{store} "--- передача значения переменной из рабочей памяти в основное хранилище для дальнейшего хранения;
+			\item write "--- сохраняет в основном хранилище значение переменной, переданной командой store.
+		\end{itemize}
+		
+		Последовательность команд подчиняется следующим правилам:
+		\begin{itemize}
+			\item все действия, выполняемые одним потоком, строго упорядочены, т.е. выполняются одно за другим;
+			\item все действия, выполняемые с одной переменной в основном хранилище памяти, строго упорядочены, т.е. следуют одно за другим.
+		\end{itemize}
+		
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Volatile}
+		
+		Модификатор поля \textbf{volatile} устанавливает более строгие правила работы со значениями переменных, чтобы обеспечить всегда актуальное значение переменной и главного хранилища:
+		\begin{itemize}
+			\item перед \textbf{use} "--- всегда \textbf{load} и наоборот,
+			\item перед set "--- всегда assign и наоборот,
+			\item порядок работы с несколькими volatile переменными сохраняется и в передаче изменений в главное хранилище.
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+		\frametitle{Блокировки}
+		
+		Операции блокировки объекта в хранилище:
+		\begin{itemize}
+			\item \textbf{lock} "--- установить блокировку, только один поток в один момент времени может установить блокировку на некоторый объект;
+			\item \textbf{unlock} "--- снять блокировку, если до того, как этот поток выполнит операцию unlock, другой поток попытается установить блокировку, его выполнение будет приостановлено до тех пор, пока первый поток не отпустит ее.
+		\end{itemize}
+		
+		После успешно выполненного lock рабочая память очищается и все переменные необходимо заново считывать из основного хранилища. Аналогично, перед операцией unlock необходимо все переменные сохранить в основном хранилище.
+	\end{frame}
+	
+\defverbatim[colored]\lstSynch{%
+	\begin{lstlisting}[language=java, basicstyle=\tiny]
+public class ThreadTest implements Runnable {
+	private static ThreadTest shared = new ThreadTest();
+	
+	public void process() {
+		for (int i = 0; i < 3; i++) {
+			System.out.println(Thread.currentThread().getName() + " " + i);
+			Thread.yield();
+		}
+	}
+	
+	public void run() {
+		shared.process();
+	}
+
+	public static void main(String s[]) {
+		for (int i = 0; i < 3; i++) {
+			new Thread(new ThreadTest(), "Thread-" + i).start();
+		}
+	}
+}
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Synchronized}
+
+		\lstSynch
+				
+	\end{frame}
+	
+\defverbatim[colored]\lstSynchEx{%
+	\begin{lstlisting}[language=java]
+public void run() {
+	synchronized (shared) {
+		shared.process();
+	}
+}
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Synchronized}
+		
+		\lstSynchEx
+		Thread-0 0
+		
+		Thread-0 1
+		
+		Thread-0 2
+		
+		Thread-1 0
+		
+		Thread-1 1
+		
+		Thread-1 2
+		
+		Thread-2 0
+		
+		Thread-2 1
+		
+		Thread-2 2
+	\end{frame}	
+	
+\defverbatim[colored]\lstDLFirst{%
+	\begin{lstlisting}[language=java]
+public class DeadlockDemo {
+	public final static Object one = new Object(), two = new Object();
+	public static void main(String s[]) {
+		Thread t1 = new Thread() {\\...};
+		Thread t2 = new Thread() {\\...};
+
+		t1.start();
+		t2.start();
+	}
+}
+	\end{lstlisting}
+}
+\defverbatim[colored]\lstDLSecond{%
+	\begin{lstlisting}[language=java]
+Thread t1 = new Thread() {
+	public void run() {
+		synchronized (one) {
+			Thread.yield();
+			synchronized (two) {
+				System.out.println("Success!");
+			}
+		}
+	}
+};
+	\end{lstlisting}
+}
+\defverbatim[colored]\lstDLThird{%
+	\begin{lstlisting}[language=java]
+Thread t2 = new Thread() {
+	public void run() {
+		synchronized (two) {
+			Thread.yield();
+			synchronized (one) {
+				System.out.println("Success!");
+			}
+		}
+	}
+};
+	\end{lstlisting}
+}
+
+	\begin{frame}
+	\frametitle{Deadlock}
+	
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\only<1>{
+			\lstDLFirst
+		}
+		\only<2>{
+			\lstDLSecond
+		}
+		\only<3>{
+			\lstDLThird
+		}
+	\end{overlayarea}
+\end{frame}		
+
+	\begin{frame}
+		\frametitle{Wait-set}
+		
+		Каждый объект в Java имеет wait-set "--- набор потоков исполнения:
+		\begin{itemize}
+			\item Любой поток может вызвать метод \textbf{wait()} любого объекта и таким образом попасть в его wait-set.
+			\item Выполнение такого потока приостанавливается до тех пор, пока другой поток не вызовет у этого же объекта метод \textbf{notifyAll()}, который пробуждает все потоки из wait-set.
+			\item Метод \textbf{notify()} пробуждает один случайно выбранный поток из данного набора.
+		\end{itemize}
+		
+		Любой из них может быть вызван потоком у объекта только после установления блокировки на этот объект. То есть либо внутри synchronized-блока с ссылкой на этот объект в качестве аргумента, либо обращения к методам должны быть в синхронизированных методах класса самого объекта.
+	\end{frame}	
+	
+\defverbatim[colored]\lstWLStart{%
+	\begin{lstlisting}[language=java]
+public class WaitThread implements Runnable {
+	private Object shared;
+	public WaitThread(Object o) {
+		shared = o;
+	}
+
+	public void run() {
+		synchronized (shared) {
+			try {
+				shared.wait();
+			} catch (InterruptedException e) {
+			}
+			System.out.println("after wait");
+		}
+	}
+	\\...
+}
+	\end{lstlisting}
+}
+\defverbatim[colored]\lstWLEnd{%
+	\begin{lstlisting}[language=java]
+public static void main(String s[]) {
+	Object o = new Object();
+	WaitThread w = new WaitThread(o);
+	new Thread(w).start();
+	try {
+		Thread.sleep(100);
+	} catch (InterruptedException e) {
+	}
+	System.out.println("before notify");
+	synchronized (o) {
+		o.notifyAll();
+	}
+}
+	\end{lstlisting}
+}
+\begin{frame}
+	\frametitle{Пример wait-set}
+	
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\only<1>{
+			\lstWLStart
+		}
+		\only<2>{
+			\lstWLEnd
+		}
+	\end{overlayarea}
+\end{frame}		
+
+	\subsection{Коллекции}
+	\begin{frame}
+		\frametitle{Интерфейсы коллекций}
+		
+		Все классы коллекций унаследованы от различных интерфейсов, которые определяют поведение коллекции.
+		
+		Иными словами интерфейс определяет <<что делает коллекция>>, а конкретная реализация <<как коллекция делает то что определяет интерфейс>>.
+		
+		При разработке приложений рекомендуется, там где это возможного, использовать интерфейсы, т.~к. это:
+		\begin{itemize}
+			\item позволяет легко заменять реализацию интерфейса, с целью повышения производительности, например,
+			\item позволяет разработчику сконцентрироваться на задаче, а не на особенностях реализации.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Обзор коллекций в Java}
+		
+		\begin{figure}
+			\includegraphics[width=0.8\textwidth]{col_classes}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Обзор коллекций в C++}
+		
+		\begin{figure}
+			\includegraphics[width=0.7\textwidth]{cont_cpp}
+		\end{figure}
+	\end{frame}
+	
+	
+\defverbatim[colored]\lstColJ{%
+	\begin{lstlisting}[language=java]
+import java.util.*;
+public class CollectionTest {
+	public static void main(String[] args){
+		List<String> list = new LinkedList<String>();
+		list.add("bgsd");
+		list.add("asdf");
+		Collections.sort(list);
+
+		for(String element : list){
+			System.out.println(element);
+		}
+		
+		System.out.println(list.get(1));
+		System.out.println(list.indexOf("asdf"));
+		System.out.println(list.contains("acf"));
+		System.out.println(list.size());
+		System.out.println(list.remove(0));
+	}
+}
+	\end{lstlisting}
+}
+\defverbatim[colored]\lstColC{%
+	\begin{lstlisting}[language=c++]
+#include <string.h>
+#include <algo.h>
+#include <vector.h>
+#include <stdlib.h>
+#include <iostream.h>
+
+main ()
+{
+	std::vector<int> v;  
+	int input;
+	while (std::cin >> input)
+		v.push_back (input);
+	
+	std::sort(v.begin(), v.end());
+	
+	int n = v.size();
+	for (int i = 0; i < n; i++)
+		std::cout << v[i] << "\n";
+}
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Пример использования коллекций}
+		\vspace{-0.5cm}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\only<1>{
+				\lstColJ
+			}
+			\only<2>{
+				\lstColC
+			}
+		\end{overlayarea}
+	\end{frame}		
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
 	%		
