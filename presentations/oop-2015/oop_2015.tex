@@ -1894,7 +1894,130 @@ main ()
 				\lstColC
 			}
 		\end{overlayarea}
-	\end{frame}		
+	\end{frame}	
+	
+	\section{Семинар 8}
+	\subsection{Файлы сборки}	
+\defverbatim[colored]\lstCMake{%
+	\begin{lstlisting}[language=bash]
+cmake_minimum_required (VERSION 2.6) 
+set (PROJECT hello_world) 
+project (${PROJECT}) 
+set (HEADERS 
+		hello.h)
+set (SOURCES 
+		hello.cpp
+		main.cpp) 
+add_executable (${PROJECT} ${HEADERS} ${SOURCES})
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Сборка на C++}
+		
+		Cmake "--- кроссплатформенный инструмент генерации файлов сборки под разные системы (make, VS, XCode, QtCreator и т.~д.) (http://www.cmake.org/, крайняя версия - 3.2.1).
+		\begin{itemize}
+			\item Создаем файл CMakeLists.txt с описанием проекта на языке cmake.
+			\item Команда cmake -G <make-system> генерирует файл сборки.
+			\item Открываем сгенерированный файл сборки в IDE или собираем его из командной строки (make, nmake и т.~п.).
+		\end{itemize}
+		
+		\lstCMake
+	\end{frame}
+
+\defverbatim[colored]\lstCMakeLib{%
+	\begin{lstlisting}[language=bash]
+include_directories (../)
+set (LIBRARIES
+	lib_1
+	lib_2)
+
+foreach (LIBRARY ${LIBRARIES})
+	add_subdirectory (../${LIBRARY}/build bin/${LIBRARY})
+endforeach ()
+
+target_link_libraries (${PROJECT} ${LIBRARIES})
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Сборка на C++}
+		
+		Подключение библиотеки в cmake: 
+		
+		\lstCMakeLib
+	\end{frame}
+
+\defverbatim[colored]\lstMvn{%
+	\begin{lstlisting}[language=xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<project ...>
+
+<groupId>ru.isa.ai</groupId>
+<artifactId>ai-main</artifactId>
+<version>1.0</version>
+<packaging>jar</packaging>
+<name>ai-main</name>
+
+<modules>
+	<module>ai-linguistic-utils</module>
+</modules>
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Сборка на Java}
+		
+		Maven - кроссплатформенная система сборки проектов (http://www.maven.apache.org, крайняя версия 3.2).
+		
+		\begin{itemize}
+			\item Создаем файл pom.xml с кратким описанием проекта.
+			\item Запускаем команду mvn clean install для сборки проекта в .jar иди .war в зависимости от типа проекта.
+			\item запускаем проект java -jar <project>.jar
+		\end{itemize}
+		
+		\lstMvn
+	\end{frame}
+
+\defverbatim[colored]\lstMvnLib{%
+	\begin{lstlisting}[language=xml]
+<dependencies>
+    <!-- Logging -->
+    <dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>1.6.4</version>
+    </dependency>
+    <dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.16</version>
+    </dependency>
+<\dependencies>
+	\end{lstlisting}
+}
+	\begin{frame}
+		\frametitle{Сборка на Java}
+		
+		http://mvnrepository.com "--- сайт с большинством библиотек на Java.
+		
+		\lstMvnLib
+	\end{frame}
+
+\defverbatim[colored]\lsPyth{%
+	\begin{lstlisting}[language=python]
+def printOptions(optionsDesc)
+def getVersion()
+def findRequirements()
+
+	\end{lstlisting}
+}	
+	\begin{frame}
+		\frametitle{Сборка на Python}
+		
+		Файл setup.py - производится настройка и установка необходимых библиотек средствами самого языка python.
+		
+		\lsPyth
+	\end{frame}
+
+
 	%	\begin{frame}
 	%		\frametitle{Цели курса}
 	%		
