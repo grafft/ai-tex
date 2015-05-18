@@ -86,54 +86,6 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Проблема соотношения мозга и психики}
-		
-		Изучение физиологических основ психической деятельности и поведения человека привело к нахождению нейрофизиологических коррелятов многих низших психических и высших когнитивных функций. Однако единая математическая модель проявления психической функции на основе нейронного субстрата мозга до сих пор не построена.
-		\par\bigskip
-		\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.85}]
-		\onslide<1->{
-			\node at (0,1.7) {Мозг};
-			\node[align=center] at (0,0) {\includegraphics{phisio/mozg_2}};
-			
-			\node at (10,1.7) {Психические функции};
-			\node[align=center] at (10,-0.2) {\includegraphics[width=0.3\textwidth]{signs/signs_net}};
-			
-			\node at (2.5,-2.3) {Внешняя среда};
-			\node (tmp1) at (2,-2) {};
-			\node (tmp2) at (2.9,-0.8) {};
-			\node (tmp3) at (3.9,0) {};
-			\node (tmp4) at (4.9,0.6) {};
-			
-			\node (tmp5) at (5,0.75) {};
-			\node (tmp6) at (6,0.15) {};
-			
-			\draw[ultra thick] (1,-2.5) -- (1,-2) -- (4,-2) -- (4,-2.5);
-			\scriptsize
-			\draw[-latex,thick,shorten >=2pt] (tmp1) edge[bend right] node[yshift=-18, left,align=center] {сенсорный\\вход} (1.4,-0.1);
-		}
-		
-		\onslide<2->{
-			\normalsize
-			\node at (5,1.7) {Иерархия автоматов};
-			\node[align=center] at (5,0) {\includegraphics[width=0.4\textwidth]{rb_hierarchy}};
-						
-			\draw[-latex,thick,shorten >=2pt]  (3,-2) -- (3.2,-0.8);
-			\draw[-latex,thick,shorten >=2pt] (3,-2) -- (5.0,-0.8);
-			\draw[-latex,thick,shorten >=4pt] (3,-2) -- node[yshift=-7, right, align=center] {входы\\автоматов} (7.0,-0.8);
-			
-			\draw[->, thick, color=red] (tmp2) edge[bend right] (1.1,0);
-			\draw[->, thick, color=red] (tmp3) edge[bend right] (-0.3,-0.2);
-			\draw[->, thick, color=red] (tmp4) edge[bend right] (-1.1,0.2);
-			
-			\draw[->] (tmp5) edge[bend left] (9,0.9);
-			\draw[->] (tmp6) edge[bend left] (8.5,-0.1);		
-		}
-		\end{tikzpicture}
-
-
-	\end{frame}
-	
-	\begin{frame}
 		\frametitle{Картина мира и нейрофизиология}
 
 		\begin{figure}
@@ -150,25 +102,74 @@
 	\begin{frame}
 		\frametitle{Картина мира и психология}
 
+		\begin{figure}
+			\includegraphics[width=0.3\textwidth]{signs/signs_net}
+		\end{figure}
+		
 		В \textit{культурно"--~историческом подходе} (А.\,Р.~Лурия, 1970; Л.\,Н.~Выготский, 1982) и \textit{теории деятельности} (А.\,Н.~Леонтьев, 1975)
 		\begin{itemize}
 			\item вводится понятие знака как элемента картины мира субъекта,
 			\item раскрывается роль знака в формировании высших когнитивных функций,
 			\item показывается, что образующими картины мира, т.~е. компонентами знака, являются \textit{образ}, \textit{значение} и \textit{личностный смысл}.
 		\end{itemize}
-
 	\end{frame}
-	
+
+	\begin{frame}
+		\frametitle{Проблема соотношения мозга и психики}
+		
+		Изучение физиологических основ психической деятельности и поведения человека привело к нахождению нейрофизиологических коррелятов многих низших психических и высших когнитивных функций. Однако единая математическая модель проявления психической функции на основе нейронного субстрата мозга до сих пор не построена.
+		\par\bigskip
+		\begin{tikzpicture}[scale=0.85, every node/.style={scale=0.85}]
+		\onslide<1->{
+			\node at (0,1.7) {Мозг};
+			\node[align=center] at (0,0) {\includegraphics[width=0.4\textwidth]{ivanitsky_cyrcle}};
+			
+			\node at (9.5, 1.7) {Психические функции};
+			\node[align=center] at (9.5,-0.2) {\includegraphics[width=0.3\textwidth]{signs/signs_net}};
+			
+			\node at (2.5,-2.3) {Внешняя среда};
+			\node (tmp1) at (2.7,-2) {};
+			\node (tmp2) at (2.9,-0.8) {};
+			\node (tmp3) at (3.9,0) {};
+			\node (tmp4) at (4.9,0.6) {};
+			
+			\node (tmp5) at (5,0.75) {};
+			\node (tmp6) at (6,0.15) {};
+			
+			\draw[ultra thick] (1,-2.5) -- (1,-2) -- (4,-2) -- (4,-2.5);
+			\scriptsize
+			\draw[-latex,thick,shorten >=2pt] (tmp1) edge[bend right] (2,-0.7);
+		}
+		
+		\onslide<2->{
+			\normalsize
+			\node at (5,1.7) {Иерархия автоматов};
+			\node[align=center] at (5,0) {\includegraphics[width=0.4\textwidth]{rb_hierarchy}};
+			
+			\draw[-latex,thick,shorten >=2pt]  (3,-1.9) -- (3.2,-0.8);
+			\draw[-latex,thick,shorten >=2pt] (3,-1.9) -- (5.0,-0.8);
+			\draw[-latex,thick,shorten >=4pt] (3,-1.9) -- node[yshift=-7, right, align=center] {входы\\автоматов} (7.0,-0.8);
+			
+			\draw[->, thick, color=red] (tmp2) edge[bend right] (1.1,0);
+			\draw[->, thick, color=red] (tmp3) edge[bend right] (-0.3,-0.2);
+			\draw[->, thick, color=red] (tmp4) edge[bend right] (-1.1,0.2);
+			
+			\draw[->] (tmp5) edge[bend left] (8.5,0.9);
+			\draw[->] (tmp6) edge[bend left] (8,-0.1);		
+		}
+		\end{tikzpicture}
+	\end{frame}
+		
 	\begin{frame}
 		\frametitle{Знак "--- элемент картины мира}
 		\begin{columns}
-			\begin{column}{0.6\textwidth}
+			\begin{column}{0.5\textwidth}
 				\begin{figure}
-					\includegraphics[width=0.7\textwidth]{signs/sign_colored}
+					\includegraphics[width=0.8\textwidth]{signs/sign_colored}
 				\end{figure}
 			\end{column}
-			\begin{column}{0.4\textwidth}
-				Знак $s$ имеет следующие компоненты: 
+			\begin{column}{0.5\textwidth}
+				В соответствии с нейрофизиологическими данными и психологической теорией возникает следующая структура элемента картины мира  "--- знак $s$, который имеет следующие компоненты: 
 				\begin{itemize}
 					\item имя $n$,
 					\item образ $p$, 
@@ -188,7 +189,7 @@
 		\textbf{Целью исследования} является разработка моделей и алгоритмов формирования образа и значения элемента знаковой картины мира субъекта деятельности.
 
 		\par\bigskip
-		Таким образом, в настоящей работе рассматриваются алгоритмы формирования двух основных компонент знака: образа и значения. Исследуется сходимость процесса связывания этих компонент и рассматриваются некоторые функции знаковой картины мира
+		Таким образом, в настоящей работе рассматриваются алгоритмы формирования двух основных компонент знака: образа и значения. Исследуется сходимость процесса связывания этих компонент и рассматриваются некоторые функции знаковой картины мира.
 	\end{frame}
 	
 	\begin{frame}
@@ -208,7 +209,7 @@
 		Для уточнения постановки задачи введём следующие объекты:
 		\begin{itemize}
 			\item 
-			$\mathcal R$ "--- совокупность распознающих автоматов или $R$-автоматов вида $<A,Q,B,\varphi,\eta>$ с множествами входов $A$, выходов $B$ и состояний $Q$ и определёнными в соответствии с нейрофизиологическими данными функциями переходов $\varphi$ и выходов $\eta$ ,
+			$\mathcal R$ "--- совокупность распознающих автоматов или $R$-автоматов вида $<A,Q,B,\varphi,\eta>$ с множествами входов $A$, выходов $B$ и состояний $Q$ и определёнными в соответствии с нейрофизиологическими данными функциями переходов $\varphi$ и выходов $\eta$,
 			\item
 			$\mathcal F$ "--- совокупность допустимых признаков.
 		\end{itemize}
@@ -249,11 +250,11 @@
 	
 	\begin{frame}
 		\frametitle{Задача исследования образной компоненты}
-		Таким образом задача состоит в следующем:
+		Таким образом, задача состоит в следующем:
 		\begin{itemize}
 			\item построить алгоритм вычисления автоматной функции распознающего автомата,
 			\item построить четыре типа операторов распознавания (два статических для начального и промежуточного моментов времени, динамический и иерархический),
-			\item на основе этих операторов исследовать автоматную функцию,
+			\item на основе этих операторов исследовать автоматную функцию распознающего автомата,
 			\item доказать теоремы о корректности линейных замыканий построенных операторов.
 		\end{itemize}
 	\end{frame}
@@ -269,11 +270,11 @@
 		\end{minipage}
 
 		\begin{itemize}
-			\item вектор $\bar{x}_i^j(t)$ длины $q_i^j$ "--- входной сигнал (вектор весов входных признаков), 
-			\item вектор $\bar{x}_i^{*j}(t)$ длины $l_i^j$ "--- выходной сигнал (вектор весов распознаваемых признаков), 
+			\item вектор $\bar{x}_i^j(t)$ длины $q_i^j$ "--- входной сигнал (взвешенный вектор входных признаков), 
+			\item вектор $\bar{x}_i^{*j}(t)$ длины $l_i^j$ "--- выходной сигнал (взвешенный вектор распознаваемых признаков), 
 			\item вектор $\hat{x}_i^{j+1}(t)$ длины $l_i^j$ "--- управляющий вектор, задающий начальное состояние в моменты времени $0,h_i^j,2h_i^j,\dots$,
 			\item вектор $\hat{x}_i^j(t)$ длины $q_i^j$ "--- вектор состояния (вектор ожиданий входных признаков в следующий момент времени),
-			\item $h_i^j$ "--- глубина памяти $R$-автомата $R_i^j$.
+			\item $h_i^j$ "--- длина вычислительного цикла, глубина памяти.
 		\end{itemize}
 
 	\end{frame}
@@ -299,84 +300,6 @@
 		\end{itemize}
 	\end{frame}	
 		
-		
-	\begin{frame}
-		\frametitle{Алгоритм вычисления автоматной функции}
-		
-		\begin{tikzpicture}[overlay,remember picture]
-			
-			\tikzstyle{z_matrix} = [draw, rectangle, minimum width = 60, minimum height = 60,fill=white];
-			
-			\onslide<1->{
-				\node (meas_fun) at (0.7,0.5) {$\hat f_1,\hat f_2\dots,\hat f_k$};	
-			}
-			\onslide<2->{
-				\node (control_vect) at ($(meas_fun)+(-0.5,1.2)$) {$\hat x^{j+1}$};
-				\path[->,thick,red] (control_vect.east)  edge[out = -45, in = 45, right] (meas_fun.north); 
-			}
-			\onslide<3->{
-				\node[z_matrix] (z_1) at ($(meas_fun)+(2.6,-0.5)$) {};
-				\node[z_matrix] at ($(z_1)+(0.2,-0.1)$) {};
-				\node[z_matrix] at ($(z_1)+(0.4,-0.2)$) {};
-				
-				\node[z_matrix] at ($(z_1)+(0.9,-0.5)$) {};
-				\node[z_matrix] at ($(z_1)+(1.1,-0.6)$) {};
-				\node[z_matrix] at ($(z_1)+(1.3,-0.7)$) {};
-				
-				\path[->,thick,blue] ([xshift=20]meas_fun.south)  edge[out = -90, in = -155, right] ($(z_1)+(-1,-1.2)$);
-				\path[->,thick,blue] ([xshift=-25]meas_fun.south)  edge[out = -90, in = -155, right] ($(z_1)+(-0.1,-1.7)$);
-				
-				\node at ($(z_1)+(-1,1.4)$) {$Z^*$};
-				
-				\node at ($(z_1)+(0.8,1.4)$) {$Z_1$};
-				\node at ($(z_1)+(1.4,1.2)$) {$\ddots$};
-				\node at ($(z_1)+(2,0.9)$) {$Z_k$};
-			}
-			
-			\onslide<4->{
-				\draw[ultra thick, green!60!black] ($(z_1)+(-0.4,-1.1)$) -- ($(z_1)+(-0.4,0.6)$);
-				\draw[ultra thick, green!60!black] ($(z_1)+(0.5,-1.6)$) -- node[right,black] {$z_1^r$} ($(z_1)+(0.5,0.1)$);
-				
-				\draw[->, thick, green!60!black] ($(z_1)+(-0.1,-3)$) -- node[right,black] {$\bar x(0)$} ($(z_1)+(-0.1,-2)$);
-			}
-		
-			\onslide<5->{
-				\node[z_matrix] (z_2) at ($(z_1)+(5,0)$) {};
-				\node[z_matrix] at ($(z_2)+(0.2,-0.1)$) {};
-				
-				\node[z_matrix] at ($(z_2)+(0.9,-0.5)$) {};
-				\node[z_matrix] at ($(z_2)+(1.3,-0.7)$) {};
-				
-				\node at ($(z_2)+(-1,1.4)$) {$Z^*$};
-				\node at ($(z_2)+(0.8,1.4)$) {$Z_1$};
-				\node at ($(z_2)+(1.4,1.2)$) {$\ddots$};
-				\node at ($(z_2)+(2,0.9)$) {$Z_k$};
-				
-				\draw[->, ultra thick] ($(z_1)+(2.6,-0.6)$) -- node [above] {\scriptsize$\frac{\|\bar{z}_1^r-\bar{x}_i^j\|}{\|\bar{z}_1^r\|+\|\bar{x}_i^j\|}$} ($(z_1)+(3.7,-0.6)$);
-			}
-			
-						
-			\onslide<6->{
-				\draw[->, thick, red] ($(z_2)+(0.3,1.4)$) -- node[right,black] {$\bar x^*(0)$} ($(z_2)+(0.3,3)$);
-			}
-
-			\onslide<7>{
-				\draw[<-, thick, red] ($(z_2)+(-0.1,-3)$) -- node[right,black] {$\hat x^j(0)$} ($(z_2)+(-0.1,-2)$);
-			}	
-					
-			\onslide<7->{
-				\draw[ultra thick, green!60!black] ($(z_2)+(-0.4,-1)$) -- ($(z_2)+(-0.4,0.7)$);
-				\draw[ultra thick, green!60!black] ($(z_2)+(0.7,-1.6)$) -- node[right,black] {$z_2^r$} ($(z_2)+(0.7,0.1)$);	
-			}
-			\onslide<8->{
-				\draw[->, thick, green!60!black] ($(z_2)+(-0.1,-3)$) -- node[right,black] {$\bar x(1)$} ($(z_2)+(-0.1,-2)$);
-			}
-			
-			\onslide<9->{
-				\draw[->, ultra thick] ($(z_2)+(2.6,-0.6)$) -- node [above] {\scriptsize$\frac{\|\bar{z}_1^r-\bar{x}_i^j\|}{\|\bar{z}_1^r\|+\|\bar{x}_i^j\|}$} ($(z_2)+(3.7,-0.6)$);
-			}
-		\end{tikzpicture}
-	\end{frame}
 	\begin{frame}
 		\frametitle{Входные и выходные функции}	
 		Таким образом, $R$-автомат $R$ является бесконечным автоматом Мили с переменной структурой и конечной памятью и определяется следующим набором $R=<X\times \hat X^{j+1}, 2^{\mathcal Z}, X^*\times \hat X^j,\varphi,\vec\eta>$, где
@@ -443,7 +366,7 @@
 	
 	\begin{frame}
 		\frametitle{Разложение алгоритма классификации}
-		\begin{Pred}[аналог теоремы Ю.\,И.~Журавлёва о введении пространства оценок]\label{st:decompositon}
+		\begin{Pred}[аналог теоремы о введении пространства оценок]\label{st:decompositon}
 			Каждый алгоритм $A\in\mathcal A$ представим как последовательность выполнения алгоритмов $R$ и $C$, где $R(\hat{x},\bar{x})=\bar{x}^*$, $\bar{x}^*$ "--- вектор действительных чисел, $C(\bar{x}^*)=\bar{\beta}$, $\beta_i\in\{0,1,\Delta\}$.
 		\end{Pred}
 		\par\bigskip
@@ -458,7 +381,7 @@
 		\begin{Def}
 			Решающее правило $C^*$ называется корректным на множестве входных векторов $X$, если для всякого вектора $\bar x$ из $X$ существует хотя бы один числовой вектор $\bar x^*$ такой, что $C^*(\bar{x}^*)=\bar{\alpha}$, где $\bar{\alpha}$ "--- произвольный информационный вектор входного вектора $\bar{x}$.
 		\end{Def}
-		В множестве операторов $\mathcal R$ введём операции умножения на скаляр, сложения и умножения. Пусть $r'$ "--- скаляр, $R',R''\in\mathcal R$. Определим операторы $r'{\cdot}R'$, $R'+R''$ и $R{\cdot}R''$ следующим образом:
+		В множестве операторов $\mathcal R$ введём операции умножения на скаляр и сложения. Пусть $r'$ "--- скаляр, $R',R''\in\mathcal R$. Определим операторы $r'{\cdot}R'$ и $R'+R''$ следующим образом::
 		\begin{equation}
 			\label{eq:oper_scalar}
 			r'{\cdot}R'=(r'{\cdot}{x_1^*}',\dots,r'{\cdot}{x_l^*}'),
@@ -550,7 +473,7 @@
 		\frametitle{Задача классификации в динамическом случае}
 		Задача $\hat{Q}(\hat{x}, \omega_{{\Delta}t}, \bar{\alpha})$ состоит в построении алгоритма $\hat A$, вычисляющего по поступившему начальному (управляющему) вектору ожиданий $\hat{x}$ и матрице входных воздействий $\omega_{{\Delta}t}$  информационный вектор $\bar{\alpha}$. 
 		\par\bigskip
-		Искомый оператор распознавания $\hat{R}$ должен выдавать весовую матрицу распознаваемых признаков $\gamma_{\Delta{t}}$, столбцы которой должны сходиться (с учётом корректного решающего правила) за $\tau_s+h$ шагов к информационному вектору $\bar\alpha$. 
+		Искомый оператор распознавания $\hat{R}$ должен выдавать матрицу распознаваемых признаков $\gamma_{\Delta{t}}$, столбцы которой должны сходиться (с учётом корректного решающего правила) за $\tau_s+h$ шагов к информационному вектору $\bar\alpha$. 
 	\end{frame}
 
 	\begin{frame}
@@ -710,7 +633,7 @@
 		Имеет место следующее утверждение.
 		\par\bigskip
 		\begin{Theorem}
-			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. последовательность значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для  значения $\tilde m^0$, полученного из внешней среды, стремится к $\tilde m^0$.
+			Алгоритм $\mathfrak A_{pm}$ корректен, т.~е. в конечной последовательности значений $\langle\tilde m^{*(0)},\tilde m^{*(1)},\dots\rangle$, которая строится с помощью алгоритма $\mathfrak A_{pm}$ для  значения $\tilde m^0$, полученного из внешней среды, расстояние до $\tilde m^0$ уменьшается.
 		\end{Theorem}
 	\end{frame}
 	
