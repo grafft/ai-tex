@@ -30,14 +30,20 @@
 		row sep = 7mm] (m1) {
 		&
 		&
-		\node[rb_rect] (rb1) {$R_6^3$};&
+		\node (rb_high) {$\dots$};&
 		&
+		\\
+		&
+		&
+		\node[rb_rect] (rb1) {$R_6^3$};&
+		\node (rb_r1) {$\dots$};&
 		\\
 			
 		&
 		\node[rb_rect] (rb2) {$R_4^2$};&
 		&
 		\node[rb_rect] (rb3) {$R_5^2$};&
+		\node (rb_r2) {$\dots$};&
 		\\
 
 		\node[rb_rect] (rb4) {$R_1^1$};&
@@ -49,6 +55,7 @@
 	};	
 
 	\draw[pil] (rb2.north) -- (rb1.south);
+	\draw[pil] (rb3.north) -- (rb_r1.south);
 	\draw[pil] (rb3.north) -- (rb1.south);
 	
 	\draw[pil] (rb4.north) -- (rb2.south);
@@ -58,6 +65,7 @@
 	\draw[pil] (rb5.north) -- (rb3.south);
 	\draw[pil] (rb6.north) -- (rb3.south);
 	
+	\draw[pil] (rb1.north) -- (rb_high.south);
 	\end{tikzpicture}
 				
 \end{document}
