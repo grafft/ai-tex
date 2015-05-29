@@ -1,0 +1,69 @@
+\documentclass[tikz,convert={density=300,outext=.jpg},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc,arrows}
+
+\newcommand{\sign}[3]{
+	\node[sign_comp] (a#1) at ($(0.5,1.0)+(#2,#3)$) {};				
+	\node[sign_comp] (p#1) at ($(0.2,0.5)+(#2,#3)$) {};
+	\node[sign_comp] (m#1) at ($(0.8,0.5)+(#2,#3)$) {};
+	\node[left = of p#1] {$p_#1$};
+	\node[right = of m#1] {$m_#1$};
+	\node[above = of a#1] {$a_#1$};
+	\draw (a#1) -- (m#1);
+	\draw (a#1) -- (p#1);
+	\draw (m#1) -- (p#1);			
+}	
+\begin{document}
+	
+	\begin{tikzpicture}[join=round,scale=2.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle,fill=white];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{link} = [->,>=stealth',shorten >=1pt,thick];
+		
+		\sign{1}{4}{3.9}
+		\sign{2}{4}{0.8}
+		\sign{3}{0.8}{4}
+		\sign{4}{1.4}{1.6}
+
+		\draw[link,color = red] (p1) edge[bend right] node[left, black] {$R_3$}(p2);
+		\draw[link,color = red, dotted] (p1) edge[bend right, in = -90] node[left, black] {$R_1$} (p3);				
+		\draw[link,color = red, dotted] (p3) edge [bend right, in = -90] node[left, black] {$R_1$} (p4);
+		\draw[link,color = red, dashed] (p4) edge [bend right] node[left, black] {$R_3$} (p2);
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}[join=round,scale=2.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle,fill=white];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{link} = [->,>=stealth',shorten >=1pt,thick];
+		
+		\sign{1}{4}{3.9}
+		\sign{2}{4}{0.8}
+		\sign{3}{0.8}{4}
+		\sign{4}{1.4}{1.6}
+		
+		\draw[link,color = blue, dashed] (m3) edge [bend right] node[xshift=-20, left, black] {$R_6$} (m1);
+		\draw[link,color = blue] (m2) edge [bend left, out = 90, in = 70] node[left, black] {$R_7$} (m4);
+		\draw[link,color = blue] (m4) edge [bend left, in = 90] node[left, black] {$R_7$} (m1);
+	\end{tikzpicture}
+
+	\begin{tikzpicture}[join=round,scale=2.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle,fill=white];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{link} = [->,>=stealth',shorten >=1pt,thick];
+		
+		\sign{4}{1.4}{1.6}
+		\sign{7}{2.1}{0.1}
+		\sign{8}{0}{0}
+		
+		\draw[link,color = green] (a8) edge [bend right] node[left, black] {$R_5$} (a7);
+		\draw[link,color = green] (a7) edge [bend right, out = -70] node[left, black] {$R_5$} (a4);
+	\end{tikzpicture}
+\end{document}
