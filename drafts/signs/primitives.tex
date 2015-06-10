@@ -1,0 +1,55 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{geometry} 					% поля страницы
+
+\usepackage{cmap}                       % Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}				% Поддержка русских букв
+\usepackage[utf8]{inputenc}            	% Выбор языка и кодировки
+\usepackage[english, russian]{babel}	% Языки: русский, английский
+
+\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
+\usepackage{bookmark}					% Оглавление в pdf
+\usepackage{graphicx} 					% Подключаем пакет работы с графикой
+
+\usepackage{amsmath,amssymb}
+\usepackage[plain]{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usepackage[affil-it]{authblk}
+
+\geometry{left=3cm,right=2cm,top=2cm,bottom=2cm}	% Геомтерия страницы
+\graphicspath{{../../images/}} 			% Пути к изображениям
+\bibliographystyle{gost2008s}
+
+\begin{document}
+	\title{Знак как элемент картины мира}
+	\author{А.\,И.~Панов}
+	\affil{Институт системного анализа РАН}
+	
+	\maketitle{}
+	
+	% оформление аннотации
+	\begin{abstract}
+		Главная идея
+	\end{abstract}
+	
+	\section*{Введение}
+	Основная цель работы "--- формализовать понятие знака и построить алгоритм его образования.
+	
+	\section{Понятие знака и его формализация}
+	\subsection{Работы в области семиотики}
+	
+	\subsection{Лингвистические работы}
+	
+	\subsection{Философские исследования}
+	
+	\subsection{Прикладная семиотика}
+	
+	\subsection{Формализация понятия}
+	
+	\section{Структура знака}
+	\section*{Заключение}
+	
+    \bibliography{../../biblio/umain}
+    
+\end{document} 

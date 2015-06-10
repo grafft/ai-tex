@@ -1,0 +1,36 @@
+\documentclass[tikz,convert={density=600,outext=.png}]{standalone}
+%\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}[join=round,node distance = -0.05]
+		\newcommand*{\LabelDist}{0.4}
+		\newcommand*{\SepDist}{0.1}
+	
+		\node (input) at (0,0) {вход};
+		
+		\node[draw, rectangle, align=center] (analysis) at (2.5,0) {АНАЛИЗ\\объекта\\исследования};
+		
+		\node[draw, rectangle, align=center] (synthesis) at (5.5,0) {СИНТЕЗ\\модели\\модели};
+		
+		\node[draw, rectangle, align=center] (estimation) at (8.5,0) {ОЦЕНКА\\адекватности\\объекта};
+		
+		\node (output) at (11,0) {выход};
+		
+		\draw[->,thick] (input.east) -- (analysis.west);
+		\draw[->,thick] (analysis.east) -- (synthesis.west);
+		\draw[->,thick] (synthesis.east) -- (estimation.west);
+		\draw[->,thick] (estimation.east) -- (output.west);
+		
+		\draw[<-,thick] (analysis.north) |- (2.5,1.3) -- (10,1.3) |- ([yshift=10]estimation.east);
+	\end{tikzpicture}
+\end{document}
