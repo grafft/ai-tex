@@ -1,0 +1,27 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{polyglossia}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[english, russian]{babel}
+\usepackage[bibstyle=gost-numeric,backend=biber]{biblatex}
+
+\addbibresource{library.bib}
+
+%\DeclareSourcemap{
+%	\maps[datatype=bibtex, overwrite]{
+%		\map{
+%			\step[fieldset=annote, null]
+%			\step[fieldset=abstract, null]
+%		}
+%	}
+%}
+
+\makeatletter
+\def\bbl@main@language{russian}
+\makeatother
+	
+\begin{document}
+	\nocite{*}
+	\printbibliography 
+\end{document} 
