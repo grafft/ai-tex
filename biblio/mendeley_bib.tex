@@ -5,15 +5,35 @@
 \usepackage[utf8]{inputenc}            % Выбор языка и кодировки
 \usepackage[english, russian]{babel}
 \usepackage{geometry}
+\usepackage{csquotes}
 
 \geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
 
 \usepackage[
-	backend=bibtex
+%	autolang=hyphen,
+	language=auto,
+	autolang=other,
+	backend=biber,
+	style=gost-numeric
 ]{biblatex}
-\bibliography{biblatex-examples.bib}
+\addbibresource{library.bib}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{
+			\step[fieldset=langid, fieldvalue=english]
+			\step[fieldset=doi, null]
+			\step[fieldset=issn, null]
+			\step[fieldset=isbn, null]
+			\step[fieldset=url, null]
+			\step[fieldsource=language, fieldset=langid, origfieldval]
+		}
+	}
+}
 
 \begin{document}
 	\nocite{*}
 	\printbibliography 
+%	\bibliographystyle{ugost2008p}
+%	\bibliography{library}
 \end{document} 	
