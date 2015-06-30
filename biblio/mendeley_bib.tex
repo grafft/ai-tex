@@ -10,7 +10,6 @@
 \geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
 
 \usepackage[
-%	autolang=hyphen,
 	language=auto,
 	autolang=other,
 	backend=biber,
@@ -19,7 +18,7 @@
 \addbibresource{library.bib}
 
 \DeclareSourcemap{
-	\maps[datatype=bibtex, overwrite]{
+	\maps[datatype=bibtex]{
 		\map{
 			\step[fieldset=langid, fieldvalue=english]
 			\step[fieldset=doi, null]
@@ -27,6 +26,7 @@
 			\step[fieldset=isbn, null]
 			\step[fieldset=url, null]
 			\step[fieldsource=language, fieldset=langid, origfieldval]
+%			\step[fieldsource=mendeley-tags, fieldset=keywords, origfieldval]
 		}
 	}
 }
@@ -35,7 +35,6 @@
 	\renewcommand{\refname}{}
 	
 	\nocite{*}
-	\printbibliography 
-%	\bibliographystyle{ugost2008p}
-%	\bibliography{library}
+	\printbibliography
+%	\printbibliography[title={My publications}, keyword={mypub}] 
 \end{document} 	
