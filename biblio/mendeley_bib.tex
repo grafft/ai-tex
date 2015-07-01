@@ -12,13 +12,15 @@
 \usepackage[
 	language=auto,
 	autolang=other,
+	defernumbers=true,
 	backend=biber,
-	style=gost-numeric
+	style=gost-numeric,
+	sorting=ynt
 ]{biblatex}
 \addbibresource{library.bib}
 
 \DeclareSourcemap{
-	\maps[datatype=bibtex]{
+	\maps[datatype=bibtex, overwrite]{
 		\map{
 			\step[fieldset=langid, fieldvalue=english]
 			\step[fieldset=doi, null]
@@ -26,7 +28,7 @@
 			\step[fieldset=isbn, null]
 			\step[fieldset=url, null]
 			\step[fieldsource=language, fieldset=langid, origfieldval]
-%			\step[fieldsource=mendeley-tags, fieldset=keywords, origfieldval]
+			\step[fieldsource=mendeley-tags, fieldset=keywords, origfieldval]
 		}
 	}
 }
@@ -35,6 +37,9 @@
 	\renewcommand{\refname}{}
 	
 	\nocite{*}
-	\printbibliography
-%	\printbibliography[title={My publications}, keyword={mypub}] 
+%	\printbibliography
+	\printbibliography[title={My publications}, keyword={mypub}, resetnumbers=true]
+	\printbibliography[title={My translated publications}, keyword={trmypub}, resetnumbers=true]
+	\printbibliography[title={Osipov's publications}, keyword={osipov}, resetnumbers=true]
+	\printbibliography[title={Other publications}, notkeyword={mypub,trmypub,osipov}, resetnumbers=true]
 \end{document} 	
