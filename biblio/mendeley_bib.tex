@@ -34,12 +34,17 @@
 }
 
 \begin{document}
+	\hyphenpenalty=10000
+	\sloppy
 	\renewcommand{\refname}{}
 	
 	\nocite{*}
 %	\printbibliography
-	\printbibliography[title={My publications}, keyword={mypub}, resetnumbers=true]
-	\printbibliography[title={My translated publications}, keyword={trmypub}, resetnumbers=true]
+	\printbibliography[title={My journal articles}, keyword={mypub}]
+	\printbibliography[title={My conference articles}, keyword={myconf}]
+	\printbibliography[title={My thesises}, keyword={myth}]
+	\printbibliography[title={My translated journal articles}, keyword={mypubtr}, resetnumbers=true]
 	\printbibliography[title={Osipov's publications}, keyword={osipov}, resetnumbers=true]
-	\printbibliography[title={Other publications}, notkeyword={mypub,trmypub,osipov}, resetnumbers=true]
+	\printbibliography[title={Other publications}, notkeyword={mypub}, notkeyword={myconf}, notkeyword={myth}, notkeyword={mypubtr}, notkeyword={osipov}, resetnumbers=true]
+	\par
 \end{document} 	
