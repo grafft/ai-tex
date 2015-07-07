@@ -6,6 +6,7 @@
 \usepackage[english, russian]{babel}
 \usepackage{geometry}
 \usepackage{csquotes}
+\usepackage{epstopdf}
 
 \geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
 
@@ -45,6 +46,15 @@
 	\printbibliography[title={My thesises}, keyword={myth}]
 	\printbibliography[title={My translated journal articles}, keyword={mypubtr}, resetnumbers=true]
 	\printbibliography[title={Osipov's publications}, keyword={osipov}, resetnumbers=true]
-	\printbibliography[title={Other publications}, notkeyword={mypub}, notkeyword={myconf}, notkeyword={myth}, notkeyword={mypubtr}, notkeyword={osipov}, resetnumbers=true]
+	\printbibliography[title={Semiotics}, keyword={semiotics}, resetnumbers=true]
+	
+	\printbibliography[title={Other publications}, 
+		notkeyword={mypub}, 
+		notkeyword={myconf}, 
+		notkeyword={myth}, 
+		notkeyword={mypubtr}, 
+		notkeyword={osipov}, 
+		notkeyword={semiotics}, 
+		resetnumbers=true]
 	\par
 \end{document} 	

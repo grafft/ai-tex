@@ -14,7 +14,6 @@
 %\paperwidth=597pt
 %\paperheight=845pt
 \parindent=1cm %размер табуляции (для красной строки) в начале каждого абзаца
-\hyphenpenalty=10000		% Запрещаем переносы во всем тексте
 
 \renewcommand{\baselinestretch}{1.25}
 \newfloat{scheme}{tb}{sch}
@@ -22,13 +21,11 @@
 %%% Общая информация %%%
 \author{Панов~А.\,И.} % Фамилия И.О. автора
 
-%%% Кодировки и шрифты %%%
-\renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
-
 %%% Выравнивание и переносы %%%
 \sloppy
-\clubpenalty=10000
-\widowpenalty=10000
+\clubpenalty=10000					% Запрещаем разрыв страницы после первой строки абзаца
+\widowpenalty=10000					% Запрещаем разрыв страницы после последней строки абзаца
+\hyphenpenalty=10000				% Запрещаем переносы во всем тексте
 
 %%% Библиография %%%
 \makeatletter

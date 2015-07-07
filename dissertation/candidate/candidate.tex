@@ -1,0 +1,127 @@
+\documentclass[%
+candidate,      % тип документа
+natbib,         % использовать пакет natbib для "сжатия" цитирований
+subf,           % использовать пакет subcaption для вложенной нумерации рисунков
+href,           % использовать пакет hyperref для создания гиперссылок
+colorlinks=true % цветные гиперссылки
+%,times         % шрифт Times как основной
+%,fixint=false  % отключить прямые знаки интегралов
+%,classified    % гриф секретности
+%,libcat        % номер УДК
+,facsimile     % отображать факсимиле диссертанта
+]{disser}
+
+\usepackage[
+  a4paper, mag=1000,
+  left=2.5cm, right=1cm, top=2cm, bottom=2cm, headsep=0.7cm, footskip=1cm
+]{geometry}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+%\usepackage{tabularx,longtable}
+\ifpdf\usepackage{epstopdf}\fi
+
+\usepackage[ruled]{algorithm}					% Пакеты листингов и алгоритмов
+\usepackage[noend]{algpseudocode}
+\usepackage{amsthm,amsopn}
+
+% Номера страниц снизу и по центру
+%\pagestyle{footcenter}
+%\chapterpagestyle{footcenter}
+
+% Точка с запятой в качестве разделителя между номерами цитирований
+%\setcitestyle{semicolon}
+
+% Ссылки на работы соискателя включаются в общий список литературы
+\let\citemy=\cite
+
+% Использовать полужирное начертание для векторов
+\let\vec=\mathbf
+
+% Путь к файлам с иллюстрациями
+\graphicspath{{../../images/}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\sloppy
+\begin{document}
+
+% Переопределение стандартных заголовков
+%\def\contentsname{Содержание}
+%\def\conclusionname{Выводы}
+%\def\bibname{Литература}
+\theoremstyle{plain}
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Def}{Определение}
+\newtheorem{Pred}{Утверждение}
+\newtheorem{Corollary}{Следствие}
+\newenvironment{Proof}%
+{
+	\par\noindent{\bf Доказательство.}
+}%
+{
+	\hfill$\scriptstyle\blacksquare$
+}
+
+\floatname{algorithm}{Алгоритм}
+\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+\algrenewcommand\algorithmicforall{\textbf{для всех}}
+\algrenewcommand\algorithmicwhile{\textbf{пока}}
+\algrenewcommand\algorithmicif{\textbf{если}}
+\algrenewcommand\algorithmicthen{\textbf{то}}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewcommand\algorithmicreturn{\textbf{вернуть}}
+\algrenewcommand\algorithmicdo{}
+\renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
+
+% Включение файла с общим текстом диссертации и автореферата
+% (текст титульного листа и характеристика работы).
+\input{common}
+
+% номер копии для грифа секретности
+%\copynum{1}
+% класс доступа
+%\classlabel{Для служебного пользования}
+
+% номер УДК
+\libcatnum{004.81}
+
+\title{ДИССЕРТАЦИЯ\\
+на соискание учёной степени\\
+кандидата физико-математических наук}
+
+\maketitle
+
+% Содержание
+\tableofcontents
+
+% Введение
+\input{introduction}
+
+% Основная часть
+%% Глава 1
+\input{chapter1}
+%% Глава 2
+\input{chapter2}
+%% Параграф 3.1
+\input{section3.1}
+%% Параграф 3.2
+\input{section3.2}
+
+% Заключение
+\input{conclusion}
+
+% Список литературы
+\bibliography{../../biblio/umain}
+\bibliographystyle{ugost2008}
+
+% Список иллюстративного материала
+\listoffigures
+
+% Приложения
+\appendix
+\input{app-a}
+\input{app-b}
+
+\end{document}

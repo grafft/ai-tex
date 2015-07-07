@@ -10,9 +10,7 @@
 	\fancyhead[C]{\fontsize{14}{\baselineskip} \selectfont \thepage} % except the center
 }
 \parindent=1.2cm		% абзацный отступ
-\renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
 \renewcommand{\baselinestretch}{1.5}
-
 
 
 %%% Выравнивание и переносы %%%
@@ -24,7 +22,6 @@
 
 %%% Изображения %%%
 \graphicspath{{../images/}} % Пути к изображениям
-
 
 
 %%% Цвета гиперссылок %%%
@@ -43,30 +40,6 @@
 \renewcommand\cftchapaftersnum{.} % добавляем точки после номеров в оглавлении
 \renewcommand\cftsecaftersnum{.}
 \renewcommand\cftsubsecaftersnum{.}
-
-
-
-%%% Теормоподобные окружения %%%
-\theoremstyle{plain}
-\newtheorem{Theorem}{Теорема}
-\newtheorem{Lemma}[Theorem]{Лемма}
-\newtheorem{Pred}{Утверждение}
-\newtheorem{Corollary}{Следствие}
-\newtheorem{Def}{Определение}
-\newtheorem{Axiom}{Аксиома}
-\newtheorem{Hypothesis}{Гипотеза}
-\newtheorem{Assumption}{Предположение}
-\newtheorem{Problem}{Задача}
-\newtheorem{Example}{Пример}
-\newtheorem{Fact}{Факт}
-\newtheorem{Remark}{Замечание}
-\newtheorem{Rule}{Правило}
-\newtheorem{Condition}{Условие}
-\newenvironment{Proof}%
-    {\par\noindent{\bf Доказательство.}}%
-    {\hfill$\scriptstyle\blacksquare$}
-
-
 
 %%% Настройка заголовков %%%
 % чтобы поставить точечку после номера алгоритма и картинки в \caption:
