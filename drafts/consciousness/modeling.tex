@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{geometry} 					% поля страницы
+
+\usepackage{cmap}                       % Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}				% Поддержка русских букв
+\usepackage[utf8]{inputenc}            	% Выбор языка и кодировки
+\usepackage[english, russian]{babel}	% Языки: русский, английский
+\usepackage{csquotes}
+
+\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
+\usepackage{bookmark}					% Оглавление в pdf
+\usepackage{graphicx} 					% Подключаем пакет работы с графикой
+
+\usepackage{amsmath,amssymb}
+
+\usepackage[affil-it]{authblk}			% Красивая аффиляция авторов
+
+\geometry{left=3cm,right=2cm,top=2cm,bottom=2cm}	% Геомтерия страницы
+\graphicspath{{../../images/}} 			% Пути к изображениям
+
+\usepackage[
+%	autolang=hyphen,
+language=auto,
+autolang=other,
+backend=biber,
+style=gost-numeric
+]{biblatex}
+\addbibresource{../../biblio/library.bib}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{
+			\step[fieldset=langid, fieldvalue=english]
+			\step[fieldset=doi, null]
+			\step[fieldset=issn, null]
+			\step[fieldset=isbn, null]
+			\step[fieldset=url, null]
+			\step[fieldsource=language, fieldset=langid, origfieldval]
+		}
+	}
+}
+
+\begin{document}
+	\title{Принципы организации сознательной деятельности человека}
+	\author{А.\,И.~Панов}
+	\affil{Институт системного анализа ФИЦ ИУ РАН}
+	
+	\maketitle{}
+	
+	% оформление аннотации
+	\begin{abstract}
+		Главная идея
+	\end{abstract}
+	
+	\section*{Введение}
+
+	\section{Основные принципы}
+	
+	<<Высшие формы сознательной деятельности человека, конечно, осуществляются мозгом и опираются на законы высшей нервной деятельности. Однако они порождаются сложнейшими взаимоотношениями человека с общественной средой и формируются в условиях общественной жизни, которая способствует возникновению новых функциональных систем, в соответствии с которыми работает мозг, и поэтому попытки вывести законы этой сознательной деятельности из самого мозга, взятого вне социальной среды, обречены на неудачу>> \cite{Luria1977}.
+	
+	<<Включение системы речевых связей в значительное число процессов, которые раньше имели непосредственный характер, является важнейшим фактором формирования высших психических функций, которыми человек отличается от животного и которые тем самым приобретают характер сознательности и произвольности>> \cite{Luria2000}.
+	
+	<<Высшие психические процессы являются функцией всего мозга и что работу мозговой коры можно рассматривать лишь в тесной связи с анализом более низко расположенных нервных аппаратов>> \cite{Luria2000}.
+	
+	<<Восприятие осуществляется при совместном участии всех функциональных блоков мозга, из которых первый обеспечивает нужный тонус коры, второй осуществляет анализ и синтез поступающей информации, а третий обеспечивает направленные поисковые движения, создавая тем самым активный характер воспринимающей деятельности>> \cite{Luria2003}.
+	\section*{Заключение}
+	
+   \printbibliography
+\end{document} 
