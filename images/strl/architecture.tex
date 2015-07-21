@@ -53,7 +53,7 @@
 		
 		\draw[->,rounded corners] ([yshift=-3mm]sit_decr.west) -| ($(sit_decr.west)+(-13mm,-35mm)$) node[align=center, right] {целевая область\\и временные\\ограничения} |- (pred_tr.west);
 		\draw[->,rounded corners] (build_tr.north) |- ($(build_tr.north)+(-25mm, 17mm)$) node[align=center, above] {траектория\\построена\\либо нет} -| (replaner.south);
-		\draw[<-, rounded corners] ([xshift=3mm]pred_tr.south) |- ($(pred_tr.south)+(40mm,-5mm)$) node[align = center, above] {перепланирование\\без именения цели} -| (monitor.south);
+		\draw[<-, rounded corners] ([xshift=3mm]pred_tr.south) |- ($(pred_tr.south)+(40mm,-5mm)$) node[align = center, above] {запрос на\\перепланирование} -| (monitor.south);
 		\draw[->, rounded corners] (model_3.south) |- (monitor.west);
 		\draw[<-, rounded corners] (model_3.east) -- (build_tr.west);
 		\draw[<-, rounded corners] (model_3.west) -- (slam.east);
