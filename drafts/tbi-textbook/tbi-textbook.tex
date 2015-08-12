@@ -1,0 +1,101 @@
+\documentclass[b5paper,11pt]{book}
+
+\usepackage{geometry} 					% поля страницы
+
+\usepackage{cmap}                       % Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}				% Поддержка русских букв
+\usepackage[utf8]{inputenc}            	% Выбор языка и кодировки
+\usepackage[english, russian]{babel}	% Языки: русский, английский
+
+\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
+\usepackage{bookmark}					% Оглавление в pdf
+\usepackage{graphicx} 					% Подключаем пакет работы с графикой
+
+\usepackage{amsmath,amssymb}
+
+\graphicspath{{../../images/}} 			% Пути к изображениям
+
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}	% Геомтерия страницы
+
+\usepackage[
+%	autolang=hyphen,
+language=auto,
+autolang=other,
+backend=biber,
+style=gost-numeric
+]{biblatex}
+\addbibresource{../../biblio/library.bib}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{
+			\step[fieldset=langid, fieldvalue=english]
+			\step[fieldset=doi, null]
+			\step[fieldset=issn, null]
+			\step[fieldset=isbn, null]
+			\step[fieldset=url, null]
+			\step[fieldsource=language, fieldset=langid, origfieldval]
+		}
+	}
+}
+
+\let\cleardoublepage\clearpage
+
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			{\bfseries  Федеральное государственное автономное \\
+				образовательное учреждение высшего образования\\
+				<<Российский университет дружбы народов>>
+				
+			}
+
+			\vspace{-5pt}
+			\noindent\rule{\textwidth}{2pt}
+			
+			\vspace{50pt}
+			{\Large\bfseries А.\,И.~Панов}
+			
+			\vspace{100pt}
+			{\Huge\bfseries Теоретические основы информатики}
+			
+			\vspace{20pt}
+			{\Large\itshape Учебно-методическое пособие}
+			
+			\vfill
+			{\bfseries Москва\\
+				Российский университет дружбы народов\\
+				2015
+			}
+		\end{center}
+	\end{titlepage}
+	
+	\chapter*{}
+	
+	В пособии рассмотрены основные понятия теоретических основ информатики.
+	
+	
+	\tableofcontents %% содержание
+		
+	\chapter*{Введение}
+	\addcontentsline{toc}{chapter}{Введение}
+	Немного о целях курса
+	
+	\chapter{Теория информации}
+	
+	\chapter{Представление данных}
+	В общем о данных
+	
+	\section{Графы}
+	
+	\section{Сети}
+	
+	\section{Операции над данными}
+	
+	\chapter{Представление знаний}
+	В общем о знаниях
+	
+	\section{Формальные системы}
+	
+	\printbibliography
+\end{document}
