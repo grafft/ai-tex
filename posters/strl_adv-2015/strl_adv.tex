@@ -1,0 +1,173 @@
+\documentclass[landscape,a0paper,fontscale=0.285]{baposter} % Adjust the font scale/size here
+
+\usepackage{cmap}								% Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}       				% Поддержка кириллицы
+\usepackage[utf8]{inputenc}					% Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+%\usepackage{fontspec}
+%\setmainfont{Qlassik Medium}
+
+\usepackage{graphicx} 							% Required for including images
+\graphicspath{{../../images/}} 					% Directory in which figures are stored
+
+\usepackage{enumitem} 							% Used to reduce itemize/enumerate spacing
+\usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
+
+\usepackage{multicol} 							% Required for multiple columns
+\setlength{\columnsep}{1.5em} 					% Slightly increase the space between columns
+\setlength{\columnseprule}{0mm} 				% No horizontal rule between columns
+
+\usepackage{tikz} 								% Required for flow chart
+\usetikzlibrary{shapes,arrows} 					% Tikz libraries required for the flow chart in the template
+
+\usepackage[
+%	autolang=hyphen,
+	language=auto,
+	autolang=other,
+	backend=biber,
+	style=gost-numeric
+]{biblatex}
+\addbibresource{strl.bib}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{
+			\step[fieldset=langid, fieldvalue=english]
+			\step[fieldset=doi, null]
+			\step[fieldset=issn, null]
+			\step[fieldset=isbn, null]
+			\step[fieldset=url, null]
+			\step[fieldsource=language, fieldset=langid, origfieldval]
+		}
+	}
+}
+
+\newcommand{\compresslist}{ 					% Define a command to reduce spacing within itemize/enumerate environments, this is used right after \begin{itemize} or \begin{enumerate}
+	\setlength{\itemsep}{1pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+}
+
+\definecolor{lightblue}{rgb}{0.145,0.6666,1} 	% Defines the color used for content box headers
+
+\begin{document}
+
+\begin{poster}
+{
+	headerborder=closed, % Adds a border around the header of content boxes
+	colspacing=1em, % Column spacing
+	bgColorOne=white, % Background color for the gradient on the left side of the poster
+	bgColorTwo=white, % Background color for the gradient on the right side of the poster
+	borderColor=lightblue, % Border color
+	headerColorOne=black, % Background color for the header in the content boxes (left side)
+	headerColorTwo=lightblue, % Background color for the header in the content boxes (right side)
+	headerFontColor=white, % Text color for the header text in the content boxes
+	boxColorOne=white, % Background color of the content boxes
+	textborder=roundedsmall, % Format of the border around content boxes, can be: none, bars, coils, triangles, rectangle, rounded, roundedsmall, roundedright or faded
+	eyecatcher=true, % Set to false for ignoring the left logo in the title and move the title left
+	headerheight=0.15\textheight, % Height of the header
+	headershape=roundedright, % Specify the rounded corner in the content box headers, can be: rectangle, small-rounded, roundedright, roundedleft or rounded
+	headerfont=\Large\bf\textsc, % Large, bold and sans serif font in the headers of content boxes
+	%textfont={\setlength{\parindent}{1.5em}}, % Uncomment for paragraph indentation
+	linewidth=2pt % Width of the border lines around content boxes
+}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+%
+{\includegraphics[height=4em]{isa-frc/isa-logo.png}} 
+{\bf\textsc{Требуется исследователь и разработчик в области многоагентных систем, искусственного интеллекта и интеллектуального управления}\vspace{0.5em}} 
+{\textsc{Федеральный исследовательский центр <<Информатика и управление>> РАН}} 
+{\includegraphics[height=4em]{isa-frc/isa-logo.png}} 
+
+\headerbox{О проекте}{name=about,column=0,span=2,row=0}{
+	
+	Целью  проекта является повышение степени автономности технических объектов, реализующих сложное поведение в динамической среде, направленное на достижение совместной цели. Рассматриваемая модельная задача - автоматизация управления (на стратегическом, тактическом и реактивном уровнях) группой беспилотных летательных аппаратов мультироторного типа (квадрокоптеров). Для решения рассматриваемой задачи и достижения цели проекта используются методы и подходы искусственного интеллекта, когнитивных наук, теории управления и др.
+	
+	В задачи потенциального кандидата в рамках проекта будут входить:
+	\begin{enumerate}\compresslist
+		\item разработка многоагентной системы эмуляции поведения коалиции агентов (беспилотных летательных аппаратов) при решении общей задачи,
+		\item исследование и разработка алгоритмов коммуникации и согласования действий агентов и процессов в модели внешней среды.
+	\end{enumerate}
+	
+	\vspace{0.3em} % When there are two boxes, some whitespace may need to be added if the one on the right has more content
+}
+
+\headerbox{Идеальный кандидат}{name=ideal,column=2,span=2,row=0}{
+	
+	\begin{multicols}{2}
+		\vspace{1em}
+		\begin{center}
+			\includegraphics[width=0.8\linewidth]{placeholder}
+			\captionof{figure}{Figure caption}
+		\end{center}
+		
+		Мотивированный, способный к самостоятельному решению технических и исследовательских задач. Необходимы: знание английского (на уровне чтения статей по теме проекта), хорошие навыки программирования на языке высокого уровня (C++, Java, Python) и знания в области проектирования программных систем.
+	\end{multicols}
+	
+	%------------------------------------------------
+	
+	\begin{multicols}{2}
+		\vspace{1em}
+		Дополнительным плюсом будут владение средствами web-программирования и знания в области многоагентных систем.
+		
+		Приветствуются студенты старших курсов и аспиранты.
+		
+		\begin{center}
+			\includegraphics[width=0.8\linewidth]{placeholder}
+			\captionof{figure}{Figure caption}
+		\end{center}
+	
+	\end{multicols}
+}
+
+\headerbox{References}{name=references,column=1,span=2,above=bottom}{
+	
+	\renewcommand{\section}[2]{}%
+	\renewcommand*{\bibfont}{\scriptsize}
+	
+	\nocite{*} % Insert publications even if they are not cited in the poster
+	\printbibliography
+
+}
+
+\headerbox{Замечания}{name=remarks,column=0,aligned=references,above=bottom}{ 
+	
+	Еще что-то
+	
+}
+
+\headerbox{Контактная информация}{name=contacts,column=3,aligned=references,above=bottom}{ 
+
+	\begin{description}\compresslist
+	\item[Web] www.isa.ru
+	\item[Email] pan@isa.ru
+	\item[Phone] +7 (495) 135 1842
+	\end{description}
+}
+
+
+\headerbox{О коллективе}{name=collective,column=2,span=2,row=0,below=ideal,above=references}{
+
+	\begin{multicols}{2}
+		Продолжительность: начальный контракт на полтора года (с возможным продолжением еще на два года).
+		
+		Возможно зачисление (на бюджетное место) в аспирантуру на очную форму обучения с предоставлением места в аспирантском общежитии (Дом аспирантов и стажеров РАН).
+		Возможно зачисление в штат института или выполнение работы по договору гражданско-правового характера.
+		
+		Возможно участие в схожих по тематике проектах лаборатории (искусственный интеллект, многоагентные системы, интеллектуальное управление, когнитивное компьютерное моделирование).
+		
+	\end{multicols}
+}
+
+\headerbox{Детали}{name=details,column=0,span=2,below=about,bottomaligned=collective}{ 
+	
+	Группа планирования целенаправленного поведения и управления, которая работает над данным проектом, включает в себя специалистов по различным направлениям искусственного интеллекта: моделирование когнитивных функций человека, планирование траекторий, интеллектуальное управление. Лаборатория Интеллектуальных динамических систем, в которую входит исследовательская группа проекта, возглавляется президентом Российской ассоциации искусственного интеллекта, д.ф-.м.н. профессором Геннадием Семеновичем Осиповым. В лаборатории ведутся исследования по следующим направлениям: семантический поиск и анализ текстов на естественном языке, интеллектуальная обработка данных и управление, моделирование целенаправленного поведения, доказательная медицина. В лаборатории имеется высококлассное оборудования для осуществления высокопроизводительных вычислений.
+	
+	Институт системного анализа РАН является признанным лидером в ряде традиционных и новых междисциплинарных направлений отечественной и мировой науки. Основными направлениями теоретических и прикладных исследований Института являются: управление, информатика и информационные технологии, математическое моделирование, искусственный интеллект и принятие решений.
+	
+}
+
+\end{poster}
+
+\end{document}
