@@ -1,0 +1,38 @@
+%\documentclass[tikz,convert={density=600,outext=.png},border=5pt]{standalone}
+\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc,patterns}
+
+\newcommand{\situation}[3]{
+	\node[draw, circle, fill=white, scale=1.5] (sit_#1) at (#2pt,#3pt) {};
+}
+\begin{document}
+	
+	\begin{tikzpicture}[scale=2.0]
+		\situation{st}{0}{0};
+		\node[align=center, font=\small] at (15pt,5pt) {start\\situation};
+		\situation{end}{100}{0};
+		\node[align=center, font=\small] at (85pt,5pt) {final\\situation};
+		\situation{1}{80}{-20};
+		\situation{2}{60}{-40};
+		\node[font=\small] (all) at (55pt,-60pt) {$\cdots$};
+		\situation{3}{25}{-80};
+		
+		\draw[->] (sit_end) to[out=-80,in=10] (sit_1);
+		\draw[->] (sit_1) to[out=-80,in=10] (sit_2);
+		\draw[->] (all) to[out=-110,in=10] (sit_3);
+		
+		\draw[->] (sit_2) to[out=-160,in=-50] (sit_st);
+		\draw[->] (sit_2) to[out=-80,in=60] (all);
+		\draw[->] (0,-20pt) to (sit_st);
+	\end{tikzpicture}
+
+
+\end{document}
