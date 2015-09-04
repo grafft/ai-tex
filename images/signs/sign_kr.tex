@@ -2,11 +2,8 @@
 %\documentclass[tikz, border=5pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
-\usepackage[english]{babel}
-\usepackage[T1]{fontenc} % use T1 fonts
 \usepackage{amsmath} % nice math symbols
      
-
 \usepackage{tikz}
 \usetikzlibrary{shapes,positioning,calc}
 
@@ -93,7 +90,7 @@
 		\draw[thin] (25pt,-10pt) -- (s_a);
 		\draw[thin] (41.8pt,-13.5pt)  -- (s_a);
 		\draw[thin] (31.8pt,-13.5pt) -- (s_a);	
-		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (50pt,-15pt) {prediction\\matrices\\$Z_m$};		
+		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (50pt,-15pt) {prediction\\matrices\\$Z_a$};		
 		
 		\opredictors{a1}{30}{50pt}{-40pt}
 		
@@ -101,8 +98,8 @@
 		\draw[->,rounded corners] ($(z_l_a)+(-4pt,-1pt)$) -- ($(z_l_a)+(-10pt,-1pt)$) -| ($(z_a2)+(0,7pt)$);
 		\node[draw, circle, fill=white, scale=0.5] at ($(z_l_a)+(-3pt,-1pt)$) {};
 		\draw[->,rounded corners] ($(z_l_a)+(4pt,-3.5pt)$) -- ($(z_l_a)+(10pt,-3.5pt)$) -| ($(z_a1)+(0,7pt)$);
-		\node[align=center,font=\scriptsize] at ($(z_l_a)+(19pt,-8pt)$) {effective\\feature\\$f_2$};
-		\node[align=center,font=\scriptsize] at ($(z_l_a)+(-23pt,-6pt)$) {condition\\feature\\$f_1$};
+		\node[align=center,font=\scriptsize] at ($(z_l_a)+(22pt,-8pt)$) {feature $f_2$\\of the action\\effect};
+		\node[align=center,font=\scriptsize] at ($(z_l_a)+(-25pt,-6pt)$) {feature $f_1$\\of the action\\condition};
 		\node[draw, circle, fill=white, scale=0.5] at ($(z_l_a)+(3pt,-3.5pt)$) {};
 		
 		\node[align=center,font=\small] (ppo) at (-20pt,-35pt) {path planning\\operation};
