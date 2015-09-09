@@ -1,0 +1,95 @@
+\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}[>=triangle 60]
+		\tikzstyle{model_block} = [draw, rectangle, rounded corners=3ex, minimum height = 15mm, minimum width = 25mm, align=center, font=\Large]
+		\tikzstyle{our_models} = [draw, rectangle, rounded corners=5ex, minimum height = 60mm, minimum width = 150mm,fill=black!3];
+		\tikzstyle{example} = [draw, rectangle, rounded corners=5ex, minimum height = 15mm, minimum width = 25mm, align=center];
+		\tikzstyle{used} = [draw, rectangle, rounded corners=5ex, minimum height = 15mm, minimum width = 25mm, align=center, fill=gray!40];
+		
+		\node[model_block] (top) at (0, 0) {Информатика};
+		
+		\node[model_block] (teor_info) at (-12.5, -3) {Теоретическая\\информатика};
+		\node[model_block] (ai) at (-7.5, -3) {Искусственный\\интеллект};
+		\node[model_block] (progr) at (-2.5, -3) {Программирование};
+		\node[model_block] (app_info) at (2.5, -3) {Прикладная\\информатика};
+		\node[model_block] (comp) at (7.5, -3) {Вычислительная\\техника};
+		\node[model_block] (ciber) at (12.5, -3) {Кибернетика};
+		
+		\node[example] (logic) at (-17.5, -5) {Математическая\\логика};
+		\node[example] (comp_math) at (-16, -7) {Вычислительная\\математика};
+		\node[used] (theory) at (-14, -5) {Теория\\информации};
+		\node[example] (system) at (-12.5, -7) {Системный\\анализ};
+		\node[example] (desicion) at (-10.5, -5) {Теория принятия\\решений};
+
+		\node[example] (psycho_ling) at (-9.5, -9) {Психолингвистика};
+		\node[used] (cognit) at (-8.5, -11) {Когнитивная\\психология};
+		\node[example] (robot) at (-4.5, -9) {Робототехника};
+		\node[example] (expert) at (-5.5, -11) {Экспертные\\системы};
+
+		\node[example] (os) at (-5.7, -5) {Операционные\\системы};
+		\node[example] (syst_progr) at (-4.5, -7) {Системное\\прогрммирование};
+		\node[example] (transl) at (-3, -5) {Трансляторы};
+		\node[example] (app_progr) at (-0.5, -7) {Прикладное\\программирование};				
+		\node[used] (progr_lang) at (0, -5) {Языки\\прогрммирования};
+		
+		\node[example] (asni) at (0.5, -9) {АСНИ};
+		\node[example] (sapr) at (-1, -11) {САПР};
+		\node[example] (asu) at (4, -9) {АСУ};
+		\node[example] (ais) at (2, -11) {АИС};
+		\node[example] (aos) at (5, -11) {АОС};
+		
+		\node[example] (auto) at (16, -6) {Автоматическое\\управление};
+		\node[example] (bion) at (15, -9) {Бионика};
+		\node[example] (recog) at (12.7, -6) {Распознавнаие\\образов};
+		\node[example] (gomeo) at (11, -9) {Гомеостатика};
+		\node[used] (math_ling) at (9.5, -6) {Математическая\\лингвистика};
+		
+		\draw[->] (teor_info) to[out=-180,in=90] (logic);
+		\draw[->] (teor_info) to[out=-170,in=90] (comp_math);
+		\draw[->] (teor_info) to[out=-90,in=90] (theory);
+		\draw[->] (teor_info) to[out=-90,in=90] (desicion);
+		\draw[->] (teor_info) to[out=-90,in=90] (system);
+		
+		\draw[->] (ai) to[out=-120,in=90] (psycho_ling);
+		\draw[->] (ai) to[out=-110,in=60] (cognit);
+		\draw[->] (ai) to[out=-90,in=140] (robot);
+		\draw[->] (ai) to[out=-100,in=110] (expert);
+
+		\draw[->] (progr) to[out=-180,in=90] (os);
+		\draw[->] (progr) to[out=-143,in=87] (syst_progr);
+		\draw[->] (progr) to[out=-70,in=100] (transl);
+		\draw[->] (progr) to[out=-65,in=125] (app_progr);
+		\draw[->] (progr) to[out=-60,in=90] (progr_lang);
+		
+		\draw[->] (app_info) to[out=-115,in=60] (asni);
+		\draw[->] (app_info) to[out=-110,in=15] (sapr);
+		\draw[->] (app_info) to[out=-80,in=90] (ais);
+		\draw[->] (app_info) to[out=-40,in=40] (asu);		
+		\draw[->] (app_info) to[out=-70,in=160] (aos);
+		
+		\draw[->] (ciber) to[out=-130,in=80] (math_ling);
+		\draw[->] (ciber) to[out=-110,in=100] (gomeo);
+		\draw[->] (ciber) to[out=-80,in=90] (recog);
+		\draw[->] (ciber) to[out=-40,in=100] (auto);		
+		\draw[->] (ciber) to[out=-50,in=100] (bion);
+		
+		\draw[->] (top) to[out=190,in=60] (teor_info);		
+		\draw[->] (top) to[out=-160,in=70] (ai);		
+		\draw[->] (top) to[out=-100,in=90] (progr);		
+		\draw[->] (top) to[out=-80,in=90] (app_info);		
+		\draw[->] (top) to[out=-40,in=130] (comp);		
+		\draw[->] (top) to[out=-10,in=130] (ciber);		
+	\end{tikzpicture}	
+\end{document}
