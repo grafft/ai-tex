@@ -1,5 +1,5 @@
-%\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
-\documentclass[tikz, border=5pt]{standalone}
+\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage{amsmath} % nice math symbols
@@ -75,14 +75,14 @@
 		\draw[thin] (-17pt,-5pt) -- (s_m);
 		\draw[thin] (-0.8pt,-8.5pt)  -- (s_m);
 		\draw[thin] (-10.2pt,-8.5pt) -- (s_m);
-		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (-25pt,-12pt) {procedural\\features $Z_m$};		
+		\node[align=center,font=\footnotesize] at (-26pt,-12pt) {procedural\\features $Z_m$};		
 		
 		\draw[thin] (35pt,25pt) -- (s_p);
 		\draw[thin] (25pt,25pt) -- (s_p);
 		\draw[thin] (41.8pt,21.5pt)  -- (s_p);
 		\draw[thin] (31.8pt,21.5pt) -- (s_p);
 		\opredictors{p}{30}{30pt}{30pt}		
-		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (50pt,30pt) {sets of\\features $Z_p$};
+		\node[align=center,font=\footnotesize] at (50pt,30pt) {sets of\\features $Z_p$};
 		
 
 		\ppredictors{a}{30}{30pt}{-15pt}	
@@ -90,24 +90,28 @@
 		\draw[thin] (25pt,-10pt) -- (s_a);
 		\draw[thin] (41.8pt,-13.5pt)  -- (s_a);
 		\draw[thin] (31.8pt,-13.5pt) -- (s_a);	
-		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (50pt,-15pt) {procedural\\features $Z_a$};		
+		\node[align=center,font=\footnotesize] at (51pt,-15pt) {procedural\\features $Z_a$};		
 		
-		\opredictors{a1}{30}{50pt}{-40pt}
+		\opredictors{a1}{30}{55pt}{-45pt}
 		
-		\ppredictors{a2}{30}{20pt}{-40pt}
+		\ppredictors{a2}{30}{15pt}{-45pt}
 		\draw[->,rounded corners] ($(z_l_a)+(-4pt,-1pt)$) -- ($(z_l_a)+(-10pt,-1pt)$) -| ($(z_a2)+(0,7pt)$);
 		\node[draw, circle, fill=white, scale=0.5] at ($(z_l_a)+(-3pt,-1pt)$) {};
 		\draw[->,rounded corners] ($(z_l_a)+(4pt,-3.5pt)$) -- ($(z_l_a)+(10pt,-3.5pt)$) -| ($(z_a1)+(0,7pt)$);
-		\node[align=center,font=\scriptsize] at ($(z_l_a)+(22pt,-8pt)$) {feature $f_2$\\of the action\\effect};
-		\node[align=center,font=\scriptsize] at ($(z_l_a)+(-25pt,-6pt)$) {feature $f_1$\\of the action\\condition};
+		\node[align=center,font=\scriptsize] at ($(z_l_a)+(26pt,-8pt)$) {feature $f_2$\\of the action\\effect};
+		\node[align=center,font=\scriptsize] at ($(z_l_a)+(-14pt,-8pt)$) {feature $f_1$\\of the action\\condition};
 		\node[draw, circle, fill=white, scale=0.5] at ($(z_l_a)+(3pt,-3.5pt)$) {};
 		
-		\node[align=center,font=\small] (ppo) at (-20pt,-35pt) {path planning\\operations};
+		\node[align=center,font=\small] (ppo) at (-23pt,-35pt) {path planning\\operations};
 		\draw[->,rounded corners] ($(z_l_a2)+(-4pt,-1pt)$) -| (ppo.south);
 		\node[draw, circle, fill=white, scale=0.5] at ($(z_l_a2)+(-3pt,-1pt)$) {};
 		
-		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (7pt,-35pt) {ction\\matrices of\\feature $f_1$};
-		\node[align=center,font=\footnotesize,fill=white,opacity=0.8,text opacity=1] at (37pt,-32pt) {procedural features\\of the significance of\\the sign $f_2$};
+		\node[align=center,font=\footnotesize] at (2
+		pt,-37pt) {procedural\\features\\in the $f_1$\\perosnal\\meaning};
+		\node[align=center,font=\footnotesize] at (42pt,-37pt) {procedural\\features\\in the $f_2$\\personal\\meaning};
+		
+		\draw[->,rounded corners] ($(z_l_m)+(-3pt,2pt)$) to[out=160,in=-50](-25pt,2pt) to[out=130,in=200] (s_n);
+		\node[draw, circle, fill=white, scale=0.5] at ($(z_l_m)+(-3pt,2pt)$) {};
 	\end{tikzpicture}
 
 

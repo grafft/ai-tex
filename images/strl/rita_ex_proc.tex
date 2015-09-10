@@ -1,4 +1,4 @@
-\documentclass[preview,convert={density=600,outext=.png}]{standalone}
+\documentclass[preview,convert={density=800,outext=.png}]{standalone}
 %\documentclass[preview]{standalone}
 
 \usepackage[utf8]{inputenc}				% Кодировка utf8
@@ -6,10 +6,6 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,patterns,backgrounds}
 
-
-\newcommand{\block}[3]{
-	\node[draw, #3, rectangle, fill = #3, minimum width = #1, minimum height = #2] 
-}
 \newcommand{\blockp}[3]{
 	\node[draw, rectangle, pattern = #3, minimum width = #1, minimum height = #2] 
 }
@@ -17,18 +13,18 @@
 	
 	\begin{tikzpicture}[framed]
 
-		\block{150}{20}{black} at (0,0) {};
-		\block{150}{20}{black} at (10,0) {};
+		\blockp{150}{20}{crosshatch} at (0,0) {};
+		\blockp{150}{20}{crosshatch} at (10,0) {};
 		
-		\block{20}{40}{black} at (1.5,-1.5) {};
-		\block{20}{40}{black} at (2.5,-3) {};
+		\blockp{20}{40}{crosshatch} at (1.5,-1.5) {};
+		\blockp{20}{40}{crosshatch} at (2.5,-3) {};
 		
-		\block{40}{20}{black} at (4.7,-4.5) {};
-		\blockp{20}{20}{vertical lines} at (3.6,-4.5) {};
+		\blockp{40}{20}{crosshatch} at (4.7,-4.5) {};
+		\blockp{20}{20}{north west lines} at (3.4,-4.5) {};
 		
-		\block{20}{40}{black} at (6,-3.1) {};
-		\block{20}{30}{black} at (7,-1) {};
-		\blockp{20}{15}{vertical lines} at (6.5,-2) {};
+		\blockp{20}{40}{crosshatch} at (6,-3.1) {};
+		\blockp{20}{30}{crosshatch} at (7,-1) {};
+		\blockp{20}{15}{north west lines} at (6.5,-2) {};
 		
 		\node[draw, circle, dotted, very thick, minimum width = 50, text = black] (goal) at (5, -1) {$G$};
 
