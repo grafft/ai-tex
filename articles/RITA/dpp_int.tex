@@ -47,7 +47,8 @@
 \institute{Federal Research Center ``Computer Science and Control'' of RAS,\\
 pr. 60-letiya Octyabrya 9, 117312 Moscow, Russia\\
 %\mailsa\\
-\url{http://www.isa.ru}}
+%\url{http://www.isa.ru}
+}
 
 \toctitle{Behavior and path planning for the coalition of cognitive robots in smart relocation tasks}
 \tocauthor{Aleksandr I. Panov, Konstantin Yakovlev}
@@ -98,7 +99,7 @@ If we are talking not about an abstract agent, which can move in any directions,
 When talking about coalitions of agents and multi-agent grid path planning the most well-studied problem is resolving spatial conflicts for groups of agents with primitive dynamics, e.g. agents that can move from an arbitrary grid cell to any of it's 8 adjacent neighbors and stop (and later on start) moving instantaneously. There exist both sound and complete but very computationally expensive methods of solving this task \cite{Standley2010} and fast but incomplete algorithms \cite{Wang2008,Silver2006}. Much less attention is paid to the problem of agents spatial interaction when planning for a path – a problem which will be addressed in our work in more details.
 
 \subsection{Summary}
-Currently existed cognitive control systems and PDDL-based planners don't consider all distinctive features of the problem statement in conditions of the coalition interaction. Dynamical formation of goals and goal sharing in case of changing environment impose special restrictions on the knowledge representation used. Also necessity to divide believes of an agent into communicable and personal parts is added as another restriction. It's also worth noting that in present approaches little attention is paid to coordination of path planning space representation and behavior knowledge about situations.
+Currently existing cognitive control systems and PDDL-based planners don't consider some important features of the planning problem in case coalition of interacting agents is involved. Dynamic formation of goals and goal sharing in the context of changing environment impose special restrictions on the knowledge representation to be used by planning systems. Necessity to divide believes of a single agent into communicable and personal parts presents another restriction. It's also worth noting that within existing task planning frameworks little attention is paid to coordination of path planning process and behavior knowledge about the environment. Regarding path planning itself one can state that grid-based path planning is the most widespread methodology as grids are simple yet informative spatial models and a handful of methods tailored to grid path finding exist. Unfortunately grid-based paths do not take into account agent's dynamic constraints while incorporating dynamic laws encodings into the  search process severely degrades overall performance (due to the enormous extension of the search space). So it can be beneficial to stay within spatial only search spaces but search for a specific, geometrically constrained class of paths and thus indirectly guaranty path's feasibility. Further on we will present a coherent task-path planning framework which addresses all the mentioned concerns and bottlenecks.
 
 \section{Considered case}\label{case}
 
@@ -305,7 +306,7 @@ If the agent $A_1$ have low introspection level of planning process then obtaine
 \begin{figure}
 	\centering
 	\includegraphics[height=6cm]{rita_ex_proc}
-	\caption{Representations of space in sign level.}
+	\caption{Representations of space in sign level. $X_i$ - names of places associated with signs for the agent $A_1$, $Y_1$ - a name of the place associated with the sign for the agent $A_2$.}
 	\label{fig:example}
 \end{figure}
 
@@ -313,7 +314,10 @@ Agent $A_1$ after his $S$-step and re-executing $PMA$-procedure cannot find suit
 
 \section{Conclusion}
 
-Some words
+In this paper we have presented an approach to build a two-layered planner for the robotic system which is a part of a coalition solving common task. We suggest following semiotic approach to develop cognitive top-level planner in order to make the system more versatile, robust and human-like (in contrary to the existing logic based approaches – PDDL languages etc.). We have introduced new knowledge representation formalism – sign world model – which aligns well with the results of recent cognitive and neurophysiologic research. Path planning operators are the integral part of this hierarchical model so task and path planning processes are tied together as a parts of coherent framework. Behavior planning is a recursive search process in the hierarchical state-space induced by sign representation ending up with path planner triggering: when behavior planning reaches the lowest level of sign world model state-of-the-art grid-based planners are executed. We suggest focusing on searching for the special type of smooth paths – angle-constrained paths – in order to indirectly satisfy agent's dynamic constraints and produce feasibly trajectories. We also discuss involving sound and complete any angle path planner in the loop in order to be able to better distinguish between different failure outcomes of the path planning process.
+
+We believe that proposed approach leads not only to extensive flexibility of the planning system which is now capable of solving collaborative navigation tasks which are not solvable by the individual members implementing traditional path planning algorithms, but also will significantly aid solving various human-robot interaction problems. One of worth mentioning tasks which can be positively impacted is natural language formulation of collaborative task to the group (coalition) of robots. Regarding path planning, the task of the blocking areas identification (in case of planner failure) is an appealing direction of further research.
+
 
 \subsubsection*{Acknowledgments.} The reported study was supported by RFBR, research projects No. 14-07-31194 and No. 15-37-20893.
 
