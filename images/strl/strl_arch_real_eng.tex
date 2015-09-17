@@ -1,9 +1,7 @@
-%\documentclass[tikz,convert={density=800,outext=.jpg},border=5pt]{standalone}
-\documentclass[tikz, border=5pt]{standalone}
+\documentclass[tikz,convert={density=800,outext=.jpg},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
-%\usepackage[english]{babel}
-%\usepackage[T1]{fontenc} % use T1 fonts
 \usepackage{amsmath} % nice math symbols
      
 
@@ -26,8 +24,8 @@
 
 		\node[level_rect] (level_1) at (0, 16) {};
 		\node[font=\huge] at(0, 18.5) {Strategic level};		
-		\node[level_model, minimum height = 10mm] (model_1) at (0, 17.5) {Sign world model};
-		\node[cons_block] (sit_decr) at (-4, 15.5) {Current situation\\construction};
+		\node[level_model, minimum height = 10mm, very thick, fill=black!15] (model_1) at (0, 17.5) {Sign world model};
+		\node[cons_block, very thick, fill=black!15] (sit_decr) at (-4, 15.5) {Current situation\\construction};
 		\node[cons_block] (beh_plan) at (4, 15.5) {Behavior planning};
 		\node[cons_block] (replaner) at (0, 14) {Behavior replanning};
 		
@@ -45,10 +43,10 @@
 		\node[level_rect] (level_2) at (0, 8) {};
 		\node[font=\huge] at(0, 10.5) {Tactical level};		
 		\node[traekt_block] (slam) at (-5, 9) {Localization\\and mapping};		
-		\node[traekt_block] (pred_tr) at (-4, 7) {Path\\prediction};		
-		\node[traekt_block] (build_tr) at (5, 9) {Path\\planning};		
+		\node[traekt_block, very thick, fill=black!15] (pred_tr) at (-4, 7) {Path\\prediction};		
+		\node[traekt_block, very thick, fill=black!15] (build_tr) at (5, 9) {Path\\planning};		
 		\node[traekt_block] (monitor) at (4, 7) {Monitoring of\\plan execution};
-		\node[level_model, minimum width = 60mm] (model_3) at (0, 9) {Spatial\\world model};
+		\node[level_model, minimum width = 60mm, very thick, fill=black!15] (model_3) at (0, 9) {Spatial\\world model};
 		
 		
 		\draw[->,rounded corners] ([yshift=-3mm]sit_decr.west) -| ($(sit_decr.west)+(-13mm,-35mm)$) node[align=center, right] {goal area\\and temporal\\constraints} |- (pred_tr.west);
@@ -62,10 +60,10 @@
 
 		\node[level_rect] (level_3) at (0, 0) {};
 		\node[font=\huge] at(0, 2.5) {Reactive level};		
-		\node[control_block] (geom_3) at (-5.7, 0.5) {Geometric\\constraints\\calculation};
-		\node[control_block] (integr_3) at (-0.5, 0.5) {Integration of\\dynamics model\\equations};
-		\node[control_block] (signal_3) at (5.7, 0.5) {Control signal\\generation and\\dynamics analysis};
-		\node[level_model] (model_3) at (0, -2) {Dynamics model};
+		\node[control_block, very thick, fill=black!15] (geom_3) at (-5.7, 0.5) {Geometric\\constraints\\calculation};
+		\node[control_block, very thick, fill=black!15] (integr_3) at (-0.5, 0.5) {Integration of\\dynamics model\\equations};
+		\node[control_block, very thick, fill=black!15] (signal_3) at (5.7, 0.5) {Control signal\\generation and\\dynamics analysis};
+		\node[level_model, very thick, fill=black!15] (model_3) at (0, -2) {Dynamics model};
 				
 		\draw[->] ([yshift=3mm]geom_3.east) -- node[align = center, auto] {movement\\parameters} ([yshift=3mm]integr_3.west);
 		\draw[<-] ([yshift=-3mm]geom_3.east) -- node[align = center, below] {phase\\coordinates} ([yshift=-3mm]integr_3.west);

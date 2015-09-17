@@ -34,6 +34,14 @@
 	}
 }
 
+\defbibcheck{recent}{%
+	\iffieldint{year}
+	{\ifnumless{\thefield{year}}{2010}
+		{\skipentry}
+		{}
+	}{\skipentry}
+}
+
 \begin{document}
 	\hyphenpenalty=10000
 	\sloppy
@@ -41,10 +49,10 @@
 	
 	\nocite{*}
 %	\printbibliography
-	\printbibliography[title={Статьи в рецензируемых журналах. Панов}, keyword={mypub}]
-	\printbibliography[title={Статьи на конференциях. Панов}, keyword={myconf}]
-	\printbibliography[title={Тезисы выступлений. Панов}, keyword={myth}]
-	\printbibliography[title={Переводные версии статей. Панов}, keyword={mypubtr}, resetnumbers=true]
+	\printbibliography[title={Статьи в рецензируемых журналах. Панов}, keyword={mypub},check=recent]
+	\printbibliography[title={Статьи на конференциях. Панов}, keyword={myconf},check=recent]
+	\printbibliography[title={Тезисы выступлений. Панов}, keyword={myth},check=recent]
+	\printbibliography[title={Переводные версии статей. Панов}, keyword={mypubtr},check=recent, resetnumbers=true]
 
 	\par
 \end{document} 	
