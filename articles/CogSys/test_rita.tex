@@ -1,0 +1,27 @@
+\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+\begin{document}
+	\begin{tikzpicture}
+		\node[inner sep = 1pt] (russell) at (-8,-1.8) {
+			\includegraphics[width=\textwidth]{hist.png}
+		};
+		\node[draw, inner sep = 1pt, rectangle,thick] (russell) at (0,0) {
+			\includegraphics[width=.25\textwidth]{screen0.png}
+		};
+		\node[draw, inner sep = 1pt, rectangle,thick] (whitehead) at (3.2,0) {
+			\includegraphics[width=.25\textwidth]{screen1.png}
+		};
+		\node[draw, inner sep = 1pt, rectangle,thick] (whitehead) at (0,-3.2) {
+			\includegraphics[width=.25\textwidth]{screen2.png}
+		};
+		\node[draw, inner sep = 1pt, rectangle,thick] (whitehead) at (3.2,-3.2) {
+			\includegraphics[width=.25\textwidth]{screen3.png}
+		};
+	\end{tikzpicture}
+\end{document}

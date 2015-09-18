@@ -113,14 +113,14 @@ We suppose that the agent's movement dynamics is encoded as a set of differentia
 \end{equation}
 where $f(x,u)$ --- vector function, $x\in R^n$ --- vector of the phase coordinates, $u\in R^r$ --- control vector, $t$ --- time. Following \cite{Yakovlev2015a} we assume that given dynamic constraints can be transformed to geometry constraints, e.~g. we assume that a feasible trajectory for an agent is the angle-constrained path in $U$ which is a sequence of line segments such that the angle of alteration between two consecutive segments doesn't exceed predefined threshold $\alpha_m$.
 
-Agent's knowledge base contains high-level representations of locations and distances as well as the mechanisms of mapping these representations to the workspace. Set of agent's actions is organized in hierarchical structure and three types of actions exist: transition actions, transforming actions and messaging actions. Each action is parameterized and for the same action different parameters can be used. For example, transforming action a of the agent $A_1$ destroys obstacles of $ot_1$ and $ot_2$ types while the same action of the agent $A_2$ (parameterized in another way) destroys obstacles of $ot_2$ type only. We consider the case when each agent has its own planning focus containing current believes about external objects and processes. Details of the knowledge representation will be described further in Section \ref{knowledge}.
+Agent's knowledge base contains high-level representations of locations and distances as well as the mechanisms of mapping these representations to the workspace. Set of agent's actions is organized in hierarchical structure and three types of actions exist: transition actions, transforming actions (which are limited to destroying obstacles of different types) and messaging actions. We consider the case when each agent has its own planning focus containing current believes about external objects and processes. Details of the knowledge representation will be described further in Section \ref{knowledge}.
 
-Single agent's task is reaching the predefined goal area which is the same for all other agents. This common task description for an agent includes explicit constraint that all the agents should reach the goal area (not the only one). We investigate scenarios (as depicted on Fig.~\ref{fig:case}) when some agents can not reach the goal area separately, without the assistance from the other members of the coalition. As seen on Fig.~\ref{fig:case} agent $A_1$ can not reach the goal as it's blocked by the obstacle $obs_1$ can not be destroyed by $A_1$, while $A_2$ can alter it's plan, $obs_1$ first and destroy this obstacle assisting $A_1$ in accomplishing the task). We call such tasks --- smart relocation tasks.
+Single agent's task is reaching the predefined goal area which is the same for all other agents. This common task description for an agent includes explicit constraint that all the agents should reach the goal area (not the only one). We investigate scenarios (as depicted on Fig.~\ref{fig:case}) when some agents can not reach the goal area separately, without the assistance from the other members of the coalition. As seen on Fig.~\ref{fig:case} agent $A_1$ can not reach the goal as it's blocked by the obstacle $obs_1$ which can not be destroyed by $A_1$, while $A_2$ can alter it's plan, reach $obs_1$ first and destroy this obstacle assisting $A_1$ in accomplishing the task). We call such tasks --- smart relocation tasks.
 
 \begin{figure}
 	\centering
 	\includegraphics[height=6cm]{rita_example}
-	\caption{Considered case of the coalition relocation task where $A_1, A_2$ - members of the coalition, $G$ - the goal area, $obs_1,obs_2$ - obstacles of the destroyable type (crosshatched blocks).}
+	\caption{Considered case of the coalition relocation task: $A_1,A_2$ --- members of the coalition, $G$ --- the goal area, $obs_1, obs_2$ --- obstacles of the $ot_1$ type (inclined lines blocks) destroyable by agent $A_2$.}
 	\label{fig:case}
 \end{figure}
 
@@ -135,7 +135,7 @@ Agent's knowledge base contains descriptions of objects, processes and propertie
 	\label{fig:sign}
 \end{figure}
 
-The first component of a sign is image. Image is the set of sets of features specific to the mediated entity. At the same time image also implements the process of recognizing the entity based on the input data. Each set of features encapsulated in image contains those features that are grouped together in the input data stream. Considering that features are links to other signs, the hierarchy of signs is formed on the set of images. Lowest level of the hierarchy consists of input data from sensors or information received from path planning operators.
+The first component of a sign is image. Image is the set of structured sets of features specific to the mediated entity. Each structured set of features (shown as square on Fig.~\ref{fig:sign}) corresponds to particular group of characteristic properties of the entity mediated by sign and differ from the other by it's structure as well as by the features themselves. At the same time image also implements the process of recognizing the entity based on the input data. Each set of features encapsulated in image contains those features that are grouped together in the input data stream --- shown as columns inside the square on Fig.~\ref{fig:sign}. Each column contains features that together form certain part of the mediated entity description. Considering that features are links to other signs, the hierarchy of signs is formed on the set of images. Lowest level of the hierarchy consists of input data from sensors or information received from path planning operators.
 
 The second component of a sign is significance. Significance is the set of procedural features (or causal relations) and it is used to describe characteristic actions in which mediated entity is engaged. A causal relation consists of the set of conditional features or conditions (encountered before the execution of the action) and the set of resultant features or effects (encountered after the execution of the action). Thus procedural features are the models of AI rules \cite{Nilsson1998}. Additionally, at least one feature (condition or effect) is a link to the sign possessing the significance itself. Considering that features are links to other signs, another hierarchy of signs is formed on the set of significances of mediated actions. Lowest level of the hierarchy contains elementary skills . Significance components of common signs are the same for all agents in the coalition.
 
@@ -147,21 +147,24 @@ The hierarchy of signs (based on images, significances and personal meanings) se
 
 \section{Behavior planning algorithm}\label{behavior}
 
-On sign level behavior planning is realized in the situation space by $PMA$ algorithm proposed in \cite{Osipov2015}. The situation is defined as the set of signs. Use of sign representation allows to combine believes about relationships and believes about objects and consider all properties, processes and objects in a situation as signs. Transitions between situations are implement-ed by casual relations contained in procedural features of significances or personal meanings in dependence the planning step. The initial situation is defined as the current observed situation, i.e. the current set of actualized signs. The goal situation is agent's believe about the result of the solving current problem, i.e. it is the set of goal signs.
+On sign level behavior planning is realized in the situation space by $PMA$ algorithm proposed in \cite{Osipov2015}. The situation is defined as the set of signs structured in the same way as the image components (see above), e.\,g. signs are split into groups which describe different parts of the situation. Use of sign representation allows to combine believes about relationships and believes about objects and consider all properties, processes and objects in a situation as signs. Transitions between situations are implemented by casual relations contained in procedural features of significances or personal meanings in dependence the planning step. The initial situation is defined as the current observed situation, i.\,e. the current set of actualized signs. The goal situation is agent's believe about the result of the solving current problem, i.\,e. it is the set of goal signs.
 
-In the case of the transfer planning task low level features are implemented by path planning algorithms and considered as personal features included in agent's procedural features. Thus the hierarchy of procedural features in fact is the action hierarchy and low level actions are performed and simulated by the subsystem of realization and prediction of particular operation beyond sign representation.
+In relocation tasks low level features are implemented by path planning algorithms and are considered to be personal features included in agent's personal meanings. Thus the hierarchy of procedural features in fact is the action hierarchy and low level actions are performed by the subsystem of path planning which lies beyond sign representation.
 
-The algorithm of behavior planning is iterative process that consists of the main procedure named $PMA$-procedure realized following functions:
+The algorithm of behavior planning is an iterative process ($PMA$-procedure) consisting of the following steps:
 \begin{itemize}
-	\item the function of search of appropriate significances (the $M$-step), 
-	\item the function of choosing personal meanings corresponding to the significances retrieved (the $A$-step), 
-	\item the function of message sending to other members of the coalition (part of the $S$-step),
-	\item the function of testing the action corresponding to the personal meaning constructed (part of the $S$-step),
-	\item the function of the inflation of the image corresponding to the personal action and the construction of the new current situation (the $P$-step).
+	\item search of relevant significances (the $M$-step), 
+	\item choose a personal meaning from the set of personal meanings corresponding to the found significances (the $A$-step), 
+	\item send a message to other members of the coalition (part of the $S$-step),
+	\item perform the action corresponding to the chosen personal meaning (part of the $S$-step),
+	\item construct the new current situation using the set of features from the condition of performed action (the $P$-step).
 \end{itemize}
-Below we describe these functions in details.
 
-Input of the $PMA$-procedure is the pair of tow situations: start and final situations. On the first iteration of the algorithm the start situation is the current situation observed by the agent and the final situation is the goal situation implemented task solving conditions. For all signs included in the final situation such procedural features are selected which contains in their effects maximum features corresponding to final situation signs. This step of algorithm is named as the $M$-step. The procedure $\Xi$ associates the set $a*$ of procedural features relevant to personal meanings with obtained set of procedural features ($A$-step). The population of all features of personal action conditions define the new planning situation. Then transition to $P$-step occurs. This step of the algorithm is combining of all features included in conditions of personal meaning features. After P-step the new iteration of $PMA$-procedure is executed with the same start situation and the new formed final situation. If new situation is the subset of start situation (the first argument of $PMA$-procedure) then in some cases $S$-step occurs depending on cognitive qualities (parameters of planning process) of the agent. $S$-step is the simulation of personal meaning execution, i.e. the prediction of the goal situation as a result of the action (rule) application. This simulation activates all procedural features with which features of personal meanings are recognized. In a result activation process reaches the level where operations of path planning process included in personal features are placed. After path planning operations execution if some new features are appear in current observed situation the $PMA$-procedure are re-executed from the first step (see Fig. \ref{fig:bplan}).
+Input of the $PMA$-procedure is the pair of two situations: start and final situations. On the first iteration of the algorithm the start situation is the current situation (observed by the agent) and the final situation is the goal situation. Then the $M$-step is done, e.\,g. the search on the significances of signs forming the final situation is performed. Effect parts of each significances are considered and each effect is compared to the set of signs of final situation (such comparison is valid as each effect is a set of features linked to corresponding signs). After the comparison is done such significances are selected which effect features matches maximum number of final signs.
+
+The $A$-step is execution of $\Xi$ procedure which associates the set of procedural features of the selected significances  with the procedural features of personal meanings. Then the selection of one procedural feature of personal meaning is done. Transition to the $P$-step occurs. The $P$-step of the algorithm is combining of all features included in conditions of personal meaning features. After $P$-step the new iteration of $PMA$-procedure is executed with the same start situation and the new formed final situation.
+
+If new situation is the subset of start situation (the first argument of $PMA$-procedure) then in some cases $S$-step occurs depending on cognitive qualities (parameters of planning process) of the agent. $S$-step results in defining the new goal situation as a result of the action (rule) application. This application adds to current situation description features from the image component corresponding to procedural features of personal meanings defined on the $A$-step. The activation process spreads top-down in the procedural features hierarchy (see Section~\ref{knowledge}). In some cases activation process reaches the level where path planning operators are included in personal features, so path planning is started. If path planner returns success $PMA$-procedure also ends with \textit{success} --- behavior plan including valid path of relocation to the goal area is constructed. If path planner returns \textit{failure} along with the coordinates of blocking obstacle (see below) then the new features (corresponding to the identified obstacle) are added to the description of the current situation and the $PMA$-procedure is repeated.
 
 \begin{figure}
 	\centering
@@ -203,9 +206,11 @@ An interesting case occurs when any angle path planning returns failure, which m
 
 Previously, when describing the path planning process we supposed that the goal cell is given, although, in the case sign-world model is used for behavior planning, the fuzzy goal area is under concern. This area is characterized by the point $cp(x, y)$ and radius $r_g$ --- if the agent reaches any point of the circle with radius $r_g$ and center in $cp(x, y)$ path planning is considered to be successfully accomplished. This can be taken into account in the following way --- execution of the LIAN algorithm should be stopped when any cell of the circle is under consideration. We also perform the consistency of the goal area check before path planning in the following manner: if given center point belongs to the grid's untraversable cell --- choose one of it's traversable adjacent cells as $cp$. If all the neighbors are untraversable --- examine their neighbors and so on up to the moment traversable cell of the goal area will be identified. If all cells forming the goal area are untraversable --- report  behavior planner and wait for the new goal area. 
 
-\section{Example of integrated planning algorithm application}\label{example}
+\section{Behavior and Path Planning: case study}\label{example}
 
-Below we demonstrate implementation of the planning method in solving the smart relocation task as described in Section~\ref{case}. We consider a simple case when two agents $A_1$ and $A_2$ form the coalition and share common goal area. Fragment of the agents knowledge base (sign model) is depicted in Tab.~\ref{tab:world}.
+Below we demonstrate implementation of the planning method in solving the smart relocation task as described in Section~\ref{case}. We consider a simple case when two agents $A_1$ and $A_2$ form the coalition and share common goal area. Fragment of the agents knowledge base (sign model) is depicted in Tab.~\ref{tab:world}. Arrows used in description of image component split different columns of features (as described in Section~\ref{behavior}).
+
+We consider the planning process of the agent $A_1$ whose goal situation is described with signs ``I - agent 1'', ``agent 2'', ``place $X_1$''. As said above all of these signs must be activated in knowledge base (sign word model) of agent $A_1$ which means that both ``I – agent 1'' and ``agent 2'' should be in ``place X1''. Note that the description of $A_2$ goal situation is similar (``I - agent 2'', ``agent 1'', ``place $Y_1$''). Start situation for agent $A_1$ is depicted on Fig.~\ref{example} and is described by the signs ``I - agent 1'', ``place X4'' $\rightarrow$  ``agent 2'', ``place X5'' (here $\rightarrow$ is used to split different parts of situation description).
 
 \setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.5}
@@ -217,19 +222,19 @@ Below we demonstrate implementation of the planning method in solving the smart 
 		Specific signs of the $A_1$ agent
 		&
 		$s_1$: $n$=``obstacle 1''\newline
-		$p$=\{``place $X_4$'', ``type 1''\}\newline
-		$m$=\{``destroying 1''\}\newline
-		$a$=\{``I destroying 1''\}
+		$p$=\{``place $X_4$'', ``type $ot_1$''\}\newline
+		$m$=\{``destroy 1''\}\newline
+		$a$=$\emptyset$
 		&
 		$s_2$: $n$=``obstacle 2''\newline
-		$p$=\{``place X2'', ``type 2''\}\newline
-		$m$=\{``destroying 2''\}\newline
+		$p$=\{``place X2'', ``type $ot_1$''\}\newline
+		$m$=\{``destroy 1''\}\newline
 		$a$=$\emptyset$
 		&
 		$s_3$: $n$=``far''\newline
 		$p$=\{mechanical sensor parameters\}\newline
-		$m$=\{``move 1'', ``move 2''\}\newline
-		$a$=\{``I move 1'', ``I move 2''\}
+		$m$=\{``move 1''\}\newline
+		$a$=\{``I move 1''\}
 		&
 		$s_4$: $n$=``agent 2''\newline
 		$p$=\{mass, coordinates etc.\}\newline
@@ -238,7 +243,7 @@ Below we demonstrate implementation of the planning method in solving the smart 
 		\\\cline{2-5}
 		&
 		$s_5$: n=``I move 1''\newline
-		$p$=\{``I move 3'', ``I move 3'', ``place X''\}\newline
+		$p$=\{``I move 3'', ``I move 3'', ``place $X_1$''\}\newline
 		$m$=$\emptyset$\newline
 		$a$=$\emptyset$	
 		&
@@ -252,26 +257,44 @@ Below we demonstrate implementation of the planning method in solving the smart 
 		$m$=$\emptyset$\newline
 		$a$=$\emptyset$	
 		&
-		$s_{10}$: $n$=``place X3''\newline
-		$p$=\{``close'', ``ahead'', ``right''\}\newline
+		$s_{10}$: $n$=``place $X_1$''\newline
+		$p$=\{``far'', ``ahead'', ``right''\}\newline
 		$m$=$\emptyset$\newline
 		$a$=$\emptyset$
+		\\ \hline
+		&
+		$s_{10}$: $n$=``move 1''\newline
+		$p$=\{``I move 3'' $\rightarrow$ ``I move 3'' $\rightarrow$ ``place $X_1$''\}\newline
+		$m$=$\emptyset$\newline
+		$a$=$\emptyset$
+		&
+		$s_{10}$: $n$=``destroy 1''\newline
+		$p$=\{``obstacle 1'' $\rightarrow$ ``empty''\}\newline
+		$m$=$\emptyset$\newline
+		$a$=$\emptyset$
+		&
+		$s_{10}$: $n$=``move 3''\newline
+		$p$=\{``here'' $\rightarrow$ ``empty'', ``place $X_3$''\}\newline
+		$m$=$\emptyset$\newline
+		$a$=$\emptyset$
+		&
+		
 		\\ \hline
 		Specific signs of the $A_2$ agent
 		&
 		$s_1$: $n$=``obstacle 1''\newline
-		$p$=\{``place $Y_2$'', ``type 1''\}\newline
-		$m$=\{``destroying 1''\}\newline
+		$p$=\{``place $Y_2$'', ``type $ot_1$''\}\newline
+		$m$=\{``destroy 1''\}\newline
 		$a$=$\emptyset$
 		&
 		$s_2$: $n$=``obstacle 2''\newline
-		$p$=\{``place Y3'', ``type 2''\}\newline
-		$m$=\{``destroying 2''\}\newline
-		$a$=\{``I destroying 2''\}
+		$p$=\{``place $Y_3$'', ``type $ot_1$''\}\newline
+		$m$=\{``destroy 1''\}\newline
+		$a$=\{``I destroy 1''\}
 		&
 		$s_3$: $n$=``far''\newline
 		$p$=\{mechanical sensor parameters\}\newline
-		$m$=\{``move 1'',``move 2''\}\newline
+		$m$=\{``move 1''\}\newline
 		$a$=\{``I move 1''\}	
 		&
 		$s_8$: $n$=``agent 1''\newline
@@ -295,13 +318,16 @@ Below we demonstrate implementation of the planning method in solving the smart 
 		$m$=$\emptyset$\newline
 		$a$=$\emptyset$	
 		&
+		$s_{11}$: $n$=``destroy 1''\newline
+		$p$=\{``obstacle'' $\rightarrow$ ``empty''\}\newline
+		$m$=$\emptyset$\newline
+		$a$=$\emptyset$	
 		\\\hline
 	\end{tabular}
 \end{table}
 
-We consider the planning process of the agent $A_1$. In a result of task formulation agents confront goal area G with its own sign (named ``place $X_1$'' for $A_1$). $PMA$-procedure executes its first iteration with the start situation containing current observable sings and with the final situation containing goal signs (for $A_1$ they are ``I'', ``agent 2'', ``place $X_1$''). The fist $M$-step is to search maximal effect-covered procedural feature from the set of available significances. From the Tab.~\ref{tab:world} we can find that it is significance $m$=``move 1'' (transition ahead and right). Then the $A$-step is executed and in our case the procedure $\Xi$ gives the personal meaning that includes feature corresponding ``I move 1'' (see Fig.~\ref{fig:example}).
+PMA-procedure executes its first iteration with the start situation and goal sit-uation as input arguments. The M-step searches for the maximal effect-covered procedural feature from the set of available significances (``move 1'', ``send mes-sage''). From the Tab. 1 we can find that it is significance m=''move 1'' (transition ahead and right). Then the A-step is executed and in our case the procedure Ξ gives the personal meaning that includes feature corresponding ''I move 1''.
 
-If the agent $A_1$ have low introspection level of planning process then obtained personal meaning activates on the $S$-step path planning operations. In example map this operations cannot be accomplished and coordinates of main $obs_1$ obstacle will be returned. For this obstacle agent $A_2$ has special procedural feature that can actualize (activate) the sign ($n$=``$obs_1$'') corresponding this external object. New activated sign of the detected obstacle will be added into final situation as deleted feature and the $PMA$-procedure will be re-executed. In the new $M$-step we will obtain also procedural feature $m$=``destroying 2'' that will satisfy new sub-goal and remove the obstacle.
 
 \begin{figure}
 	\centering
@@ -310,7 +336,7 @@ If the agent $A_1$ have low introspection level of planning process then obtaine
 	\label{fig:example}
 \end{figure}
 
-Agent $A_1$ after his $S$-step and re-executing $PMA$-procedure cannot find suitable action because in his set of personal meaning there is no destroying action. In this case it will active communication action and sends message to the agent $A_2$ with coordinates of $obs_1$ obstacle and result of destroying of this obstacles (presence the agent $A_1$ in the goal area). In the goal situation of the $A_2$ the presence of the agent $A_1$ in the goal area is required and it will use this task as its own sub-goal.
+Suppose agent $A_1$ has such a cognitive quality (introspection level) used as in-put parameter for behavior planner that leads to S-step of PMA procedure. On the S-step activation spreads top-down in procedural features hierarchy  and the activation trace (see Tab. 1) is ``I move 1'' $\rightarrow$ ``I move 3'' $\rightarrow$ ``path planning pro-cedures''). So finally path planning process is invoked. On given map path can not be found as ``obs 1'' is blocking the way, so it’s coordinates are returned back to behaviour planner. These coordinates are low-level image features so the im-age-base hierarchy is traced bottom-up until the sign mediating the obstacle will be reached (activated), e.g. ``obstacle 1'' sign. This sign is added now to the de-scription of start situation: ``I - agent 1'', ``place X4'' $\rightarrow$  ``agent 2'', ``place X5'' $\rightarrow$ ``obstacle 1'' and the description of final situation: ``I - agent 1'', ``agent 2'', ``place X1'' $\rightarrow$ ``obstacle 1'', ``empty''. The PMA-procedure re-executes on the newly defined start situation. Again at the M-step the search for the maximal effect-covered procedural feature from the set of available significances (``move 1'', ``send message'', ''destroy 1'') is done and procedural feature ``destroying 1'' is selected. The A-step fails to fine suitable personal meaning (as agent $A_1$ has no destroying action). Thus communication action will be selected. So $A_1$ sends message to the agent $A_2$ with coordinates of obs1 and description of the action (``destroy 1''), needed to be performed in order for the agent $A_1$ to achieve the goal (``agent 1'',''place X1''). The presence of the agent $A_1$ in the goal area (``agent 1'',''place X1'') is required for $A_2$ to reach it’s goal (``I - agent 2'', ``agent 1'', ``place $Y_1$'') so signs ``obstacle 1'' and ``destroy 1'' (contained in transferred message) are added to $A_2$ goal which becomes: ``I - agent 2'', ``agent 1'', ``place $Y_1$'' $\rightarrow$ ``obstacle 1'', ``empty''. As $A_2$ has personal meaning ``I destroy 1'' A-step of the PMA-procedure for $A_2$ will be accomplished with success and the obstacle will be de-stroyed. So both of the agents can now construct the plan of goal area achieve-ment and thus accomplish smart relocation task.
 
 \section{Conclusion}
 
