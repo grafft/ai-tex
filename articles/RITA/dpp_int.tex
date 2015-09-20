@@ -105,7 +105,14 @@ Currently existing cognitive control systems and PDDL-based planners don't consi
 
 Further on we will use the term agent as well as robot (robotic system) following the conventions of AI literature.
 
-We consider the following task. The coalition of agents $A=\{A_1,\dots, A_N\}$ acts in the static  environment (workspace) which is the rectangular area of 2D Euclidean space $U: x_{min} \leq x \leq x_{max}, y_{min} \leq y \leq y_{max}$. $U$ is comprised out of the free space $U_{free}$ and the obstacles $U_{obs}=\{obs_1,\dots,obs_M\}$. Each obstacle is a polygon defined by the set of it's vertices' coordinates $obs_i=\{p_{i1}, p_{i2}, \dots, p_{ij}, \dots, p_{iK_i}\}$, $p_{ij}=(x_{ij}, y_{ij})\in U$. Obstacles are additionally characterized by types: $type(obs_i)=ot_j$, $ot_j\in OT$, $OT=\{ot_1, \dots, ot_Z\}$. All agents have similar sizes and can be represented as the circles of radius $r$ in $U$.
+We consider the following task. The coalition of agents $A=\{A_1,\dots, A_N\}$ acts in the static  environment (workspace) which is the rectangular area of 2D Euclidean space $U: x_{min} \leq x \leq x_{max}, y_{min} \leq y \leq y_{max}$. $U$ is comprised out of the free space $U_{free}$ and the obstacles $U_{obs}=\{obs_1,\dots,obs_M\}$. Each obstacle is a polygon defined by the set of it's vertices' coordinates $obs_i=\{p_{i1}, p_{i2}, \dots, p_{ij}, \dots, p_{iK_i}\}$, $p_{ij}=(x_{ij}, y_{ij})\in U$. Obstacles are additionally characterized by types: $type(obs_i)=ot_j$, $ot_j\in OT$, $OT=\{ot_1, \dots, ot_Z\}$. All agents have similar sizes and can be represented as the circles of radius $r$ in $U$ (see Fig.~\ref{fig:case}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=6cm]{rita_example}
+	\caption{Considered case of the coalition relocation task: $A_1,A_2$ --- members of the coalition, $G$ --- the goal area, $obs_1, obs_2$ --- obstacles of the $ot_1$ type (inclined lines blocks) destroyable by agent $A_2$.}
+	\label{fig:case}
+\end{figure}
 
 We suppose that the agent's movement dynamics is encoded as a set of differential equations:
 \begin{equation}
@@ -116,13 +123,6 @@ where $f(x,u)$ --- vector function, $x\in R^n$ --- vector of the phase coordinat
 Agent's knowledge base contains high-level representations of locations and distances as well as the mechanisms of mapping these representations to the workspace. Set of agent's actions is organized in hierarchical structure and three types of actions exist: transition actions, transforming actions (which are limited to destroying obstacles of different types) and messaging actions. We consider the case when each agent has its own planning focus containing current believes about external objects and processes. Details of the knowledge representation will be described further in Section \ref{knowledge}.
 
 Single agent's task is reaching the predefined goal area which is the same for all other agents. This common task description for an agent includes explicit constraint that all the agents should reach the goal area (not the only one). We investigate scenarios (as depicted on Fig.~\ref{fig:case}) when some agents can not reach the goal area separately, without the assistance from the other members of the coalition. As seen on Fig.~\ref{fig:case} agent $A_1$ can not reach the goal as it's blocked by the obstacle $obs_1$ which can not be destroyed by $A_1$, while $A_2$ can alter it's plan, reach $obs_1$ first and destroy this obstacle assisting $A_1$ in accomplishing the task). We call such tasks --- smart relocation tasks.
-
-\begin{figure}
-	\centering
-	\includegraphics[height=6cm]{rita_example}
-	\caption{Considered case of the coalition relocation task: $A_1,A_2$ --- members of the coalition, $G$ --- the goal area, $obs_1, obs_2$ --- obstacles of the $ot_1$ type (inclined lines blocks) destroyable by agent $A_2$.}
-	\label{fig:case}
-\end{figure}
 
 \section{Knowledge representation}\label{knowledge}
 
@@ -210,7 +210,7 @@ Previously, when describing the path planning process we supposed that the goal 
 
 Below we demonstrate implementation of the planning method in solving the smart relocation task as described in Section~\ref{case}. We consider a simple case when two agents $A_1$ and $A_2$ form the coalition and share common goal area. Fragment of the agents knowledge base (sign model) is depicted in Tab.~\ref{tab:world}. Arrows used in description of image component split different columns of features (as described in Section~\ref{behavior}).
 
-We consider the planning process of the agent $A_1$ whose goal situation is described with signs ``I - agent 1'', ``agent 2'', ``place $X_1$''. As said above all of these signs must be activated in knowledge base (sign word model) of agent $A_1$ which means that both ``I – agent 1'' and ``agent 2'' should be in ``place X1''. Note that the description of $A_2$ goal situation is similar (``I - agent 2'', ``agent 1'', ``place $Y_1$''). Start situation for agent $A_1$ is depicted on Fig.~\ref{example} and is described by the signs ``I - agent 1'', ``place X4'' $\rightarrow$  ``agent 2'', ``place X5'' (here $\rightarrow$ is used to split different parts of situation description).
+We consider the planning process of the agent $A_1$ whose goal situation is described with signs ``I - agent 1'', ``agent 2'', ``place $X_1$''. As said above all of these signs must be activated in knowledge base (sign word model) of agent $A_1$ which means that both ``I – agent 1'' and ``agent 2'' should be in ``place $X_1$''. Note that the description of $A_2$ goal situation is similar (``I - agent 2'', ``agent 1'', ``place $Y_1$''). Start situation for agent $A_1$ is depicted on Fig.~\ref{example} and is described by the signs ``I - agent 1'', ``place $X_4$'' $\rightarrow$  ``agent 2'', ``place $X_5$'' (here $\rightarrow$ is used to split different parts of situation description).
 
 \setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.5}
@@ -222,12 +222,12 @@ We consider the planning process of the agent $A_1$ whose goal situation is desc
 		Specific signs of the $A_1$ agent
 		&
 		$s_1$: $n$=``obstacle 1''\newline
-		$p$=\{``place $X_4$'', ``type $ot_1$''\}\newline
+		$p$=\{``place $X_6$'', ``type $ot_1$''\}\newline
 		$m$=\{``destroy 1''\}\newline
 		$a$=$\emptyset$
 		&
 		$s_2$: $n$=``obstacle 2''\newline
-		$p$=\{``place X2'', ``type $ot_1$''\}\newline
+		$p$=\{``place $X_2$'', ``type $ot_1$''\}\newline
 		$m$=\{``destroy 1''\}\newline
 		$a$=$\emptyset$
 		&
@@ -336,7 +336,7 @@ PMA-procedure executes its first iteration with the start situation and goal sit
 	\label{fig:example}
 \end{figure}
 
-Suppose agent $A_1$ has such a cognitive quality (introspection level) used as in-put parameter for behavior planner that leads to S-step of PMA procedure. On the S-step activation spreads top-down in procedural features hierarchy  and the activation trace (see Tab. 1) is ``I move 1'' $\rightarrow$ ``I move 3'' $\rightarrow$ ``path planning pro-cedures''). So finally path planning process is invoked. On given map path can not be found as ``obs 1'' is blocking the way, so it’s coordinates are returned back to behaviour planner. These coordinates are low-level image features so the im-age-base hierarchy is traced bottom-up until the sign mediating the obstacle will be reached (activated), e.g. ``obstacle 1'' sign. This sign is added now to the de-scription of start situation: ``I - agent 1'', ``place X4'' $\rightarrow$  ``agent 2'', ``place X5'' $\rightarrow$ ``obstacle 1'' and the description of final situation: ``I - agent 1'', ``agent 2'', ``place X1'' $\rightarrow$ ``obstacle 1'', ``empty''. The PMA-procedure re-executes on the newly defined start situation. Again at the M-step the search for the maximal effect-covered procedural feature from the set of available significances (``move 1'', ``send message'', ''destroy 1'') is done and procedural feature ``destroying 1'' is selected. The A-step fails to fine suitable personal meaning (as agent $A_1$ has no destroying action). Thus communication action will be selected. So $A_1$ sends message to the agent $A_2$ with coordinates of obs1 and description of the action (``destroy 1''), needed to be performed in order for the agent $A_1$ to achieve the goal (``agent 1'',''place X1''). The presence of the agent $A_1$ in the goal area (``agent 1'',''place X1'') is required for $A_2$ to reach it’s goal (``I - agent 2'', ``agent 1'', ``place $Y_1$'') so signs ``obstacle 1'' and ``destroy 1'' (contained in transferred message) are added to $A_2$ goal which becomes: ``I - agent 2'', ``agent 1'', ``place $Y_1$'' $\rightarrow$ ``obstacle 1'', ``empty''. As $A_2$ has personal meaning ``I destroy 1'' A-step of the PMA-procedure for $A_2$ will be accomplished with success and the obstacle will be de-stroyed. So both of the agents can now construct the plan of goal area achieve-ment and thus accomplish smart relocation task.
+Suppose agent $A_1$ has such a cognitive quality (introspection level) used as in-put parameter for behavior planner that leads to S-step of PMA procedure. On the S-step activation spreads top-down in procedural features hierarchy  and the activation trace (see Tab. 1) is ``I move 1'' $\rightarrow$ ``I move 3'' $\rightarrow$ ``path planning pro-cedures''). So finally path planning process is invoked. On given map path can not be found as ``obs 1'' is blocking the way, so it’s coordinates are returned back to behaviour planner. These coordinates are low-level image features so the im-age-base hierarchy is traced bottom-up until the sign mediating the obstacle will be reached (activated), e.g. ``obstacle 1'' sign. This sign is added now to the de-scription of start situation: ``I - agent 1'', ``place $X_4$'' $\rightarrow$  ``agent 2'', ``place $X_5$'' $\rightarrow$ ``obstacle 1'' and the description of final situation: ``I - agent 1'', ``agent 2'', ``place $X_1$'' $\rightarrow$ ``obstacle 1'', ``empty''. The PMA-procedure re-executes on the newly defined start situation. Again at the M-step the search for the maximal effect-covered procedural feature from the set of available significances (``move 1'', ``send message'', ''destroy 1'') is done and procedural feature ``destroying 1'' is selected. The A-step fails to fine suitable personal meaning (as agent $A_1$ has no destroying action). Thus communication action will be selected. So $A_1$ sends message to the agent $A_2$ with coordinates of obs1 and description of the action (``destroy 1''), needed to be performed in order for the agent $A_1$ to achieve the goal (``agent 1'',''place $X_1$''). The presence of the agent $A_1$ in the goal area (``agent 1'',''place $X_1$'') is required for $A_2$ to reach it’s goal (``I - agent 2'', ``agent 1'', ``place $Y_1$'') so signs ``obstacle 1'' and ``destroy 1'' (contained in transferred message) are added to $A_2$ goal which becomes: ``I - agent 2'', ``agent 1'', ``place $Y_1$'' $\rightarrow$ ``obstacle 1'', ``empty''. As $A_2$ has personal meaning ``I destroy 1'' A-step of the PMA-procedure for $A_2$ will be accomplished with success and the obstacle will be de-stroyed. So both of the agents can now construct the plan of goal area achieve-ment and thus accomplish smart relocation task.
 
 \section{Conclusion}
 

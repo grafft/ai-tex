@@ -7,7 +7,7 @@ plt.bar(range(1,11),y,width=0.5,align='center', color='#afafaf')
 
 
 plt.xlabel('Noise level')
-plt.ylabel('Accuracy, %')
+plt.ylabel('Error rate, %')
 #plt.title('Histogram of R-FSM precision')
 plt.axis([0, 11, 0, 70])
 plt.grid(True)
