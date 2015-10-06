@@ -246,7 +246,7 @@ Make a numerical simulation of the UAV motion dynamics, starting at the point $P
 	\]
 	where ${{x}_{g}}({{t}_{x}}),{{z}_{g}}({{t}_{x}})$ represents UAV coordinates in $Px_gy_gz_g$ at time $t_x$.
 	\item The trajectory crosses the circumference corresponding to the circle $C$ in the sector IV. This case means that under the current flight parameters the UAV does not have time to make the maneuver, and the angle $\alpha=0$. It is necessary to change the flight parameters or expand the area of the maneuver, i.e. increase the $R_d$ value.
-	\item The trajectory comes to the sector III, passing through the sectors I and II. This means that $180^\circ\leq\alpha\geq 270^\circ$ for both given flight conditions and $R_d$ value, i.e. geometric constraints are absent. It is necessary to decrease the $R_d$ value.
+	\item The trajectory comes to the sector III, passing through the sectors I and II. This means that $180^\circ\leq\alpha\leq 270^\circ$ for both given flight conditions and $R_d$ value, i.e. geometric constraints are absent. It is necessary to decrease the $R_d$ value.
 	\item The maximum simulation time is reached. It corresponds to the case when the UAV behaviour dynamics are rather complicated: the trajectory does not leave sectors I, II or IV of the circle $C$. For sufficiently larger simulation time it may be concluded that the restrictions on geometry of the trajectory are also absent. It is necessary to decrease the $R_d$ value.
 \end{enumerate}
 
