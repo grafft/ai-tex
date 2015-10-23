@@ -91,16 +91,13 @@
 		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
 		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
 		
-		\sign{1}{0}{3}
-		\sign{2}{2}{1.5}
-		\sign{3}{4}{0}
+		\sign{2}{0}{1.5}
+		\sign{3}{2}{0}
 		
-		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_1) at (2,3){$i_1,i_2,\dots, i_n$};
-		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_2) at (4,1.5){};
-		\path[-latex',thick, color = blue] (s1_m) edge [bend left, out = 40, in = 100] (el_1.north);
-		\path[-latex',thick, color = gray] (s2_n) edge [bend left, out = 40, in = 130] (el_1.south);
-		\path[-latex',thick, color = blue] (s2_m) edge [bend left, out = 40, in = 100] (el_2.north);
-		\path[-latex',thick, color = gray] (s3_n) edge [bend left, out = 40, in = 130] (el_2.south);
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_1) at (2,1.5){$i_1,i_2,\dots, i_j,\dots, i_n$};
+
+		\path[-latex',thick, color = blue] (s2_m) edge [bend left, out = 40, in = 100] (el_1.north);
+		\path[-latex',thick, color = gray] (s3_n) edge [bend left, out = 40, in = 130] ([yshift=3,xshift=1]el_1.south);
 	\end{tikzpicture}
 	
 	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
@@ -146,13 +143,17 @@
 		
 		\sign{1}{0}{1.5}
 		\sign{2}{2}{0}
+		\sign{3}{4}{-1.5}		
+				
+		\node[font=\Large] at (4,1.5) {$\Pi(s_1,i_j,s_2)$};
 		
-		\node[font=\Large] at (2,2.5) {$\Pi(s_1,i_j,s_2)$};
-		
-		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_1) at (2,1.5){$i_1,i_2,\dots, i_k$};
-
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_1) at (2,1.5){$i_1,i_2,\dots,i_j,\dots, i_k$};
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_2) at (4,0){$j_1,j_2,\dots,j_i,\dots, j_m$};
+				
 		\path[-latex',thick, color = blue] (s1_m) edge [bend left, out = 40, in = 100] (el_1.north);
-		\path[-latex',thick, color = gray] (s2_n) edge [bend left, out = 40, in = 130] (el_1.south);
+		\path[-latex',thick, color = gray] (s2_n) edge [bend left, out = 40, in = 130] ([yshift=3,xshift=1]el_1.south);
+		\path[-latex',thick, color = blue] (s2_m) edge [bend left, out = 40, in = 100] (el_2.north);
+		\path[-latex',thick, color = gray] (s3_n) edge [bend left, out = 40, in = 130] ([yshift=3,xshift=1]el_2.south);
 	\end{tikzpicture}	
 	
 	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
