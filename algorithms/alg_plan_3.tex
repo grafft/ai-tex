@@ -1,46 +1,11 @@
-	\Require начальная ситуация $S_{st}$, знак мотива $s_{goal}$ и связанный с ним личностный смысл $a_{goal}$, функция оценки $\Phi_a$;
+	\Require текущая наблюдаемая ситуация $S_{cur}$, целевая ситуация $S_{goal}$, знак мотива деятельности $s_{goal}$ и связанный с ним личностный смысл $a_{goal}$;
 	\Ensure план $Plan$;
 	
 	\vspace*{1pt}
 	\hrule
 	\vspace*{5pt}
 	
-	\State $F_{st}=\bigcup\limits_{s\in S_{st}}\{f(s)\}$; \Comment{множество признаков начальной ситуации}
-			
-	\State $Plan=\Call{Planning}{\varnothing, \{f(s_{goal})\}, \{a_{goal}\}}$;
-
-	\Function{Planning}{$Plan$, $F_{cur}$, $A_{forw}$}
-		\State $\tilde A_{forw}=\Phi_a(A_{forw},s_{goal})$; \Comment{выбор предпочитаемых действий}
-		
-		\State $F_{cond} = \bigcup\limits_{a\in \tilde A_{forw}}F_C(a)$;
-
-		\State $F_{next}=F_{cur}\cup F_{cond}\setminus\bigcup\limits_{a\in \tilde A_{forw}}F_A(a)$; \Comment{следующая ситуация планирования}
-		
-		\If{$F_{next}\subseteq F_{st}$}
-			\State \Return $Plan\cup{\tilde A_{forw}}$;		\Comment{возвращаем обновленный план}
-		\Else
-			\If{$F_{next}=F_{cur}$}
-				\State\Return невозможно построить план;
-			\Else
-				\State $\Delta=F_{next}\setminus F_{st}$; \Comment{текущее рассогласование состояний}					
-				\State $M_{next}=\{\mu_i | \mu_i\in m(f), f\in F_{next},F_D(\mu)\cap\Delta=\varnothing\}$;
-				
-				\State $M_{forw}\subseteq M_{next}$ такое, что $\begin{cases}
-				\left|\bigcup\limits_{\mu\in M_{forw}}\left(F_A(\mu)\setminus\Delta\right)\right|\rightarrow\max,\\
-				\ \left|\bigcap\limits_{\mu\in M_{forw}}\left(F_A(\mu)\setminus\Delta\right)\right|\rightarrow\min;
-				\end{cases}$ \Comment{решение оптимизационной задачи}
-				
-				\State $A_{next} = \bigcup\limits_{\mu\in M_{forw}}\{\Call{Interior}{\mu}\}$; \Comment{текущее множестов личностных смыслов}
-				
-				\ForAll $\alpha_j\in A_{next}$
-					\If{$\exists \alpha_k\in A_{next}$ такой, что $\alpha_k\not =\alpha_i$ и $\alpha_k$ конфликтует с $\alpha_j$}
-						\State $\alpha_{del}=\argmin\limits_{\alpha\in\{\alpha_k,\alpha_j\}}|F_A(\alpha)\setminus\Delta|$;
-						\State $A_{next}= A_{next}\setminus\{\alpha_{del}\}$; \Comment{удаляем конфликтующие признаки}
-					\EndIf
-				\EndFor
-				
-				\State \Return \Call{Planning}{$Plan, F_{next}, A_{next}$};						
-			\EndIf
-		\EndIf
-
-	\EndFunction
+	\State $S_f := S_{goal}$;
+	\State $S_{st} := S_{sur}$
+	
+	\State поиск такого непротиворечивого множества действий, которое в совокупности доставляют все знаки из $S_f$
