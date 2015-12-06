@@ -1,0 +1,59 @@
+\documentclass[tikz,convert={density=600,outext=.png},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}
+		\node at (0,0) {START};
+		
+		\node (goa) at (-1,-1) {GO(A)};
+		\node (gob) at (1,-1) {GO(B)};
+		
+		\node (ina) at (-1.3,-2) {IN(A)};
+		\node (inb) at (1.3,-2) {IN(B)};
+		
+		\node (as) at (-1.5,-3) {$A_1,A_2,\dots,A_n$};
+		\node (bs) at (1.5,-3) {$B_1,B_2,\dots,B_n$};
+		
+		\node (ps) at (-1.5,-4) {$P_1,P_2,\dots,P_n$};
+		\node (qs) at (1.5,-4) {$Q_1,Q_2,\dots,Q_n$};
+		
+		\node (fin) at (0,-5) {FINISH};
+		
+		\draw (goa) -- (ina);
+		\draw (gob) -- (inb);
+		
+		\draw[-latex'] (ina) -- ([xshift=-23]as.north);
+		\draw[-latex'] (ina) -- ([xshift=-10]as.north);
+		\draw[-latex'] (ina) -- ([xshift=23]as.north);
+		
+		\draw[-latex'] (inb) -- ([xshift=-23]bs.north);
+		\draw[-latex'] (inb) -- ([xshift=-10]bs.north);
+		\draw[-latex'] (inb) -- ([xshift=23]bs.north);
+		
+		\draw ([xshift=-23]as.south) -- ([xshift=-23]ps.north);		
+		\draw ([xshift=-10]as.south) -- ([xshift=-10]ps.north);
+		\draw ([xshift=23]as.south) -- ([xshift=23]ps.north);
+		
+		\draw ([xshift=-23]bs.south) -- ([xshift=-23]qs.north);		
+		\draw ([xshift=-10]bs.south) -- ([xshift=-10]qs.north);
+		\draw ([xshift=23]bs.south) -- ([xshift=23]qs.north);
+
+		\draw[latex'-] (fin) -- ([xshift=-23]ps.south);
+		\draw[latex'-] (fin) -- ([xshift=-10]ps.south);
+		\draw[latex'-] (fin) -- ([xshift=23]ps.south);
+		\draw[latex'-] (fin) -- ([xshift=-23]qs.south);
+		\draw[latex'-] (fin) -- ([xshift=-10]qs.south);
+		\draw[latex'-] (fin) -- ([xshift=23]qs.south);
+		
+	\end{tikzpicture}	
+\end{document}
