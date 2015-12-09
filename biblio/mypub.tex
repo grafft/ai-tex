@@ -16,11 +16,13 @@
 	autolang=other,
 	defernumbers=true,
 	backend=biber,	
-	style=gost-numeric,
+	bibstyle=gost-numeric,
 	sorting=ynt,
 	maxbibnames=15
 ]{biblatex}
 \addbibresource{library.bib}
+
+\renewcommand*\bibnamedash{\makebox[\leftmargin]{}}
 
 \DeclareSourcemap{
 	\maps[datatype=bibtex, overwrite]{

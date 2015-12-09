@@ -1,0 +1,287 @@
+% Animate a set intersection operation.
+% The target document is a beamer presentation, so we load the
+% beamer class to get the same fonts as in the presentation.
+\documentclass{beamer}
+\usepackage{tikz}
+
+\usetikzlibrary{calc,patterns,backgrounds,shapes}
+
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\newcommand{\blockp}[3]{
+	\node[draw, rectangle, pattern = #3, minimum width = #1, minimum height = #2] 
+}
+
+\newcommand{\blockc}[3]{
+	\node[draw, brown, fill=brown, rectangle, pattern = #3, minimum width = #1, minimum height = #2] 
+}
+
+\newcommand{\agent}{
+	\node[draw, blue, fill=yellow, circle, very thick, minimum width = 20]	
+}
+
+\newcommand{\obstacle}{
+	\blockc{20}{20}{north west lines} at (3.4,-4.5) {};	
+	\node[draw, red, circle, dotted, very thick, minimum width = 40] (confl_1) at (3.3, -4.3) {};
+	\node at (2.2, -4.2) {$obs_1$};
+}
+
+\newcommand{\situation}{
+	\node[draw, rectangle,minimum width = 450, minimum height = 250] at (5,-3.5) {};
+	\blockp{150}{20}{crosshatch} at (0,0) {};
+	\blockp{150}{20}{crosshatch} at (10,0) {};
+	
+	\blockp{20}{40}{crosshatch} at (1.5,-1.5) {};
+	\blockp{20}{40}{crosshatch} at (2.5,-3) {};
+	
+	\blockp{40}{20}{crosshatch} at (4.7,-4.5) {};
+	\blockc{20}{15}{north west lines} at (6.5,-2) {};				
+	
+	\blockp{20}{40}{crosshatch} at (6,-3.1) {};
+	\blockp{20}{30}{crosshatch} at (7,-1) {};
+	
+	\node[draw, green!70!black, circle, dotted, very thick, minimum width = 50, text = black] (goal) at (5, -1) {$G$};
+	\node[draw, red, circle, dotted, very thick, minimum width = 30, text = black] (confl_2) at (6.5, -2) {};				
+	\node at (7.5, -2) {$obs_2$};
+	
+}
+
+\begin{document}
+% Create n frames with \xb as parameter
+
+\def\agsposx{10}
+\def\agsposy{-5.5}
+\def\agslabx{10}
+\def\agslaby{-6.2}
+
+\def\agsposxnext{3.7}
+\def\agsposynext{-5.5}
+\def\agslabxnext{3.7}
+\def\agslabynext{-6.2}
+
+\def\agsposxmid{3}
+\def\agsposymid{-4.7}
+\def\agslabxmid{3}
+\def\agslabymid{-5.4}
+
+\def\agsposxfin{5.5}
+\def\agsposyfin{-1.3}
+\def\agslabxfin{5.5}
+\def\agslabyfin{-2}
+
+\foreach \xb in {0,1,...,9}{
+	\begin{tikzpicture}
+	\situation
+	\obstacle
+	
+	\agent (obj_1) at (4, -7.3) {};
+	\node at (3.4,-7.6) {$A_1$};	
+	\draw[->, very thick, dotted, gray] (obj_1) edge [bend left, out = 90, in = 180] (goal);					
+	
+	\agent (obj_2) at (\agsposx,\agsposy) {};
+	\node at (\agslabx,\agslaby) {$A_2$};
+	\draw[->, very thick, gray] (obj_2) edge (goal);				
+	
+	\end{tikzpicture}
+}
+
+
+\foreach \xb in {0,1,...,19}{
+	\pgfmathsetmacro{\xbb}{4-\xb/10}
+	\pgfmathsetmacro{\xcc}{3.4-\xb/10}
+	\pgfmathsetmacro{\ybb}{-7.3+\xb/10}
+	\pgfmathsetmacro{\ycc}{-7.6+\xb/10}
+    \begin{tikzpicture}
+	    \situation
+	    \obstacle
+	    
+	    \agent (obj_1) at (\xbb, \ybb) {};
+	    \node at (\xcc,\ycc) {$A_1$};	
+
+	    \agent (obj_2) at (\agsposx,\agsposy) {};
+	    \node at (\agslabx,\agslaby) {$A_2$};
+	    \draw[->, very thick, gray] (obj_2) edge (goal);				
+	    
+    \end{tikzpicture}
+}
+
+\def\agfposx{2}
+\def\agfposy{-5.3}
+\def\agflabx{1.4}
+\def\agflaby{-5.6}
+
+\def\agfposxnext{3.8}
+\def\agfposynext{-3.7}
+\def\agflabxnext{3.3}
+\def\agflabynext{-4}
+
+\def\agfposxfin{4.5}
+\def\agfposyfin{-0.7}
+\def\agflabxfin{3.9}
+\def\agflabyfin{-1}
+
+\foreach \xb in {0,1,...,10}{
+	\begin{tikzpicture}
+		\situation
+		\obstacle
+		
+		\agent (obj_1) at (\agfposx,\agfposy) {};
+		\node at (\agflabx,\agflaby) {$A_1$};						
+		\draw[->, very thick, dotted, gray] (obj_1) edge [bend left, out = 0, in = 180] (goal);
+				
+	    \agent (obj_2) at (\agsposx,\agsposy) {};
+	    \node at (\agslabx,\agslaby) {$A_2$};
+		\draw[->, very thick, gray] (obj_2) edge (goal);				
+
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,10}{
+	\begin{tikzpicture}
+	\situation
+	\obstacle
+	
+	\agent (obj_1) at (\agfposx,\agfposy) {};
+	\node at (\agflabx,\agflaby) {$A_1$};						
+	
+	\agent (obj_2) at (\agsposx,\agsposy) {};
+	\node at (\agslabx,\agslaby) {$A_2$};
+	\draw[->, very thick, gray] (obj_2) edge (goal);				
+	
+	\draw[->, very thick, dashed, gray] (obj_1) edge [bend left, out = -10, in = -140] node[above,black]{$M_1$} (obj_2);	
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,10}{
+	\begin{tikzpicture}
+		\situation
+		\obstacle
+		
+		\agent (obj_1) at (\agfposx,\agfposy) {};
+		\node at (\agflabx,\agflaby) {$A_1$};						
+		
+	    \agent (obj_2) at (\agsposx,\agsposy) {};
+	    \node at (\agslabx,\agslaby) {$A_2$};
+	
+		\draw[->, very thick, gray] (obj_2) edge [out =-120,in=-50] (confl_1);	
+	
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,19}{
+	\pgfmathsetmacro{\xbb}{\agsposx+(\agsposxnext-\agsposx)*\xb/20}
+	\pgfmathsetmacro{\ybb}{\agsposy+(\agsposynext-\agsposy)*\xb/20}
+	\pgfmathsetmacro{\ycc}{\agslaby+(\agslabynext-\agslaby)*\xb/20}
+	\begin{tikzpicture}
+		\situation
+		\obstacle
+		
+		\agent (obj_1) at (\agfposx,\agfposy) {};
+		\node at (\agflabx,\agflaby) {$A_1$};						
+		
+		\agent (obj_2) at (\xbb, \ybb) {};
+		\node at (\xbb, \ycc) {$A_2$};
+	
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,10}{
+	\begin{tikzpicture}
+		\situation
+		
+		\agent (obj_1) at (\agfposx,\agfposy) {};
+		\node at (\agflabx,\agflaby) {$A_1$};						
+		
+	    \agent (obj_2) at (\agsposxnext,\agsposynext) {};
+	    \node at (\agslabxnext,\agslabynext) {$A_2$};
+	
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,10}{
+	\begin{tikzpicture}
+		\situation
+		
+		\agent (obj_1) at (\agfposx,\agfposy) {};
+		\node at (\agflabx,\agflaby) {$A_1$};						
+		
+	    \agent (obj_2) at (\agsposxnext,\agsposynext) {};
+	    \node at (\agslabxnext,\agslabynext) {$A_2$};
+		
+		\draw[->, very thick, dotted, gray] (obj_1) edge [bend left, out = -15, in = 160] (goal);
+		\draw[->, very thick, gray] (obj_2) edge [bend left, out = 30, in = 170] (goal);
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,9}{
+	\pgfmathsetmacro{\xbb}{\agfposx+(\agfposxnext-\agfposx)*\xb/10}
+	\pgfmathsetmacro{\xcc}{\agflabx+(\agflabxnext-\agflabx)*\xb/10}
+	\pgfmathsetmacro{\ybb}{\agfposy+(\agfposynext-\agfposy)*\xb/10}
+	\pgfmathsetmacro{\ycc}{\agflaby+(\agflabynext-\agflaby)*\xb/10}
+	\begin{tikzpicture}
+		\situation
+		
+		\agent (obj_1) at (\xbb, \ybb) {};
+		\node at (\xcc,\ycc) {$A_1$};						
+		
+	    \agent (obj_2) at (\agsposxnext,\agsposynext) {};
+	    \node at (\agslabxnext,\agslabynext) {$A_2$};
+		
+		\draw[->, very thick, gray] (obj_2) edge [bend left, out = 30, in = 170] (goal);
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,9}{
+	\pgfmathsetmacro{\xbb}{\agfposxnext+(\agfposxfin-\agfposxnext)*\xb/10}
+	\pgfmathsetmacro{\xcc}{\agflabxnext+(\agflabxfin-\agflabxnext)*\xb/10}
+	\pgfmathsetmacro{\ybb}{\agfposynext+(\agfposyfin-\agfposynext)*\xb/10}
+	\pgfmathsetmacro{\ycc}{\agflabynext+(\agflabyfin-\agflabynext)*\xb/10}
+	\begin{tikzpicture}
+	\situation
+	
+	\agent (obj_1) at (\xbb, \ybb) {};
+	\node at (\xcc,\ycc) {$A_1$};						
+	
+	\agent (obj_2) at (\agsposxnext,\agsposynext) {};
+	\node at (\agslabxnext,\agslabynext) {$A_2$};
+	
+	\draw[->, very thick, gray] (obj_2) edge [bend left, out = 30, in = 170] (goal);
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,9}{
+	\pgfmathsetmacro{\xbb}{\agsposxnext+(\agsposxmid-\agsposxnext)*\xb/10}
+	\pgfmathsetmacro{\xcc}{\agslabxnext+(\agslabxmid-\agslabxnext)*\xb/10}
+	\pgfmathsetmacro{\ybb}{\agsposynext+(\agsposymid-\agsposynext)*\xb/10}
+	\pgfmathsetmacro{\ycc}{\agslabynext+(\agslabymid-\agslabynext)*\xb/10}
+	\begin{tikzpicture}
+		\situation
+		
+		\agent (obj_1) at (\agfposxfin,\agfposyfin) {};
+		\node at (\agflabxfin,\agflabyfin) {$A_1$};						
+		
+		\agent (obj_2) at (\xbb, \ybb) {};
+		\node at (\xcc, \ycc) {$A_2$};
+	
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,14}{
+	\pgfmathsetmacro{\xbb}{\agsposxmid+(\agsposxfin-\agsposxmid)*\xb/15}
+	\pgfmathsetmacro{\xcc}{\agslabxmid+(\agslabxfin-\agslabxmid)*\xb/15}
+	\pgfmathsetmacro{\ybb}{\agsposymid+(\agsposyfin-\agsposymid)*\xb/15}
+	\pgfmathsetmacro{\ycc}{\agslabymid+(\agslabyfin-\agslabymid)*\xb/15}
+	\begin{tikzpicture}
+	\situation
+	
+	\agent (obj_1) at (\agfposxfin,\agfposyfin) {};
+	\node at (\agflabxfin,\agflabyfin) {$A_1$};						
+	
+	\agent (obj_2) at (\xbb, \ybb) {};
+	\node at (\xcc, \ycc) {$A_2$};
+	
+	\end{tikzpicture}
+}
+
+\end{document}
