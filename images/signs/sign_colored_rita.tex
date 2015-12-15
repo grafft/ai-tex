@@ -1,4 +1,4 @@
-\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
+\documentclass[tikz,border=3pt,convert={density=800,outext=.png}]{standalone}
 %\documentclass[tikz,border=3pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
@@ -35,13 +35,13 @@
 		\node[sign_comp, fill=green!70!black] (s_a) at (0.7,0.0) {};
 		
 		\node[left = of s_p] {$p$};
-		\node[below = of s_p,align=center] {Image\\(cover,pages)};
+		\node[below = of s_p, align=center, text=red] {\scriptsize Image\\(cover,pages)};
 		\node[right = of s_m] {$m$};
-		\node[label,node distance = 0.01, xshift=5mm, above = of s_m,align=center] {Significance\\(read, buy))};
+		\node[label,node distance = 0.01, xshift=3mm, above = of s_m,align=center, text=blue] {\scriptsize Significance\\(read, buy)};
 		\node[right = of s_n] {$n$};
-		\node[left = of s_n, align=center] {Sign name\\(book))};
+		\node[left = of s_n, align=center] {\scriptsize Sign name\\(book)};
 		\node[right = of s_a] {$a$};
-		\node[below = of s_a, xshift=10mm, align=center] {Persoanl meaning\\(reading, stand for mug))};
+		\node[below = of s_a, xshift=5mm, align=center, text=green!70!black] {\scriptsize Personal meaning\\(reading, standing for mug)};
 		
 		\node[label] at ($(s_n)!0.5!(s_a)$) {$s$};
 		

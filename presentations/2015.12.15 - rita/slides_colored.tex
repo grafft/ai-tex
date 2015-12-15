@@ -10,11 +10,7 @@
 \PreviewEnvironment{tikzpicture}
 
 \newcommand{\blockp}[3]{
-	\node[draw, rectangle, pattern = #3, minimum width = #1, minimum height = #2] 
-}
-
-\newcommand{\blockc}[3]{
-	\node[draw, brown, fill=brown, rectangle, pattern = #3, minimum width = #1, minimum height = #2] 
+	\node[draw, rectangle, #3, fill = #3, minimum width = #1, minimum height = #2] 
 }
 
 \newcommand{\agent}{
@@ -22,24 +18,24 @@
 }
 
 \newcommand{\obstacle}{
-	\blockc{20}{20}{north west lines} at (3.4,-4.5) {};	
+	\blockp{20}{20}{brown} at (3.4,-4.5) {};	% obstacle 1
 	\node[draw, red, circle, dotted, very thick, minimum width = 40] (confl_1) at (3.3, -4.3) {};
 	\node at (2.2, -4.2) {$obs_1$};
 }
 
 \newcommand{\situation}{
 	\node[draw, rectangle,minimum width = 450, minimum height = 250] at (5,-3.5) {};
-	\blockp{150}{20}{crosshatch} at (0,0) {};
-	\blockp{150}{20}{crosshatch} at (10,0) {};
+	\blockp{150}{20}{blue!70} at (0,0) {};
+	\blockp{150}{20}{blue!70} at (10,0) {};
 	
-	\blockp{20}{40}{crosshatch} at (1.5,-1.5) {};
-	\blockp{20}{40}{crosshatch} at (2.5,-3) {};
+	\blockp{20}{40}{blue!70} at (1.5,-1.5) {};
+	\blockp{20}{40}{blue!70} at (2.5,-3) {};
 	
-	\blockp{40}{20}{crosshatch} at (4.7,-4.5) {};
-	\blockc{20}{15}{north west lines} at (6.5,-2) {};				
+	\blockp{40}{20}{blue!70} at (4.7,-4.5) {};
+	\blockp{20}{15}{brown} at (6.5,-2) {}; % obsracle 2
 	
-	\blockp{20}{40}{crosshatch} at (6,-3.1) {};
-	\blockp{20}{30}{crosshatch} at (7,-1) {};
+	\blockp{20}{40}{blue!70} at (6,-3.1) {};
+	\blockp{20}{30}{blue!70} at (7,-1) {};
 	
 	\node[draw, green!70!black, circle, dotted, very thick, minimum width = 50, text = black] (goal) at (5, -1) {$G$};
 	\node[draw, red, circle, dotted, very thick, minimum width = 30, text = black] (confl_2) at (6.5, -2) {};				
@@ -137,7 +133,7 @@
 	\end{tikzpicture}
 }
 
-\foreach \xb in {0,1,...,10}{
+\foreach \xb in {0,1,...,15}{
 	\begin{tikzpicture}
 	\situation
 	\obstacle
@@ -153,7 +149,7 @@
 	\end{tikzpicture}
 }
 
-\foreach \xb in {0,1,...,10}{
+\foreach \xb in {0,1,...,15}{
 	\begin{tikzpicture}
 		\situation
 		\obstacle
@@ -182,6 +178,20 @@
 		
 		\agent (obj_2) at (\xbb, \ybb) {};
 		\node at (\xbb, \ycc) {$A_2$};
+	
+	\end{tikzpicture}
+}
+
+\foreach \xb in {0,1,...,10}{
+	\begin{tikzpicture}
+	\situation
+	\obstacle
+	
+	\agent (obj_1) at (\agfposx,\agfposy) {};
+	\node at (\agflabx,\agflaby) {$A_1$};						
+	
+	\agent (obj_2) at (\agsposxnext,\agsposynext) {};
+	\node at (\agslabxnext,\agslabynext) {$A_2$};
 	
 	\end{tikzpicture}
 }

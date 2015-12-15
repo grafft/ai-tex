@@ -1,5 +1,5 @@
-\documentclass[tikz,convert={density=600,outext=.png},border=5pt]{standalone}
-%\documentclass[tikz, border=5pt]{standalone}
+%\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
+\documentclass[tikz, border=5pt]{standalone}
 
 \usepackage[english,russian]{babel}
 \usepackage{fontspec}
@@ -10,14 +10,13 @@
 \usetikzlibrary{shapes,arrows,calc}
 
 \begin{document}
-	
-	\begin{tikzpicture}[>=triangle 60]
-		\tikzstyle{level_rect} = [draw, rectangle, rounded corners=5ex, minimum height = 60mm, minimum width = 150mm,fill=black!3];
-		\tikzstyle{level_model} =[draw, ellipse, minimum width = 80mm, minimum height = 15mm,align = center];
-		\tikzstyle{control_block} = [draw, rectangle, minimum height = 20mm, minimum width = 25mm, align=center]
-		\tikzstyle{traekt_block} = [draw, rectangle, minimum height = 15mm, minimum width = 25mm, align=center]
-		\tikzstyle{cons_block} = [draw, rectangle, minimum height = 13mm, minimum width = 30mm, align=center]
-		\tikzstyle{misc_block} = [draw, rectangle, minimum height = 10mm, minimum width = 50mm, align=center]
+	\begin{tikzpicture}[>=triangle 60,line width=0.5mm]
+		\tikzstyle{level_rect} = [draw, rectangle, very thick, rounded corners=5ex, minimum height = 60mm, minimum width = 150mm,fill=black!3];
+		\tikzstyle{level_model} =[draw, ellipse, very thick, minimum width = 80mm, minimum height = 15mm,align = center];
+		\tikzstyle{control_block} = [draw, very thick, rectangle, minimum height = 20mm, minimum width = 25mm, align=center]
+		\tikzstyle{traekt_block} = [draw, very thick, rectangle, minimum height = 15mm, minimum width = 25mm, align=center]
+		\tikzstyle{cons_block} = [draw, very thick, rectangle, minimum height = 13mm, minimum width = 30mm, align=center]
+		\tikzstyle{misc_block} = [draw, very thick, rectangle, minimum height = 10mm, minimum width = 50mm, align=center]
 		
 		\node[misc_block] (messages) at (8, 20.5) {Other coalition members};
 		\node[misc_block] (task) at (-8, 20.5) {Formation of common\\coalition task};
@@ -25,8 +24,8 @@
 
 		\node[level_rect] (level_1) at (0, 16) {};
 		\node[font=\huge] at(0, 18.5) {Strategic level};		
-		\node[level_model, minimum height = 10mm, very thick, fill=black!15] (model_1) at (0, 17.5) {Sign world model};
-		\node[cons_block, very thick, fill=black!15] (sit_decr) at (-4, 15.5) {Current situation\\construction};
+		\node[level_model, minimum height = 10mm, fill=black!15] (model_1) at (0, 17.5) {Sign world model};
+		\node[cons_block, fill=black!15] (sit_decr) at (-4, 15.5) {Current situation\\construction};
 		\node[cons_block] (beh_plan) at (4, 15.5) {Behavior planning};
 		\node[cons_block] (replaner) at (0, 14) {Behavior replanning};
 		
@@ -53,25 +52,25 @@
 		\draw[->,rounded corners] ([yshift=-3mm]sit_decr.west) -| ($(sit_decr.west)+(-13mm,-35mm)$) node[align=center, right] {goal area\\and temporal\\constraints} |- (pred_tr.west);
 		\draw[->,rounded corners] (build_tr.north) |- ($(build_tr.north)+(-25mm, 17mm)$) node[align=center, above] {path\\was built\\ or not} -| (replaner.south);
 		\draw[<-, rounded corners] ([xshift=3mm]pred_tr.south) |- ($(pred_tr.south)+(40mm,-5mm)$) node[align = center, above] {replan without\\goal changing request} -| (monitor.south);
-		\draw[->, rounded corners] ([xshift=10]model_3.south) |- (monitor.west);
+		\draw[->, thick, rounded corners] ([xshift=10]model_3.south) |- (monitor.west);
 		\draw[<->, rounded corners] (model_3.east) -- (build_tr.west);
 		\draw[<->, rounded corners] (model_3.west) -- (slam.east);
 		\draw[->, rounded corners] ([xshift=-10]model_3.south) |- (pred_tr.east);
 
 
-		\node[level_rect, minimum height = 15mm] (level_3) at (0, 2.5) {};
+		\node[level_rect, minimum height = 18mm] (level_3) at (0, 2.5) {};
 		\node[font=\huge] at(0, 2.5) {Reactive level};		
 		
-		\draw[->,rounded corners] ([xshift=-3mm]pred_tr.south) node[align=center,yshift=-7mm,left] {movement\\parameters}|- ($(pred_tr.south)+(-7mm,-20mm)$) -| (-5.7, 3.3);
-		\draw[->,rounded corners] (3, 3.3) node[align=center, yshift = 5mm, left] {geometric\\constraints} |-  (4, 4) -| ([xshift=10mm]build_tr.south);
-		\draw[->,rounded corners] (build_tr.east) -| node[align=center,yshift=-50mm,right] {desired path} (6.7, 3.3);
-		\draw[->,rounded corners] (-1, 3.3) node[align=center, yshift = 7mm, left] {threshold was\\exceeded or not} |- (0, 4.7) -|  ([xshift=10mm]monitor.south);
+		\draw[->,rounded corners] ([xshift=-3mm]pred_tr.south) node[align=center,yshift=-7mm,left] {movement\\parameters}|- ($(pred_tr.south)+(-7mm,-20mm)$) -| (-5.7, 3.4);
+		\draw[->,rounded corners] (3, 3.4) node[align=center, yshift = 5mm, left] {geometric\\constraints} |-  (4, 4) -| ([xshift=10mm]build_tr.south);
+		\draw[->,rounded corners] (build_tr.east) -| node[align=center,yshift=-50mm,right] {desired path} (6.7, 3.4);
+		\draw[->,rounded corners] (-1, 3.4) node[align=center, yshift = 7mm, left] {threshold was\\exceeded or not} |- (0, 4.7) -|  ([xshift=10mm]monitor.south);
 	
 		\node[misc_block] (control_meh) at (8, 0) {Actuators};
 		\node[misc_block] (sensors) at (-8, 0) {Sensors};
 		
 		\draw[->,rounded corners] (7.6, 2.5) -| (control_meh.north) node[align=center, yshift = 10mm, right] {control\\signal};
-		\draw[->,rounded corners] (sensors.east) node[align = center, xshift = 30mm, above] {phase coordinates} -| (0, 1.7);
+		\draw[->,rounded corners] (sensors.east) node[align = center, xshift = 30mm, above] {phase coordinates} -| (0, 1.6);
 		\draw[->,rounded corners] ([xshift=-13mm]sensors.north) node[yshift = 115mm, rotate=90, above] {objects and actions} |- ([yshift=3mm]sit_decr.west);
 		\draw[->,rounded corners] ([xshift=-5mm]sensors.north) node[yshift = 70mm, rotate=90, above] {environment features} |- (slam.west);
 	\end{tikzpicture}
