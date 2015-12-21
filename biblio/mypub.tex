@@ -22,8 +22,6 @@
 ]{biblatex}
 \addbibresource{library.bib}
 
-\renewcommand*\bibnamedash{\makebox[\leftmargin]{}}
-
 \DeclareSourcemap{
 	\maps[datatype=bibtex, overwrite]{
 		\map{
@@ -50,6 +48,8 @@
 	\hyphenpenalty=10000
 	\sloppy
 	\renewcommand{\refname}{}
+	%\renewcommand{\newunitpunct}{.\space}
+	
 	\section*{Научные работы Панова А.\,И.}
 	\nocite{*}
 %	\printbibliography
