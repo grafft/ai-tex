@@ -1,0 +1,215 @@
+\documentclass[%
+autoref,        % тип документа
+natbib,         % использовать пакет natbib для "сжатия" цитирований
+href,           % использовать пакет hyperref для создания гиперссылок
+facsimile,      % отображать факсимиле диссертанта и ученого секретаря
+colorlinks=true % цветные гиперссылки
+%,fixint=false  % отключить прямые знаки интегралов
+%,times         % шрифт Times как основной
+%,classified    % гриф секретности
+]{disser}
+
+\usepackage[
+  a4paper, mag=1000,
+  left=2.5cm, right=1cm, top=2cm, bottom=2cm, headsep=0.7cm, footskip=1cm
+]{geometry}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tabularx}
+\ifpdf\usepackage{epstopdf}\fi
+
+% Номера страниц снизу и по центру
+%\pagestyle{footcenter}
+%\chapterpagestyle{footcenter}
+
+% Точка с запятой в качестве разделителя между номерами цитирований
+%\setcitestyle{semicolon}
+
+% Поддержка нескольких списков литературы в одном документе
+\usepackage{multibib}
+% Создание команд для цитирования собственных работ диссертанта
+% в отдельном разделе. В данном случае ссылка будет иметь вид \citemy{...}.
+\newcites{my}{Список публикаций}
+
+% Путь к файлам с иллюстрациями
+\graphicspath{{../../images/}}
+
+\begin{document}
+% Включение файла с общим текстом диссертации и автореферата
+% (текст титульного листа и характеристика работы).
+\input{common}
+
+% номер копии для грифа секретности
+%\copynum{1}
+% класс доступа
+%\classlabel{Для служебного пользования}
+
+\title{АВТОРЕФЕРАТ\\
+диссертации на соискание ученой степени\\
+кандидата физико-математических наук}
+
+\maketitle
+
+% Внутренняя сторона обложки
+\thispagestyle{empty}
+\vspace*{-2cm}
+\noindent
+\begin{center}
+Работа выполнена в \emph{название организации}.
+\end{center}
+\vskip1ex
+\begin{tabularx}{\linewidth}{lp{1cm}X}
+Научный руководитель:  & & \emph{доктор физико-математических наук}, \\
+                       & & \emph{профессор}, \\
+                       & & \emph{Осипов Геннадий Семёнович}
+\\
+Официальные оппоненты: & & \emph{доктор физико-математических наук}, \\
+                       & & \emph{профессор}, \\
+                       & & \emph{Редько Владимир Георгиевич}\\
+                       & & \emph{доктор физико-математических наук}, \\
+                       & & \emph{профессор}, \\
+                       & & \emph{Кузнецов Сергей Олегович}
+\\
+Ведущая организация:   & & \emph{Федеральное государственное бюджетное учреждение науки Институт проблем управления им. В.\,А.~Трапезникова Российской академии наук}\\
+\end{tabularx}
+
+\vskip2ex\noindent
+Защита состоится \datefield{21 мая 2015~г.} в 13 часов 00 минут
+на заседании диссертационного совета \emph{шифр совета} при \emph{название
+организации, при которой создан совет}, расположенном по адресу:
+\emph{адрес}
+
+\vskip1ex\noindent
+С диссертацией можно ознакомиться в библиотеке
+\emph{название организации}.
+
+\vskip1ex\noindent
+Автореферат разослан \datefield{8 апреля 2015~г.}
+
+\vskip2ex\noindent
+Отзывы и замечания по автореферату в двух экземплярах, заверенные
+печатью, просьба высылать по вышеуказанному адресу на имя ученого секретаря
+диссертационного совета.
+
+\vfill\noindent
+Ученый секретарь\\
+диссертационного совета,\\
+\emph{доктор физико-математических наук}%
+\hfill
+\makeatletter
+% вставка файла, содержащего факсимиле ученого секретаря
+\ifDis@facsimile
+  \raisebox{-4pt}{\includegraphics[width=3cm]{sec-facsimile}}\hfill
+\fi%
+\makeatother%
+\emph{Рязанов~В.\,В.}
+
+\clearpage
+
+\nsection{Общая характеристика работы}
+
+% Актуальность работы
+\actualitysection
+\actualitytext
+
+% Степень разработанности темы исследования
+\developmentsection
+\developmenttext
+
+% Цели и задачи диссертационной работы
+\objectivesection
+\objectivetext
+
+% Научная новизна
+\noveltysection
+\noveltytext
+
+% Теоретическая и практическая значимость
+\valuesection
+\valuetext
+
+% Методология и методы исследования
+\methodssection
+\methodstext
+
+% Положения, выносимые на защиту
+\resultssection
+\resultstext
+
+% Степень достоверности и апробация результатов
+\approbationsection
+\approbationtext
+
+% Публикации
+\pubsection
+\pubtext
+
+% Личный вклад автора
+\contribsection
+\contribtext
+
+% Структура и объем диссертации
+\structsection
+\structtext
+
+\nsection{Содержание работы}
+
+\textbf{Во Введении} обоснована актуальность диссертационной работы,
+сформулирована цель и аргументирована научная новизна исследований, показана
+практическая значимость полученных результатов, представлены выносимые на
+защиту научные положения.
+
+\textbf{В первой главе} ...
+
+Содержание первой главы.
+
+\textbf{Во второй главе} ...
+
+Содержание второй главы.
+
+
+\textbf{В третьей главе} ...
+
+Содержание третьей главы.
+
+
+\textbf{В Заключении}
+
+% ----------------------------------------------------------------
+\renewcommand\bibsection{\nsection{Список публикаций}}
+
+\bibliographystylemy{gost705}
+\bibliographymy{synopsis}
+
+\renewcommand\bibsection{\nsection{Цитированная литература}}
+
+\bibliographystyle{gost705}
+\bibliography{synopsis}
+% ----------------------------------------------------------------
+% Выходные данные
+\clearpage
+\thispagestyle{empty}
+\normalfont\selectfont
+\vspace*{2cm}
+\begin{center}
+\textit{Научное издание}\\
+\vskip 2cm
+\makeatletter
+\@author
+\vskip 1.5cm
+\@title{} на тему:\\
+\@topic\\
+\makeatother
+\end{center}
+\vfill
+Подписано в печать~25.01.2011.
+Формат~$60 \times 90$~1/16.
+Тираж~100~экз.
+Заказ~256.\\[2ex]
+\noindent
+Санкт-Петербургская издательская фирма <<Наука>> РАН.
+199034, Санкт-Петербург, Менделеевская линия, 1,
+\href{http://www.naukaspb.spb.ru}{http://www.naukaspb.spb.ru}
+
+\end{document}
