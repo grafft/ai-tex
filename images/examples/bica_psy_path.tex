@@ -1,5 +1,5 @@
-\documentclass[preview,convert={density=800,outext=.png}]{standalone}
-%\documentclass[preview]{standalone}
+%\documentclass[preview,convert={density=800,outext=.png}]{standalone}
+\documentclass[preview]{standalone}
 
 \usepackage[utf8]{inputenc}				% Кодировка utf8
 
@@ -21,7 +21,7 @@
 				
 		\node[draw, gray, fill = gray, circle, very thick, minimum width = 20] (obj_1) at (4, -7.5) {};
 		
-		\draw[step=1,gray,dotted, yshift=-0.5cm] (-2.5,-7.5) grid (12.5,1);
+		\draw[step=1,gray,dotted, xshift=0.5cm] (-3,-8) grid (12,0.5);
 		\draw [-latex', blue, thick] (obj_1) to[out=70,in=-90, distance=3cm ] (goal);
 		\draw [-latex', red, thick] (obj_1) to[out=110,in=-120, distance=3cm ] (goal);
 		
@@ -49,8 +49,6 @@
 		\blockp{20}{40}{crosshatch} at (6,-3.1) {};
 		\blockp{20}{30}{crosshatch} at (7,-1) {};
 		\blockp{20}{15}{north west lines} at (6.5,-2) {};
-		
-	
 		
 	\end{tikzpicture}
 \end{document}
