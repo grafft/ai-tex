@@ -1,5 +1,5 @@
-%\documentclass[preview,convert={density=800,outext=.png}]{standalone}
-\documentclass[preview]{standalone}
+\documentclass[preview,convert={density=800,outext=.png}]{standalone}
+%\documentclass[preview]{standalone}
 
 \usepackage[utf8]{inputenc}				% Кодировка utf8
 
@@ -17,15 +17,15 @@
 		\draw[dashed] (4,-7.5) -- ++(90:8);
 		\draw[dashed] (4,-7.5) -- ++(80:8);
 
-		\node[draw, circle, dotted, very thick, minimum width = 20, text = black] (goal) at (4.7, -1) {$G$};
+		\node[draw, circle, dotted, very thick, minimum width = 10, text = black] (goal) at (4.7, -1) {$G$};
 				
-		\node[draw, gray, fill = gray, circle, very thick, minimum width = 20] (obj_1) at (4, -7.5) {};
+		\node[draw, gray, fill = gray, circle, very thick, minimum width = 10] (obj_1) at (4, -7.5) {};
 		
-		\draw[step=1,gray,dotted, xshift=0.5cm] (-3,-8) grid (12,0.5);
+		\draw[step=0.5,gray,dotted, xshift=0.25cm, yshift=0.25cm] (-3,-8) grid (12.5,0.5);
 		\draw [-latex', blue, thick] (obj_1) to[out=70,in=-90, distance=3cm ] (goal);
 		\draw [-latex', red, thick] (obj_1) to[out=110,in=-120, distance=3cm ] (goal);
 		
-		\node at (3.4, -7.8) {$A_1$};
+		\node at (3.6, -7.8) {$A_1$};
 		\node[red] at (2.5, -5) {$H_2$};
 		\node[red] at (3.5, -2.5) {$L_2$};
 		\node[blue] at (5, -6.2) {$H_1$};
@@ -37,18 +37,18 @@
 		\draw[red, thick] (2.5,-7.5) -- (3.3, -0.5);
 		\draw[red, thick] (5.5,-7.5) -- (6.3, -0.5);
 				
-		\blockp{150}{20}{crosshatch} at (0,0) {};
-		\blockp{150}{20}{crosshatch} at (10,0) {};
+		\blockp{150}{15}{crosshatch} at (0,0) {};
+		\blockp{150}{15}{crosshatch} at (10,0) {};
 		
-		\blockp{20}{40}{crosshatch} at (1.5,-1.5) {};
-		\blockp{20}{40}{crosshatch} at (2.5,-3) {};
+		\blockp{15}{50}{crosshatch} at (1.7,-1.5) {};
+		\blockp{15}{50}{crosshatch} at (2.5,-3.2) {};
 		
-		\blockp{40}{20}{crosshatch} at (4.7,-4.5) {};
-		\blockp{20}{20}{north west lines} at (3.4,-4.5) {};
+		\blockp{40}{15}{crosshatch} at (4.7,-4.5) {};
+		\blockp{20}{15}{north west lines} at (3.4,-4.5) {};
 		
-		\blockp{20}{40}{crosshatch} at (6,-3.1) {};
-		\blockp{20}{30}{crosshatch} at (7,-1) {};
-		\blockp{20}{15}{north west lines} at (6.5,-2) {};
+		\blockp{15}{50}{crosshatch} at (6,-3.3) {};
+		\blockp{15}{30}{crosshatch} at (7,-1) {};
+		\blockp{15}{15}{north west lines} at (6.5,-2) {};
 		
 	\end{tikzpicture}
 \end{document}
