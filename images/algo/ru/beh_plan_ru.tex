@@ -1,0 +1,70 @@
+%\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
+\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[T2A]{fontenc}       			%поддержка кириллицы
+\usepackage[utf8]{inputenc}					% Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc,patterns,decorations.pathreplacing}
+
+\newcommand{\situation}[3]{
+	\node[draw, circle, fill=white, scale=1.5] (sit_#1) at (#2pt,#3pt) {};
+}
+\begin{document}
+	
+	\begin{tikzpicture}
+		\situation{st}{0}{0};
+		\node[align=center] at (1.5,0) {начальная\\ситуация};
+		\situation{end}{200}{0};
+		\node[align=center] at (6,0) {целевая\\ситуация};
+		
+		
+		\situation{1}{160}{-40};
+		\situation{2}{120}{-80};
+		\node (all) at (90pt,-120pt) {$\cdots$};
+		\situation{3}{50}{-150};
+		
+		\draw[->] (sit_end) to[out=-80,in=10] (sit_1);
+		\draw[->] (sit_1) to[out=-80,in=10] (sit_2);
+		\draw[->] (all) to[out=-110,in=10] (sit_3);
+		\draw[->] (sit_2) to[out=130,in=-20] (sit_st);
+		\draw[->] (sit_2) to[out=-80,in=60] (all);
+		
+		\node[align=center] at (8,-0.4) {$M$-шаг};
+		\node[align=center] at (7.6,-0.8) {$A$-шаг};
+		\node[align=center] at (7.2,-1.2) {$P$-шаг};
+		\draw [decorate,decoration={brace,amplitude=3pt,mirror}]
+		(8.8,-1.5) -- (8.8,-0.1) node[align=center,midway,font=\small,xshift=23pt] {$MAP$\\итерация};
+		\node[align=center] at (4.6,-1.2) {новая\\текущее\\состяние};
+		
+		\node[align=center] at (6.5,-1.8) {$M$-шаг};
+		\node[align=center] at (6.2,-2.2) {$A$-шаг};
+		\node[align=center] at (5.8,-2.6) {$P$-шаг};
+		\draw [decorate,decoration={brace,amplitude=3pt,mirror}]
+		(7.4,-2.8) -- (7.4,-1.6) node[align=center,midway,xshift=25pt] {$MAP$\\итерация};		
+		\node[align=center] at (85pt,-75pt) {новое\\текущее\\состояние};
+
+		\node[align=center] at (140pt,-95pt) {$M$-шаг};
+		\node[align=center] at (115pt,-110pt) {$\cdots$};
+
+		\node[align=center] at (100pt,-135pt) {$\cdots$};
+		\node[align=center] at (95pt,-145pt) {$P$-шаг};
+		
+		\node[align=center] at (80pt,-25pt) {$S$-шаг};
+		\node[align=center] at (50pt,-45pt) {$S$-шаг};
+		
+		\node[align=center, text=red] (ppo) at (0pt,-80pt) {операции\\планирование\\траектории};
+		\draw[->] (sit_3) to[out=-180, in = -90] node[font=\small,left]{$S$-шаг} ([xshift=-5pt]ppo.south);
+		\draw[->] (sit_2) to[out=-120, in = -30] node[font=\small,below,xshift=-5pt]{$S$-шаг} (ppo.east);
+		\draw[->] ([xshift=5pt]ppo.south) to[out=-90, in = 90] node[font=\small,right,yshift=10pt,xshift=-14pt] {успех} (sit_3);
+		
+		\draw[->] ([xshift=-5pt]ppo.north) to[out=90,in=-90] node[align=center,left, font=\small]{обнаруженные\\препятствия} (sit_st);
+		
+		\draw[->] (sit_3) to[out=85, in = -50] (sit_st);
+	\end{tikzpicture}
+
+
+\end{document}
