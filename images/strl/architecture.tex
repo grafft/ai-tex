@@ -17,15 +17,15 @@
 \begin{document}
 	
 	\begin{tikzpicture}[>=triangle 60]
-		\tikzstyle{level_rect} = [draw, rectangle, rounded corners=5ex, minimum height = 60mm, minimum width = 150mm,fill=black!3];
-		\tikzstyle{level_model} =[draw, ellipse, minimum width = 80mm, minimum height = 15mm,align = center];
+		\tikzstyle{level_rect} = [draw, rectangle, dashed, rounded corners=5ex, minimum height = 60mm, minimum width = 150mm];
+		\tikzstyle{level_model} =[draw, ellipse, minimum width = 50mm, minimum height = 15mm,align = center];
 		\tikzstyle{control_block} = [draw, rectangle, minimum height = 20mm, minimum width = 25mm, align=center]
 		\tikzstyle{traekt_block} = [draw, rectangle, minimum height = 15mm, minimum width = 25mm, align=center]
 		\tikzstyle{cons_block} = [draw, rectangle, minimum height = 13mm, minimum width = 30mm, align=center]
-		\tikzstyle{misc_block} = [draw, rectangle, minimum height = 10mm, minimum width = 50mm, align=center]
+		\tikzstyle{misc_block} = [draw, rectangle, minimum height = 10mm, minimum width = 30mm, align=center]
 		
-		\node[misc_block] (messages) at (8, 20.5) {Другие участники\\коалиции};
-		\node[misc_block] (task) at (-8, 20.5) {Формирование общей\\коалиционной задачи};
+		\node[misc_block] (messages) at (9.5, 17.5) {Другие\\участники\\коалиции};
+		\node[misc_block] (task) at (-9.5, 17.5) {Формирование\\общей\\коалиционной\\задачи};
 		
 
 		\node[level_rect] (level_1) at (0, 16) {};
@@ -39,8 +39,8 @@
 		\draw[->,rounded corners] ([xshift=3mm]model_1.south) |- ([yshift=5mm]beh_plan.west);
 		\draw[->] ([yshift=-5mm]beh_plan.west) node[align = center, xshift = -25mm, above] {планируемая ситуация}-- ([yshift=-5mm]sit_decr.east);
 		
-		\draw[<->,rounded corners] (messages.south) node[align = center, yshift = -20mm, right] {обмен\\сообщениями\\по протоколу}|- (beh_plan.east);
-		\draw[->,rounded corners] (task.south) node[align = center, yshift = -15mm, left] {задача\\деятельности}|- (model_1.west);
+		\draw[<->,rounded corners] (messages.south) |- node[align = center, xshift = -5mm, below] {обмен\\сообщениями\\по протоколу} (beh_plan.east);
+		\draw[->,rounded corners] (task.east) node[align = center, xshift = 20mm, below] {задача\\деятельности}-- (model_1.west);
 		\draw[->, rounded corners] (replaner.east) node[align = center, xshift = 13mm, below] {обновленный\\список знаков}-| (beh_plan.south);
 		\draw[->, rounded corners] (sit_decr.south) |- node[align = center, xshift = 12mm, below] {текущая\\ситуация} (replaner.west);
 		
@@ -68,7 +68,7 @@
 		\node[control_block] (geom_3) at (-5.7, 0.5) {Расчёт\\геометрических\\ограничений};
 		\node[control_block] (integr_3) at (-0.7, 0.5) {Интегрирование\\уравнений\\модели\\динамики};
 		\node[control_block] (signal_3) at (5.7, 0.5) {Выработка\\управляющего\\сигнала и\\анализ\\ динамики};
-		\node[level_model] (model_3) at (-0.7, -2) {Модель динамики};
+		\node[level_model, minimum height = 10mm] (model_3) at (-0.7, -1.7) {Модель динамики};
 				
 		\draw[->] ([yshift=3mm]geom_3.east) -- node[align = center, auto] {параметры\\движения} ([yshift=3mm]integr_3.west);
 		\draw[<-] ([yshift=-3mm]geom_3.east) -- node[align = center, below] {фазовые\\координаты} ([yshift=-3mm]integr_3.west);
@@ -83,13 +83,13 @@
 		\draw[->,rounded corners] (build_tr.east) -| node[align=center,yshift=-50mm,right] {желаемая\\траектория} ([xshift=10mm]signal_3.north);
 		\draw[->,rounded corners] ([xshift=-7mm]signal_3.north) -- node[align=center, yshift = 2mm, left] {превышен ли\\порог ошибки} ([xshift=10mm]monitor.south);
 	
-		\node[misc_block] (control_meh) at (8, -4.5) {Органы управления};
-		\node[misc_block] (sensors) at (-8, -4.5) {Сенсоры};
+		\node[misc_block] (control_meh) at (9.5, -1.5) {Органы\\управления};
+		\node[misc_block] (sensors) at (-9.5, -1.5) {Сенсоры};
 		
-		\draw[->,rounded corners] (signal_3.east) -| (control_meh.north) node[align=center, yshift = 20mm, right] {управляющий\\сигнал};
-		\draw[->,rounded corners] (sensors.east) node[align = center, xshift = 50mm, above] {фазовые координаты} -| ([xshift=-7mm]signal_3.south);
-		\draw[->,rounded corners] ([xshift=-13mm]sensors.north) node[yshift = 115mm, rotate=90, above] {информация об объектах и действиях} |- ([yshift=3mm]sit_decr.west);
-		\draw[->,rounded corners] ([xshift=-5mm]sensors.north) node[yshift = 75mm, rotate=90, above] {свойства внешней среды} |- (slam.west);
+		\draw[->,rounded corners] (signal_3.east) node[align=center, xshift = 20mm, above] {управляющий\\сигнал} -| (control_meh.north);
+		\draw[->,rounded corners] (sensors.south) |- ($(sensors.south)+(25mm, -7mm)$) node[align = center, xshift = 20mm, above] {фазовые\\координаты} -| ([xshift=-7mm]signal_3.south);
+		\draw[->,rounded corners] ([xshift=-5mm]sensors.north) node[yshift = 115mm, rotate=90, above] {информация об объектах и действиях} |- ([yshift=3mm]sit_decr.west);
+		\draw[->,rounded corners] ([xshift=5mm]sensors.north) node[yshift = 75mm, rotate=90, above] {свойства внешней среды} |- (slam.west);
 	\end{tikzpicture}
 
 \end{document}

@@ -7,7 +7,7 @@
 \usepackage{amsmath} % nice math symbols
      
 \usepackage{tikz}
-\usetikzlibrary{shapes,positioning,calc}
+\usetikzlibrary{shapes,positioning,calc,decorations.pathreplacing}
 
 \newcommand{\opredictors}[4]{
 	\node[z_pred, minimum width = #2pt, minimum height = #2pt] (z_#1) at ($(#3,#4)$) {};
@@ -64,14 +64,14 @@
 		\draw[thin] (-19pt,-5pt) -- (s_m);
 		\draw[thin] (-2.8pt,-8.5pt)  -- (s_m);
 		\draw[thin] (-12.2pt,-8.5pt) -- (s_m);
-		\node[align=center,font=\footnotesize] at (-10pt,-23pt) {матрицы\\предсказания $Z_m$};		
+		\node[align=center,font=\footnotesize] at (-10pt,-23pt) {каузальные\\матрицы $Z_m$};		
 		
 		\opredictors{p}{30}{50pt}{-10pt}		
 		\draw[thin] (55pt,-5pt) -- (s_p);
 		\draw[thin] (45pt,-5pt) -- (s_p);
 		\draw[thin] (61.8pt,-8.5pt)  -- (s_p);
 		\draw[thin] (51.8pt,-8.5pt) -- (s_p);
-		\node[align=center,font=\footnotesize] at (60pt,-23pt) {матрицы\\предсказания $Z_p$};
+		\node[align=center,font=\footnotesize] at (60pt,-23pt) {каузальные\\матрицы $Z_p$};
 		
 
 		\ppredictors{a}{30}{20pt}{-17pt}	
@@ -79,7 +79,7 @@
 		\draw[thin] (15pt,-12pt) -- (s_a);
 		\draw[thin] (31.8pt,-15.5pt)  -- (s_a);
 		\draw[thin] (21.8pt,-15.5pt) -- (s_a);	
-		\node[align=center,font=\footnotesize] at (25pt,-30pt) {матрицы\\предсказания $Z_p$};
+		\node[align=center,font=\footnotesize] at (25pt,-30pt) {каузальные\\матрицы $Z_p$};
 
 		\node[draw, thick, ellipse, fill=white, fill opacity=0.8, minimum width=400, minimum height = 40] at (20pt,2.5pt){};
 		\draw[coord_cine] (0.5,1.0) -- (0.5,0.13);
@@ -128,6 +128,9 @@
 
 		\node[draw, thick, ellipse, fill=white, fill opacity=0.8, minimum width=400, minimum height = 40] at (20pt,-60pt){};
 		\node[align=center] at (20pt,-60pt) {нейронный субстрат};
+		
+		\draw [decorate,decoration={brace,amplitude=10pt}]
+		(70 pt,-5pt) -- (70pt,-50pt) node [black,midway, align=center, xshift=20pt, rotate=90] {означивание};
 	\end{tikzpicture}
 
 

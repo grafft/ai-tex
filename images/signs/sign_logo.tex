@@ -1,0 +1,45 @@
+\documentclass[tikz,convert={density=300,outext=.png}]{standalone}
+%\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage[english, russian]{babel}
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc}
+
+% TikZ styles for drawing
+
+\begin{document}
+	
+	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle,fill=white, scale=1.5];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
+		
+		\filldraw[fill=white] (0.0,0.2) -- (0.5,1.0) -- (1.0,0.2) -- cycle;
+		\filldraw[fill=black!20] (0.0,0.2) -- (0.7,0.0) -- (1.0,0.2) -- cycle;
+
+		\draw[coord_cine] (0.5,1.0) -- (0.5,0.13);
+		\draw[coord_cine] (0.0,0.2) -- (0.5,0.13);
+		\draw[coord_cine] (0.7,0.0) -- (0.5,0.13);
+		\draw[coord_cine] (1.0,0.2) -- (0.5,0.13);
+
+		\filldraw[fill=white,fill opacity=0.8] (0.0,0.2) -- (0.5,1.0) -- (0.7,0.0) -- cycle;
+		\filldraw[fill=white,fill opacity=0.8] (0.7,0.0) -- (0.5,1.0) -- (1.0,0.2) -- cycle;
+				
+		\node[sign_comp] (s_p) at (0.0,0.2) {};
+		\node[sign_comp] (s_m) at (1.0,0.2) {};
+		\node[sign_comp] (s_n) at (0.5,1.0) {};
+		\node[sign_comp] (s_a) at (0.7,0.0) {};
+		
+		\node[below = of s_p] {\Large Л};
+		\node[label,node distance = 0.01, above = of s_m,xshift=4pt] {\Large И};
+		\node[left = of s_n,align=center] {\Large С};
+		\node[left = of s_a,align=center,yshift=-7pt] {\Large И};
+				
+	\end{tikzpicture}
+
+\end{document}

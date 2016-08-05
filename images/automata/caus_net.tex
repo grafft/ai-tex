@@ -1,0 +1,60 @@
+%\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
+\documentclass[tikz,border=3pt]{standalone}
+
+\usepackage[T2A]{fontenc}       			%поддержка кириллицы
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage{amsmath,amsfonts} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,calc}
+
+\begin{document}
+	\newcommand{\predmatr}[3]{
+		\node[ell, rectangle, minimum height = 15, minimum width = 7.5]  at (#1 pt,#2 pt) {}; 
+		\node[ellf, rectangle, minimum height = 15, minimum width = 7.5] at (#1+7.5 pt,#2 pt) {};
+		\node[minimum height = 15, minimum width = 15] (#3) at (#1+3.3pt,#2 pt) {};
+		\draw[ell] (#1+7.5 pt,#2+7.5 pt) -- (#1 +7.5 pt,#2-7.5 pt);
+	}
+
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=black]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=black, fill=black]
+
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-75 pt, -50 pt){};
+		\predmatr{-80}{-50}{a1}
+		\node[align=center] at (-100 pt, -30 pt) {``левый\\глаз''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-20 pt, -50 pt){};
+		\predmatr{-25}{-50}{b1}
+		\node[align=center] at (-45 pt, -30 pt) {``правый\\глаз''};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (c) at (30 pt, -50 pt){};
+		\predmatr{25}{-50}{c1}
+		\node at (7 pt, -35 pt) {``нос''};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (d) at (85 pt, -50 pt){};
+		\predmatr{80}{-50}{d1}			
+		\node[align=center] at (60 pt, -30 pt) {``подбо\\родок''};	
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (x) at (2.5 pt, 40 pt){};
+		\predmatr{0}{40}{x1}
+		\node at (-35 pt, 40 pt) {``лицо''};			
+
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (stack) at (2.5 pt, 100 pt){};
+		\predmatr{0}{100}{stack1}
+		\node at (45 pt, 100 pt) {``тело''};
+	
+		
+		
+		\path[-latex'] (a.north) edge [out = 90, in = -140] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=3]x1.west);
+		\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 1} ([yshift=-3]x1.west);
+		\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 3} node[right, black, near start] {\scriptsize 1} ([xshift=-4]x1.south);
+		\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize 4} node[above, black, near start] {\scriptsize 1} ([xshift=-2]x1.south);		
+
+		
+		\path[-latex'] (x.north) edge [out = 90, in = -100] node[left, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 1} ([xshift=-3]stack1.south);
+		
+	\end{tikzpicture}
+
+\end{document}
