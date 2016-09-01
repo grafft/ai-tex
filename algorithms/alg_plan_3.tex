@@ -24,26 +24,34 @@
 			\State\Return $\varnothing$
 		\EndIf
 		\Statex\Comment{$M$-шаг}
+		\Statex\Comment{Распространение активности вниз по сети личностных смыслов}
+		\State $A^* = \varphi_a^\downarrow(F_{cur})$
 		\State $M=\varnothing$
-		\ForAll{$s=\langle n,m,a,p\rangle\in F_{cur}$}
-			\State $M := M\cup m$
-			\Statex\Comment{Распространение активности по сети значений}
-			\State $M := M\cup\bigcup_{\mu\in m}\varphi_m(\mu)$
+		\ForAll{$\alpha\in A^*$}
+			\Statex\Comment{Распространение активности вверх по сети значений}
+			\ForAll{$\mu\in \varphi_m^\uparrow(\Psi_a^m(\alpha))$}
+				\If{$I^e(\mu) \not= \varnothing$}
+					\State $M := M\cup\{\mu\}$
+				\EndIf
+			\EndFor
 		\EndFor
 		
 		\Statex\Comment{$A$-шаг}
 		\State $A=\varnothing$
 		\ForAll{$\mu\in M$}
-			\State $A := A\cup\Psi_m^a(\mu)$
+			\Statex\Comment{Распространение активности вниз по сети значений}
+			\State $M^*=\varphi_m^\downarrow(\mu)$
+			\State $\hat M = \{\mu|\mu \in M^*,s(\mu)\in\{s(\alpha)|\alpha\in A^*\}\}$
+			\State $A := A\cup\psi_m(\hat M)$
 		\EndFor
 		\Statex\Comment{Распространение активности по сети смыслов}
-		\State $A^*=\{\varphi_a(\alpha)|\alpha\in A\}$
-		\If{$A^* = \varnothing$}
+		\State $\hat A=\{\psi_a(\alpha)|\alpha\in A\}$
+		\If{$\hat A = \varnothing$}
 			\State\Return $\varnothing$
 		\EndIf
 		\Statex\Comment{$P$-шаг}
 		\State $Plans_{fin} := \varnothing$
-		\ForAll{$\alpha\in A^*$}
+		\ForAll{$\alpha\in\hat A$}
 			\State $Plan_{cur} = Plan_{cur}\cup\{\langle F_{cur}, \alpha\rangle\}$
 			\State $F_{next} := \Psi_a^m(F_{cur}, \alpha)$
 			\If{$F_{next} > F_{start}$}
