@@ -15,10 +15,10 @@
 	defernumbers=true,
 	backend=biber,	
 	bibstyle=gost-numeric,
-	sorting=ynt,
+	sorting=ydnt,
 	maxbibnames=15
 ]{biblatex}
-\addbibresource{library.bib}
+\addbibresource{groups/my_publications.bib}
 
 \DeclareSourcemap{
 	\maps[datatype=bibtex, overwrite]{
@@ -72,7 +72,7 @@
 	
 	\begin{refsection}
 		\nocite{*}
-		\printbibliography[title={Публикации, индексируемые в Web of Science}, heading=subbibliography, keyword={wos},check=recent, resetnumbers=true]
+		\printbibliography[title={Публикации, индексируемые в Web of Science (Core Collection)}, heading=subbibliography, keyword={wos},check=recent, resetnumbers=true]
 	\end{refsection}
 	
 	\begin{refsection}
