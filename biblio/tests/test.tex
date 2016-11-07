@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{cmap}                      % Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}			   % Поддержка русских букв
+\usepackage[utf8]{inputenc}            % Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+\usepackage{geometry}
+\usepackage{csquotes}
+
+\geometry{a4paper,top=2cm,bottom=2cm,left=2.5cm,right=1cm}	% Геомтерия страницы
+
+\usepackage[
+	language=auto,
+	autolang=other,
+	defernumbers=true,
+	backend=biber,	
+	bibstyle=gost-numeric,
+	sorting=ydnt,
+	maxbibnames=15
+]{biblatex}
+\addbibresource{test.bib}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{
+			\step[fieldset=langid, fieldvalue=english]
+			\step[fieldset=doi, null]
+			\step[fieldset=issn, null]
+			\step[fieldset=isbn, null]
+			\step[fieldset=url, null]
+			\step[fieldsource=language, fieldset=langid, origfieldval]
+			\step[fieldsource=mendeley-tags, fieldset=keywords, origfieldval]
+		}
+	}
+}
+
+\defbibcheck{recent}{%
+	\iffieldint{year}
+	{\ifnumless{\thefield{year}}{2010}
+		{\skipentry}
+		{}
+	}{\skipentry}
+}
+
+\begin{document}
+	\hyphenpenalty=10000
+	\sloppy
+	\renewcommand{\refname}{}
+	%\renewcommand{\newunitpunct}{.\space}
+	
+	\nocite{*}
+	\printbibliography[title={Примеры}, heading=subbibliography, check=recent]
+
+\end{document} 	

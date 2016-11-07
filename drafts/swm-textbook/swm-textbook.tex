@@ -1,0 +1,69 @@
+% !TeX encoding = windows-1251
+%& -translate-file=cp1251-.tcx
+
+%\documentclass[60x90/16,10pt,plog,near,draft,frame]{fmlbook}
+\documentclass[60x90/16,10pt]{fmlbook}
+
+\usepackage{lscape}
+\usepackage{url}
+
+\usepackage{enumitem}
+
+\newtheorem{Theorem}{Теорема}
+\newtheorem{Def}{Определение}
+\newtheorem{Pred}{Утверждение}
+\newtheorem{Corollary}{Следствие}
+\newenvironment{Proof}%
+{
+	\par\noindent{\bf Доказательство.}
+}%
+{
+	\hfill$\scriptstyle\blacksquare$
+}
+
+\usepackage[ruled]{algorithm}					
+\usepackage[noend]{algpseudocode}
+
+\floatname{algorithm}{Алгоритм}
+\algrenewcommand\algorithmicrequire{\textbf{Вход:}}
+\algrenewcommand\algorithmicensure{\textbf{Выход:}}
+\algrenewcommand\algorithmicforall{\textbf{для всех}}
+\algrenewcommand\algorithmicwhile{\textbf{пока}}
+\algrenewcommand\algorithmicif{\textbf{если}}
+\algrenewcommand\algorithmicthen{\textbf{то}}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewcommand\algorithmicreturn{\textbf{вернуть}}
+\algrenewcommand\algorithmicdo{}
+\renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
+
+\includeonly{
+	pref,
+	intro,
+	chap1,
+	chap2,
+	chap3,
+	chap4_sect1-2,
+	chap4_sect3-4,
+	bibl
+}
+
+\def\footauthors{Кузнецова Ю.\,М., Осипов Г.\,С., Панов А.\,И., Чудова Н.\,В.}
+
+\begin{document}
+	\thispagestyle{empty}\null\newpage
+	\setcounter{page}{3}
+	
+	\tableofcontents
+	
+	\include{pref}
+	\include{intro}
+	\include{chap1}
+	\include{chap2}
+	\include{chap3}
+	\chapter{Модель картины мира}
+	
+	\include{chap4_sect1-2}
+	\include{chap4_sect3-4}
+	\appendix
+	\include{bibl}
+\end{document}

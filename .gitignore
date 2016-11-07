@@ -13,3 +13,7 @@
 *.db
 *.bcf
 *.run.xml
+*.lot
+*.fff
+*.ttt
+*.spl

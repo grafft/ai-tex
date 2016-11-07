@@ -1,5 +1,5 @@
-%\documentclass[tikz,convert={density=300,outext=.png}]{standalone}
-\documentclass[tikz]{standalone}
+\documentclass[tikz,convert={density=600,outext=.png}]{standalone}
+%\documentclass[tikz]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage[english, russian]{babel}
@@ -8,13 +8,14 @@
      
 
 \usepackage{tikz}
-\usetikzlibrary{shapes,positioning,calc}
+\usetikzlibrary{shapes,positioning,calc,backgrounds}
 
 % TikZ styles for drawing
 
 \begin{document}
 	
-	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
+	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05,show background rectangle,
+	background rectangle/.style={fill=white}]
 		\tikzstyle{sign_comp}=[draw, circle, scale=1.5];
 		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
 		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];

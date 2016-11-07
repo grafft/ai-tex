@@ -23,6 +23,10 @@
 		\If{$i \geq i_{max}$}
 			\State\Return $\varnothing$
 		\EndIf
+		
+		\Statex\Comment{$S$-шаг}
+		\Statex\Comment{Поиск прецедентов выполнения действий в текущей ситуации}
+		
 		\Statex\Comment{$M$-шаг}
 		\Statex\Comment{Распространение активности вниз по сети личностных смыслов}
 		\State $A^* = \varphi_a^\downarrow(F_{cur})$

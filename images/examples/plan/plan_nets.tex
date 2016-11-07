@@ -1,5 +1,5 @@
-%\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
-\documentclass[tikz,border=3pt]{standalone}
+\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
+%\documentclass[tikz,border=3pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage{amsmath,amsfonts} % nice math symbols
@@ -24,25 +24,21 @@
 		\predmatr{20}{0}{on3}	
 		\node at (25 pt, 20 pt) {``on''};
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (a) at (-105 pt, -50 pt){};
-		\predmatr{-120}{-50}{a1}
-		\predmatr{-100}{-50}{a2}
-		\node at (-85 pt, -35 pt) {``a''};
-
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (b) at (-35 pt, -50 pt){};
-		\predmatr{-50}{-50}{b1}
-		\predmatr{-30}{-50}{b2}
-		\node at (-15 pt, -35 pt) {``b''};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (a) at (-96 pt, -50 pt){};
+		\predmatr{-100}{-50}{a1}
+		\node at (-80 pt, -35 pt) {``a''};
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (c) at (45 pt, -50 pt){};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (b) at (-36 pt, -50 pt){};
+		\predmatr{-40}{-50}{b1}
+		\node at (-20 pt, -35 pt) {``b''};
+		
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (c) at (34 pt, -50 pt){};
 		\predmatr{30}{-50}{c1}
-		\predmatr{50}{-50}{c2}
-		\node at (65 pt, -35 pt) {``c''};
+		\node at (50 pt, -35 pt) {``c''};
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (d) at (115 pt, -50 pt){};
-		\predmatr{120}{-50}{d1}
-		\predmatr{100}{-50}{d2}
-		\node at (135 pt, -35 pt) {``d''};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (d) at (114 pt, -50 pt){};
+		\predmatr{110}{-50}{d1}
+		\node at (130 pt, -35 pt) {``d''};
 		
 		\node[ell, ellipse, minimum height = 20, minimum width = 40] (goal) at (32.5 pt, 50 pt){};
 		\predmatr{30}{50}{goal1}
@@ -58,16 +54,16 @@
 		
 		
 		\path[-latex', ] ([xshift=5]a.north) edge [bend left, out = 50, in = 130] node[above, black, very near end] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=4]on1.north);
-		\path[-latex', ] ([xshift=-5]a.north) edge [bend left, out = 50, in = 180] node[above, black, xshift=8] {\scriptsize 4} node[above, black, very near start] {\scriptsize 2} ([xshift=-4]goal1.south);
+		\path[-latex', ] ([xshift=-5]a.north) edge [bend left, out = 50, in = 180] node[above, black, xshift=8] {\scriptsize 4} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]goal1.south);
 
-		\path[-latex', ] ([xshift=-5]b.north) edge [bend left, out = 50, in = 180] node[above, black, near end] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]on1.south);
-		\path[-latex', ] ([xshift=5]b.north) edge [bend left, out = 50, in = 210] node[above, black] {\scriptsize -1} node[above, black, very near start] {\scriptsize 2} ([xshift=4]on2.south);
+		\path[-latex', ] ([xshift=-5]b.north) edge [bend left, out = 50, in = 180] node[above, black, near end] {\scriptsize 1} node[left, black, very near start] {\scriptsize 1} ([xshift=-4]on1.south);
+		\path[-latex', ] ([xshift=5]b.north) edge [bend left, out = 50, in = 210] node[above, black] {\scriptsize -1} node[left, black, very near start] {\scriptsize 1} ([xshift=4]on2.south);
 		
 		\path[-latex', ] ([xshift=-7]c.north) edge [bend right, out = -50, in = 100] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]on2.south);
-		\path[-latex', ] ([xshift=7]c.north) edge [bend right, out = -40, in = 180] node[above, black] {\scriptsize -1} node[above, black, very near start] {\scriptsize 2} ([xshift=4]on3.south);
+		\path[-latex', ] ([xshift=7]c.north) edge [bend right, out = -40, in = 180] node[above, black] {\scriptsize -1} node[right, black, near start] {\scriptsize 1} ([xshift=4]on3.south);
 		
 		\path[-latex', ] ([xshift=-7]d.north) edge [bend right, out = -50, in = 140] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]on3.south);
-		\path[-latex', ] ([xshift=7]d.north) edge [bend right, out = -50, in = 150] node[above, black, near end] {\scriptsize 5} node[above, black, very near start] {\scriptsize 2} ([xshift=-2]goal1.south);
+		\path[-latex', ] ([xshift=7]d.north) edge [bend right, out = -50, in = 150] node[above, black, near end] {\scriptsize 5} node[above, black, very near start] {\scriptsize 1} ([xshift=-2]goal1.south);
 		
 		\path[-latex', ] ([xshift=5]on.north) edge [out = 100, in = 180] node[above, black] {\scriptsize 1} node[above, black,very near start, xshift=-2] {\scriptsize 1} ([yshift=-4]goal1.west);
 		\path[-latex', ] ([xshift=-5]on.north) edge [bend right, out = 90, in = 120] node[above, black] {\scriptsize 2} node[above, black, near start] {\scriptsize 2} ([yshift=0]goal1.west);
@@ -153,25 +149,21 @@
 		\tikzstyle{ell}=[draw, thick, align=center, color=green!70!black]
 		\tikzstyle{ellf}=[draw, thick, align=center, color=green!70!black, fill=green!70!black]
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (a) at (-105 pt, -50 pt){};
-		\predmatr{-120}{-50}{a1}
-		\predmatr{-100}{-50}{a2}
-		\node at (-85 pt, -35 pt) {``a''};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (a) at (-96 pt, -50 pt){};
+		\predmatr{-100}{-50}{a1}
+		\node at (-80 pt, -35 pt) {``a''};
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (b) at (-35 pt, -50 pt){};
-		\predmatr{-50}{-50}{b1}
-		\predmatr{-30}{-50}{b2}
-		\node at (-15 pt, -35 pt) {``b''};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (b) at (-36 pt, -50 pt){};
+		\predmatr{-40}{-50}{b1}
+		\node at (-20 pt, -35 pt) {``b''};
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (c) at (45 pt, -50 pt){};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (c) at (34 pt, -50 pt){};
 		\predmatr{30}{-50}{c1}
-		\predmatr{50}{-50}{c2}
-		\node at (65 pt, -35 pt) {``c''};
+		\node at (50 pt, -35 pt) {``c''};
 		
-		\node[ell, ellipse, minimum height = 25, minimum width = 60] (d) at (115 pt, -50 pt){};
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (d) at (124 pt, -50 pt){};
 		\predmatr{120}{-50}{d1}
-		\predmatr{100}{-50}{d2}
-		\node at (135 pt, -35 pt) {``d''};
+		\node at (140 pt, -35 pt) {``d''};
 		
 		\node[ell, ellipse, minimum height = 30, minimum width = 100] (clear) at (-115 pt,90 pt){};
 		\predmatr{-150}{90}{clear1}
@@ -192,26 +184,26 @@
 		\node at (120 pt, 40 pt) {``start''};
 		
 		\path[-latex'] ([xshift=-5]a.north) edge [out = 90, in = -160] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=-4]start1.west);
-		\path[-latex'] ([xshift=5]a.north) edge [out = 90, in = -160] node[above, black, very near end] {\scriptsize 2} node[above, black, very near start] {\scriptsize 2} ([yshift=-6]start1.west);
+		\path[-latex'] ([xshift=5]a.north) edge [out = 90, in = -160] node[below, black, near end] {\scriptsize 2} node[above, black, very near start] {\scriptsize 1} ([yshift=-6]start1.west);
 		
-		\path[-latex'] ([xshift=-5]b.north) edge [out = 90, in = -130] node[above, black, near end] {\scriptsize 3} node[above, black, near start] {\scriptsize 1} ([xshift=-4]start1.south);
-		\path[-latex'] ([xshift=5]b.north) edge [out = 90, in = -130] node[above, black, very near end] {\scriptsize 4} node[above, black, very near start] {\scriptsize 2} ([xshift=-2]start1.south);
+		\path[-latex'] ([xshift=-5]b.north) edge [out = 90, in = -140] node[above, black, near end] {\scriptsize 3} node[above, black, near start] {\scriptsize 1} ([xshift=-4]start1.south);
+		\path[-latex'] ([xshift=5]b.north) edge [out = 90, in = -130] node[below, black, near end] {\scriptsize 4} node[above, black, very near start] {\scriptsize 1} ([xshift=-2]start1.south);
 		
-		\path[-latex'] ([xshift=-5]c.north) edge [out = 90, in = -100] node[above, black, near end] {\scriptsize 5} node[above, black, near start] {\scriptsize 1} ([xshift=-4]start1.south);
-		\path[-latex'] ([xshift=5]c.north) edge [out = 90, in = -100] node[above, black, very near end] {\scriptsize 6} node[above, black, very near start] {\scriptsize 2} ([xshift=-2]start1.south);
+		\path[-latex'] ([xshift=-5]c.north) edge [out = 90, in = -100] node[left, black, near end] {\scriptsize 5} node[above, black, near start] {\scriptsize 1} ([xshift=-4]start1.south);
+		\path[-latex'] ([xshift=5]c.north) edge [out = 90, in = -100] node[right, black, near end] {\scriptsize 6} node[above, black, very near start] {\scriptsize 1} ([xshift=-2]start1.south);
 		
-		\path[-latex'] ([xshift=-5]d.north) edge [out = 90, in = -60] node[above, black, near end] {\scriptsize 7} node[above, black, near start] {\scriptsize 1} ([xshift=-1]start1.south);
-		\path[-latex'] ([xshift=5]d.north) edge [out = 90, in = -60] node[above, black, very near end] {\scriptsize 8} node[above, black, very near start] {\scriptsize 2} ([xshift=0]start1.south);
+		\path[-latex'] ([xshift=-5]d.north) edge [out = 90, in = -60] node[left, black, near end] {\scriptsize 7} node[above, black, near start] {\scriptsize 1} ([xshift=-1]start1.south);
+		\path[-latex'] ([xshift=5]d.north) edge [out = 90, in = -60] node[right, black, very near end] {\scriptsize 8} node[above, black, very near start] {\scriptsize 1} ([xshift=0]start1.south);
 		
-		\path[-latex'] ([xshift=-10]clear.south) edge [out = -70, in = 190] node[right, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 2} ([yshift=-2]start1.west);
-		\path[-latex'] ([xshift=-5]clear.south) edge [out = -70, in = 180] node[above, black, very near end] {\scriptsize 3} node[above, black, very near start] {\scriptsize 3} ([yshift=0]start1.west);
-		\path[-latex'] ([xshift=10]clear.south) edge [out = -60, in = 170] node[above, black, near end] {\scriptsize 5} node[above, black, near start] {\scriptsize 5} ([yshift=4]start1.west);
-		\path[-latex'] ([xshift=5]clear.south) edge [out = -60, in = 180] node[above, black, very near end] {\scriptsize 7} node[above, black, very near start] {\scriptsize 4} ([yshift=2]start1.west);
+		\path[-latex'] ([xshift=-10]clear.south) edge [out = -70, in = 190] node[above, black, very near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=-2]start1.west);
+		\path[-latex'] ([xshift=-5]clear.south) edge [out = -70, in = 180] node[above, black, near end] {\scriptsize 3} node[above, black, very near start] {\scriptsize 2} ([yshift=0]start1.west);
+		\path[-latex'] ([xshift=10]clear.south) edge [out = -50, in = 150] node[above, black, near end] {\scriptsize 5} node[above, black, near start] {\scriptsize 3} ([yshift=4]start1.west);
+		\path[-latex'] ([xshift=5]clear.south) edge [out = -60, in = 170] node[above, black, near end] {\scriptsize 7} node[above, black, very near start] {\scriptsize 4} ([yshift=2]start1.west);
 		
-		\path[-latex'] ([xshift=-15]ontable.south) edge [out = -90, in = 90] node[above, black, very near end] {\scriptsize 2} node[above, black, near start] {\scriptsize 2} ([xshift=-6]start1.north);
-		\path[-latex'] ([xshift=-5]ontable.south) edge [out = -90, in = 80] node[above, black, near end] {\scriptsize 4} node[above, black, near start] {\scriptsize 3} ([xshift=-4]start1.north);
-		\path[-latex'] ([xshift=5]ontable.south) edge [out = -90, in = 70] node[above, black, near end] {\scriptsize 6} node[above, black, near start] {\scriptsize 4} ([xshift=-2]start1.north);
-		\path[-latex'] ([xshift=15]ontable.south) edge [out = -90, in = 60] node[above, black, near end] {\scriptsize 8} node[above, black, near start] {\scriptsize 5} ([xshift=0]start1.north);
+		\path[-latex'] ([xshift=-15]ontable.south) edge [out = -90, in = 90] node[above, black, very near end] {\scriptsize 2} node[above, black, near start] {\scriptsize 1} ([xshift=-6]start1.north);
+		\path[-latex'] ([xshift=-5]ontable.south) edge [out = -90, in = 80] node[above, black, near end] {\scriptsize 4} node[above, black, near start] {\scriptsize 2} ([xshift=-4]start1.north);
+		\path[-latex'] ([xshift=5]ontable.south) edge [out = -90, in = 70] node[above, black, near end] {\scriptsize 6} node[above, black, near start] {\scriptsize 3} ([xshift=-2]start1.north);
+		\path[-latex'] ([xshift=15]ontable.south) edge [out = -90, in = 60] node[above, black, near end] {\scriptsize 8} node[above, black, near start] {\scriptsize 4} ([xshift=0]start1.north);
 	\end{tikzpicture}
 	
 	\begin{tikzpicture}

@@ -1,0 +1,134 @@
+\documentclass[tikz,border=3pt,convert={imagemagick,density=600,outext=.png}]{standalone}
+%\documentclass[tikz,border=3pt]{standalone}
+
+\usepackage[english,russian]{babel}
+\usepackage{fontspec}\usepackage{amsmath} % nice math symbols
+\setmainfont{Arial}
+\usepackage{luatex85}
+%\usepackage[utf8]{inputenc} % utf8 encoding
+%\usepackage[T1]{fontenc} % use T1 fonts
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc,arrows,patterns,backgrounds}
+
+\newcommand{\sign}[3]{
+	\tikzstyle{sign_comp}=[draw, circle];
+	\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+	\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
+	\fontsize{6}{4.5}\selectfont
+	
+	\filldraw[fill=white] ($(0.0,0.2)+(#2,#3)$) -- ($(0.5,1.0)+(#2,#3)$) -- ($(1.0,0.2)+(#2,#3)$) -- cycle;
+	\filldraw[fill=black!20] ($(0.0,0.2)+(#2,#3)$) -- ($(0.7,0.0)+(#2,#3)$) -- ($(1.0,0.2)+(#2,#3)$) -- cycle;
+	
+	\draw[coord_cine] ($(0.5,1.0)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	\draw[coord_cine] ($(0.0,0.2)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	\draw[coord_cine] ($(0.7,0.0)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	\draw[coord_cine] ($(1.0,0.2)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	
+	\filldraw[fill=white,fill opacity=0.8] ($(0.0,0.2)+(#2,#3)$) -- ($(0.5,1.0)+(#2,#3)$) -- ($(0.7,0.0)+(#2,#3)$) -- cycle;
+	\filldraw[fill=white,fill opacity=0.8] ($(0.7,0.0)+(#2,#3)$) -- ($(0.5,1.0)+(#2,#3)$) -- ($(1.0,0.2)+(#2,#3)$) -- cycle;
+	
+	\node[sign_comp, fill=red] (s#1_p) at ($(0.0,0.2)+(#2,#3)$) {};
+	\node[sign_comp, fill=blue] (s#1_m) at ($(1.0,0.2)+(#2,#3)$) {};
+	\node[sign_comp, fill=gray] (s#1_n) at ($(0.5,1.0)+(#2,#3)$) {};
+	\node[sign_comp, fill=green!70!black] (s#1_a) at ($(0.7,0.0)+(#2,#3)$) {};
+	
+	\node[left = of s#1_p] {образ};
+	\node[right = of s#1_m] {значение};
+	\node[above = of s#1_n] {имя};
+	\node[below = of s#1_a, align=center] {личностный\\смысл};
+	
+	\node[label] at ($(s#1_n)!0.5!(s#1_a)$) {\scriptsize $s_#1$};	
+}
+
+\newcommand{\signtr}[3]{
+	\node[draw, circle, scale = 0.5, fill=white] (a#1) at ($(0.5,1.0)+(#2,#3)$) {};				
+	\node[draw, circle, scale = 0.5,fill=white] (p#1) at ($(0.2,0.5)+(#2,#3)$) {};
+	\node[draw, circle, scale = 0.5,fill=white] (m#1) at ($(0.8,0.5)+(#2,#3)$) {};
+	\draw (a#1) -- (m#1);
+	\draw (a#1) -- (p#1);
+	\draw (m#1) -- (p#1);			
+}	
+
+\begin{document}
+	\begin{tikzpicture}[>=triangle 60,show background rectangle,background rectangle/.style={fill=white}]
+		\node[draw, rectangle, minimum height = 10mm, minimum width = 50mm, align=center] (extenv) at (0,2.5) {Внешняя среда};
+
+		\node[draw, rectangle, rounded corners=2ex, minimum height = 70mm, minimum width = 50mm, align=center] (selforg) at (0,7) {};
+		\node[draw, rectangle, rounded corners=2ex, minimum height = 70mm, minimum width = 70mm, align=center] (signwm) at (7,7) {};
+		\node[draw, rectangle, rounded corners=2ex, minimum height = 50mm, minimum width = 30mm, align=center] (funcs) at (-5,7) {};
+		
+		\node[draw, rectangle, rounded corners=2ex, minimum height = 10mm, minimum width = 50mm, align=center] (selfrepr) at (0,11) {Знаковая картина мира};
+		\node[draw, rectangle, rounded corners=2ex, minimum height = 10mm, minimum width = 30mm, align=center] (funname) at (-5,10) {Когнитивные\\функции};
+		
+		\node (percep) at (-5, 5.5) {Восприятие};
+		\node (plan) at (-5, 6.5) {Планирование};
+		\node (goalset) at (-5, 7.5) {Целеполагание};
+		\node (reflect) at (-5, 8.5) {Рефлексия};
+		
+		\draw[<-,>=stealth',shorten >=1pt, thick] (-1.5, 3) -- (-1.5, 3.5);
+		\draw[->,>=stealth',shorten >=1pt, thick] (1.5,3) -- (1.5, 3.5);
+		
+		\draw[->,>=stealth',shorten >=1pt, thick] (-3.5, 5.5) -- (-2.5, 5.5);
+		\draw[->,>=stealth',shorten >=1pt, thick] (-3.5, 6.5) -- (-2.5, 6.5);
+		\draw[->,>=stealth',shorten >=1pt, thick] (-3.5, 7.5) -- (-2.5, 7.5);
+		\draw[->,>=stealth',shorten >=1pt, thick] (-3.5, 8.5) -- (-2.5, 8.5);
+		
+		\begin{scope}[node distance = -0.05]
+			\sign{1}{7.7}{6.8};
+			\sign{2}{4.7}{6.5};
+			\sign{3}{5}{8.5};
+			\sign{4}{4.3}{4};
+			\sign{5}{8.4}{4.9};
+			\sign{6}{7.5}{8.8};
+			\sign{7}{6.5}{4.3};
+		\end{scope}
+		
+		\node[draw, circle, minimum width = 15mm, gray] (precs) at (0.5, 9.3) {};
+		\draw[-, gray] (precs.south) --(3.5, 4);
+		\draw[-, gray] (precs.north) --(3.5, 10);
+				
+		\draw[-latex', thick, red] (s4_n) edge [bend left] (s7_n);
+		\draw[-latex', thick, red] (s7_n) edge [bend left] (s5_n);
+		\draw[-latex', thick, red] (s5_n) edge [bend right, out = -12, in = 170] (s2_n);
+		\draw[-latex', thick, red] (s2_n) edge [bend right] (7.3,8.3);
+		
+		\node[draw, circle, minimum width = 20mm, red] at (8, 9.1) {};
+		
+		\node[red] at (8.1, 10.3) {\small Цель};
+		
+		
+		\begin{scope}[node distance = -0.05]
+			\tikzstyle{sign_comp}=[draw, circle,fill=white];
+			\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+			\tikzstyle{link} = [->,>=stealth',shorten >=1pt,thick];
+			
+			\signtr{1}{1.2}{8.2}
+			\signtr{2}{1.4}{5.1}
+			\signtr{3}{-1.2}{8.3}
+			\signtr{4}{-0.6}{5.9}
+			\signtr{5}{0.8}{6.9}
+			\signtr{6}{-2}{6.8}
+			\signtr{7}{0.1}{4.4}
+			\signtr{8}{-2}{4.3}
+			\signtr{9}{-1}{3.5}
+			\signtr{10}{1}{3.3}
+			\signtr{11}{-2.1}{9}
+			
+			\draw[link,color = red] (p3) edge [bend right] (p6);
+			\draw[link,color = red, dotted] (p3) edge [bend right, in = -90] (p5);				
+			\draw[link,color = red, dotted] (p5) edge [bend right, in = -90] (p2);
+			\draw[link,color = red, dashed] (p6) edge [bend right] (p8);
+			\draw[link,color = red, dashed] (p8) edge [bend right] (p9);
+			
+			\draw[link,color = blue, dashed] (m3) edge [bend right] (m1);
+			\draw[link,color = blue] (m4) edge [bend left, out = 90, in = 70] (m6);
+			\draw[link,color = blue] (m3) edge [bend left, in = 90] (m6);
+			\draw[link,color = blue, dashed] (m2) edge [bend left] (m10);
+			
+			\draw[link,color = green] (a8) edge [bend right] (a7);
+			\draw[link,color = green] (a7) edge [bend right, out = -70] (a4);
+			\draw[link,color = green] (a3) edge [bend right] (a11);
+		\end{scope}
+	\end{tikzpicture}
+\end{document}
