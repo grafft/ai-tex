@@ -3,7 +3,7 @@
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage[english, russian]{babel}
-\usepackage{amsmath,amsfonts} % nice math symbols
+\usepackage{amsmath,amsfonts,amssymb} % nice math symbols
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes}
@@ -71,8 +71,8 @@
 		\draw[latex'-, very thick, dashed] ([xshift=-5]c_2.south) -- ([xshift=10]p_2.south);
 		\draw[-latex',double equal sign distance] ([xshift=10]p.north) to[bend right=-10] node[above]{$\Psi_m^a$} ([xshift=-10]c.north);
 		
-		\node[align=center] at (2.5, -3) {$\forall r\exists r^* | C(r)\cap C(r^*)\not = \emptyset$\\
-			$a=\{r^*|\mathcal{P}(r)\cap\mathcal{P}(r^*)\}\not = \emptyset$};
+		\node[align=center] at (2.5, -3) {$\forall r\exists r^*\ C(r)\cap C(r^*)\not = \varnothing$\\
+			$a=\{r^*|\mathcal{P}(r)\cap\mathcal{P}(r^*)\not = \varnothing\}$};
 	\end{tikzpicture}
 	
 	\begin{tikzpicture}

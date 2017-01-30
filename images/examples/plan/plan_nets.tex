@@ -1,5 +1,5 @@
-\documentclass[tikz,border=3pt,convert={density=1200,outext=.png}]{standalone}
-%\documentclass[tikz,border=3pt]{standalone}
+%\documentclass[tikz,border=3pt,convert={density=1200,outext=.png}]{standalone}
+\documentclass[tikz,border=3pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage{amsmath,amsfonts} % nice math symbols
@@ -349,4 +349,50 @@
 		\path[-latex'] (clear.west) edge [out = 180, in = 0] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([yshift=-3]unstack1.east);
 		\path[-latex'] (holding.west) edge [out = 180, in = 0] node[above, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 1} ([yshift=3]unstack1.east);
 	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=green!70!black]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=green!70!black, fill=green!70!black]	
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (bt) at (2.5 pt, 0 pt){};
+		\predmatr{0}{0}{newact}
+		\node at (30 pt, 20 pt) {``build tower''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (aot) at (-37.5 pt, -50 pt){};
+		\predmatr{-40}{-50}{c1}
+		\node at (-40 pt, -67 pt) {``start'' $\rightarrow$ ``all on table''};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (t) at (42.5 pt, -50 pt){};
+		\predmatr{40}{-50}{d1}			
+		\node at (60 pt, -67 pt) {``goal'' $\rightarrow$ ``tower''};	
+		
+		\path[-latex'] (aot.north) edge [out = 100, in = -140] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-3]newact.south);
+		\path[-latex'] (t.north) edge [out = 100, in = -70] node[above, black] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=3]newact.south);		
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=red]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=red, fill=red]	
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (bt) at (2.5 pt, 0 pt){};
+		\predmatr{0}{0}{newact}
+		\node at (30 pt, 20 pt) {``build tower''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (aot) at (-37.5 pt, -50 pt){};
+		\predmatr{-40}{-50}{c1}
+		\node at (-40 pt, -67 pt) {``pick-up''};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (t) at (42.5 pt, -50 pt){};
+		\predmatr{40}{-50}{d1}			
+		\node at (60 pt, -67 pt) {``stack''};	
+		
+		\path[-latex'] ([xshift=-7]aot.north) edge [out = 100, in = 180] node[above, black] {\scriptsize 1} node[left, black, very near start] {\scriptsize 1} ([yshift=3]newact.west);
+		\path[-latex'] (aot.north) edge [out = 100, in = -140] node[above, black] {\scriptsize 3} node[above, black, very near start] {\scriptsize 1} ([xshift=-3]newact.south);
+		\path[-latex'] ([xshift=7]aot.north) edge [out = 30, in = 0] node[right, black, very near end] {\scriptsize -2} node[right, black, very near start] {\scriptsize 1} ([yshift=-3]newact.east);
+		
+		
+		\path[-latex'] ([xshift=-7]t.north) edge [out = 140, in = 180] node[left, black, very near end] {\scriptsize 2} node[above, black, very near start] {\scriptsize 1} ([yshift=-3]newact.west);
+		\path[-latex'] (t.north) edge [out = 90, in = -70] node[above, black] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=3]newact.south);
+		\path[-latex'] ([xshift=7]t.north) edge [out = 90, in = 0] node[above, black] {\scriptsize -3} node[right, black, very near start] {\scriptsize 1} ([yshift=3]newact.east);		
+	\end{tikzpicture}	
 \end{document}

@@ -1,0 +1,219 @@
+%\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
+\documentclass[tikz,border=3pt]{standalone}
+
+\usepackage[T2A]{fontenc}       			%поддержка кириллицы
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage{amsmath,amsfonts,amssymb} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,calc}
+
+\begin{document}
+	\newcommand{\predmatr}[3]{
+		\node[ell, rectangle, minimum height = 15, minimum width = 7.5]  at (#1 pt,#2 pt) {}; 
+		\node[ellf, rectangle, minimum height = 15, minimum width = 7.5] at (#1+7.5 pt,#2 pt) {};
+		\node[minimum height = 15, minimum width = 15] (#3) at (#1+3.3pt,#2 pt) {};
+		\draw[ell] (#1+7.5 pt,#2+7.5 pt) -- (#1 +7.5 pt,#2-7.5 pt);
+	}
+
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=red]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=red, fill=red]
+
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-75 pt, -50 pt){};
+		\predmatr{-80}{-50}{a1}
+		\node[align=center] at (-100 pt, -30 pt) {``левый\\глаз''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-20 pt, -50 pt){};
+		\predmatr{-25}{-50}{b1}
+		\node[align=center] at (-45 pt, -30 pt) {``правый\\глаз''};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (c) at (30 pt, -50 pt){};
+		\predmatr{25}{-50}{c1}
+		\node at (7 pt, -35 pt) {``нос''};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (d) at (85 pt, -50 pt){};
+		\predmatr{80}{-50}{d1}			
+		\node[align=center] at (60 pt, -35 pt) {``рот''};	
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (x) at (2.5 pt, 40 pt){};
+		\predmatr{0}{40}{x1}
+		\node at (-35 pt, 40 pt) {``лицо''};			
+
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (stack) at (2.5 pt, 100 pt){};
+		\predmatr{0}{100}{stack1}
+		\node at (45 pt, 100 pt) {``тело''};
+	
+		
+		
+		\path[-latex'] (a.north) edge [out = 90, in = -140] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=3]x1.west);
+		\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 1} ([yshift=-3]x1.west);
+		\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 3} node[right, black, near start] {\scriptsize 1} ([xshift=-4]x1.south);
+		\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize 4} node[above, black, near start] {\scriptsize 1} ([xshift=-2]x1.south);		
+
+		
+		\path[-latex'] (x.north) edge [out = 90, in = -100] node[left, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 1} ([xshift=-3]stack1.south);
+		
+	\end{tikzpicture}
+
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=black]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=black, fill=black]
+		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-75 pt, -40 pt){};
+		\predmatr{-80}{-40}{a1}
+		\node[align=center] at (-100 pt, -20 pt) {``квадрат''\\$s_3$};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-20 pt, -40 pt){};
+		\predmatr{-25}{-40}{b1}
+		\node[align=center] at (-30 pt, -60 pt) {``треугольник''\\$s_4$};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (c) at (30 pt, -40 pt){};
+		\predmatr{25}{-40}{c1}
+		\node[align=center] at (40 pt, -60 pt) {``трапеция''\\$s_5$};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (d) at (85 pt, -40 pt){};
+		\predmatr{80}{-40}{d1}			
+		\node[align=center] at (60 pt, -20 pt) {``круг''\\$s_6$};	
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (x) at (2.5 pt, 30 pt){};
+		\predmatr{0}{30}{x1}
+		\node[align=center] at (-60 pt, 30 pt) {``геометрическая\\фигура''\\$s_2,S_p=\varnothing$};			
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (stack) at (2.5 pt, 80 pt){};
+		\predmatr{0}{80}{stack1}
+		\node[align=center] at (50 pt, 80 pt) {``объект''\\$s_1,S_p=\varnothing$};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (drawn1) at (2.5 pt, 120 pt){};
+		\predmatr{0}{120}{drawn1}
+		\node[align=center] at (50 pt, 120 pt) {``рисовать''\\$s_7,I^e\not = \varnothing$};
+		
+
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (instr) at (-57 pt, 85 pt){};
+		\predmatr{-60}{85}{instr1}
+		\node[align=center] at (-60 pt, 65 pt) {``инструмент''\\$s_8,S_p=\varnothing$};				
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (subj) at (-77 pt, 125 pt){};
+		\predmatr{-80}{125}{subj1}
+		\node[align=center] at (-100 pt, 100 pt) {``субъект''\\$s_9,S_p=\varnothing$};
+				
+		\path[-latex'] (a.north) edge [out = 90, in = -140] node[above, black, near end] {\scriptsize 1} node[right, black, very near start] {\scriptsize 0} ([yshift=3]x1.west);
+		\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, very near start] {\scriptsize 0} ([yshift=-3]x1.west);
+		\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 3} node[right, black, very near start] {\scriptsize 0} ([xshift=-4]x1.south);
+		\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize 4} node[right, black, very near start] {\scriptsize 0} ([xshift=-2]x1.south);		
+		
+		
+		\path[-latex'] (x.north) edge [out = 90, in = -100] node[left, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([xshift=-3]stack1.south);
+	
+		\path[-latex'] (stack.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 0} ([xshift=-2]drawn1.south);	
+		\path[-latex'] (instr.north) edge [out = 90, in = -100] node[below, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 0} ([xshift=2]drawn1.south);
+		\path[-latex'] (subj.east) edge [out = 0, in = -210] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([yshift=2]drawn1.west);
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=blue]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=blue, fill=blue]
+		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-75 pt, 0 pt){};
+		\predmatr{-80}{0}{a1}
+		\node[align=center] at (-80 pt, -23 pt) {``Иван''\\$s_1$};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-20 pt, -50 pt){};
+		\predmatr{-25}{-50}{b1}
+		\node[align=center] at (-65 pt, -50 pt) {``трапеция''\\$s_2$};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (c) at (30 pt, -50 pt){};
+		\predmatr{25}{-50}{c1}
+		\node[align=center] at (30 pt, -70 pt) {``карандаш''\\$s_3$};		
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (d) at (85 pt, -10 pt){};
+		\predmatr{80}{-10}{d1}			
+		\node[align=center] at (80 pt, -30 pt) {``бумага''\\$s_4$};	
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (x) at (2.5 pt, 40 pt){};
+		\predmatr{0}{40}{x1}
+		\node[align=center] at (53 pt, 40 pt) {``рисовать''\\$s_5,I^e\not = \varnothing$};			
+		
+		
+		
+		\path[-latex'] (a.north) edge [out = 90, in = -140] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=3]x1.west);
+		\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 1} ([yshift=-3]x1.west);
+		\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 1} ([xshift=2]x1.south);
+		\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([xshift=4]x1.south);		
+		
+	\end{tikzpicture}	
+	
+	\begin{tikzpicture}
+	\tikzstyle{ell}=[draw, thick, align=center, color=black]
+	\tikzstyle{ellf}=[draw, thick, align=center, color=black, fill=black]
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (x) at (2.5 pt, 40 pt){};
+	\predmatr{0}{40}{x1}
+	\node[align=center] at (53 pt, 40 pt) {``рисовать''\\$s_5,I^e\not = \varnothing$};	
+	
+	
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-75 pt, 0 pt){};
+	\predmatr{-80}{0}{a1}
+	\node[align=center] at (-80 pt, -23 pt) {``субъект''\\$s_1$};
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 70] (human) at (-97.5 pt, 50 pt){};
+	\predmatr{-90}{50}{human1}
+	\predmatr{-110}{50}{human2}
+	\node[align=center] at (-45 pt, 50 pt) {``человек''\\$s_6$};
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (ivan) at (-155 pt, 30 pt){};
+	\predmatr{-160}{30}{ivan1}
+	\node[align=center] at (-160 pt, 7 pt) {``Иван''\\$s_7$};
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (vasily) at (-155 pt, -30 pt){};
+	\predmatr{-160}{-30}{vasily1}
+	\node[align=center] at (-160 pt, -53 pt) {``Василий''\\$s_8$};		
+
+	\path[-latex'] (a.north) edge [out = 60, in = -140] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([yshift=3]x1.west);		
+	\path[-latex',dashed] (human.south) edge [out = -90, in = 140] node[right, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([xshift=-3]a1.north);
+	\path[-latex',dashed] (ivan.east) edge [out = 0, in = -140] node[below, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]human2.south);
+	\path[-latex',dashed] (vasily.east) edge [out = 0, in = -120] node[left, black, near end] {\scriptsize 1} node[left, black, near start] {\scriptsize 0} ([xshift=-3]human1.south);
+	
+	
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-20 pt, -50 pt){};
+	\predmatr{-25}{-50}{b1}
+	\node[align=center] at (-55pt, -50 pt) {``объект''\\$s_2$};		
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (tree) at (-40 pt, -90 pt){};
+	\predmatr{-45}{-90}{tree1}
+	\node[align=center] at (-75 pt, -90 pt) {``дерево''\\$s_9$};
+	
+	\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 0} ([yshift=-3]x1.west);
+	\path[-latex',dashed] (tree.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([yshift=-3]b1.west);
+	
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (c) at (30 pt, -50 pt){};
+	\predmatr{25}{-50}{c1}
+	\node[align=center] at (85 pt, -55 pt) {``инструмент''\\$s_3$};		
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (brush) at (45 pt, -90 pt){};
+	\predmatr{40}{-90}{brush1}
+	\node[align=center] at (83 pt, -90 pt) {``кисть''\\$s_{10}$};
+	
+	\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 0} ([xshift=2]x1.south);
+	\path[-latex',dashed] (brush.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([xshift=-3]c1.south);
+	
+	
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (d) at (85 pt, -10 pt){};
+	\predmatr{80}{-10}{d1}			
+	\node[align=center] at (80 pt, -30 pt) {``место''\\$s_4$};	
+	
+	\node[ell, ellipse, minimum height = 20, minimum width = 40] (canvas) at (105 pt, 40 pt){};
+	\predmatr{100}{40}{canvas1}			
+	\node[align=center] at (130 pt, 18 pt) {``холст''\\$s_{11}$};	
+	
+	\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([xshift=4]x1.south);	
+	\path[-latex',dashed] (canvas.south) edge [out = -90, in = 50] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]d1.north);	
+	
+	\end{tikzpicture}	
+\end{document}
