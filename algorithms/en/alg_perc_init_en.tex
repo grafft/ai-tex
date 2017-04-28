@@ -1,0 +1,29 @@
+		\Require $\tau_s, \hat x^{j+1}(\tau_s)$, $\omega^j$ - input function.
+		\Ensure $\varphi^j$ - expectation function, $\vec\eta^j$ - output function.
+
+		\State $F^*=\varnothing,Z^*=\varnothing,t=0$; 
+		\State $c_1\in(0,1), c_2\in(0,1)$;
+
+		\Statex \Comment{initialize the state}
+				
+		\ForAll{components $\hat x_k^{j+1}$ of the vector $\hat x^{j+1}(\tau_s)=(\hat x_1^{j+1},\hat x_2^{j+1},\dots,\hat x_l^{j+1})$} \label{alst:init_start}
+			\If{$\hat x_k^{j+1}{\ge}c_1$} \label{alst:select_f}
+				\State $F^*=F^*\cup\{s_k\}$;
+			\EndIf
+		\EndFor
+		
+		\State $\bar x(0):=\omega^j(\tau_s)$;
+		
+		\ForAll{signs $s_k\in F^*$}
+			\ForAll{causal matrices $z\in Z^p(s_k)$}
+				\If{$\frac{\|e_1-\bar x^j(0)\|}{\|e_1\|+\|x^j(0)\|}<c_2$} \label{alst:select_z}
+					\State $Z^*:=Z^*\cup\{z\}$;
+				\EndIf
+			\EndFor
+		\EndFor
+		
+		\State $Z^*$ - initial node state; \label{alst:init_state}
+		\State $\bar N=(|\{z|z\in Z^*,z\in Z^p(s_1)\}|,\dots,|\{z|z\in Z^*,z\in Z^p(s_l)\}|)$; \label{alst:init_calc_out2}
+		\State $\eta(0):=\tilde x^j=W(\bar N)$; \label{alst:init_calc_out3}
+		\State $\varphi^j(0):=\hat x^j=W(\sum_{s_k\in F^*}\hat x_k^{j+1}\sum_{z\in Z^*}e_2(z))$;\label{alst:init_control}
+		\label{alst:init_end}

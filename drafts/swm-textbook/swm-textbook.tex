@@ -6,6 +6,7 @@
 
 \usepackage{lscape}
 \usepackage{url}
+\usepackage{cmap}
 
 \usepackage{enumitem}
 
@@ -36,8 +37,10 @@
 \algrenewcommand\algorithmicdo{}
 \renewcommand{\algorithmiccomment}[1]{{\quad\sl // #1}}
 
+\newcommand*{\No}{\textnumero}
+
 \includeonly{
-	pref,
+	%pref,
 	intro,
 	chap1,
 	chap2,
@@ -47,20 +50,32 @@
 	bibl
 }
 
-\def\footauthors{Кузнецова Ю.\,М., Осипов Г.\,С., Панов А.\,И., Чудова Н.\,В.}
+\def\footauthors{Осипов Г.\,С., Панов А.\,И., Чудова Н.\,В., Кузнецова Ю.\,М.}
 
 \begin{document}
-	\thispagestyle{empty}\null\newpage
+	\thispagestyle{empty}
+	
+	\begin{center}
+		{\Large Осипов Г.\,С., Панов А.\,И., Чудова Н.\,В., Кузнецова Ю.\,М.\\}
+	\end{center}
+	\vspace{20pt}
+	\begin{center}
+		{\huge Знаковая картина мира субъекта поведения.}
+	\end{center}
+	
+		
+
+	\newpage
 	\setcounter{page}{3}
 	
 	\tableofcontents
 	
-	\include{pref}
+%	\include{pref}
 	\include{intro}
 	\include{chap1}
 	\include{chap2}
 	\include{chap3}
-	\chapter{Модель картины мира}
+	\chapter{Моделирование картины мира}
 	
 	\include{chap4_sect1-2}
 	\include{chap4_sect3-4}
