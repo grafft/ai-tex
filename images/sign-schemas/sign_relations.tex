@@ -177,4 +177,64 @@
 		\draw[-latex',double equal sign distance] (el_1.north) to[bend right=-10] ([xshift=-10]el_3.south);
 		\draw[-latex',double equal sign distance] (el_2.north) to[bend left=-10] ([xshift=10]el_3.south);
 	\end{tikzpicture}	
+	
+	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle, scale=1.5];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
+		
+		\sign{1}{0}{0}
+		\sign{2}{0}{2}
+		\sign{3}{2}{1}
+				
+		\path[-latex',thick, color = red] (s2_p) edge[bend right, out = -40, in = 110] node[above]{$R_{in}^p$} (s3_p);
+		\path[-latex',thick, color = red] (s1_p) edge[bend left, out = 0, in = -150] node[above]{$R_{in}^p$} (s3_p);
+		\path[-latex',thick, color = red] (s1_p) edge node[right]{$R_{sim}^p$} (s2_p);
+		\draw[-latex',double equal sign distance] (0.8,1.2) to node[above]{$\Theta^p$} (1.5, 1.2);
+	\end{tikzpicture}
+
+	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle, scale=1.5];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
+		
+		\sign{1}{0}{1.5}
+		
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_1) at (2.3,1.4){$i_1,i_2,\dots, i_3,\dots, i_4$};
+		\node at (1.5, 1.4){$I_1$};
+	
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_2) at (2.3,2.3){$j_1,j_2,\dots, j_3,\dots, j_4$};
+		\node at (1.4, 2.3){$I_2$};
+		
+		\path[-latex',thick, color = blue] (s1_m) edge[bend left, out = -20, in = 130] node[above]{$\mu_1(I_1, i_3)$} ([yshift=-4,xshift=1]el_1.north);
+		\path[-latex',thick, color = blue] (s1_m) edge [bend left, out = 40, in = 210] node[below]{$\mu_2(I_2, j_2)$} ([yshift=3,xshift=-9]el_2.south);
+	\end{tikzpicture}
+
+	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle, scale=1.5];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
+		
+		\sign{2}{0}{0}
+		\sign{1}{2}{2.5}
+		\sign{3}{4}{0}
+				
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_2) at (3.5,1.8){$j_1, j_2, j_3, j_4$};
+		\node at (3.2,1.55) {$I_2$};
+		\node[draw, thick, ellipse, minimum width=120, minimum height=30] (el_1) at (1.5,1.8){$i_1, i_2, i_3$};
+		\node at (1.9,1.55) {$I_1$};
+		
+		\path[-latex',thick, dotted, color = blue] (s2_m) edge [bend left, out = -40, in = -160] node[left]{$\mu_1(\tau_1, I_1, i_2)$} ([xshift=0,yshift=3]el_1.south);
+		\path[-latex',thick, dotted, color = blue] (s3_m) edge [bend left, out = 50, in = 120] node[left]{$\mu_4(\tau_2, I_2, j_4)$} ([xshift=5,yshift=3]el_2.south);
+		
+		\draw[-latex',thick, color = blue](s1_m) to[out = 140, in = 20,looseness=10]  node[above]{$R_{sc}^m$} (s1_m);
+		
+		\path[-latex',thick, color = blue](s2_m) edge [bend left, out = -40, in = -160] node[left]{$R_{sit}^m$} (s1_m);
+		\path[-latex',thick, color = blue](s3_m) edge [bend left, out = -40, in = -140] node[right]{$R_{sit}^m$} (s1_m);
+		
+		\path[-latex',thick, dotted, color = blue] (s1_m) edge [bend left, out = -20, in = 230] node[left]{$\mu_2(\tau_1, I_1, i_3)$} ([xshift=4,yshift=-3]el_1.north);		
+		\path[-latex',thick, dotted, color = blue] (s1_m) edge [bend left, out = -10, in = 150] node[right]{$\mu_3(\tau_2, I_2, j_2)$} ([xshift=2,yshift=-3]el_2.north);		
+				
+	\end{tikzpicture}
+
 \end{document}
