@@ -1,4 +1,5 @@
 \documentclass[tikz,convert={density=600,outext=.png}]{standalone}
+%\documentclass[tikz]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage[english, russian]{babel}
@@ -25,7 +26,7 @@
 		\draw (repres) -- (sign);
 		\draw (repres) -- (denot);
 		
-		\node[align=center,below = of sign] {Имя\\Знак};
+		\node[align=center,below = of sign] {Имя\\знака};
 		\node[label,node distance = 0.01, above = of repres] {Представление};
 		\node[left = of conc,align=center] {Понятие};
 		\node[left = of conc,xshift=-15mm,yshift=-7mm,align=center] {Ментальный\\мир};		
