@@ -29,6 +29,7 @@
 		\draw[ell] (#1 pt, #2 pt) -- ++(0 pt, 7 pt);
 		\draw[ell] (#1 pt, #2 + 7 pt) -- ++(10 pt, 0 pt);
 	}
+
 	\begin{tikzpicture}
 		\tikzstyle{ell}=[draw, thick, align=center]
 		
@@ -66,5 +67,19 @@
 		\draw[ell] (-20 pt, -7.5 pt) -- (30 pt, -7.5 pt);
 		
 		\handp{10}{70}
+	\end{tikzpicture}	
+	
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center]
+		
+		\block{0}{0}{a}
+		\block{0}{15}{b}
+		\block{0}{30}{c}
+		\block{0}{45}{d}
+		\block{0}{60}{e}
+		\fill[pattern=north east lines, pattern color=gray] (-20 pt,-7.5 pt) rectangle (30 pt, -10 pt);
+		\draw[ell] (-20 pt, -7.5 pt) -- (30 pt, -7.5 pt);
+		
+		\hand{20}{70}
 	\end{tikzpicture}	
 \end{document}	

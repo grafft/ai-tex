@@ -1,6 +1,8 @@
-\documentclass[preview,border=10pt]{standalone}
+\documentclass[preview,convert={density=800,outext=.png},border=5pt]{standalone}
+%\documentclass[preview,border=10pt]{standalone}
 
 \usepackage[utf8]{inputenc}				% Кодировка utf8
+\usepackage[T2A]{fontenc}
 \usepackage[english, russian]{babel}	% Языки: русский, английский
 \usepackage{amssymb,amsmath}
 
@@ -12,20 +14,48 @@
 \renewcommand{\algorithmiccomment}[1]{{\quad\footnotesize // #1}}
 
 \begin{document}
-	\begin{center}
-		\includegraphics[width=\textwidth]{../images/algo/ru/beh_plan2_ru}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[width=\textwidth]{../images/algo/ru/gmap_ru}
+%	\end{center}
+%	
+%	Алгоритм процесса планирования поведения в знаковой картине мира.
+%	
+%	\textbf{Алгоритм MAP-planner}
+%	\vspace*{2pt}
+%	\hrule
+%	\vspace*{1pt}
+%	\hrule
+
+	$\Psi_m^p=\Psi_a^p\Psi_m^a$
 	
-	Алгоритм процесса планирования поведения в знаковой картине мира.
+	$z_a = \Psi_m^a(z_m)$
 	
-	\textbf{Алгоритм MAP-planner}
-	\vspace*{2pt}
-	\hrule
-	\vspace*{1pt}
-	\hrule
+	$P=\bigcup_j\mathcal{P}_a(r_j^*)$
 		
-	\begin{algorithmic}[1]
-		\include{alg_plan_2}
-	\end{algorithmic}
+	$\mathfrak A(n)=\Psi_m^a(\mathfrak M(n))$
+	
+	$\Psi_m^a\Psi_p^m(\mathfrak P(n))=\mathfrak A(n)$
+	
+	$m=\{r|\mathcal{P}_c(r)\subseteq\mathcal{P}(p_i)\}$
+	
+	$\hat A_{gen} := \hat A_{gen}\cup\{\Psi_m^a(z_m^*)\}$
+	
+	$p^{(i)}={(\Psi_p^m)}^{-1}(m)=\Psi_m^p(m)$
+	
+	$a=\{r^*|\mathcal{P}_c(r)\cap\mathcal{P}_c(r^*)\not = \varnothing\}$
+	
+	$\forall r^*\exists r\ Con(r)\cap Con(r^*)\not = \varnothing$
+
+	$R_i^j=<X_i^j\times \hat{X}_i^{j+1},$ $2^{\mathcal Z_i^j}, X_i^{*j}\times\hat{X}_i^j,\varphi_i^j,\overrightarrow\eta_i^j>$
+
+	$z_{cur}$ := $(e_i|e_i\in z_a\land e_i\not\in\{e_j|e_j\in z_a, j\in I^e(z_a)\})$
+	
+%	\begin{algorithmic}[1]
+%		\include{plan/gmap_algo_intro}
+%		\include{plan/map_algo_s}
+%		\include{plan/map_algo_m}
+%		\include{plan/map_algo_a}
+%		\include{plan/gmap_algo_p}
+%	\end{algorithmic}
 
 \end{document}

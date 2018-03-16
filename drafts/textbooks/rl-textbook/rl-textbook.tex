@@ -1,0 +1,125 @@
+\documentclass[11pt]{memoir}
+
+\usepackage{geometry} 					% поля страницы
+
+\usepackage{cmap}                       % Поддержка поиска русских слов в PDF (pdflatex)
+\usepackage[T2A]{fontenc}				% Поддержка русских букв
+\usepackage[utf8]{inputenc}            	% Выбор языка и кодировки
+\usepackage[english, russian]{babel}	% Языки: русский, английский
+
+\usepackage[unicode]{hyperref}			% Русский язык для оглавления pdf
+\usepackage{bookmark}					% Оглавление в pdf
+\usepackage{graphicx} 					% Подключаем пакет работы с графикой
+\usepackage{memhfixc}
+
+\usepackage{amsmath,amssymb}
+
+\graphicspath{{../../../images/}} 			% Пути к изображениям
+
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}	% Геомтерия страницы
+
+\usepackage[
+	%	autolang=hyphen,
+	language=auto,
+	autolang=other,
+	backend=biber,
+	style=gost-numeric
+]{biblatex}
+\addbibresource{rl.bib}
+
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{
+			\step[fieldset=langid, fieldvalue=english]
+			\step[fieldset=doi, null]
+			\step[fieldset=issn, null]
+			\step[fieldset=isbn, null]
+			\step[fieldset=url, null]
+			\step[fieldsource=language, fieldset=langid, origfieldval]
+		}
+	}
+}
+
+\let\cleardoublepage\clearpage
+
+\begin{document}
+	\pagestyle{empty}
+		\begin{center}
+			{\bfseries  Федеральное государственное автономное \\
+				образовательное учреждение высшего образования\\
+				<<Высшая школа экономики>>
+				
+			}
+
+			\vspace{-5pt}
+			\noindent\rule{\textwidth}{2pt}
+			
+			\vspace{50pt}
+			{\Large\bfseries А.\,И.~Панов}
+			
+			\vspace{100pt}
+			{\Huge\bfseries Методы и алгоритмы машинного обучения с подкреплением}
+			
+			\vspace{20pt}
+			{\Large\itshape Учебно-методическое пособие}
+			
+			\vfill
+			{\bfseries Москва\\
+				Высшая школа экономики\\
+				2018
+			}
+		\end{center}
+
+	
+	\frontmatter
+	
+	В пособии рассмотрены основные 
+	
+	\clearpage
+	\tableofcontents %% содержание
+		
+	\mainmatter
+	
+	\chapter*{Введение}
+	\addcontentsline{toc}{chapter}{Введение}
+	Агент, среда, подкреплением, марковский процесс.
+
+	\chapter{Табличные методы}
+	\section{Марковский процесс принятия решений}
+	
+	\section{Динамическое программирование}
+
+	\section{Методы Монте-Карло}
+	
+	\section{Q-обучение}
+	
+	\chapter{Приближенные методы}
+	\section{Предсказание с изменением стратегии}
+	
+	\section{Предсказание без изменения стратегии}
+	
+	\section{Нейронные сети как аппроксиматоры}
+	
+	\chapter{Иерархическое обучение с подкреплением}
+	\section{Иерархия действий: Options}
+	
+	\section{Иерархия автоматов: HAM}
+	
+	\section{Оптимизация функции оценки: MaxQ}
+	
+	\section{Автоматическое формирование иерархий}
+	
+	\chapter{Обучение с подкреплением и другие науки}
+
+	\section{Робототехника}
+		
+	\section{Психология}
+	
+	\section{Нейрофизиология}
+	
+
+	\chapter*{Заключение}
+	\addcontentsline{toc}{chapter}{Заключение}
+	Немного о целях
+	\printbibliography
+\end{document}

@@ -2,15 +2,15 @@
 \State $\hat A_{gen}=\varnothing$
 \ForAll{$z_m\in M^*$}
 	\Statex\Comment{Распространение активности вниз по сети значений}
-	\State $M^*=\varphi_m^\downarrow(z_m, d_m)$\label{alst:a_spread_m}
-	\ForAll{$z_m^*\in M^*$}
+	\State $\hat M^*=\varphi_m^\downarrow(z_m, d_m)$\label{alst:a_spread_m}
+	\ForAll{$z_m^*\in \hat M^*$}
 		\State $\hat A_{gen} := \hat A_{gen}\cup\{\Psi_m^a(z_m^*)\}$ \label{alst:a_gen_a}
 	\EndFor
 \EndFor
 \Statex\Comment{Совмещение активности образованных смыслов и текущей ситуации}
 \State $\hat A = \hat A_{gen}\cup \hat A_{case}$
 \ForAll{$z_a\in \hat A$}
-	\State $z_{shift}=(e_i|i\in I^e)$ \label{alst:a_shift}
+	\State $z_{shift}=(e_i|i\in I^e(z_a))$ \label{alst:a_shift}
 	\If{$z_{cur} \not\geq z_{shift}$}
 		\State $\hat A = \hat A\setminus\{z_a\}$ \label{alst:a_filter}
 	\EndIf

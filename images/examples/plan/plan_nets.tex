@@ -1,5 +1,5 @@
-%\documentclass[tikz,border=3pt,convert={density=1200,outext=.png}]{standalone}
-\documentclass[tikz,border=3pt]{standalone}
+\documentclass[tikz,border=3pt,convert={density=1200,outext=.png}]{standalone}
+%\documentclass[tikz,border=3pt]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
 \usepackage{amsmath,amsfonts} % nice math symbols
@@ -394,5 +394,72 @@
 		\path[-latex'] ([xshift=-7]t.north) edge [out = 140, in = 180] node[left, black, very near end] {\scriptsize 2} node[above, black, very near start] {\scriptsize 1} ([yshift=-3]newact.west);
 		\path[-latex'] (t.north) edge [out = 90, in = -70] node[above, black] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=3]newact.south);
 		\path[-latex'] ([xshift=7]t.north) edge [out = 90, in = 0] node[above, black] {\scriptsize -3} node[right, black, very near start] {\scriptsize 1} ([yshift=3]newact.east);		
+	\end{tikzpicture}
+	
+	\begin{tikzpicture}
+		\tikzstyle{ell}=[draw, thick, align=center, color=green!70!black]
+		\tikzstyle{ellf}=[draw, thick, align=center, color=green!70!black, fill=green!70!black]
+		
+		\node[ell, ellipse, minimum height = 30, minimum width = 100] (on) at (14pt,0){};
+		\predmatr{-20}{0}{on1}
+		\predmatr{0}{0}{on2}
+		\predmatr{20}{0}{on3}
+		\predmatr{40}{0}{on4}	
+		\node at (30 pt, 20 pt) {``on''};
+		
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (a) at (-96 pt, -50 pt){};
+		\predmatr{-100}{-50}{a1}
+		\node at (-80 pt, -35 pt) {``a''};
+		
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (b) at (-36 pt, -50 pt){};
+		\predmatr{-40}{-50}{b1}
+		\node at (-20 pt, -35 pt) {``b''};
+		
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (c) at (34 pt, -50 pt){};
+		\predmatr{30}{-50}{c1}
+		\node at (50 pt, -35 pt) {``c''};
+		
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (d) at (94 pt, -50 pt){};
+		\predmatr{90}{-50}{d1}
+		\node at (110 pt, -35 pt) {``d''};
+		
+		\node[ell, ellipse, minimum height = 25, minimum width = 40] (e) at (154 pt, -50 pt){};
+		\predmatr{150}{-50}{e1}
+		\node at (170 pt, -35 pt) {``e''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (goal) at (32.5 pt, 50 pt){};
+		\predmatr{30}{50}{goal1}
+		\node at (60 pt, 40 pt) {``goal''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (clear) at (92.5 pt, 70 pt){};
+		\predmatr{90}{70}{clear1}
+		\node at (110 pt, 55 pt) {``clear''};
+		
+		\node[ell, ellipse, minimum height = 20, minimum width = 40] (ontable) at (-67.5 pt, 60 pt){};
+		\predmatr{-70}{60}{ontable1}
+		\node at (-115 pt, 60 pt) {``ontable''};
+		
+		
+		\path[-latex', ] ([xshift=5]a.north) edge [bend left, out = 50, in = 130] node[above, black, very near end] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=4]on1.north);
+		\path[-latex', ] ([xshift=-5]a.north) edge [bend left, out = 50, in = 180] node[above, black, xshift=8] {\scriptsize 4} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]goal1.south);
+		
+		\path[-latex', ] ([xshift=-5]b.north) edge [bend left, out = 50, in = 180] node[above, black, near end] {\scriptsize 1} node[left, black, very near start] {\scriptsize 1} ([xshift=-4]on1.south);
+		\path[-latex', ] ([xshift=5]b.north) edge [bend left, out = 50, in = 210] node[above, black] {\scriptsize -1} node[left, black, very near start] {\scriptsize 1} ([xshift=4]on2.south);
+		
+		\path[-latex', ] ([xshift=-7]c.north) edge [bend right, out = -50, in = 100] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]on2.south);
+		\path[-latex', ] ([xshift=7]c.north) edge [bend right, out = -40, in = 180] node[above, black] {\scriptsize -1} node[right, black, near start] {\scriptsize 1} ([xshift=4]on3.south);
+		
+		\path[-latex', ] ([xshift=-7]d.north) edge [bend right, out = -50, in = 140] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]on3.south);
+		\path[-latex', ] ([xshift=7]d.north) edge [bend right, out = -50, in = 150] node[above, black, near end] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=4]on4.south);
+		
+		\path[-latex', ] ([xshift=-7]e.north) edge [bend right, out = -50, in = 150] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-4]on4.south);
+		\path[-latex', ] ([xshift=7]e.north) edge [bend right, out = -50, in = 150] node[above, black, near end] {\scriptsize 6} node[above, black, very near start] {\scriptsize 1} ([xshift=-2]goal1.south);
+		
+		\path[-latex', ] ([xshift=5]on.north) edge [out = 100, in = 180] node[left, near end, black, xshift=1] {\scriptsize 1} node[left, black,very near start, xshift=1] {\scriptsize 1} ([yshift=-4]goal1.west);
+		\path[-latex', ] ([xshift=-5]on.north) edge [bend right, out = 90, in = 120] node[above, black] {\scriptsize 2} node[above, black, near start] {\scriptsize 2} ([yshift=0]goal1.west);
+		\path[-latex', ] ([xshift=-15]on.north) edge [bend right, out = 90, in = 120] node[above, black] {\scriptsize 3} node[above, black, near start] {\scriptsize 3} ([yshift=4]goal1.west);	
+		
+		\path[-latex', ] (clear.west) edge [out = 180, in = 90] node[above, black, near end] {\scriptsize 6} node[above, black, near start] {\scriptsize 1} ([xshift=-2]goal1.north);		
+		\path[-latex', ] (ontable.east) edge [bend right, out = 20, in = 120] node[above, black, near end] {\scriptsize 4} node[above, black, near start] {\scriptsize 1} ([xshift=-4]goal1.north);			
 	\end{tikzpicture}	
 \end{document}

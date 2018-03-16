@@ -7,7 +7,7 @@
 
 \State T = $\langle N_T,S,Sit_{start}, Sit_{goal}\rangle$ := \Call{ground}{$P$}\label{alst:ground}
 
-\Statex\Comment{$N_T$ - идентификатор задачи, $S$ - множество знаков, $Sit_{start}=\langle id_{start} \varnothing, \varnothing, \{z_{start}^a\} \rangle$ - начальная ситуация со смыслом $a_{start}$, $Sit_{goal}=\langle id_{goal} \varnothing, \varnothing, \{z_{goal}^a\} \rangle$ - целевая ситуация со смыслом $a_{goal}$}
+\Statex\Comment{$N_T$ - идентификатор задачи, $S$ - множество знаков, $Sit_{start}=\langle id_{start}, \varnothing, \varnothing, \{z_{start}^a\} \rangle$ - начальная ситуация со смыслом $a_{start}$, $Sit_{goal}=\langle id_{goal}, \varnothing, \varnothing, \{z_{goal}^a\} \rangle$ - целевая ситуация со смыслом $a_{goal}$}
 \State $Plan$ := \Call{map\_search}{$T$}
 
 

@@ -1,4 +1,4 @@
-\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
+\documentclass[tikz,border=3pt,convert={density=800,outext=.png}]{standalone}
 %\documentclass[tikz,border=3pt]{standalone}
 
 \usepackage[T2A]{fontenc}       			%поддержка кириллицы
@@ -14,7 +14,7 @@
 		\tikzstyle{ell}=[draw, thick, align=center]
 		
 		\node[draw, thin,gray, ellipse, minimum width = 350pt, minimum height = 250pt] at (50pt, 50pt)  {};
-		\node[align=center] at (120pt, 50pt) {\Large компонент\\\Large знака};
+		\node[align=center] at (120pt, 50pt) {\large Компонента\\\large знака};
 		\draw[ell] (0,0) rectangle (50 pt, 100 pt);
 		\draw[ell, fill=white!90!black] (50 pt,0) rectangle (100 pt, 100 pt);
 		\draw[ell, very thick] (50 pt, 0) -- (50 pt, 100 pt);
@@ -39,23 +39,23 @@
 		\node[ell, fill=white, circle, minimum size=2 pt] (p8) at (80 pt, 20 pt) {};
 		\node[ell, fill=white, circle, minimum size=2 pt] (p9) at (80 pt, 70 pt) {};
 		
-		\node at (10 pt, 95 pt) {$index_1$};
-		\node at (30 pt, 95 pt) {$index_i$};
-		\node at (60 pt, 95 pt) {$-index_1$};
-		\node at (80 pt, 95 pt) {$-index_j$};
+		\node at (10 pt, 95 pt) {$1$};
+		\node at (30 pt, 95 pt) {$i$};
+		\node at (60 pt, 95 pt) {$-1$};
+		\node at (80 pt, 95 pt) {$-j$};
 		
-		\node at (10 pt, 5 pt) {$event_1$};
-		\node at (30 pt, 5 pt) {$event_i$};
-		\node at (60 pt, 5 pt) {$event_1$};
-		\node at (80 pt, 5 pt) {$event_j$};
+		\node at (10 pt, 5 pt) {$e_1$};
+		\node at (30 pt, 5 pt) {$e_i$};
+		\node at (60 pt, 5 pt) {$e_{i+1}$};
+		\node at (80 pt, 5 pt) {$e_{i+j}$};
 		
-		\node at (25 pt, -5 pt) {\Large причины};
-		\node at (75 pt, -5 pt) {\Large эффекты};
+		\node at (25 pt, -5 pt) {\large Причины};
+		\node at (75 pt, -5 pt) {\large Эффекты};
 				
-		\node[ell, ellipse] (s1) at (0, -40pt)  {$sign_1$};
-		\node[ell, ellipse] (s2) at (10pt, -20pt)  {$sign_2$};
-		\node[ell, ellipse] (s3) at (30pt, -30pt)  {$sign_3$};
-		\node[ell, ellipse] (s4) at (70pt, -30pt)  {$sign_4$};
+		\node[ell, ellipse] (s1) at (0, -40pt)  {Зак 1};
+		\node[ell, ellipse] (s2) at (10pt, -20pt)  {Знак 2};
+		\node[ell, ellipse] (s3) at (30pt, -30pt)  {Знак 3};
+		\node[ell, ellipse] (s4) at (70pt, -30pt)  {Знак 4};
 		\draw[ell, ->,rounded corners] (p3.west) -| (-20pt, 0) node[above, rotate=90] {\small $conn_1$} |- (s1);
 		\draw[ell, ->,rounded corners] (p1.west) -| (-10pt, 0) node[above, rotate=90] {\small $conn_2$} |- (s2);
 		\draw[ell, ->,rounded corners] (p5.east) -| (45pt, 0) node[above, rotate=90, near end] {\small $conn_3$} |- (s3);

@@ -1,0 +1,29 @@
+\Require описание домена планирования $D$, описание задачи планирования $P$, максимальная глубина итераций $i_{max}$
+\Ensure план $Plan$
+
+\vspace*{1pt}
+\hrule
+\vspace*{5pt}
+
+\State T = $\langle N_T,S,Sit_{start}, Sit_{goal}\rangle$ := \Call{ground}{$P$}\label{alst:ground}
+
+\Statex\Comment{$N_T$ - идентификатор задачи, $S$ - множество знаков, $Sit_{start}=\langle id_{start}, \varnothing, \varnothing, \{z_{start}^a\} \rangle$ - начальная ситуация со смыслом $a_{start}$, $Sit_{goal}=\langle id_{goal}, \varnothing, \varnothing, \{z_{goal}^a\} \rangle$ - целевая ситуация со смыслом $a_{goal}$}
+\State $Plan$ := \Call{map\_search}{$T$}
+
+
+\Function{map\_search}{$T$}
+	\State $z_{cur} := z_{goal}^a$
+	\State $z_{start} := z_{start}^a$
+	\algrenewcommand{\alglinenumber}[1]{\footnotesize$\star\star$\phantom{:}}
+	\ForAll{$z_m \in \varphi_m^\uparrow(Sit_{goal}, d_m)$}
+		\State $z_a = \Psi_m^a(z_m)$
+		\If{$I^e(z_a)\not = \varnothing\land \exists k: k\in I^e(z_a), e_k\in z_a, Sit_{goal} \in e_k$} 
+			\State $z_{cur}$ := $(e_i|e_i\in z_a\land e_i\not\in\{e_j|e_j\in z_a, j\in I^e(z_a)\})$
+		\EndIf
+	\EndFor
+	\algrenewcommand{\alglinenumber}[1]{\footnotesize #1:}
+	\State $Plans$ := \Call{map\_iteration}{$z_{cur}$,$z_{start}$, $\varnothing$, 0}\label{alst:start_iter}
+	\State $\{Plan_0, Plan_1,\dots\}$ = \Call{sort}{$Plans$}\label{alst:sort}
+	\State\Return $Plan_0$\label{alst:return}
+\EndFunction
+

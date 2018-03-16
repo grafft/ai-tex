@@ -1,4 +1,4 @@
-\documentclass[tikz,convert={density=600,outext=.png}]{standalone}
+\documentclass[tikz,convert={density=800,outext=.png}]{standalone}
 %\documentclass[tikz]{standalone}
 
 \usepackage[utf8]{inputenc} % utf8 encoding
@@ -22,8 +22,8 @@
 		
 		\node[on chain=2, draw,rectangle, xshift=-10mm, yshift=-7mm, minimum height = 25mm, minimum width=90mm] (rb) {
 			\begin{minipage}[t][23mm][t]{70mm}\centering
-				$R_i^j$ "--- распознающий автомат\\
-				$\hat F_i^j=\{\hat f_1,\dots, \hat f_{l_i^j}\}$ "--- функции распознавания
+				$R_i^j$ "--- Распознающий автомат\\
+				$\hat F_i^j=\{\hat f_1,\dots, \hat f_{l_i^j}\}$ "--- Функции распознавания
 			\end{minipage}
 		};
 		
@@ -59,10 +59,10 @@
 			\node (mi_d_1) {$\ldots$};\\
 			
 			\node (mi_f_l) {$f_{q_i^j}:$};&
-			\node (mi_x_1l) {$x_{1l_i^j}$};&
-			\node (mi_x_2l) {$x_{2l_i^j}$};&
+			\node (mi_x_1l) {$x_{1q_i^j}$};&
+			\node (mi_x_2l) {$x_{2q_i^j}$};&
 			\node (mi_x_dl) {$\dots$};&
-			\node (mi_x_tl) {$x_{tl_i^j}$};&
+			\node (mi_x_tl) {$x_{tq_i^j}$};&
 			\node (mi_x_vl) {$\dots$};&
 			\node (mi_x_hl) {$x_{h_i^jq_i^j}$};\\
 		};	
