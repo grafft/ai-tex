@@ -1,0 +1,355 @@
+	\section{Модели когнитивных функций}
+	
+	\begin{frame}
+		\small
+		\tableofcontents
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Образование нового знака}
+		\centering
+		\includegraphics[width=0.5\textwidth]{signs/en/sign_naming_colored_en}
+	\end{frame}		
+	
+	\begin{frame}
+		\frametitle{Отношения на множестве компонент знака}
+		\centering
+		\includegraphics[page=1,width=0.8\textwidth]{sign-schemas/sign_relations}
+		
+		Сходство образов
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Отношения на множестве компонент знака}
+		
+		\begin{columns}
+			\begin{column}{0.3\textwidth}
+				\centering
+				Включение образов 
+				\par\bigskip
+				\par\bigskip
+				\par\bigskip
+				\par\bigskip
+				\par\bigskip
+				Противопоставление образов 
+				
+			\end{column}
+			\begin{column}{0.7\textwidth}
+				\includegraphics[page=2,width=0.8\textwidth]{sign-schemas/sign_relations}
+				
+				\includegraphics[page=3,width=0.8\textwidth]{sign-schemas/sign_relations}
+			\end{column}
+		\end{columns}
+		
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Отношения на множестве компонент знака}
+		\centering
+		\includegraphics[page=4,width=0.7\textwidth]{sign-schemas/sign_relations}
+		
+		Сценарий на значениях
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Отношения на множестве компонент знака}
+		
+		\begin{columns}
+			\begin{column}{0.3\textwidth}
+				\centering
+				Поглощение личностных смыслов 
+				\par\bigskip
+				\par\bigskip
+				\par\bigskip
+				\par\bigskip
+				\par\bigskip
+				Противопоставление личностных смыслов 
+				
+			\end{column}
+			\begin{column}{0.7\textwidth}
+				\includegraphics[page=5,width=0.8\textwidth]{sign-schemas/sign_relations}
+				\par\bigskip
+				\includegraphics[page=6,width=0.8\textwidth]{sign-schemas/sign_relations}
+			\end{column}
+		\end{columns}
+	\end{frame}	
+
+	\subsection{Операции в семиотической сети}	
+
+	\begin{frame}
+		\frametitle{Операции на множестве компонент знака}
+		
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering
+				\includegraphics[page=7,width=\textwidth]{sign-schemas/sign_relations}
+				\par\bigskip
+				Замыкание по значениям
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\centering
+				\includegraphics[page=8,width=\textwidth]{sign-schemas/sign_relations}
+				\par\bigskip
+				Агглютинация личностных смыслов
+			\end{column}
+		\end{columns}
+		\nocite{*}
+		\printbibliography[keyword={signoper}, resetnumbers=true]
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Модель функции планирование поведения}
+		\centering
+		\includegraphics[width=0.9\textwidth]{algo/ru/plan_alg_ru}
+		\nocite{*}
+		\printbibliography[keyword={signb}, resetnumbers=true]
+		\nocite{*}
+		\printbibliography[keyword={symbsign}, resetnumbers=true]
+	\end{frame}	
+	
+	\subsection{Планирование поведения}
+	\begin{frame}
+		\frametitle{Алгоритм планирования поведения}
+		
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				\includegraphics[width=\textwidth]{algo/ru/beh_plan2_ru}
+				\vspace{10pt}
+				\nocite{*}
+				\printbibliography[keyword={plan}, resetnumbers=true]
+				\printbibliography[keyword={causnet}]
+			\end{column}
+			\begin{column}{0.4\textwidth}
+				\scriptsize
+				Иерархический процесс планирования начинается с конченой ситуации и стремится достичь начальной ситуации.
+				\par\bigskip
+				MAP-итерация:
+				\begin{itemize}
+					\item \textit{S-step} -- поиск прецедентов выполнения действия в текущих условиях,
+					\item \textit{M-step} -- поиск применимых действий на сети значений,
+					\item \textit{A-step} -- генерация личностных смыслов, соответствующих найденным значениям,
+					\item \textit{P-step} -- построение новой текущей ситуации по множеству признаков условий найденных действий.
+					
+				\end{itemize}
+			\end{column}
+		\end{columns}
+		
+	\end{frame}		
+	
+	\subsection{Примеры}
+	\begin{frame}
+		\frametitle{Пример: фрагмент сети на значениях}
+		\begin{columns}
+			\begin{column}{0.7\textwidth}
+				\centering
+				\includegraphics[page=2,width=\textwidth]{examples/plan/plan_nets}
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\centering
+				\includegraphics[page=1,width=\textwidth]{examples/plan/block_world}
+			\end{column}
+		\end{columns}
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Пример: сеть на смыслах - начальная ситуация}
+		
+		\centering
+		\includegraphics[page=3,width=0.7\textwidth]{examples/plan/plan_nets}
+		\par\bigskip
+		\includegraphics[page=2,width=0.5\textwidth]{examples/plan/block_world}
+		
+		
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Пример: сеть на смыслах - целевая ситуация}
+		\begin{columns}
+			\begin{column}{0.7\textwidth}
+				\centering
+				\includegraphics[page=1,width=\textwidth]{examples/plan/plan_nets}
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\centering
+				\includegraphics[page=1,width=\textwidth]{examples/plan/block_world}
+			\end{column}
+		\end{columns}
+	\end{frame}	
+	
+	\begin{frame}
+		\frametitle{Пример: фрагмент сети на значениях}
+		\begin{columns}
+			\begin{column}{0.7\textwidth}
+				\centering
+				\includegraphics[page=5,width=\textwidth]{examples/plan/plan_nets}
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\centering
+				\includegraphics[page=3,width=\textwidth]{examples/plan/block_world}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Пример: генерация личностного смысла}
+		
+		\begin{tikzpicture}[overlay,remember picture,xshift=165pt,yshift=-50pt]
+		\onslide<1->{
+			\tikzstyle{ell}=[draw, thick, align=center, color=blue]
+			\tikzstyle{ellf}=[draw, thick, align=center, color=blue, fill=blue]
+			
+			\node[ell, ellipse, minimum height = 30, minimum width = 100] (block) at (5 pt,0){};
+			\predmatr{-30}{0}{block1}
+			\predmatr{-10}{0}{block2}
+			\predmatr{10}{0}{block3}	
+			\predmatr{30}{0}{block4}
+			\node at (35 pt, 20 pt) {``block''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (c) at (32.5 pt, -50 pt){};
+			\predmatr{30}{-50}{c1}
+			\node at (10 pt, -35 pt) {``c''};		
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (d) at (82.5 pt, -50 pt){};
+			\predmatr{80}{-50}{d1}			
+			\node at (60 pt, -35 pt) {``d''};	
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (x) at (-37.5 pt, 50 pt){};
+			\predmatr{-40}{50}{x1}
+			\node at (-85 pt, 50 pt) {``block?x''};			
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (y) at (42.5 pt, 50 pt){};
+			\predmatr{40}{50}{y1}	
+			\node at (85 pt, 50 pt) {``block?y''};
+			
+			\path[-latex'] (c.north) edge [out = 90, in = -80] node[above, black] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([xshift=-3]block3.south);
+			\path[-latex'] (d.north) edge [out = 90, in = -80] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([xshift=-3]block4.south);	
+		}
+		\onslide<1>{
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-77.5 pt, -50 pt){};
+			\predmatr{-80}{-50}{a1}
+			\node at (-100 pt, -35 pt) {``a''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-27.5 pt, -50 pt){};
+			\predmatr{-30}{-50}{b1}
+			\node at (-50 pt, -35 pt) {``b''};		
+		}
+		\onslide<1-2>{
+			\path[-latex'] (a.north) edge [out = 90, in = -120] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([xshift=-3]block1.south);
+			\path[-latex'] (b.north) edge [out = 90, in = -120] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([xshift=-3]block2.south);
+		}			
+		\onslide<1-3>{
+			\path[-latex'] ([xshift=-10]block.north) edge [out = 90, in = -80] node[above, black] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]x1.south);
+			\path[-latex'] ([xshift=10]block.north) edge [out = 90, in = -100] node[above, black] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]y1.south);
+		}
+		\onslide<1-4>{
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (unstack) at (2.5 pt, 100 pt){};
+			\predmatr{0}{100}{unstack1}
+			\node at (-15 pt, 120 pt) {``unstack''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (on) at (-77.5 pt, 100 pt){};
+			\predmatr{-80}{100}{on1}
+			\node at (-115 pt, 100 pt) {``on''};
+			
+			\path[-latex'] (x.north) edge [out = 90, in = -100] node[above, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 1} ([xshift=2]unstack1.south);
+			\path[-latex'] (y.north) edge [out = 90, in = -80] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([xshift=5]unstack1.south);
+			\path[-latex'] (on.east) edge [out = 0, in = 180] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=-3]unstack1.west);
+			
+			\path[-latex'] ([xshift=-10]x.north) edge [out = 100, in = -140] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-3]on1.south);	
+			\path[-latex'] ([xshift=-10]y.north) edge [out = 150, in = -30] node[above, black, near end] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=3]on1.south);					
+		}			
+		\onslide<1-5>{
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (holding) at (82.5 pt, 120 pt){};
+			\predmatr{80}{120}{holding1}
+			\node at (125 pt, 120 pt) {``holding''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (clear) at (82.5 pt, 90 pt){};
+			\predmatr{80}{90}{clear1}
+			\node at (120 pt, 90 pt) {``clear''};
+			
+			\path[-latex'] (clear.west) edge [out = 180, in = 0] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([yshift=-3]unstack1.east);
+			\path[-latex'] (holding.west) edge [out = 180, in = 0] node[above, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 1} ([yshift=3]unstack1.east);
+			
+		}
+		\onslide<2->{
+			\tikzstyle{ell}=[draw, thick, align=center, color=green!70!black]
+			\tikzstyle{ellf}=[draw, thick, align=center, color=green!70!black, fill=green!70!black]
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (a) at (-77.5 pt, -50 pt){};
+			\predmatr{-80}{-50}{a1}
+			\node at (-100 pt, -35 pt) {``a''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (b) at (-27.5 pt, -50 pt){};
+			\predmatr{-30}{-50}{b1}
+			\node at (-50 pt, -35 pt) {``b''};
+		}
+		\onslide<3->{
+			\path[-latex', very thick] (a.north) edge [out = 90, in = -120] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([xshift=-3]block1.south);
+			\path[-latex', very thick] (b.north) edge [out = 90, in = -120] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([xshift=-3]block2.south);	
+		}
+		\onslide<4->{
+			\path[-latex', very thick] ([xshift=-10]block.north) edge [out = 90, in = -80] node[above, black] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]x1.south);
+			\path[-latex', very thick] ([xshift=10]block.north) edge [out = 90, in = -100] node[above, black] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]y1.south);
+		}
+		\onslide<5->{
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (unstack) at (2.5 pt, 100 pt){};
+			\predmatr{0}{100}{unstack1}
+			\node at (-15 pt, 120 pt) {``unstack''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (on) at (-77.5 pt, 100 pt){};
+			\predmatr{-80}{100}{on1}
+			\node at (-115 pt, 100 pt) {``on''};
+			
+			\path[-latex', very thick] (on.east) edge [out = 0, in = 180] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=-3]unstack1.west);
+			
+			\path[-latex', very thick] ([xshift=-10]x.north) edge [out = 100, in = -140] node[above, black] {\scriptsize 1} node[above, black, very near start] {\scriptsize 1} ([xshift=-3]on1.south);	
+			\path[-latex', very thick] ([xshift=-10]y.north) edge [out = 150, in = -30] node[above, black, near end] {\scriptsize -1} node[above, black, very near start] {\scriptsize 1} ([xshift=3]on1.south);
+			\path[-latex', very thick] (x.north) edge [out = 90, in = -100] node[above, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 1} ([xshift=2]unstack1.south);
+			\path[-latex', very thick] (y.north) edge [out = 90, in = -80] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([xshift=5]unstack1.south);	
+		}
+		\onslide<6->{
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (holding) at (82.5 pt, 120 pt){};
+			\predmatr{80}{120}{holding1}
+			\node at (125 pt, 120 pt) {``holding''};
+			
+			\node[ell, ellipse, minimum height = 20, minimum width = 40] (clear) at (82.5 pt, 90 pt){};
+			\predmatr{80}{90}{clear1}
+			\node at (120 pt, 90 pt) {``clear''};
+			
+			\path[-latex', very thick] (clear.west) edge [out = 180, in = 0] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([yshift=-3]unstack1.east);
+			\path[-latex', very thick] (holding.west) edge [out = 180, in = 0] node[above, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 1} ([yshift=3]unstack1.east);
+		}			
+		\end{tikzpicture}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Пример: текущая ситуация}
+		\begin{columns}
+			\begin{column}{0.7\textwidth}
+				\centering
+				\includegraphics[page=4,width=\textwidth]{examples/plan/plan_nets}
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\centering
+				\includegraphics[page=3,width=\textwidth]{examples/plan/block_world}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	\subsection{Обучение и целеполагание}
+	\begin{frame}
+		\frametitle{Обучение в процессе планирования}
+		
+		Образование нового правила и сохранение ситуаций - образование новых каузальных матриц
+		\par\bigskip
+		\centering
+		\includegraphics[page=6,width=0.6\textwidth]{examples/plan/plan_nets}
+		\includegraphics[page=7,width=0.4\textwidth]{examples/plan/plan_nets}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Этап целеполагания}
+		\begin{center}
+			\includegraphics[width=0.8\textwidth]{algo/ru/gmap_ru}
+		\end{center}
+		\nocite{*}
+		\printbibliography[keyword={goalres}, resetnumbers=true]
+	\end{frame}
