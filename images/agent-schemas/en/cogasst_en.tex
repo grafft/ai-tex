@@ -1,0 +1,85 @@
+\documentclass[tikz,convert={density=600,outext=.jpg},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage[utf8]{inputenc} % utf8 encoding
+\renewcommand*{\familydefault}{\sfdefault}
+\usepackage[english]{babel}
+%\usepackage{fontspec}
+%\setmainfont{Qlassik Medium}
+%\setmainfont{Arial}
+
+\usepackage{amsmath} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+\graphicspath{{../../../images/}} 
+
+\begin{document}
+	
+	\begin{tikzpicture}[>=triangle 60]
+		\tikzstyle{swm} = [draw, rectangle, rounded corners=5ex, minimum height = 90mm, minimum width = 90mm];
+		\tikzstyle{othswm} = [draw, rectangle, fill = white, fill opacity=.75, dashed, rounded corners=2ex, minimum height = 30mm, minimum width = 30mm];
+		\tikzstyle{func} =[draw, ellipse, minimum width = 20mm, minimum height = 15mm,align = center];
+		\tikzstyle{proc} = [draw, rectangle, minimum height = 10mm, minimum width = 30mm, align=center]
+		\tikzstyle{real} = [draw, rectangle, minimum height = 8mm, minimum width = 20mm, align=center]
+		
+
+		\node[font=\Large] at (0, 4) {Sign-based worl model of the assistant};
+		\node[swm] (swm) at (0, 0) {};
+		\node[othswm] (othswm) at (-2.4, 2) {};
+		\node[othswm] (othswm) at (-2.2, 1.8) {};
+		\node[othswm] (othswm) at (-2, 1.6) {};
+		\node[font=\small] at (-2, 2.8) {SWM of the user};
+		
+		\node[func, font=\scriptsize] (plan) at (1.2, 1.8) {Planning};
+		\node[func, font=\scriptsize] (reas) at (1.2, -0.4) {Reasoning};
+		\node[func, font=\scriptsize] (form) at (1.2, -2.6) {Sign\\formation};
+
+		\node[func, font=\scriptsize] (goal) at (-2, -1.2) {Goal-setting};
+		\node[func, font=\scriptsize] (refl) at (-2, -3.2) {Reflection};
+		
+		\node[proc] (impl) at (4.5, 1.8) {};
+		\node[font=\tiny, align = center] at (3.8, 1.8) {Implemen\\tation};
+		\node[font=\tiny] at (5.2, 1.8) {Motor};
+		
+		\node[proc] (perc) at (4.5, -1.8) {};
+		\node[font=\tiny, align = center] at (3.8, -1.8) {Catego\\rization};
+		\node[font=\tiny] at (5.2, -1.8) {Perception};
+		
+		\node[proc] (learn) at (4.5, -3.2) {};
+		\node[font=\tiny, align = center] at (3.8, -3.2) {Learning};
+		\node[font=\tiny] at (5.2, -3.2) {Perception};
+		
+		\node[real, font=\scriptsize] (act) at (7.6, 3) {Actuators};
+		\node[real, font=\scriptsize] (gener) at (7.6, 0.6) {Gen. of texts};
+		
+		\node[real, font=\scriptsize] (nlu) at (7.6, -1.4) {Under. of texts};
+		\node[real, font=\scriptsize] (sensors) at (7.6, -3.6) {Sensors};
+		
+		\draw[->,rounded corners] ([yshift=2mm]impl.east) -| (act.south);
+		\draw[->,rounded corners] ([yshift=-2mm]impl.east) -| (gener.north);
+		
+		\draw[->,rounded corners] (nlu.north) |- (7, -0.6) -| ([xshift=6mm]perc.north);
+		\draw[->,rounded corners] (sensors.south) |- (7, -4.4) -| ([xshift=6mm]learn.south);
+		
+		\draw[->,rounded corners] ([xshift=-2mm]sensors.north) |- ([yshift=-3mm]perc.east);
+		\draw[->,rounded corners] ([xshift=2mm]nlu.south) |- ([yshift=3mm]learn.east);
+		
+		\draw[->,rounded corners] (plan.north) |- (2, 3) -| ([xshift=-6mm]impl.north);
+		\draw[<-,rounded corners] (form.south) |- (2, -4) -| ([xshift=-6mm]learn.south);
+		
+		\node (cloud) at (10, -2.6) {\includegraphics[width=15mm]{misc/agents/cloud.jpg}};
+		\node (man) at (10, 1.8) {\includegraphics[width=15mm]{misc/agents/man.jpg}};
+		
+		\draw[->,rounded corners] (act.east) -| (man.north);
+		\draw[->,rounded corners] (gener.east) -| (man.south);
+		
+		\draw[->,rounded corners] ([xshift=3mm]man.west) -| (9, 0) |- (nlu.east);
+		\draw[->,rounded corners] ([xshift=-3mm]man.east) -| (11, 0) |- (sensors.east);
+		
+		\draw[->,rounded corners] ([yshift=-1mm]cloud.west) -| ([xshift=4mm]sensors.north);
+		\draw[->,rounded corners] ([yshift=1mm]cloud.west) -| ([xshift=4mm]nlu.south);
+	\end{tikzpicture}
+
+\end{document}

@@ -107,8 +107,8 @@
 		
 		\path[-latex'] (x.north) edge [out = 90, in = -100] node[left, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([xshift=-3]stack1.south);
 	
-		\path[-latex'] (stack.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 0} ([xshift=-2]drawn1.south);	
-		\path[-latex'] (instr.north) edge [out = 90, in = -100] node[below, black, near end] {\scriptsize -1} node[above, black, near start] {\scriptsize 0} ([xshift=2]drawn1.south);
+		\path[-latex'] (stack.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 0} ([xshift=2]drawn1.south);	
+		\path[-latex'] (instr.north) edge [out = 90, in = -100] node[below, black, near end] {\scriptsize 2} node[above, black, near start] {\scriptsize 0} ([xshift=-2]drawn1.south);
 		\path[-latex'] (subj.east) edge [out = 0, in = -210] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([yshift=2]drawn1.west);
 	\end{tikzpicture}
 	
@@ -140,9 +140,9 @@
 		
 		
 		\path[-latex'] (a.north) edge [out = 90, in = -140] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 1} ([yshift=3]x1.west);
-		\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 1} ([yshift=-3]x1.west);
-		\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 1} ([xshift=2]x1.south);
-		\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([xshift=4]x1.south);		
+		\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 1} ([xshift=4]x1.south);
+		\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 1} ([xshift=-5]x1.south);
+		\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize 3} node[above, black, near start] {\scriptsize 1} ([xshift=-3]x1.south);		
 		
 	\end{tikzpicture}	
 	
@@ -187,7 +187,7 @@
 	\predmatr{-45}{-90}{tree1}
 	\node[align=center] at (-75 pt, -90 pt) {``дерево''\\$s_9$};
 	
-	\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 0} ([yshift=-3]x1.west);
+	\path[-latex'] (b.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 0} ([xshift=5]x1.south);
 	\path[-latex',dashed] (tree.north) edge [out = 90, in = -120] node[left, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([yshift=-3]b1.west);
 	
 	
@@ -199,7 +199,7 @@
 	\predmatr{40}{-90}{brush1}
 	\node[align=center] at (83 pt, -90 pt) {``кисть''\\$s_{10}$};
 	
-	\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize -1} node[right, black, near start] {\scriptsize 0} ([xshift=2]x1.south);
+	\path[-latex'] (c.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 2} node[right, black, near start] {\scriptsize 0} ([xshift=-4]x1.south);
 	\path[-latex',dashed] (brush.north) edge [out = 90, in = -80] node[right, black, near end] {\scriptsize 1} node[right, black, near start] {\scriptsize 0} ([xshift=-3]c1.south);
 	
 	
@@ -212,7 +212,7 @@
 	\predmatr{100}{40}{canvas1}			
 	\node[align=center] at (130 pt, 18 pt) {``холст''\\$s_{11}$};	
 	
-	\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize -2} node[above, black, near start] {\scriptsize 1} ([xshift=4]x1.south);	
+	\path[-latex'] (d.north) edge [out = 90, in = -50] node[above, black, near end] {\scriptsize 3} node[above, black, near start] {\scriptsize 1} ([xshift=-1]x1.south);	
 	\path[-latex',dashed] (canvas.south) edge [out = -90, in = 50] node[above, black, near end] {\scriptsize 1} node[above, black, near start] {\scriptsize 0} ([xshift=-3]d1.north);	
 	
 	\end{tikzpicture}	

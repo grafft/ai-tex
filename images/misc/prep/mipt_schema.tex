@@ -1,0 +1,92 @@
+\documentclass[tikz,convert={density=600,outext=.png},border=5pt]{standalone}
+%\documentclass[tikz, border=5pt]{standalone}
+
+\usepackage[T1]{fontenc} % use T1 fonts
+\usepackage[utf8]{inputenc} % utf8 encoding
+\renewcommand*{\familydefault}{\sfdefault}
+\usepackage[english,russian]{babel}
+%\usepackage{fontspec}
+%\setmainfont{Qlassik Medium}
+%\setmainfont{Arial}
+
+\usepackage{amsmath} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}[>=triangle 60]
+		\tikzstyle{swm} = [draw, rectangle, rounded corners=5ex, minimum height = 60mm, minimum width = 20mm];
+		\tikzstyle{othswm} = [draw, rectangle, fill = white, fill opacity=.75, dashed, rounded corners=2ex, minimum height = 30mm, minimum width = 30mm];
+		\tikzstyle{func} =[draw, ellipse, minimum width = 20mm, minimum height = 15mm,align = center];
+		\tikzstyle{proc} = [draw, rectangle, minimum height = 10mm, minimum width = 30mm, align=center]
+		\tikzstyle{real} = [draw, rectangle, minimum height = 8mm, minimum width = 20mm, align=center]
+		
+
+		\node[font=\Large, align=center, rotate=90] at (-0.5, 0) {Академия};
+		\node (cloud) at (0.4, -0.5) {\includegraphics[width=10mm]{../logos/frccsc140.png}};
+		\node (cloud) at (0.4, 0.5) {\includegraphics[width=10mm]{../logos/raai.png}};
+		\node[align=center] at (0, -2) {госзадание\\гранты};
+		\node[font=\small, align=center] at (0, 2) {больше\\дольше};
+		\node[swm] (academy) at (0, 0) {};
+		
+		\node[swm] (industry) at (10, 0) {};
+		\node[font=\small, align=center] at (10, -2) {стажировка\\лаборатории};
+		\node[align=center] at (10, 2) {меньше\\короче};
+		\node[font=\Large, align=center, rotate=-90] at (10.5, 0) {Индустрия};
+		\node (cloud) at (9.7, -1) {\includegraphics[width=10mm]{../logos/s7.png}};
+		\node (cloud) at (9.7, 0) {\includegraphics[width=10mm]{../logos/biocad.jpeg}};
+		\node (man) at (9.7, 1) {\includegraphics[width=10mm]{../logos/tinkoff.png}};
+		
+		\node[swm,minimum height = 20mm, minimum width = 60mm] (mipt) at (5, 4) {};
+		\node (cloud) at (5, 3.5) {\includegraphics[width=20mm]{../logos/mipt.jpg}};
+		\node[font=\Large, align=center] at (5, 4.3) {МФТИ\\Физтех-школа ПМИ};
+		
+		
+		\node[swm,minimum height = 20mm, minimum width = 22mm] (base) at (5, 1.5) {};
+		\node[align=center] at (5, 1.5) {Базовая\\кафедра СИ};
+		\node[font=\scriptsize, align=center] at (5, 0.8) {преподаватели};
+		\node[font=\scriptsize, align=center] at (5, 2.2) {курсы\\диплом};
+		
+		\node[swm,minimum height = 20mm, minimum width = 22mm] (cds) at (5, -1.5) {};
+		\node[align=center] at (5, -1.5) {Лаборатория\\КДС};
+		\node[font=\scriptsize, align=center] at (5, -2.2) {менторы};
+		\node[font=\scriptsize, align=center] at (5, -0.8) {проектная\\работа};
+		
+		\draw[->,rounded corners] ([xshift=-50]mipt.south) |-  (base.west);
+		\draw[->,rounded corners] ([xshift=-70]mipt.south) |-  ([yshift=15]cds.west);
+		\node[font=\tiny, align=center, rotate=90] at (3.1, 2.2) {студенты};
+		\node[font=\tiny, align=center, rotate=90] at (2.4, 2.2) {студенты};
+		
+		\draw[<->,rounded corners] (base.south) --  (cds.north);
+		\draw[->,rounded corners] ([yshift=10]cds.east) to[out=10,in=-10]   ([yshift=-10]base.east);
+		\node[font=\tiny, align=center] at (4.2, 0) {научные\\руководители};
+		\node[font=\tiny, align=center] at (7.5, 0.8) {темы\\курсовых\\дипломных\\диссертаций};
+		
+		\draw[->,rounded corners] ([yshift=33]academy.east) --  ([yshift=-10]base.west);
+		\draw[->,rounded corners] ([yshift=52.5]industry.west) --  ([yshift=10]base.east);
+		\node[font=\tiny, align=center] at (1.8, 0.9) {темы\\программы};
+		\node[font=\tiny, align=center] at (7.5, 2) {задачи};
+		\draw[->,rounded corners] ([yshift=-43]academy.east) --  (cds.west);
+		\draw[->,rounded corners] ([yshift=-43]industry.west) --  (cds.east);
+		\node[font=\tiny, align=center] (fproj) at (2.5, -1.8) {фундаментальные\\проекты};
+		\node[font=\tiny, align=center] (pproj) at (7.5, -1.8) {прикладные\\проекты};
+		\draw[->,rounded corners] (fproj.south) -- (2.5, -2.7);
+		\draw[->,rounded corners] (pproj.south) -- (7.5, -2.7);
+		\draw[->,rounded corners] (cds.south) -- (5, -2.9);
+		
+		\node[font=\tiny, align=center] (fmeth) at (2.5, -3) {новый алгоритм\\синтетические данные};
+		\node[font=\tiny, align=center] (fdetails) at (2.5, -4.3) {$\nearrow$ испыт. период\\$\searrow$оплата\\$\nearrow$ публикации\\$\nearrow$диссертация};
+		
+		\node[font=\tiny, align=center] (pmeth) at (7.5, -3) {существующие алгоритмы\\реальные данные};
+		\node[font=\tiny, align=center] (pdetails) at (7.5, -4.3) {$\searrow$ испыт. период\\$\nearrow$оплата\\$\searrow$ публикации\\$\searrow$диссертация};
+		\node[font=\tiny, align=center] (stage) at (5, -3.3) {ответственность\\сроки\\оплата};
+		\draw[->,rounded corners] (fmeth.south) -- (fdetails.north);
+		\draw[->,rounded corners] (pmeth.south) -- (pdetails.north);
+		\draw[->,rounded corners] ([xshift=-5]stage.south) |- (fdetails.east);
+		\draw[->,rounded corners] ([xshift=5]stage.south) |- (pdetails.west);
+		
+	\end{tikzpicture}
+
+\end{document}

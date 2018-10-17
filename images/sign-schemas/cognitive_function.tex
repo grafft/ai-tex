@@ -1,0 +1,73 @@
+\documentclass[tikz,border=3pt,convert={density=600,outext=.png}]{standalone}
+%\documentclass[tikz,border=3pt]{standalone}
+
+\usepackage[utf8]{inputenc} % utf8 encoding
+\usepackage{amsmath} % nice math symbols
+     
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc,arrows}
+
+\newcommand{\sign}[3]{
+	\filldraw[fill=white] ($(0.0,0.2)+(#2,#3)$) -- ($(0.5,1.0)+(#2,#3)$) -- ($(1.0,0.2)+(#2,#3)$) -- cycle;
+	\filldraw[fill=black!20] ($(0.0,0.2)+(#2,#3)$) -- ($(0.7,0.0)+(#2,#3)$) -- ($(1.0,0.2)+(#2,#3)$) -- cycle;
+	
+	\draw[coord_cine] ($(0.5,1.0)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	\draw[coord_cine] ($(0.0,0.2)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	\draw[coord_cine] ($(0.7,0.0)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	\draw[coord_cine] ($(1.0,0.2)+(#2,#3)$) -- ($(0.5,0.13)+(#2,#3)$);
+	
+	\filldraw[fill=white,fill opacity=0.8] ($(0.0,0.2)+(#2,#3)$) -- ($(0.5,1.0)+(#2,#3)$) -- ($(0.7,0.0)+(#2,#3)$) -- cycle;
+	\filldraw[fill=white,fill opacity=0.8] ($(0.7,0.0)+(#2,#3)$) -- ($(0.5,1.0)+(#2,#3)$) -- ($(1.0,0.2)+(#2,#3)$) -- cycle;
+	
+	\node[sign_comp, fill=red] (s#1_p) at ($(0.0,0.2)+(#2,#3)$) {};
+	\node[sign_comp, fill=blue] (s#1_m) at ($(1.0,0.2)+(#2,#3)$) {};
+	\node[sign_comp, fill=gray] (s#1_n) at ($(0.5,1.0)+(#2,#3)$) {};
+	\node[sign_comp, fill=green!70!black] (s#1_a) at ($(0.7,0.0)+(#2,#3)$) {};
+	
+	\node[left = of s#1_p] {$p_#1$};
+	\node[right = of s#1_m] {$m_#1$};
+	\node[right = of s#1_n] {$n_#1$};
+	\node[right = of s#1_a] {$a_#1$};
+	
+	\node[label] at ($(s#1_n)!0.5!(s#1_a)$) {$s_#1$};	
+}
+% TikZ styles for drawing
+
+\begin{document}
+	
+	\begin{tikzpicture}[join=round,scale=3.0,node distance = -0.05]
+		\tikzstyle{sign_comp}=[draw, circle, scale=1.5];
+		\tikzstyle{label}=[align=center,fill=white,opacity=0.9,text opacity=1];
+		\tikzstyle{coord_cine}=[dash pattern=on 0.7 off 0.7];
+		
+		\sign{1}{2.2}{1.0}
+		\sign{2}{0.5}{1.7}
+		\sign{4}{1}{-0.5}
+		\node (hp1) at (2,0.5){};
+		\node (hp2) at (2, 2){};
+		\node (hp3) at (0.2, 1.2){};
+		\node (hp4) at (2.1, 2.5){};
+		
+		\node[align = center, color = blue] (tex1) at (1.7, 2.5){local\\rules};
+		\node[align = center, color = green!70!black] (tex2) at (0.5, 1){local\\rules};
+		\node[align = center, color = red] (tex3) at (1.5, 0.9){local\\rules};
+		\node[align = center, color = red] (tex4) at (2.2, 2){local\\rules};
+		\node[align = center, color = blue] (tex5) at (3, 0.2){local\\rules};
+		\node[align = center, color = green!70!black] (tex6) at (2.4, 0.4){local\\rules};
+		
+		\draw[->,thick, color = red] (s1_p) edge [bend left, out = 50, in = 150] (s2_p);
+		\draw[->,thick, color = blue] (s4_m) edge [bend left, out = -20, in = -150] (s1_m);
+		\draw[->,thick, color = green!70!black] (hp1) edge [bend left, out = -20, in = -150] (s1_a);
+		\draw[->,thick, color = red] (hp2) edge [bend left, out = -20, in = -150] (s1_p);
+		
+		\draw[->,thick] (s1_m) edge [bend left, out = 80, in = 90] node[yshift=4,auto]{$\Psi_m^a$} (s1_a);
+		\draw[->,thick] (s1_a) edge [bend left, out = 20, in = 90] node[xshift=-5,auto]{$\Psi_a^p$} (s1_p);
+		\draw[->,thick] (s2_m) edge [bend left, out = 70, in = 80] node[auto]{$\Psi_m^a$} (s2_a);	
+		\draw[->,thick] (s2_p) edge [bend left, out = 30, in = 130] node[auto]{$\Psi_p^m$} (s2_m);		
+		
+		\draw[->,thick, color = green!70!black] (hp3) edge [bend left, out = -20, in = -150] (s2_a);
+		\draw[->,thick, color = blue] (hp4) edge [bend left, out = -20, in = -150] (s2_m);
+	\end{tikzpicture}
+
+\end{document}

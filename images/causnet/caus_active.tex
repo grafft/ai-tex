@@ -1,0 +1,77 @@
+\documentclass[tikz,convert={density=800,outext=.png},border=5pt]{standalone}
+%\documentclass[preview,border=5pt]{standalone}
+
+\usepackage[T2A]{fontenc}       			%поддержка кириллицы
+\usepackage[utf8]{inputenc}					% Выбор языка и кодировки
+\usepackage[english, russian]{babel}
+
+\usepackage{amsmath} % nice math symbols
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning,calc}
+
+\begin{document}
+	
+	\begin{tikzpicture}
+	\tikzstyle{z_pred}=[draw, rectangle,fill=white];
+	
+	\node[z_pred, minimum width = 150, minimum height = 100] (z_l_ex1) at (0,0) {};
+	\draw ($(z_l_ex1)+(10pt,50pt)$) -- ($(z_l_ex1)+(10pt,-50pt)$);
+	\draw[draw, fill=white!90!black] ($(z_l_ex1)+(10pt,50pt)$) rectangle ($(z_l_ex1)+(75pt,-50pt)$);
+		
+
+	\draw[ultra thick, gray!60!black] ($(z_l_ex1)+(-60pt,30pt)$) -- ($(z_l_ex1)+(-60pt,-40pt)$);
+	\draw[ultra thick, gray!60!black] ($(z_l_ex1)+(-40pt,30pt)$) -- ($(z_l_ex1)+(-40pt,-40pt)$);
+	\draw[ultra thick, gray!60!black] ($(z_l_ex1)+(-20pt,30pt)$) -- ($(z_l_ex1)+(-20pt,-40pt)$);
+	\draw[ultra thick, gray!60!black] ($(z_l_ex1)+(30pt,30pt)$) -- ($(z_l_ex1)+(30pt,-40pt)$);
+	\draw[ultra thick, gray!60!black] ($(z_l_ex1)+(50pt,30pt)$) -- ($(z_l_ex1)+(50pt,-40pt)$);
+
+	
+	\node[draw, thick, align=center, fill=white, circle, minimum size=1pt] (p1) at ($(z_l_ex1)+(50pt,15pt)$) {};
+	\node[draw, thick, align=center, fill=white, circle, minimum size=1pt] (p2) at ($(z_l_ex1)+(30pt,-10pt)$) {};
+	
+	\node[draw, thick, align=center, fill=white, circle, minimum size=1pt] (p3) at ($(z_l_ex1)+(-20pt,10pt)$) {};
+	\node[draw, thick, align=center, fill=white, circle, minimum size=1pt] (p4) at ($(z_l_ex1)+(-40pt,-15pt)$) {};
+	\node[draw, thick, align=center, fill=white, circle, minimum size=1pt] (p5) at ($(z_l_ex1)+(-60pt,0pt)$) {};
+	
+	\node[align=center, rotate=90, font=\Large] at ($(z_l_ex1)+(-2pt,0pt)$) {$\cdots$};
+	
+	\draw[thick, ->] ($(z_l_ex1)+(-60pt,100pt)$) to ($(z_l_ex1)+(-60pt,55pt)$);	
+	\draw[thick, ->] ($(z_l_ex1)+(-40pt,100pt)$) to ($(z_l_ex1)+(-40pt,55pt)$);
+	\draw[thick, ->] ($(z_l_ex1)+(-20pt,100pt)$) to ($(z_l_ex1)+(-20pt,55pt)$);
+		
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(-70pt,-60pt)$)  -| ($(z_l_ex1)+(-70pt,-15pt)$) |- (p5.west);	
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(-50pt,-60pt)$)  -| ($(z_l_ex1)+(-50pt,-25pt)$) |- (p4.west);	
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(-30pt,-60pt)$)  -| ($(z_l_ex1)+(-30pt,-25pt)$) |- (p3.west);
+	
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(-60pt, 32pt)$) to[out=50,in=130] ($(z_l_ex1)+(-42pt, 32pt)$);
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(-40pt, 32pt)$) to[out=50,in=130] ($(z_l_ex1)+(-22pt, 32pt)$);
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(-20pt, 32pt)$) to[out=50,in=130] ($(z_l_ex1)+(-2pt, 32pt)$);
+	
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(2pt, 32pt)$) to[out=50,in=130] ($(z_l_ex1)+(30pt, 32pt)$);
+	\draw[thick, ->, rounded corners] ($(z_l_ex1)+(2pt, 32pt)$) to[out=50,in=130] ($(z_l_ex1)+(50pt, 32pt)$);
+	
+	\draw[thick, ->] ($(z_l_ex1)+(0pt,55pt)$) to ($(z_l_ex1)+(0pt,100pt)$);
+	
+	\draw[thick, <-, rounded corners] ($(z_l_ex1)+(20pt,-60pt)$)  -| ($(z_l_ex1)+(20pt,-25pt)$) |- (p2.west);
+	\draw[thick, <-, rounded corners] ($(z_l_ex1)+(60pt,-60pt)$)  -| ($(z_l_ex1)+(60pt,-25pt)$) |- (p1.east);
+	
+	
+	\node[align=center, font=\small] at (-70pt,-70pt) {$t=1$\\$\lambda_j=1$};
+	\node[align=center, font=\small] at (-68pt, 8pt) {$n_j$};
+	\node[align=center, font=\small] at (-50pt,-70pt) {$\cdots$};
+	\node[align=center, font=\small] at (-30pt,-70pt) {$t=t_c$\\$\lambda_k=1$};
+	\node[align=center, font=\small] at (-28pt, 17pt) {$n_k$};
+	
+	\node[align=center, font=\small] at (-50pt, 43pt) {$\lambda=0.5$};
+	\node[align=center, font=\small] at (-15pt, 43pt) {$\lambda=0.5$};
+	\node[align=center, font=\small] at (55pt, 43pt) {$\lambda=1$};
+	
+	\node[align=center, font=\small] at (20pt, -70pt) {$\lambda=1$};
+	\node[align=center, font=\small] at (60pt, -70pt) {$\lambda=1$};
+	
+	\node[align=center, font=\small] at (-80pt, 80pt) {$\lambda=0.5$\\$\lambda=1$};
+	\end{tikzpicture}
+	
+	
+\end{document}
